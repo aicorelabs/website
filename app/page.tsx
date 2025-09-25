@@ -13,26 +13,35 @@ export default function HomePage() {
       {/* Navigation Component */}
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-16">
-        <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left Side - Minimal Brand & Powerful Message */}
-            <div className="space-y-12">
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-[#4ADE80] text-sm font-medium tracking-wide">
-                  <span>aicore</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                  <span>studio</span>
-                </div>
-                <h1 className="text-7xl font-bold text-[#0B3D2E] font-[family-name:var(--font-space-grotesk)] leading-tight">
-                  aicorelabs
-                  <ArrowUpRight className="inline-block w-16 h-16 ml-4 text-[#4ADE80]" />
-                </h1>
-              </div>
+      <main role="main">
+        {/* Hero Section */}
+        <section className="relative min-h-screen flex items-center pt-16" aria-label="Hero section">
+          <div className="container mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              {/* Left Side - Minimal Brand & Powerful Message */}
+              <article className="space-y-12">
+                <header className="space-y-4">
+                  <div className="flex items-center gap-2 text-[#4ADE80] text-sm font-medium tracking-wide">
+                    <span>aicorelab</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                    <span>dev</span>
+                  </div>
+                  <h1 className="text-7xl font-bold text-[#0B3D2E] font-[family-name:var(--font-space-grotesk)] leading-tight">
+                    aicorelab.dev
+                    <ArrowUpRight className="inline-block w-16 h-16 ml-4 text-[#4ADE80]" />
+                  </h1>
+                </header>
 
-              <div className="space-y-6">
-                <h2 className="text-4xl font-bold text-gray-900 leading-tight">
+                <div className="space-y-6">
+                  <h2 className="text-4xl font-bold text-gray-900 leading-tight">
+                    Leading AI Solution Platform.
+                    <br />
+                    <span className="text-[#4ADE80]">Apps in 10 days.</span>
+                  </h2>
+                  <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
+                    The industry's leading AI platform for businesses. We transform your ideas into powerful AI solutions without the tech complexity.
+                  </p>
+                </div>
                   AI apps in 10 days.
                   <br />
                   <span className="text-[#4ADE80]">No tech headaches.</span>
@@ -48,7 +57,7 @@ export default function HomePage() {
               >
                 Start Your AI Project
               </Button>
-            </div>
+              </article>
 
             {/* Right Side - Clean AI Visual with Services */}
             <div className="relative">
@@ -104,14 +113,13 @@ export default function HomePage() {
         <div className="container mx-auto px-6">
           <div className="text-center space-y-6 mb-16">
             <h2 className="text-4xl font-bold text-[#B8860B] font-[family-name:var(--font-space-grotesk)] italic">
-              The Problem
+              Why Choose the Leader
             </h2>
             <h3 className="text-5xl font-bold text-gray-900 max-w-4xl mx-auto leading-tight">
-              AI is confusing. Hiring engineers is expensive. Doing nothing costs even more.
+              Most businesses struggle with AI implementation. The leading platform makes it effortless.
             </h3>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Non-technical founders struggle to implement AI solutions while competitors gain unfair advantages with
-              automated systems.
+              While others promise complex AI solutions, aicorelab.dev delivers the industry's most proven platform for rapid AI deployment and scaling.
             </p>
           </div>
 
@@ -462,14 +470,15 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
-      <footer className="py-12 bg-[#06251B] text-white">
+      <footer className="py-12 bg-[#06251B] text-white" role="contentinfo">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="space-y-2">
-              <h3 className="text-2xl font-bold text-[#4ADE80]">aicorelabs</h3>
-              <p className="text-gray-400">AI Software Engineering Agency</p>
+              <h3 className="text-2xl font-bold text-[#4ADE80]">aicorelab.dev</h3>
+              <p className="text-gray-400">Leading AI Solution Platform</p>
             </div>
             <div className="flex gap-8 text-gray-400">
               <a href="#" className="hover:text-[#4ADE80] transition-colors">
@@ -484,7 +493,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
-            <p>&copy; 2025 aicorelab.dev | AI Software Engineering Agency</p>
+            <p>&copy; 2025 aicorelab.dev | Leading AI Solution Platform</p>
           </div>
         </div>
       </footer>
