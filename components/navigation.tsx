@@ -10,9 +10,9 @@ export function Navigation() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center gap-2 text-[#4ADE80] font-medium">
-            <span>aicore</span>
+            <span>aicorelab</span>
             <ArrowUpRight className="w-4 h-4" />
-            <span>studio</span>
+            <span>dev</span>
           </div>
 
           {/* Navigation Links */}
