@@ -1,0 +1,462 @@
+<html lang="en" class="scroll-smooth"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeffron | High-Velocity Engineering</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+:root {
+--color-primary: #0145F2;
+--color-secondary: #F7A505;
+--color-base: #211F1F;
+--color-accent-purple: #977DFF;
+--color-accent-slate: #97B9CD;
+--color-accent-orange: #F75805;
+--color-neutral-silver: #B8B8B8;
+--color-neutral-mist: #F2FFEE;
+}
+body {
+font-family: 'Inter', sans-serif;
+background-color: var(--color-neutral-mist);
+color: var(--color-base);
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: 'Archivo', sans-serif;
+}
+.marquee-container {
+mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+@keyframes marquee {
+0% { transform: translateX(0); }
+100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+animation: marquee 30s linear infinite;
+}
+.glass-nav {
+background: rgba(242, 255, 238, 0.85);
+backdrop-filter: blur(12px);
+border-bottom: 1px solid rgba(1, 69, 242, 0.05);
+}
+.card-hover {
+transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.card-hover:hover {
+transform: translateY(-2px);
+box-shadow: 0 20px 40px -10px rgba(1, 69, 242, 0.1);
+border-color: rgba(1, 69, 242, 0.2);
+}
+/* Custom scrollbar for a cleaner look */
+::-webkit-scrollbar {
+width: 6px;
+}
+::-webkit-scrollbar-track {
+background: transparent;
+}
+::-webkit-scrollbar-thumb {
+background: #B8B8B8;
+border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+background: #0145F2;
+}
+</style></head>
+<body class="selection:bg-[#0145F2] selection:text-white">
+
+    <!-- GLOBAL HEADER -->
+    <nav class="fixed top-0 w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="font-bold text-xl tracking-tighter text-[#211F1F]">ZEFFRON</a>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-[#211F1F]/80">
+                <a href="#capabilities" class="hover:text-[#0145F2] transition-colors">Capabilities</a>
+                <a href="#work" class="hover:text-[#0145F2] transition-colors">Work</a>
+                <a href="#sprint" class="hover:text-[#0145F2] transition-colors">The 10-Day Sprint</a>
+            </div>
+
+            <a href="#contact" class="hidden md:inline-flex items-center justify-center px-5 py-2 text-xs font-semibold tracking-wide text-white bg-[#0145F2] rounded-full hover:bg-[#0145F2]/90 transition-all hover:scale-[1.02]">
+                Start Project
+            </a>
+
+            <!-- Mobile Menu Icon -->
+            <button class="md:hidden text-[#211F1F]">
+                <span class="iconify" data-icon="lucide:menu" data-width="24" data-height="24"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: THE HERO -->
+    <section class="relative pt-40 pb-24 md:pt-52 md:pb-32 px-6 overflow-hidden">
+        <!-- Abstract Decoration -->
+        <div class="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[600px] h-[600px] bg-gradient-to-br from-[#97B9CD]/20 to-[#977DFF]/20 blur-3xl rounded-full -z-10"></div>
+
+        <div class="max-w-7xl mx-auto text-center md:text-left">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tighter leading-[0.95] text-[#211F1F] mb-8">
+                STOP PITCHING DECKS.<br>
+                <span class="text-[#0145F2]">START PITCHING PRODUCTS.</span>
+            </h1>
+            
+            <p class="max-w-2xl text-lg md:text-xl leading-relaxed text-[#211F1F]/70 font-normal mb-10 md:mb-12">
+                Zeffron is the high-velocity engineering partner for founders who refuse to wait. We build Custom Software, AI Infrastructure, and Automated Systems in weeks—not months.
+            </p>
+
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <a href="#sprint" class="w-full md:w-auto px-8 py-4 bg-[#0145F2] text-white font-semibold text-sm tracking-wide rounded hover:bg-[#0039cc] transition-all flex items-center justify-center gap-2 group">
+                    START YOUR BUILD
+                    <span class="iconify group-hover:translate-x-1 transition-transform" data-icon="lucide:arrow-right" data-width="18" data-height="18"></span>
+                </a>
+                <span class="text-sm font-medium text-[#B8B8B8] tracking-tight uppercase">Serving Founders, SMEs, and Visionaries.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: THE "LOGOS" -->
+    <section class="border-y border-[#B8B8B8]/30 bg-white/50 py-10 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-6">
+            <p class="text-xs font-semibold text-[#B8B8B8] uppercase tracking-widest">Engineering Partners For</p>
+        </div>
+        
+        <div class="marquee-container w-full overflow-hidden relative">
+            <div class="flex animate-marquee w-max gap-16 md:gap-32 items-center opacity-40 grayscale">
+                <!-- Logos duplicated for infinite scroll illusion -->
+                <div class="flex gap-16 md:gap-32 items-center">
+                    <span class="text-xl font-bold font-archivo tracking-tighter">ACME CORP</span>
+                    <span class="text-xl font-bold font-archivo tracking-tighter">VERTEX</span>
+                    <span class="text-xl font-bold font-archivo tracking-tighter">HYPERSTREAM</span>
+                    <span class="text-xl font-bold font-archivo tracking-tighter">BOLT.AI</span>
+                    <span class="text-xl font-bold font-archivo tracking-tighter">NEXUS</span>
+                </div>
+                <div class="flex gap-16 md:gap-32 items-center" aria-hidden="true">
+                    <span class="text-xl font-bold font-archivo tracking-tighter">ACME CORP</span>
+                    <span class="text-xl font-bold font-archivo tracking-tighter">VERTEX</span>
+                    <span class="text-xl font-bold font-archivo tracking-tighter">HYPERSTREAM</span>
+                    <span class="text-xl font-bold font-archivo tracking-tighter">BOLT.AI</span>
+                    <span class="text-xl font-bold font-archivo tracking-tighter">NEXUS</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: THE CALLOUT -->
+    <section class="bg-[#211F1F] text-white py-24 md:py-32 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <div>
+                <h2 class="text-4xl md:text-6xl font-semibold tracking-tighter leading-none mb-6 text-[#F2FFEE]">
+                    THE OLD WAY <br>
+                    <span class="text-[#B8B8B8]">IS BROKEN.</span>
+                </h2>
+                <div class="h-1 w-24 bg-[#F7A505] mt-8"></div>
+            </div>
+            
+            <div class="space-y-10">
+                <div>
+                    <p class="text-lg md:text-xl text-[#B8B8B8] leading-relaxed font-light">
+                        Hiring a CTO takes 6 months and 20% equity. Freelancers ghost you when the code gets hard. Big agencies charge for "discovery" and deliver nothing.
+                    </p>
+                </div>
+                
+                <div class="border-l-2 border-[#0145F2] pl-6 py-2">
+                    <h3 class="text-xl font-medium text-white mb-2">The Zeffron Way</h3>
+                    <p class="text-[#97B9CD] font-light">
+                        We are your Technical Co-Founder on Demand. We treat code as a financial asset. We build proprietary technology that you own 100%. We deploy fast, break nothing, and scale indefinitely.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: CORE CAPABILITIES -->
+    <section id="capabilities" class="py-24 md:py-32 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Card 1 -->
+            <div class="card-hover bg-white border border-[#B8B8B8]/30 p-8 rounded-sm h-full flex flex-col">
+                <div class="w-12 h-12 bg-[#0145F2]/10 flex items-center justify-center rounded mb-6 text-[#0145F2]">
+                    <span class="iconify" data-icon="lucide:layers" data-width="24" data-height="24"></span>
+                </div>
+                <span class="text-xs font-bold text-[#0145F2] mb-2 block">01</span>
+                <h3 class="text-2xl font-semibold tracking-tight text-[#211F1F] mb-4">Custom Software Engineering</h3>
+                <p class="text-[#211F1F]/70 mb-8 text-sm leading-relaxed flex-grow">
+                    We Build What Doesn't Exist. Generic SaaS tools are a ceiling on your growth. We engineer bespoke platforms tailored to your exact operational needs.
+                </p>
+                <ul class="space-y-3 text-sm font-medium text-[#211F1F]">
+                    <li class="flex items-center gap-2">
+                        <span class="iconify text-[#F7A505]" data-icon="lucide:check" data-width="16"></span> Cloud-Native Web Applications
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="iconify text-[#F7A505]" data-icon="lucide:check" data-width="16"></span> Mobile App Architecture
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="iconify text-[#F7A505]" data-icon="lucide:check" data-width="16"></span> Legacy System Modernization
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card-hover bg-white border border-[#B8B8B8]/30 p-8 rounded-sm h-full flex flex-col">
+                <div class="w-12 h-12 bg-[#977DFF]/10 flex items-center justify-center rounded mb-6 text-[#977DFF]">
+                    <span class="iconify" data-icon="lucide:brain-circuit" data-width="24" data-height="24"></span>
+                </div>
+                <span class="text-xs font-bold text-[#977DFF] mb-2 block">02</span>
+                <h3 class="text-2xl font-semibold tracking-tight text-[#211F1F] mb-4">Enterprise AI Solutions</h3>
+                <p class="text-[#211F1F]/70 mb-8 text-sm leading-relaxed flex-grow">
+                    Intelligence, Fine-Tuned. Stop using generic wrappers. We architect custom AI pipelines trained on your proprietary data for high-leverage business outcomes.
+                </p>
+                <ul class="space-y-3 text-sm font-medium text-[#211F1F]">
+                    <li class="flex items-center gap-2">
+                        <span class="iconify text-[#F7A505]" data-icon="lucide:check" data-width="16"></span> Custom LLM Fine-Tuning
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="iconify text-[#F7A505]" data-icon="lucide:check" data-width="16"></span> RAG Pipelines
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="iconify text-[#F7A505]" data-icon="lucide:check" data-width="16"></span> Predictive Analytics Models
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card-hover bg-white border border-[#B8B8B8]/30 p-8 rounded-sm h-full flex flex-col">
+                <div class="w-12 h-12 bg-[#F75805]/10 flex items-center justify-center rounded mb-6 text-[#F75805]">
+                    <span class="iconify" data-icon="lucide:zap" data-width="24" data-height="24"></span>
+                </div>
+                <span class="text-xs font-bold text-[#F75805] mb-2 block">03</span>
+                <h3 class="text-2xl font-semibold tracking-tight text-[#211F1F] mb-4">Business Automation</h3>
+                <p class="text-[#211F1F]/70 mb-8 text-sm leading-relaxed flex-grow">
+                    The "Zero-Human" Workflow. If you click it twice, we can automate it. We connect your disjointed apps into a self-driving ecosystem.
+                </p>
+                <ul class="space-y-3 text-sm font-medium text-[#211F1F]">
+                    <li class="flex items-center gap-2">
+                        <span class="iconify text-[#F7A505]" data-icon="lucide:check" data-width="16"></span> Workflow Orchestration
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="iconify text-[#F7A505]" data-icon="lucide:check" data-width="16"></span> Autonomous AI Agents
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="iconify text-[#F7A505]" data-icon="lucide:check" data-width="16"></span> Data Pipeline Engineering
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 5: THE FEATURE (10-DAY SPRINT) -->
+    <section id="sprint" class="bg-white border-y border-[#B8B8B8]/20 py-24 md:py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                <div class="max-w-2xl">
+                    <span class="text-[#0145F2] font-semibold text-sm tracking-wider uppercase mb-3 block">Velocity Architecture</span>
+                    <h2 class="text-4xl md:text-5xl font-semibold tracking-tighter text-[#211F1F] mb-4">THE 10-DAY VALIDATION SPRINT</h2>
+                    <p class="text-[#211F1F]/70 text-lg">From napkin sketch to live URL in two weeks. Speed is the only currency that matters.</p>
+                </div>
+                <a href="#contact" class="px-6 py-3 border border-[#211F1F] text-[#211F1F] font-semibold text-sm hover:bg-[#211F1F] hover:text-white transition-colors">
+                    See What We Can Build in 10 Days
+                </a>
+            </div>
+
+            <!-- Timeline -->
+            <div class="relative grid grid-cols-1 md:grid-cols-3 gap-0">
+                <!-- Bar Line -->
+                <div class="hidden md:block absolute top-6 left-0 w-full h-1 bg-gradient-to-r from-[#0145F2] via-[#977DFF] to-[#F7A505] opacity-20 z-0"></div>
+
+                <!-- Step 1 -->
+                <div class="relative z-10 pt-6 md:pt-16 pr-8 border-l-2 md:border-l-0 border-[#0145F2]/20 md:border-none pl-8 md:pl-0 pb-12 md:pb-0">
+                    <div class="hidden md:block absolute top-4 left-0 w-4 h-4 bg-[#0145F2] rounded-full ring-4 ring-white"></div>
+                    <div class="md:hidden absolute top-0 left-[-9px] w-4 h-4 bg-[#0145F2] rounded-full ring-4 ring-white"></div>
+                    
+                    <span class="text-xs font-bold text-[#0145F2] uppercase tracking-wide mb-1 block">Day 1-2</span>
+                    <h4 class="text-lg font-semibold text-[#211F1F] mb-2">Architecture &amp; Logic Mapping</h4>
+                    <p class="text-sm text-[#211F1F]/60">We deconstruct your idea into core mechanics and database schema. No fluff, just structure.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative z-10 pt-6 md:pt-16 pr-8 border-l-2 md:border-l-0 border-[#977DFF]/20 md:border-none pl-8 md:pl-0 pb-12 md:pb-0">
+                    <div class="hidden md:block absolute top-4 left-0 w-4 h-4 bg-[#977DFF] rounded-full ring-4 ring-white"></div>
+                    <div class="md:hidden absolute top-0 left-[-9px] w-4 h-4 bg-[#977DFF] rounded-full ring-4 ring-white"></div>
+
+                    <span class="text-xs font-bold text-[#977DFF] uppercase tracking-wide mb-1 block">Day 3-8</span>
+                    <h4 class="text-lg font-semibold text-[#211F1F] mb-2">Deep Engineering</h4>
+                    <p class="text-sm text-[#211F1F]/60">Coding the engine. Authentication, Database integration, UI/UX implementation, and business logic.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative z-10 pt-6 md:pt-16 pr-8 border-l-2 md:border-l-0 border-[#F7A505]/20 md:border-none pl-8 md:pl-0">
+                    <div class="hidden md:block absolute top-4 left-0 w-4 h-4 bg-[#F7A505] rounded-full ring-4 ring-white"></div>
+                    <div class="md:hidden absolute top-0 left-[-9px] w-4 h-4 bg-[#F7A505] rounded-full ring-4 ring-white"></div>
+
+                    <span class="text-xs font-bold text-[#F7A505] uppercase tracking-wide mb-1 block">Day 9-10</span>
+                    <h4 class="text-lg font-semibold text-[#211F1F] mb-2">QA, Deploy &amp; Handover</h4>
+                    <p class="text-sm text-[#211F1F]/60">Rigorous testing followed by a live production deployment. We hand over the keys and the repo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: SELECTED WORK -->
+    <section id="work" class="py-24 md:py-32 px-6 max-w-7xl mx-auto">
+        <h2 class="text-sm font-semibold text-[#B8B8B8] uppercase tracking-widest mb-16">Selected Work</h2>
+
+        <div class="space-y-24">
+            
+            <!-- Case Study 1 -->
+            <div class="group grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 bg-[#211F1F] rounded-sm p-12 aspect-[4/3] flex items-center justify-center relative overflow-hidden border border-[#211F1F]/10 shadow-lg">
+                    <!-- Placeholder UI Art -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#0145F2] to-[#211F1F] opacity-20"></div>
+                    <div class="relative z-10 w-full max-w-sm bg-white/5 backdrop-blur-md rounded border border-white/10 p-6 shadow-2xl transform group-hover:-translate-y-2 transition-transform duration-500">
+                        <div class="h-3 w-3 bg-[#F75805] rounded-full mb-4 inline-block mr-2"></div>
+                        <div class="h-3 w-3 bg-[#F7C205] rounded-full mb-4 inline-block mr-2"></div>
+                        <div class="h-3 w-3 bg-[#0145F2] rounded-full mb-4 inline-block"></div>
+                        <div class="space-y-3">
+                            <div class="h-2 w-3/4 bg-white/20 rounded"></div>
+                            <div class="h-2 w-1/2 bg-white/20 rounded"></div>
+                            <div class="h-24 w-full bg-white/10 rounded mt-4"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 space-y-8">
+                    <h3 class="text-3xl font-semibold tracking-tight text-[#211F1F]">TECHCIFY</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-baseline border-t border-[#B8B8B8]/30 pt-4">
+                            <span class="w-24 text-xs font-semibold uppercase text-[#B8B8B8]">The Build</span>
+                            <span class="text-sm font-medium text-[#211F1F]">Adaptive AI Education Platform</span>
+                        </div>
+                        <div class="flex items-baseline border-t border-[#B8B8B8]/30 pt-4">
+                            <span class="w-24 text-xs font-semibold uppercase text-[#B8B8B8]">The Tech</span>
+                            <span class="text-sm font-medium text-[#211F1F]">Custom RAG Pipeline, Next.js, Vector DB</span>
+                        </div>
+                        <div class="flex items-baseline border-t border-[#B8B8B8]/30 pt-4">
+                            <span class="w-24 text-xs font-semibold uppercase text-[#B8B8B8]">The Result</span>
+                            <span class="text-sm font-bold text-[#0145F2]">95% Pass Rate &amp; Scaled to 5,000+ Users</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Study 2 -->
+            <div class="group grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 lg:order-2 bg-[#F2FFEE] rounded-sm p-12 aspect-[4/3] flex items-center justify-center relative overflow-hidden border border-[#0145F2]/10 shadow-lg">
+                    <!-- Placeholder UI Art -->
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#97B9CD]/20 to-transparent"></div>
+                    <div class="relative z-10 w-full max-w-sm bg-white rounded border border-[#B8B8B8]/20 p-6 shadow-2xl transform group-hover:-translate-y-2 transition-transform duration-500">
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="h-4 w-1/3 bg-[#211F1F]/10 rounded"></div>
+                            <span class="iconify text-[#0145F2]" data-icon="lucide:mic" data-width="20"></span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="h-2 w-full bg-[#0145F2]/10 rounded"></div>
+                            <div class="h-2 w-5/6 bg-[#0145F2]/10 rounded"></div>
+                            <div class="h-2 w-4/6 bg-[#0145F2]/10 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 lg:order-1 space-y-8">
+                    <h3 class="text-3xl font-semibold tracking-tight text-[#211F1F]">WHISPERCOACH</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-baseline border-t border-[#B8B8B8]/30 pt-4">
+                            <span class="w-24 text-xs font-semibold uppercase text-[#B8B8B8]">The Build</span>
+                            <span class="text-sm font-medium text-[#211F1F]">Real-Time Sales AI Assistant</span>
+                        </div>
+                        <div class="flex items-baseline border-t border-[#B8B8B8]/30 pt-4">
+                            <span class="w-24 text-xs font-semibold uppercase text-[#B8B8B8]">The Tech</span>
+                            <span class="text-sm font-medium text-[#211F1F]">Low-latency Audio Transcription, Sentiment</span>
+                        </div>
+                        <div class="flex items-baseline border-t border-[#B8B8B8]/30 pt-4">
+                            <span class="w-24 text-xs font-semibold uppercase text-[#B8B8B8]">The Result</span>
+                            <span class="text-sm font-bold text-[#F7A505]">Enterprise Pilot Secured in 6 Weeks</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Study 3 -->
+            <div class="group grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 bg-[#B8B8B8]/10 rounded-sm p-12 aspect-[4/3] flex items-center justify-center relative overflow-hidden border border-[#B8B8B8]/20 shadow-lg">
+                    <div class="relative z-10 w-full max-w-sm bg-white rounded border border-[#B8B8B8]/30 p-0 shadow-2xl overflow-hidden transform group-hover:-translate-y-2 transition-transform duration-500">
+                        <div class="bg-[#211F1F] p-3 flex gap-2">
+                             <div class="h-2 w-2 rounded-full bg-red-400"></div>
+                             <div class="h-2 w-2 rounded-full bg-yellow-400"></div>
+                             <div class="h-2 w-2 rounded-full bg-green-400"></div>
+                        </div>
+                        <div class="p-6 grid grid-cols-2 gap-4">
+                            <div class="bg-[#F2FFEE] h-20 rounded border border-[#97B9CD]/30"></div>
+                            <div class="bg-[#F2FFEE] h-20 rounded border border-[#97B9CD]/30"></div>
+                            <div class="col-span-2 bg-[#F2FFEE] h-12 rounded border border-[#97B9CD]/30"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 space-y-8">
+                    <h3 class="text-3xl font-semibold tracking-tight text-[#211F1F]">ALPHACRUISE</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-baseline border-t border-[#B8B8B8]/30 pt-4">
+                            <span class="w-24 text-xs font-semibold uppercase text-[#B8B8B8]">The Build</span>
+                            <span class="text-sm font-medium text-[#211F1F]">Automated Travel Management Portal</span>
+                        </div>
+                        <div class="flex items-baseline border-t border-[#B8B8B8]/30 pt-4">
+                            <span class="w-24 text-xs font-semibold uppercase text-[#B8B8B8]">The Tech</span>
+                            <span class="text-sm font-medium text-[#211F1F]">Multi-API Aggregation, Custom Admin Panel</span>
+                        </div>
+                        <div class="flex items-baseline border-t border-[#B8B8B8]/30 pt-4">
+                            <span class="w-24 text-xs font-semibold uppercase text-[#B8B8B8]">The Result</span>
+                            <span class="text-sm font-bold text-[#0145F2]">60% Reduction in Manual Operations</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 7: PHILOSOPHY -->
+    <section class="py-24 px-6 bg-[#0145F2] text-white text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-semibold tracking-tighter mb-8 leading-tight">
+                WE DON'T RENT CODE.<br>WE WRITE IT.
+            </h2>
+            <p class="text-lg md:text-xl text-[#97B9CD] leading-relaxed font-light max-w-2xl mx-auto">
+                Most agencies trap you in retainers or hold your IP hostage. We are different. You own the repositories. You own the documentation. You own the IP. We build infrastructure that enables you to raise funding, exit, or scale without us.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 8: FINAL CTA -->
+    <section id="contact" class="py-32 px-6 bg-[#211F1F] text-white">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-5xl md:text-7xl font-semibold tracking-tighter mb-6 text-[#F2FFEE]">
+                YOUR IDEA IS <br>
+                <span class="text-[#F7A505]">WORTH VALIDATING.</span>
+            </h2>
+            <p class="text-[#B8B8B8] text-lg md:text-xl mb-12 max-w-xl mx-auto">
+                The only thing standing between you and a scalable product is execution. Let's clear the backlog.
+            </p>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+                <button class="w-full md:w-auto px-8 py-4 bg-transparent border border-[#B8B8B8] text-white font-semibold text-sm tracking-wide rounded hover:bg-[#B8B8B8] hover:text-[#211F1F] transition-all">
+                    Book a Technical Scoping Call
+                </button>
+                <button class="w-full md:w-auto px-8 py-4 bg-[#0145F2] text-white font-semibold text-sm tracking-wide rounded hover:bg-[#0039cc] shadow-[0_0_20px_rgba(1,69,242,0.4)] transition-all">
+                    Start Your 10-Day Sprint
+                </button>
+            </div>
+
+            <div class="mt-24 pt-12 border-t border-[#B8B8B8]/10 flex flex-col md:flex-row justify-between items-center text-[#B8B8B8]/40 text-xs">
+                <p>© 2024 ZEFFRON ENGINEERING.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Github</a>
+                    <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+                    <a href="#" class="hover:text-white transition-colors">Twitter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</body></html>

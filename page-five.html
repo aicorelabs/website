@@ -1,0 +1,345 @@
+<html lang="en" class="scroll-smooth"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeffron | Custom Software &amp; AI Architecture</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body {
+font-family: 'Inter', sans-serif;
+background-color: #211F1F; /* Jet Black */
+color: #F2FFEE; /* Zeffron Mist */
+overflow-x: hidden;
+}
+.font-mono {
+font-family: 'JetBrains Mono', monospace;
+}
+.glass-panel {
+background: rgba(255, 255, 255, 0.03);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glass-panel:hover {
+border-color: rgba(1, 69, 242, 0.3); /* Electric Blue hint */
+background: rgba(255, 255, 255, 0.05);
+}
+.text-gradient {
+background: linear-gradient(to right, #F2FFEE, #B8B8B8);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+.text-gradient-blue {
+background: linear-gradient(to right, #0145F2, #97B9CD);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+.glow-point {
+position: absolute;
+width: 300px;
+height: 300px;
+background: #0145F2;
+filter: blur(120px);
+opacity: 0.15;
+z-index: -1;
+border-radius: 50%;
+}
+/* Custom scrollbar */
+::-webkit-scrollbar {
+width: 6px;
+}
+::-webkit-scrollbar-track {
+background: #211F1F;
+}
+::-webkit-scrollbar-thumb {
+background: #333;
+border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+background: #0145F2;
+}
+</style></head>
+<body class="antialiased selection:bg-[#0145F2] selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#211F1F]/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="text-xl tracking-tighter font-semibold text-white">
+                ZEFFRON
+            </a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-[#B8B8B8]">
+                <a href="#capabilities" class="hover:text-white transition-colors duration-200">Capabilities</a>
+                <a href="#approach" class="hover:text-white transition-colors duration-200">Approach</a>
+                <a href="#cases" class="hover:text-white transition-colors duration-200">Case Studies</a>
+            </div>
+            <a href="#contact" class="hidden md:flex items-center gap-2 px-4 py-2 bg-[#F2FFEE] text-[#211F1F] text-xs font-semibold rounded hover:bg-white transition-all duration-200 tracking-tight">
+                Start Building
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <!-- Mobile Menu Icon -->
+            <button class="md:hidden text-white">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
+        <div class="glow-point top-0 left-1/2 -translate-x-1/2"></div>
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[#97B9CD] text-xs font-mono mb-8">
+                <span class="w-2 h-2 rounded-full bg-[#0145F2]"></span>
+                ENGINEERING EXCELLENCE
+            </div>
+            <h1 class="text-5xl md:text-7xl font-medium tracking-tight leading-[1.1] mb-6 text-white">
+                We Architect the <span class="text-[#555]">Invisible.</span><br>
+                <span class="text-gradient">Custom Software. Intelligent AI.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-[#B8B8B8] max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                Zeffron engineers the bespoke technical infrastructure that powers modern business. From complex cloud software to autonomous AI agents, we build the systems generic tools can't handle.
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                <button class="w-full md:w-auto px-8 py-3 bg-[#0145F2] hover:bg-[#0039cc] text-white text-sm font-medium rounded transition-all duration-200 shadow-[0_0_20px_rgba(1,69,242,0.3)]">
+                    Explore Engineering
+                </button>
+                <button class="w-full md:w-auto px-8 py-3 border border-white/10 hover:border-white/20 hover:bg-white/5 text-[#F2FFEE] text-sm font-medium rounded transition-all duration-200">
+                    Discuss Your Architecture
+                </button>
+            </div>
+        </div>
+        
+        <!-- Abstract Visual Grid -->
+        <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#0145F2]/50 to-transparent"></div>
+    </section>
+
+    <!-- Manifesto -->
+    <section class="py-24 px-6 border-b border-white/5 bg-[#211F1F]">
+        <div class="max-w-3xl mx-auto text-center">
+            <p class="text-2xl md:text-3xl font-medium leading-relaxed tracking-tight text-[#F2FFEE]">
+                Off-the-shelf software is a ceiling. To truly scale, you need to own your infrastructure. At Zeffron, we don't use templates. We write code. We build custom ecosystems designed around your specific operational bottlenecks.
+            </p>
+            <p class="mt-8 text-lg text-[#977DFF] font-mono">
+                Your logic. Your data. Your competitive advantage.
+            </p>
+        </div>
+    </section>
+
+    <!-- Core Capabilities -->
+    <section id="capabilities" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div>
+                <h2 class="text-3xl font-medium tracking-tight mb-2">Core Capabilities</h2>
+                <p class="text-[#B8B8B8]">Bespoke engineering across three distinct pillars.</p>
+            </div>
+            <div class="h-px bg-white/10 flex-grow md:ml-12"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Pillar 1 -->
+            <div class="glass-panel p-8 rounded-xl flex flex-col h-full group">
+                <div class="w-10 h-10 rounded bg-[#0145F2]/10 flex items-center justify-center mb-6 group-hover:bg-[#0145F2]/20 transition-colors">
+                    <i data-lucide="code-2" class="w-5 h-5 text-[#0145F2]"></i>
+                </div>
+                <h3 class="text-xl font-medium mb-3 text-white">01. Custom Software</h3>
+                <p class="text-[#B8B8B8] text-sm mb-8 leading-relaxed">
+                    We Build What Doesn't Exist. When SaaS fails, we engineer platforms from the ground up prioritizing scalability and clean architecture.
+                </p>
+                <ul class="mt-auto space-y-3">
+                    <li class="flex items-center gap-3 text-xs text-[#B8B8B8] font-mono">
+                        <i data-lucide="check" class="w-3 h-3 text-[#0145F2]"></i> Web &amp; Mobile Platforms
+                    </li>
+                    <li class="flex items-center gap-3 text-xs text-[#B8B8B8] font-mono">
+                        <i data-lucide="check" class="w-3 h-3 text-[#0145F2]"></i> Cloud-Native Infrastructure
+                    </li>
+                    <li class="flex items-center gap-3 text-xs text-[#B8B8B8] font-mono">
+                        <i data-lucide="check" class="w-3 h-3 text-[#0145F2]"></i> Legacy Modernization
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div class="glass-panel p-8 rounded-xl flex flex-col h-full group">
+                <div class="w-10 h-10 rounded bg-[#977DFF]/10 flex items-center justify-center mb-6 group-hover:bg-[#977DFF]/20 transition-colors">
+                    <i data-lucide="brain-circuit" class="w-5 h-5 text-[#977DFF]"></i>
+                </div>
+                <h3 class="text-xl font-medium mb-3 text-white">02. Custom AI Solutions</h3>
+                <p class="text-[#B8B8B8] text-sm mb-8 leading-relaxed">
+                    Intelligence tailored to your data. We fine-tune models on your proprietary data to solve specific, high-value business problems.
+                </p>
+                <ul class="mt-auto space-y-3">
+                    <li class="flex items-center gap-3 text-xs text-[#B8B8B8] font-mono">
+                        <i data-lucide="check" class="w-3 h-3 text-[#977DFF]"></i> Specialized LLMs (Llama/Mistral)
+                    </li>
+                    <li class="flex items-center gap-3 text-xs text-[#B8B8B8] font-mono">
+                        <i data-lucide="check" class="w-3 h-3 text-[#977DFF]"></i> Computer Vision
+                    </li>
+                    <li class="flex items-center gap-3 text-xs text-[#B8B8B8] font-mono">
+                        <i data-lucide="check" class="w-3 h-3 text-[#977DFF]"></i> Predictive Analytics
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div class="glass-panel p-8 rounded-xl flex flex-col h-full group">
+                <div class="w-10 h-10 rounded bg-[#F7A505]/10 flex items-center justify-center mb-6 group-hover:bg-[#F7A505]/20 transition-colors">
+                    <i data-lucide="workflow" class="w-5 h-5 text-[#F7A505]"></i>
+                </div>
+                <h3 class="text-xl font-medium mb-3 text-white">03. Intelligent Automation</h3>
+                <p class="text-[#B8B8B8] text-sm mb-8 leading-relaxed">
+                    The End of Manual Operations. We connect disjointed apps into a seamless, self-driving ecosystem.
+                </p>
+                <ul class="mt-auto space-y-3">
+                    <li class="flex items-center gap-3 text-xs text-[#B8B8B8] font-mono">
+                        <i data-lucide="check" class="w-3 h-3 text-[#F7A505]"></i> Workflow Orchestration
+                    </li>
+                    <li class="flex items-center gap-3 text-xs text-[#B8B8B8] font-mono">
+                        <i data-lucide="check" class="w-3 h-3 text-[#F7A505]"></i> Data Pipeline Engineering
+                    </li>
+                    <li class="flex items-center gap-3 text-xs text-[#B8B8B8] font-mono">
+                        <i data-lucide="check" class="w-3 h-3 text-[#F7A505]"></i> Autonomous AI Agents
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Approach -->
+    <section id="approach" class="py-24 px-6 border-y border-white/5 relative">
+        <!-- Background subtle glow -->
+        <div class="absolute inset-0 bg-gradient-to-b from-[#211F1F] via-[#262626] to-[#211F1F] opacity-50 -z-10"></div>
+        
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16 text-center">
+                <h2 class="text-3xl font-medium tracking-tight text-white">We don't just write code. <br><span class="text-[#0145F2]">We solve throughput.</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+                <!-- Connecting Line (Desktop) -->
+                <div class="hidden md:block absolute top-12 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#B8B8B8]/30 to-transparent z-0"></div>
+
+                <!-- Step 1 -->
+                <div class="relative z-10 bg-[#211F1F] md:bg-transparent pt-4 md:pt-0">
+                    <div class="w-8 h-8 rounded-full bg-[#211F1F] border border-[#0145F2] flex items-center justify-center mx-auto md:mx-0 mb-6 relative">
+                        <div class="w-2 h-2 bg-[#0145F2] rounded-full"></div>
+                    </div>
+                    <h4 class="text-lg font-medium text-white mb-2">The Diagnosis</h4>
+                    <p class="text-[#B8B8B8] text-sm leading-relaxed">
+                        We audit your current technical stack and operational workflows. We identify bottlenecks, data silos, and manual inefficiencies.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative z-10 bg-[#211F1F] md:bg-transparent pt-4 md:pt-0">
+                    <div class="w-8 h-8 rounded-full bg-[#211F1F] border border-[#97B9CD] flex items-center justify-center mx-auto md:mx-0 mb-6 relative">
+                        <div class="w-2 h-2 bg-[#97B9CD] rounded-full"></div>
+                    </div>
+                    <h4 class="text-lg font-medium text-white mb-2">The Architecture</h4>
+                    <p class="text-[#B8B8B8] text-sm leading-relaxed">
+                        We design a custom solution. No bloat. Just the exact software infrastructure and AI models required to automate the problem away.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative z-10 bg-[#211F1F] md:bg-transparent pt-4 md:pt-0">
+                    <div class="w-8 h-8 rounded-full bg-[#211F1F] border border-[#F2FFEE] flex items-center justify-center mx-auto md:mx-0 mb-6 relative">
+                        <div class="w-2 h-2 bg-[#F2FFEE] rounded-full"></div>
+                    </div>
+                    <h4 class="text-lg font-medium text-white mb-2">The Execution</h4>
+                    <p class="text-[#B8B8B8] text-sm leading-relaxed">
+                        Rapid deployment. We use iterative sprints to deliver functional software and active automations in weeks, not months.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="cases" class="py-24 px-6 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-medium tracking-tight mb-12">Engineering in Action</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Project 1 -->
+            <div class="group border border-white/10 bg-[#252525] rounded-lg overflow-hidden hover:border-[#0145F2]/50 transition-colors duration-300">
+                <div class="p-6 border-b border-white/5">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-mono text-[#0145F2] uppercase tracking-wide">Alphacruise</span>
+                        <i data-lucide="server" class="w-4 h-4 text-[#B8B8B8]"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-white mb-2">Custom Software &amp; API Integration</h3>
+                    <p class="text-sm text-[#B8B8B8] mb-4">A bespoke travel management portal aggregating real-time flight/hotel APIs.</p>
+                </div>
+                <div class="p-4 bg-[#1E1E1E]">
+                    <div class="text-xs text-[#F2FFEE] font-mono flex items-center gap-2">
+                        <i data-lucide="trending-up" class="w-3 h-3 text-[#F7A505]"></i>
+                        60% reduction in operational costs
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="group border border-white/10 bg-[#252525] rounded-lg overflow-hidden hover:border-[#977DFF]/50 transition-colors duration-300">
+                <div class="p-6 border-b border-white/5">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-mono text-[#977DFF] uppercase tracking-wide">Techcify</span>
+                        <i data-lucide="cpu" class="w-4 h-4 text-[#B8B8B8]"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-white mb-2">Custom AI &amp; RAG Pipeline</h3>
+                    <p class="text-sm text-[#B8B8B8] mb-4">Adaptive learning engine ingesting technical documentation to generate dynamic exams.</p>
+                </div>
+                <div class="p-4 bg-[#1E1E1E]">
+                    <div class="text-xs text-[#F2FFEE] font-mono flex items-center gap-2">
+                        <i data-lucide="award" class="w-3 h-3 text-[#F7A505]"></i>
+                        95% pass rate via AI tutoring
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="group border border-white/10 bg-[#252525] rounded-lg overflow-hidden hover:border-[#F7A505]/50 transition-colors duration-300">
+                <div class="p-6 border-b border-white/5">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-mono text-[#F7A505] uppercase tracking-wide">Whispercoach</span>
+                        <i data-lucide="zap" class="w-4 h-4 text-[#B8B8B8]"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-white mb-2">Automation &amp; Real-Time Processing</h3>
+                    <p class="text-sm text-[#B8B8B8] mb-4">Automated sales coaching loop analyzing sentiment and pushing feedback instantly.</p>
+                </div>
+                <div class="p-4 bg-[#1E1E1E]">
+                    <div class="text-xs text-[#F2FFEE] font-mono flex items-center gap-2">
+                        <i data-lucide="bar-chart-3" class="w-3 h-3 text-[#F7A505]"></i>
+                        Reduced ramp-up time by 75%
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section id="contact" class="py-24 px-6 border-t border-white/10 bg-[#1A1919] text-center">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-medium tracking-tight mb-6 text-white">Ready to upgrade your infrastructure?</h2>
+            <p class="text-[#B8B8B8] mb-10 text-lg">
+                Stop renting generic tools. Start building your own assets. Zeffron brings the engineering discipline required to scale.
+            </p>
+            <button class="inline-flex items-center gap-2 px-8 py-4 bg-[#0145F2] hover:bg-[#0039cc] text-white text-sm font-medium rounded transition-all duration-200">
+                Book a Technical Strategy Session
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+        </div>
+        
+        <div class="max-w-7xl mx-auto mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#555]">
+            <div class="font-mono uppercase tracking-widest">Zeffron Systems © 2024</div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms</a>
+                <a href="#" class="hover:text-white transition-colors">Twitter</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body></html>
