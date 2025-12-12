@@ -1,4 +1,4 @@
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -36,13 +36,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Magnetik', 'Archivo', 'Inter', sans-serif;
             background-color: #0A0A0A;
             /* Darker base for better contrast */
             color: #E5E5E5;
@@ -67,6 +67,7 @@
 
         .text-gradient {
             background: linear-gradient(to right, #FFFFFF, #A3A3A3);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -82,16 +83,19 @@
             border-radius: 50%;
         }
 
-        /* Scroll Animations */
+        /* Scroll Animations (Cinematic) */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(40px) scale(0.98);
+            filter: blur(10px);
+            transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+            will-change: opacity, transform, filter;
         }
 
         .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
+            filter: blur(0);
         }
 
         .stagger-1 {
@@ -104,6 +108,10 @@
 
         .stagger-3 {
             transition-delay: 300ms;
+        }
+
+        .stagger-huge {
+            transition-delay: 400ms;
         }
 
         /* Custom scrollbar */
@@ -123,454 +131,1228 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #0145F2;
         }
+
+        /* Horizontal Scroll Utilities */
+        .h-scroll-section {
+            width: 500%;
+            height: 100vh;
+            display: flex;
+            flex-wrap: nowrap;
+            /* Ensure no overflow on the track itself */
+            overflow: hidden;
+        }
+
+        .h-scroll-panel {
+            width: 100vw;
+            height: 100vh;
+            flex-shrink: 0;
+            padding: 4rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            /* Important for padding */
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Focus Visible States for Accessibility */
+        *:focus-visible {
+            outline: 2px solid #0145F2;
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid #0145F2;
+            outline-offset: 4px;
+        }
+
+        /* Skip to Main Content Link */
+        .skip-to-main {
+            position: absolute;
+            left: -9999px;
+            z-index: 999;
+            padding: 1rem 2rem;
+            background: #0145F2;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .skip-to-main:focus {
+            left: 50%;
+            transform: translateX(-50%);
+            top: 1rem;
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 5rem 2rem 2rem;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu-backdrop.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            animation: bounceX 2s infinite;
+        }
+
+        @keyframes bounceX {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(8px);
+            }
+        }
+
+        /* Image Hover Effects */
+        .showcase-image {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+        }
+
+        .showcase-image:hover {
+            transform: scale(1.02);
+            opacity: 1 !important;
+        }
+
+        /* Custom Cursor Styles */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+        }
+
+        .cursor-outline {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .custom-cursor.hover .cursor-dot {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-cursor.hover .cursor-outline {
+            width: 32px;
+            height: 32px;
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: ripple-animation 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Pricing Card Enhanced */
+        .pricing-featured {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .pricing-featured {
+                transform: scale(1);
+            }
+        }
     </style>
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 </head>
 
 <body class="antialiased selection:bg-[#0145F2] selection:text-white">
 
+    <!-- Skip to Main Content -->
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+    <!-- Mobile Menu Backdrop -->
+    <div class="mobile-menu-backdrop" id="mobileBackdrop"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <nav class="flex flex-col gap-6 text-lg">
+            <a href="#showcase" class="text-white hover:text-[#0145F2] transition-colors">Showcase</a>
+            <a href="#services" class="text-white hover:text-[#0145F2] transition-colors">Services</a>
+            <a href="#pricing" class="text-white hover:text-[#0145F2] transition-colors">Pricing</a>
+            <a href="#contact"
+                class="mt-4 px-6 py-3 bg-[#0145F2] text-white text-center rounded hover:bg-[#0039cc] transition-colors">Start
+                Building</a>
+        </nav>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+    </div>
+
     <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#0A0A0A]/80 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="#" class="text-lg tracking-tighter font-semibold text-white flex items-center gap-2">
-                <img src="./assets/PNG/Logo - White@2x.png" alt="Zeffron AI Software Midlands England Logo"
-                    class="h-16" />
+            <a href="#" class="text-lg tracking-tighter font-semibold text-white flex items-center gap-2"
+                aria-label="Zeffron Home">
+                <img src="./assets/PNG/Logo - White@2x.png" alt="Zeffron - AI and Custom Software Company Logo"
+                    class="h-12" />
             </a>
             <div class="hidden md:flex items-center gap-8 text-sm font-medium text-[#888]">
                 <a href="#showcase" class="hover:text-white transition-colors duration-200">Showcase</a>
-                <a href="#capabilities" class="hover:text-white transition-colors duration-200">Capabilities</a>
+                <a href="#services" class="hover:text-white transition-colors duration-200">Services</a>
                 <a href="#pricing" class="hover:text-white transition-colors duration-200">Pricing</a>
-                <a href="#team" class="hover:text-white transition-colors duration-200">Team</a>
+
             </div>
             <a href="#contact"
                 class="hidden md:flex items-center gap-2 px-4 py-2 bg-white text-black text-xs font-semibold rounded hover:bg-[#E5E5E5] transition-all duration-200 tracking-tight">
                 Start Building
                 <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
-            <button class="md:hidden text-white">
+            <button class="md:hidden text-white" id="mobileMenuToggle" aria-label="Open menu">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
-        <div class="glow-point top-0 left-1/2 -translate-x-1/2"></div>
-        <div class="max-w-5xl mx-auto text-center">
+    <main id="main-content">
+        <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
+            <div class="glow-point top-0 left-1/2 -translate-x-1/2"></div>
+            <div class="max-w-5xl mx-auto text-center">
+                <div
+                    class="reveal inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[#97B9CD] text-xs font-mono mb-8">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0145F2] opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#0145F2]"></span>
+                    </span>
+                    ENGINEERING EXCELLENCE
+                </div>
+                <h1
+                    class="reveal stagger-1 text-5xl md:text-7xl font-medium tracking-tight leading-[1.05] mb-6 text-white">
+                    Your On-Demand <span class="text-gradient">Custom AI</span> Technical Team.
+                    <span class="block text-2xl md:text-4xl mt-4 text-[#E5E5E5] font-normal">From idea to investor-ready
+                        MVP in 10 days.</span>
+                </h1>
+                <p
+                    class="reveal stagger-2 text-lg md:text-xl text-[#A8A8A8] max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                    Trusted software engineers and AI experts who scale your ideas into functional products—fast.
+                </p>
+                <div class="reveal stagger-3 flex flex-col md:flex-row items-center justify-center gap-4">
+                    <button
+                        class="w-full md:w-auto px-8 py-3 bg-[#0145F2] hover:bg-[#0039cc] text-white text-sm font-medium rounded transition-all duration-200 shadow-[0_0_20px_rgba(1,69,242,0.3)]">
+                        Start Your 10-Day MVP Sprint
+                    </button>
+                    <button
+                        class="w-full md:w-auto px-8 py-3 border border-white/10 hover:border-white/20 hover:bg-white/5 text-[#E5E5E5] text-sm font-medium rounded transition-all duration-200">
+                        Book a Discovery Call
+                    </button>
+                </div>
+            </div>
+
             <div
-                class="reveal inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[#97B9CD] text-xs font-mono mb-8">
-                <span class="relative flex h-2 w-2">
-                    <span
-                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0145F2] opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-[#0145F2]"></span>
-                </span>
-                ENGINEERING EXCELLENCE
+                class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#0145F2]/30 to-transparent">
             </div>
-            <h1 class="reveal stagger-1 text-5xl md:text-7xl font-medium tracking-tight leading-[1.05] mb-6 text-white">
-                We Architect the <span class="text-[#444]">Invisible.</span><br>
-                <span class="text-gradient">Custom Software &amp; AI.</span>
-            </h1>
-            <p
-                class="reveal stagger-2 text-lg md:text-xl text-[#888] max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-                Zeffron engineers the bespoke technical infrastructure that powers modern business. From complex cloud
-                software to autonomous AI agents, we build the systems generic tools can't handle.
-            </p>
-            <div class="reveal stagger-3 flex flex-col md:flex-row items-center justify-center gap-4">
-                <button
-                    class="w-full md:w-auto px-8 py-3 bg-[#0145F2] hover:bg-[#0039cc] text-white text-sm font-medium rounded transition-all duration-200 shadow-[0_0_20px_rgba(1,69,242,0.3)]">
-                    Explore Engineering
-                </button>
-                <button
-                    class="w-full md:w-auto px-8 py-3 border border-white/10 hover:border-white/20 hover:bg-white/5 text-[#E5E5E5] text-sm font-medium rounded transition-all duration-200">
-                    Discuss Architecture
-                </button>
+        </section>
+
+        <!-- What We Do Section -->
+        <section class="py-20 px-6 max-w-7xl mx-auto border-b border-white/5">
+            <div class="reveal max-w-4xl mx-auto text-center mb-12">
+                <h2 class="text-3xl font-medium tracking-tight mb-6 text-white">WHAT WE DO</h2>
+                <p class="text-[#A8A8A8] text-lg leading-relaxed mb-10">
+                    Zeffron bridges the gap between great ideas and functional products - without the complexity of
+                    large
+                    teams, long timelines, or expensive tech stacks.
+                </p>
+
+                <div class="text-left md:text-center">
+                    <p class="text-white font-medium mb-6">We help founders and businesses:</p>
+                    <div class="flex flex-col md:flex-row md:justify-center gap-4 md:gap-12">
+                        <div class="flex items-center gap-3 text-[#E5E5E5] font-light">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#0145F2]"></span>
+                            Build their first MVP
+                        </div>
+                        <div class="flex items-center gap-3 text-[#E5E5E5] font-light">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#0145F2]"></span>
+                            Integrate AI into existing tools
+                        </div>
+                        <div class="flex items-center gap-3 text-[#E5E5E5] font-light">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#0145F2]"></span>
+                            Scale digital products with a fractional tech team
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div
-            class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#0145F2]/30 to-transparent">
-        </div>
-    </section>
-
-    <!-- Showcase Section (New Visuals) -->
-    <section id="showcase" class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="reveal mb-16 flex flex-col md:flex-row justify-between items-end gap-4">
-            <div>
-                <h2 class="text-3xl font-medium tracking-tight mb-2 text-white">Selected Works</h2>
-                <p class="text-[#888]">Bespoke platforms engineered for scale.</p>
+        <!-- Case Studies Section (Premium Editorial Legacy) -->
+        <section id="showcase" class="py-32 px-6">
+            <div class="reveal mb-24 max-w-7xl mx-auto">
+                <h2 class="text-5xl md:text-6xl font-medium tracking-tighter mb-6 text-white leading-[0.9]">
+                    Selected Works
+                </h2>
+                <!-- Scroll Indicator -->
+                <div class="flex items-center gap-2 text-[#888] text-sm font-mono mt-6">
+                    <i data-lucide="mouse" class="w-4 h-4"></i>
+                    <span>Scroll horizontally to explore</span>
+                    <span class="scroll-indicator">→</span>
+                </div>
+                <p class="text-[#888] text-xl font-light max-w-2xl">
+                    Bespoke platforms engineered for scale. Real results for real founders.
+                </p>
             </div>
-            <a href="#"
-                class="text-sm text-[#0145F2] hover:text-[#4d82ff] flex items-center gap-1 transition-colors">View all
-                projects <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-        </div>
 
-        <div class="space-y-24">
-            <!-- Project 1: Right Aligned -->
-            <div class="reveal group relative grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div
-                    class="order-2 md:order-1 relative rounded-lg overflow-hidden border border-white/10 bg-[#151515] aspect-[4/3] group-hover:border-[#0145F2]/40 transition-colors duration-500">
-                    <!-- Overlay gradient -->
+            <!-- Horizontal Scroll Container -->
+            <div id="showcase-pin" class="relative overflow-hidden">
+                <div id="showcase-track" class="flex flex-nowrap">
+                    <!-- Case Study 1: TrendMind -->
+                    <div class="h-scroll-panel">
+                        <div class="max-w-7xl mx-auto w-full">
+                            <div class="reveal border-t border-white/10 pt-16">
+                                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                                    <div class="lg:col-span-4">
+                                        <span
+                                            class="text-[#0145F2] font-mono text-sm tracking-wider uppercase mb-3 block">Fintech
+                                            /
+                                            AI</span>
+                                        <h3 class="text-4xl font-medium text-white mb-6">TrendMind</h3>
+                                        <p class="text-[#A8A8A8] mb-8 leading-relaxed">
+                                            AI platform for high-performance LinkedIn content.
+                                        </p>
+                                        <blockquote
+                                            class="text-xl text-[#E5E5E5] font-light italic leading-relaxed border-l-2 border-[#0145F2] pl-6 py-2">
+                                            “Zeffron didn’t just build a product; they built confidence.”
+                                            <footer
+                                                class="mt-4 text-sm text-[#888] not-italic font-mono uppercase tracking-wide">
+                                                –
+                                                Founder, TrendMind</footer>
+                                        </blockquote>
+                                    </div>
+
+                                    <div class="reveal stagger-huge lg:col-span-8 flex flex-col justify-between">
+                                        <!-- UI Mockup -->
+                                        <img src="./assets/trendmind.png"
+                                            class="showcase-image w-full h-80 object-cover rounded-lg mb-8 border border-white/10 opacity-80 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
+                                            alt="TrendMind Dashboard UI">
+                                        <div class="grid md:grid-cols-2 gap-12 mb-16">
+                                            <div>
+                                                <h4
+                                                    class="text-xs font-mono text-[#888] uppercase tracking-widest mb-4">
+                                                    The
+                                                    Challenge
+                                                </h4>
+                                                <p class="text-[#E5E5E5] leading-relaxed">Top founder lacking technical
+                                                    capacity and
+                                                    an
+                                                    investor-ready prototype effectively halting fundraising efforts.
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <h4
+                                                    class="text-xs font-mono text-[#666] uppercase tracking-widest mb-4">
+                                                    The
+                                                    Solution
+                                                </h4>
+                                                <p class="text-[#E5E5E5] leading-relaxed">Engineering an AI-powered
+                                                    content
+                                                    generator,
+                                                    scheduler, and analytics MVP in a strict 10-day sprint.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="bg-[#111] border border-white/5 rounded-2xl p-8">
+                                            <h4
+                                                class="text-xs font-mono text-[#666] uppercase tracking-widest mb-8 border-b border-white/5 pb-4">
+                                                Key Metrics</h4>
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                                <div>
+                                                    <div class="text-4xl font-medium text-white mb-2">£20k</div>
+                                                    <div class="text-sm text-[#888]">Angel Interest Secured</div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-4xl font-medium text-white mb-2">1,000+</div>
+                                                    <div class="text-sm text-[#888]">Early Users in 30 Days</div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-4xl font-medium text-white mb-2">70%</div>
+                                                    <div class="text-sm text-[#888]">Lower Build Cost</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case Study 2: WhisperCoach -->
+                    <div class="h-scroll-panel">
+                        <div class="max-w-7xl mx-auto w-full">
+                            <div class="reveal border-t border-white/10 pt-16">
+                                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                                    <div class="lg:col-span-4">
+                                        <span
+                                            class="text-[#977DFF] font-mono text-sm tracking-wider uppercase mb-3 block">Sales
+                                            Tech</span>
+                                        <h3 class="text-4xl font-medium text-white mb-6">WhisperCoach</h3>
+                                        <p class="text-[#888] mb-8 leading-relaxed">
+                                            AI live coaching assistant for high-velocity sales teams.
+                                        </p>
+                                        <blockquote
+                                            class="text-xl text-[#E5E5E5] font-light italic leading-relaxed border-l-2 border-[#977DFF] pl-6 py-2">
+                                            “Precision and speed, Zeffron helped us land our first enterprise
+                                            conversation.”
+                                            <footer
+                                                class="mt-4 text-sm text-[#666] not-italic font-mono uppercase tracking-wide">
+                                                –
+                                                Co-Founder, WhisperCoach</footer>
+                                        </blockquote>
+                                    </div>
+
+                                    <div class="reveal stagger-huge lg:col-span-8 flex flex-col justify-between">
+                                        <!-- UI Mockup -->
+                                        <img src="./assets/whispercoach.png"
+                                            class="showcase-image w-full h-80 object-cover rounded-lg mb-8 border border-white/10 opacity-80 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
+                                            alt="WhisperCoach AI Interface">
+                                        <div class="grid md:grid-cols-2 gap-12 mb-16">
+                                            <div>
+                                                <h4
+                                                    class="text-xs font-mono text-[#666] uppercase tracking-widest mb-4">
+                                                    The
+                                                    Challenge
+                                                </h4>
+                                                <p class="text-[#E5E5E5] leading-relaxed">Needed a fast, investor-ready
+                                                    prototype to
+                                                    demonstrate complex real-time capabilities without a massive build.
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <h4
+                                                    class="text-xs font-mono text-[#666] uppercase tracking-widest mb-4">
+                                                    The
+                                                    Solution
+                                                </h4>
+                                                <p class="text-[#E5E5E5] leading-relaxed">Built a high-fidelity
+                                                    clickable AI
+                                                    prototype
+                                                    simulating real-time feedback loops and analytics dashboards.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="bg-[#111] border border-white/5 rounded-2xl p-8">
+                                            <h4
+                                                class="text-xs font-mono text-[#666] uppercase tracking-widest mb-8 border-b border-white/5 pb-4">
+                                                Key Metrics</h4>
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                                <div>
+                                                    <div class="text-4xl font-medium text-white mb-2">6 Weeks</div>
+                                                    <div class="text-sm text-[#888]">To Enterprise Pilot</div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-4xl font-medium text-white mb-2">75%</div>
+                                                    <div class="text-sm text-[#888]">Faster Ramp-up</div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-4xl font-medium text-white mb-2">100%</div>
+                                                    <div class="text-sm text-[#888]">Validated w/o Code</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case Study 3: AlphaCruise Travels -->
+                    <div class="h-scroll-panel">
+                        <div class="max-w-7xl mx-auto w-full">
+                            <div class="reveal border-t border-white/10 pt-16">
+                                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                                    <div class="lg:col-span-4">
+                                        <span
+                                            class="text-[#F7A505] font-mono text-sm tracking-wider uppercase mb-3 block">Travel
+                                            Tech</span>
+                                        <h3 class="text-4xl font-medium text-white mb-6">AlphaCruise</h3>
+                                        <p class="text-[#888] mb-8 leading-relaxed">
+                                            Modern travel booking automation for the digital age.
+                                        </p>
+                                        <blockquote
+                                            class="text-xl text-[#E5E5E5] font-light italic leading-relaxed border-l-2 border-[#F7A505] pl-6 py-2">
+                                            “Tech used to be a barrier; now it’s our edge.”
+                                            <footer
+                                                class="mt-4 text-sm text-[#666] not-italic font-mono uppercase tracking-wide">
+                                                –
+                                                Founder, AlphaCruise</footer>
+                                        </blockquote>
+                                    </div>
+
+                                    <div class="reveal stagger-huge lg:col-span-8 flex flex-col justify-between">
+                                        <!-- UI Mockup -->
+                                        <img src="./assets/alphacruise.png"
+                                            class="showcase-image w-full h-80 object-cover rounded-lg mb-8 border border-white/10 opacity-80 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
+                                            alt="AlphaCruise Global Map UI">
+                                        <div class="grid md:grid-cols-2 gap-12 mb-16">
+                                            <div>
+                                                <h4
+                                                    class="text-xs font-mono text-[#666] uppercase tracking-widest mb-4">
+                                                    The
+                                                    Challenge
+                                                </h4>
+                                                <p class="text-[#E5E5E5] leading-relaxed">Legacy manual processes and no
+                                                    internal
+                                                    tech
+                                                    team to execute a digital transformation.</p>
+                                            </div>
+                                            <div>
+                                                <h4
+                                                    class="text-xs font-mono text-[#666] uppercase tracking-widest mb-4">
+                                                    The
+                                                    Solution
+                                                </h4>
+                                                <p class="text-[#E5E5E5] leading-relaxed">Developed a full booking MVP
+                                                    with
+                                                    real-time
+                                                    API integrations and a custom administrative portal.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="bg-[#111] border border-white/5 rounded-2xl p-8">
+                                            <h4
+                                                class="text-xs font-mono text-[#666] uppercase tracking-widest mb-8 border-b border-white/5 pb-4">
+                                                Key Metrics</h4>
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                                <div>
+                                                    <div class="text-4xl font-medium text-white mb-2">60%</div>
+                                                    <div class="text-sm text-[#888]">Drop in Manual Work</div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-4xl font-medium text-white mb-2">120+</div>
+                                                    <div class="text-sm text-[#888]">Beta Users</div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-4xl font-medium text-white mb-2">45%</div>
+                                                    <div class="text-sm text-[#888]">Revenue Growth</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case Study 4: Techcify -->
+                    <div class="h-scroll-panel">
+                        <div class="max-w-7xl mx-auto w-full">
+                            <div class="reveal border-t border-white/10 pt-16">
+                                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                                    <div class="lg:col-span-4">
+                                        <span
+                                            class="text-white font-mono text-sm tracking-wider uppercase mb-3 block">EdTech</span>
+                                        <h3 class="text-4xl font-medium text-white mb-6">Techcify</h3>
+                                        <p class="text-[#888] mb-8 leading-relaxed">
+                                            A leading EdTech platform, powered by Zeffron.
+                                        </p>
+                                        <div class="text-sm text-[#666] font-mono mt-auto">
+                                            Zero Downtime / Adaptive Learning / Analytics
+                                        </div>
+                                    </div>
+
+                                    <div class="reveal stagger-huge lg:col-span-8 flex flex-col justify-between">
+                                        <!-- UI Mockup -->
+                                        <img src="./assets/techcify.png"
+                                            class="showcase-image w-full h-80 object-cover rounded-lg mb-8 border border-white/10 opacity-80 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
+                                            alt="Techcify Code Dashboard">
+                                        <div class="grid md:grid-cols-1 gap-12 mb-16">
+                                            <div>
+                                                <h4
+                                                    class="text-xs font-mono text-[#666] uppercase tracking-widest mb-4">
+                                                    The
+                                                    Solution
+                                                </h4>
+                                                <p class="text-[#E5E5E5] leading-relaxed text-lg">Implemented an
+                                                    adaptive
+                                                    learning
+                                                    engine, comprehensive analytics dashboard, and smart question
+                                                    generation
+                                                    system.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="bg-[#111] border border-white/5 rounded-2xl p-8">
+                                            <h4
+                                                class="text-xs font-mono text-[#666] uppercase tracking-widest mb-8 border-b border-white/5 pb-4">
+                                                Key Metrics</h4>
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                                <div>
+                                                    <div class="text-4xl font-medium text-white mb-2">95%</div>
+                                                    <div class="text-sm text-[#888]">User Pass Rate</div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-4xl font-medium text-white mb-2">1000s</div>
+                                                    <div class="text-sm text-[#888]">Active Users</div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-4xl font-medium text-white mb-2">0%</div>
+                                                    <div class="text-sm text-[#888]">Downtime at Scale</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+        </section>
+
+        <!-- Services (Premium Architectural) -->
+        <section id="services" class="py-32 px-6 bg-[#0F0F0F] border-t border-white/5">
+            <div class="max-w-7xl mx-auto">
+                <div class="reveal mb-24">
+                    <h2 class="text-xs font-mono text-[#666] uppercase tracking-[0.2em] mb-4">Our Capabilities</h2>
+                    <h2 class="text-5xl md:text-6xl font-medium tracking-tighter text-white leading-[0.9]">
+                        Services
+                    </h2>
+                </div>
+
+                <div class="border-t border-white/10">
+                    <!-- Service 01 -->
+                    <div class="reveal group py-12 md:py-20 border-b border-white/10">
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+                            <div class="md:col-span-1">
+                                <span class="text-sm font-mono text-[#0145F2]">01</span>
+                            </div>
+                            <div class="md:col-span-5">
+                                <h3 class="text-3xl font-medium text-white mb-4">Rapid MVP Development</h3>
+                                <div
+                                    class="text-xs text-[#0145F2] font-mono mb-6 inline-block border border-[#0145F2]/20 rounded px-2 py-1 bg-[#0145F2]/10">
+                                    10-Day Sprint</div>
+                                <p class="text-[#888] text-lg font-light leading-relaxed max-w-sm">
+                                    For non-technical founders, early-stage startups, and entrepreneurs ready to
+                                    validate
+                                    fast.
+                                </p>
+                            </div>
+                            <div class="reveal stagger-huge md:col-span-6">
+                                <p class="text-white text-xs font-medium uppercase tracking-widest mb-6">Deliverables
+                                    include</p>
+                                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#0145F2]"></span> Product ideation
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#0145F2]"></span> UX/UI design & clickable
+                                        prototype
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#0145F2]"></span> Full MVP build (web or mobile)
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#0145F2]"></span> Hosting & deployment
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#0145F2]"></span> 1-week post-launch support
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service 02 -->
+                    <div class="reveal group py-12 md:py-20 border-b border-white/10">
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+                            <div class="md:col-span-1">
+                                <span class="text-sm font-mono text-[#977DFF]">02</span>
+                            </div>
+                            <div class="md:col-span-5">
+                                <h3 class="text-3xl font-medium text-white mb-4">Custom AI Solutions</h3>
+                                <div
+                                    class="text-xs text-[#977DFF] font-mono mb-6 inline-block border border-[#977DFF]/20 rounded px-2 py-1 bg-[#977DFF]/10">
+                                    For Businesses</div>
+                                <p class="text-[#888] text-lg font-light leading-relaxed max-w-sm">
+                                    For SMEs, startups, and brands adopting AI to automate, personalize, and innovate.
+                                </p>
+                            </div>
+                            <div class="md:col-span-6">
+                                <p class="text-white text-xs font-medium uppercase tracking-widest mb-6">We deliver</p>
+                                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#977DFF]"></span> AI strategy consulting
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#977DFF]"></span> Custom AI models and tools
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#977DFF]"></span> Integrations with CRM/ERP
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#977DFF]"></span> Data pipelines and optimization
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#977DFF]"></span> Ongoing AI maintenance
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service 03 -->
+                    <div class="reveal group py-12 md:py-20 border-b border-white/10">
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+                            <div class="md:col-span-1">
+                                <span class="text-sm font-mono text-[#F7A505]">03</span>
+                            </div>
+                            <div class="md:col-span-5">
+                                <h3 class="text-3xl font-medium text-white mb-4">Technical Team On-Demand</h3>
+                                <p class="text-[#888] text-lg font-light leading-relaxed max-w-sm mt-8">
+                                    For founders who need a flexible, plug-and-play engineering team.
+                                </p>
+                            </div>
+                            <div class="md:col-span-6">
+                                <p class="text-white text-xs font-medium uppercase tracking-widest mb-6">You get</p>
+                                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#F7A505]"></span> Full-stack developers
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#F7A505]"></span> AI/ML engineers
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#F7A505]"></span> UI/UX designers
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#F7A505]"></span> Technical co-founder as a service
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-[#F7A505]"></span> Feature upgrades & scaling
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service 04 -->
+                    <div class="reveal group py-12 md:py-20 border-b border-white/10">
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+                            <div class="md:col-span-1">
+                                <span class="text-sm font-mono text-white">04</span>
+                            </div>
+                            <div class="md:col-span-5">
+                                <h3 class="text-3xl font-medium text-white mb-4">Investor & Pitch Readiness</h3>
+                                <div
+                                    class="text-xs text-[#AAA] font-mono mb-6 inline-block border border-white/20 rounded px-2 py-1 bg-white/5">
+                                    Package</div>
+                                <p class="text-[#888] text-lg font-light leading-relaxed max-w-sm">
+                                    All investors need to say “yes” with confidence.
+                                </p>
+                            </div>
+                            <div class="md:col-span-6">
+                                <p class="text-white text-xs font-medium uppercase tracking-widest mb-6">Includes</p>
+                                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-white"></span> MVP demo & walkthrough
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-white"></span> Business model + GTM plan
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-white"></span> Investor pitch deck
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
+                                        <span class="w-1.5 h-1.5 bg-white"></span> Technical documentation
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Zeffron (Premium Split) -->
+        <section id="why-zeffron" class="py-32 px-6 border-t border-white/5">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                    <div class="reveal">
+                        <h2 class="text-5xl md:text-6xl font-medium tracking-tighter text-white mb-8 leading-[0.9]">
+                            WHY ZEFFRON?
+                        </h2>
+                        <p class="text-xl md:text-2xl text-[#E5E5E5] font-light leading-relaxed mb-8">
+                            We don’t just build software, we engineer intelligent systems that deliver real outcomes.
+                        </p>
+                        <blockquote
+                            class="text-[#888] text-lg leading-relaxed italic border-l-2 border-[#0145F2] pl-6 py-2 mb-8">
+                            “Investor-ready in 10 days without wasting £50k building the wrong thing.”
+                        </blockquote>
+                        <p class="text-[#888] text-lg leading-relaxed">
+                            Your business logic + our technical leadership = <span class="text-white">launch-ready
+                                outcomes.</span>
+                        </p>
+                    </div>
+
+                    <div class="reveal stagger-huge space-y-6">
+                        <p class="text-xs font-mono text-[#666] uppercase tracking-[0.2em] mb-8">What makes us different
+                        </p>
+                        <ul class="space-y-4">
+                            <li
+                                class="flex items-center gap-4 text-lg text-[#E5E5E5] font-light border-b border-white/5 pb-4">
+                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> Expert AI & ML engineers
+                            </li>
+                            <li
+                                class="flex items-center gap-4 text-lg text-[#E5E5E5] font-light border-b border-white/5 pb-4">
+                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> Precision data engineering
+                            </li>
+                            <li
+                                class="flex items-center gap-4 text-lg text-[#E5E5E5] font-light border-b border-white/5 pb-4">
+                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> AI-driven product development
+                            </li>
+                            <li
+                                class="flex items-center gap-4 text-lg text-[#E5E5E5] font-light border-b border-white/5 pb-4">
+                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> 10-day turnaround
+                            </li>
+                            <li
+                                class="flex items-center gap-4 text-lg text-[#E5E5E5] font-light border-b border-white/5 pb-4">
+                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> End-to-end delivery
+                            </li>
+                            <li
+                                class="flex items-center gap-4 text-lg text-[#E5E5E5] font-light border-b border-white/5 pb-4">
+                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> Transparent, collaborative
+                                process
+                            </li>
+                            <li
+                                class="flex items-center gap-4 text-lg text-[#E5E5E5] font-light border-b border-white/5 pb-4">
+                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> Proven case studies
+                            </li>
+                            <li
+                                class="flex items-center gap-4 text-lg text-[#E5E5E5] font-light border-b border-white/5 pb-4">
+                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> Founder-first approach
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-24 px-6 relative overflow-hidden bg-[#0A0A0A]">
+            <div class="glow-point bottom-0 right-0 translate-x-1/2 translate-y-1/2 bg-[#977DFF] opacity-[0.08]"></div>
+
+            <div class="max-w-7xl mx-auto">
+                <div class="reveal text-center mb-16">
+                    <h2 class="text-3xl font-medium tracking-tight mb-4 text-white">Transparent Investment</h2>
+                    <p class="text-[#888] max-w-xl mx-auto">Transparent, founder-friendly, no hidden costs.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Launch Pad -->
                     <div
-                        class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-80 z-10">
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&amp;w=2426&amp;auto=format&amp;fit=crop"
-                        alt="Custom Fintech Dashboard Software in Midlands England"
-                        class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-80 transition-all duration-700 ease-out">
-                </div>
-                <div class="order-1 md:order-2">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="w-2 h-2 rounded-full bg-[#0145F2]"></span>
-                        <span class="text-xs font-mono text-[#0145F2] uppercase tracking-wide">Fintech</span>
-                    </div>
-                    <h3 class="text-3xl font-medium text-white mb-4">Alphacruise Core</h3>
-                    <p class="text-[#888] leading-relaxed mb-8">
-                        A bespoke high-frequency data aggregation engine. We replaced 4 fragmented SaaS tools with a
-                        single, real-time custom dashboard that handles 50k+ daily requests with sub-100ms latency.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-8">
-                        <span
-                            class="px-3 py-1 rounded border border-white/10 text-xs text-[#888] font-mono">React</span>
-                        <span
-                            class="px-3 py-1 rounded border border-white/10 text-xs text-[#888] font-mono">GoLang</span>
-                        <span class="px-3 py-1 rounded border border-white/10 text-xs text-[#888] font-mono">AWS
-                            Lambda</span>
-                    </div>
-                    <div class="p-4 rounded bg-[#111] border border-white/5 flex items-start gap-3">
-                        <i data-lucide="trending-up" class="w-5 h-5 text-[#F7A505] mt-1"></i>
-                        <p class="text-sm text-gray-300">"Zeffron's architecture reduced our cloud spend by 60% while
-                            doubling throughput."</p>
-                    </div>
-                </div>
-            </div>
+                        class="reveal stagger-1 border border-white/10 rounded-xl p-10 bg-[#111] hover:border-white/20 transition-colors">
+                        <h3 class="text-base font-medium text-white mb-2">Launch Pad</h3>
+                        <div class="text-3xl font-semibold text-white mb-2">£3,000 - £4,500</div>
+                        <p class="text-sm text-[#0145F2] font-mono mb-6">10-Day MVP</p>
 
-            <!-- Project 2: Left Aligned -->
-            <div class="reveal group relative grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="order-1">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="w-2 h-2 rounded-full bg-[#977DFF]"></span>
-                        <span class="text-xs font-mono text-[#977DFF] uppercase tracking-wide">EdTech AI</span>
+                        <button
+                            class="w-full py-2 border border-white/10 rounded text-sm font-medium text-white hover:bg-white/5 transition-colors mb-8">Start
+                            MVP Sprint</button>
+                        <ul class="space-y-3 text-sm text-[#BBB]">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#666]"></i>
+                                Full
+                                MVP Build</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#666]"></i>
+                                Design & Prototype</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#666]"></i>
+                                10-Day Turnaround</li>
+                        </ul>
                     </div>
-                    <h3 class="text-3xl font-medium text-white mb-4">Techcify Tutor</h3>
-                    <p class="text-[#888] leading-relaxed mb-8">
-                        An adaptive RAG (Retrieval-Augmented Generation) pipeline. We fine-tuned Llama 3 on proprietary
-                        technical documentation to generate dynamic, context-aware exams for engineering students.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-8">
-                        <span
-                            class="px-3 py-1 rounded border border-white/10 text-xs text-[#888] font-mono">Python</span>
-                        <span class="px-3 py-1 rounded border border-white/10 text-xs text-[#888] font-mono">Vector
-                            DB</span>
-                        <span
-                            class="px-3 py-1 rounded border border-white/10 text-xs text-[#888] font-mono">Mistral</span>
-                    </div>
-                    <div class="p-4 rounded bg-[#111] border border-white/5 flex items-start gap-3">
-                        <i data-lucide="zap" class="w-5 h-5 text-[#977DFF] mt-1"></i>
-                        <p class="text-sm text-gray-300">"The AI accuracy is unmatched. We automated 95% of our grading
-                            workload."</p>
-                    </div>
-                </div>
-                <div
-                    class="order-2 relative rounded-lg overflow-hidden border border-white/10 bg-[#151515] aspect-[4/3] group-hover:border-[#977DFF]/40 transition-colors duration-500">
+
+                    <!-- AI Sprint -->
                     <div
-                        class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-80 z-10">
+                        class="pricing-featured reveal stagger-2 relative border border-[#0145F2]/50 rounded-xl p-10 bg-[#111] shadow-[0_0_40px_rgba(1,69,242,0.15)]">
+                        <div
+                            class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0145F2] text-white text-[10px] font-bold px-3 py-1 rounded-full tracking-wide uppercase">
+                            Most Popular</div>
+                        <h3 class="text-base font-medium text-white mb-2">AI Sprint</h3>
+                        <div class="text-3xl font-semibold text-white mb-2">£5,000 - £8,000</div>
+                        <p class="text-sm text-[#0145F2] font-mono mb-6">Custom AI Build</p>
+
+                        <button
+                            class="w-full py-2 bg-[#0145F2] rounded text-sm font-medium text-white hover:bg-[#0039cc] transition-colors mb-8">Get
+                            Started</button>
+                        <ul class="space-y-3 text-sm text-[#E5E5E5]">
+                            <li class="flex items-center gap-2"><i data-lucide="check"
+                                    class="w-4 h-4 text-[#0145F2]"></i>
+                                Custom AI Models</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check"
+                                    class="w-4 h-4 text-[#0145F2]"></i>
+                                Data Engineering</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check"
+                                    class="w-4 h-4 text-[#0145F2]"></i>
+                                Integration & Support</li>
+                        </ul>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&amp;w=2670&amp;auto=format&amp;fit=crop"
-                        alt="AI Education Software Development Midlands"
-                        class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-80 transition-all duration-700 ease-out">
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Capabilities -->
-    <section id="capabilities" class="py-24 px-6 border-t border-white/5 bg-[#0F0F0F]">
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-16 max-w-2xl">
-                <h2 class="text-3xl font-medium tracking-tight mb-4 text-white">Three Pillars of Engineering</h2>
-                <p class="text-[#888]">We don't offer generic services. We provide specialized architectural
-                    implementation.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Pillar 1 -->
-                <div class="reveal stagger-1 glass-panel p-8 rounded-xl flex flex-col h-full group">
+                    <!-- Retainers -->
                     <div
-                        class="w-10 h-10 rounded bg-[#0145F2]/10 flex items-center justify-center mb-6 border border-[#0145F2]/20">
-                        <i data-lucide="code-2" class="w-5 h-5 text-[#0145F2]"></i>
+                        class="reveal stagger-3 border border-white/10 rounded-xl p-10 bg-[#111] hover:border-white/20 transition-colors">
+                        <h3 class="text-base font-medium text-white mb-2">Monthly Retainers</h3>
+                        <div class="text-3xl font-semibold text-white mb-2">Custom</div>
+                        <p class="text-sm text-[#0145F2] font-mono mb-6">Tech Team</p>
+
+                        <button
+                            class="w-full py-2 border border-white/10 rounded text-sm font-medium text-white hover:bg-white/5 transition-colors mb-8">Contact
+                            Sales</button>
+                        <ul class="space-y-3 text-sm text-[#AAA]">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#666]"></i>
+                                Dedicated Engineers</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#666]"></i>
+                                Ongoing Development</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-[#666]"></i>
+                                Fractional CTO</li>
+                        </ul>
                     </div>
-                    <h3 class="text-lg font-medium mb-3 text-white">Custom Software</h3>
-                    <p class="text-[#888] text-sm mb-8 leading-relaxed">
-                        When SaaS fails, we engineer platforms from the ground up prioritizing scalability and clean
-                        architecture.
-                    </p>
-                    <ul class="mt-auto space-y-3 border-t border-white/5 pt-6">
-                        <li class="flex items-center gap-3 text-xs text-[#AAA] font-mono">
-                            <i data-lucide="check" class="w-3 h-3 text-[#0145F2]"></i> Cloud-Native Systems
-                        </li>
-                        <li class="flex items-center gap-3 text-xs text-[#AAA] font-mono">
-                            <i data-lucide="check" class="w-3 h-3 text-[#0145F2]"></i> High-Scale APIs
-                        </li>
-                    </ul>
                 </div>
 
-                <!-- Pillar 2 -->
-                <div class="reveal stagger-2 glass-panel p-8 rounded-xl flex flex-col h-full group">
-                    <div
-                        class="w-10 h-10 rounded bg-[#977DFF]/10 flex items-center justify-center mb-6 border border-[#977DFF]/20">
-                        <i data-lucide="brain-circuit" class="w-5 h-5 text-[#977DFF]"></i>
-                    </div>
-                    <h3 class="text-lg font-medium mb-3 text-white">Custom AI Solutions</h3>
-                    <p class="text-[#888] text-sm mb-8 leading-relaxed">
-                        Intelligence tailored to your data. We fine-tune models to solve specific, high-value business
-                        problems.
+                <div class="reveal mt-12 text-center">
+                    <p
+                        class="text-[#888] font-mono text-sm border border-white/10 inline-block px-4 py-2 rounded bg-white/5">
+                        <span class="text-white">Add-Ons:</span> Investor Prep, Advisory — £1,000 - £2,000
                     </p>
-                    <ul class="mt-auto space-y-3 border-t border-white/5 pt-6">
-                        <li class="flex items-center gap-3 text-xs text-[#AAA] font-mono">
-                            <i data-lucide="check" class="w-3 h-3 text-[#977DFF]"></i> LLM Fine-tuning
-                        </li>
-                        <li class="flex items-center gap-3 text-xs text-[#AAA] font-mono">
-                            <i data-lucide="check" class="w-3 h-3 text-[#977DFF]"></i> Predictive Analytics
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Pillar 3 -->
-                <div class="reveal stagger-3 glass-panel p-8 rounded-xl flex flex-col h-full group">
-                    <div
-                        class="w-10 h-10 rounded bg-[#F7A505]/10 flex items-center justify-center mb-6 border border-[#F7A505]/20">
-                        <i data-lucide="workflow" class="w-5 h-5 text-[#F7A505]"></i>
-                    </div>
-                    <h3 class="text-lg font-medium mb-3 text-white">Intelligent Automation</h3>
-                    <p class="text-[#888] text-sm mb-8 leading-relaxed">
-                        The End of Manual Operations. We connect disjointed apps into a seamless, self-driving
-                        ecosystem.
-                    </p>
-                    <ul class="mt-auto space-y-3 border-t border-white/5 pt-6">
-                        <li class="flex items-center gap-3 text-xs text-[#AAA] font-mono">
-                            <i data-lucide="check" class="w-3 h-3 text-[#F7A505]"></i> Autonomous Agents
-                        </li>
-                        <li class="flex items-center gap-3 text-xs text-[#AAA] font-mono">
-                            <i data-lucide="check" class="w-3 h-3 text-[#F7A505]"></i> Data Pipelines
-                        </li>
-                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Pricing Section -->
-    <section id="pricing" class="py-24 px-6 relative overflow-hidden">
-        <div class="glow-point bottom-0 right-0 translate-x-1/2 translate-y-1/2 bg-[#977DFF] opacity-[0.08]"></div>
 
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal text-center mb-16">
-                <h2 class="text-3xl font-medium tracking-tight mb-4 text-white">Transparent Investment</h2>
-                <p class="text-[#888] max-w-xl mx-auto">We operate on a project basis or retainer. No hidden fees. Just
-                    clean code and delivered value.</p>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Plan 1 -->
-                <div
-                    class="reveal stagger-1 border border-white/10 rounded-xl p-8 bg-[#111] hover:border-white/20 transition-colors">
-                    <h3 class="text-base font-medium text-white mb-2">Discovery &amp; Audit</h3>
-                    <div class="text-3xl font-semibold text-white mb-6">$2,500 <span
-                            class="text-sm font-normal text-[#666]">/ one-time</span></div>
-                    <p class="text-sm text-[#888] mb-8">Deep dive into your technical stack to identify bottlenecks and
-                        architecture plan.</p>
+        <!-- CTA Block -->
+        <section id="contact" class="py-32 px-6 border-t border-white/10 bg-[#050505] text-center">
+            <div class="max-w-3xl mx-auto reveal">
+                <h2 class="text-4xl md:text-5xl font-medium tracking-tight mb-6 text-white leading-tight">Your Idea
+                    Could Be
+                    Next.</h2>
+                <p class="text-[#888] mb-12 text-xl font-light">
+                    Founders across the Midlands trust Zeffron to take them from concept to clarity — fast.
+                </p>
+                <div class="flex flex-col md:flex-row gap-6 justify-center">
                     <button
-                        class="w-full py-2 border border-white/10 rounded text-sm font-medium text-white hover:bg-white/5 transition-colors mb-8">Get
-                        Started</button>
-                    <ul class="space-y-3 text-sm text-[#AAA]">
-                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
-                                class="w-4 h-4 text-[#333]"></i> System Architecture Review</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
-                                class="w-4 h-4 text-[#333]"></i> Database Optimization Plan</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
-                                class="w-4 h-4 text-[#333]"></i> AI Feasibility Report</li>
-                    </ul>
-                </div>
-
-                <!-- Plan 2 (Featured) -->
-                <div
-                    class="reveal stagger-2 relative border border-[#0145F2]/50 rounded-xl p-8 bg-[#111] shadow-[0_0_40px_rgba(1,69,242,0.1)]">
-                    <div
-                        class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0145F2] text-white text-[10px] font-bold px-3 py-1 rounded-full tracking-wide uppercase">
-                        Most Popular</div>
-                    <h3 class="text-base font-medium text-white mb-2">Custom Build</h3>
-                    <div class="text-3xl font-semibold text-white mb-6">Custom <span
-                            class="text-sm font-normal text-[#666]">/ project</span></div>
-                    <p class="text-sm text-[#888] mb-8">End-to-end engineering of a specific software product, internal
-                        tool, or AI agent.</p>
+                        class="px-8 py-4 bg-[#0145F2] hover:bg-[#0039cc] text-white text-sm font-medium rounded transition-all duration-200">
+                        Book a Discovery Call
+                    </button>
                     <button
-                        class="w-full py-2 bg-[#0145F2] rounded text-sm font-medium text-white hover:bg-[#0039cc] transition-colors mb-8">Request
-                        Quote</button>
-                    <ul class="space-y-3 text-sm text-[#E5E5E5]">
-                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
-                                class="w-4 h-4 text-[#0145F2]"></i> Full-Stack Development</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
-                                class="w-4 h-4 text-[#0145F2]"></i> Custom UI/UX Design</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
-                                class="w-4 h-4 text-[#0145F2]"></i> 3 Months Support</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
-                                class="w-4 h-4 text-[#0145F2]"></i> IP Ownership Transfer</li>
-                    </ul>
-                </div>
-
-                <!-- Plan 3 -->
-                <div
-                    class="reveal stagger-3 border border-white/10 rounded-xl p-8 bg-[#111] hover:border-white/20 transition-colors">
-                    <h3 class="text-base font-medium text-white mb-2">Enterprise Scale</h3>
-                    <div class="text-3xl font-semibold text-white mb-6">Retainer <span
-                            class="text-sm font-normal text-[#666]">/ monthly</span></div>
-                    <p class="text-sm text-[#888] mb-8">Dedicated engineering team acting as your fractional CTO and
-                        R&amp;D department.</p>
-                    <button
-                        class="w-full py-2 border border-white/10 rounded text-sm font-medium text-white hover:bg-white/5 transition-colors mb-8">Contact
-                        Sales</button>
-                    <ul class="space-y-3 text-sm text-[#AAA]">
-                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
-                                class="w-4 h-4 text-[#333]"></i> Fractional CTO Service</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
-                                class="w-4 h-4 text-[#333]"></i> 24/7 Infrastructure Monitoring</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
-                                class="w-4 h-4 text-[#333]"></i> Continuous CI/CD Updates</li>
-                    </ul>
+                        class="px-8 py-4 border border-white/10 hover:bg-white/5 text-white text-sm font-medium rounded transition-all duration-200">
+                        Start Your MVP Sprint Today
+                    </button>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Team Section -->
-    <section id="team" class="py-24 px-6 border-t border-white/5 bg-[#0F0F0F]">
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-16 flex flex-col md:flex-row justify-between items-end">
+            <!-- Footer Content (About Zeffron) -->
+            <div
+                class="max-w-7xl mx-auto mt-24 pt-12 border-t border-white/5 grid grid-cols-1 md:grid-cols-2 gap-12 text-left text-sm mb-12">
                 <div>
-                    <h2 class="text-3xl font-medium tracking-tight mb-2 text-white">The Engineers</h2>
-                    <p class="text-[#888]">Builders, not managers.</p>
+                    <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">About Zeffron</h4>
+                    <p class="text-[#888] leading-relaxed max-w-md">
+                        Zeffron is a modern product & AI studio built for founders. We combine engineering excellence
+                        with
+                        rapid execution, delivering solutions that scale, impress investors, and give founders momentum.
+                        <br><br>
+                        We believe in clarity, speed, and intelligent innovation.
+                    </p>
                 </div>
-                <a href="#" class="text-sm text-[#888] hover:text-white transition-colors mt-4 md:mt-0">Join the
-                    collective →</a>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Member 1 -->
-                <div class="reveal stagger-1 group">
-                    <div class="aspect-square rounded-lg bg-[#222] mb-4 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&amp;w=1000&amp;auto=format&amp;fit=crop"
-                            class="object-cover w-full h-full opacity-70 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
-                            alt="Team Member">
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">Contact</h4>
+                        <p class="text-[#888] mb-2">hello@zeffron.ai</p>
+                        <p class="text-[#888]">+44 (0) 121 555 0123</p>
                     </div>
-                    <h4 class="text-white font-medium">Alex Chen</h4>
-                    <p class="text-xs text-[#0145F2] font-mono mb-2">Lead Architect</p>
-                    <p class="text-xs text-[#666]">Ex-Google Cloud. Specialist in distributed systems.</p>
-                </div>
-
-                <!-- Member 2 -->
-                <div class="reveal stagger-2 group">
-                    <div class="aspect-square rounded-lg bg-[#222] mb-4 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&amp;w=1000&amp;auto=format&amp;fit=crop"
-                            class="object-cover w-full h-full opacity-70 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
-                            alt="Team Member">
+                    <div>
+                        <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">Service Areas</h4>
+                        <p class="text-[#888]">Midlands England • Solihull • Wolverhampton • Coventry</p>
                     </div>
-                    <h4 class="text-white font-medium">Sarah Vance</h4>
-                    <p class="text-xs text-[#977DFF] font-mono mb-2">AI Research Lead</p>
-                    <p class="text-xs text-[#666]">PhD in NLP. Focused on LLM finetuning.</p>
-                </div>
-
-                <!-- Member 3 -->
-                <div class="reveal stagger-3 group">
-                    <div class="aspect-square rounded-lg bg-[#222] mb-4 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&amp;w=1000&amp;auto=format&amp;fit=crop"
-                            class="object-cover w-full h-full opacity-70 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
-                            alt="Team Member">
-                    </div>
-                    <h4 class="text-white font-medium">Marcus Thorne</h4>
-                    <p class="text-xs text-[#F7A505] font-mono mb-2">Automation Engineer</p>
-                    <p class="text-xs text-[#666]">Expert in data pipelines and workflow orchestration.</p>
-                </div>
-
-                <!-- Member 4 -->
-                <div class="reveal group">
-                    <div
-                        class="aspect-square rounded-lg bg-[#222] mb-4 overflow-hidden relative border border-dashed border-white/10 flex items-center justify-center group-hover:border-white/30 transition-colors">
-                        <i data-lucide="plus" class="w-8 h-8 text-[#444]"></i>
-                    </div>
-                    <h4 class="text-white font-medium">You?</h4>
-                    <p class="text-xs text-[#888] font-mono mb-2">Senior Engineer</p>
-                    <p class="text-xs text-[#666]">We are looking for exceptional backend talent.</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <section id="contact" class="py-24 px-6 border-t border-white/10 bg-[#050505] text-center">
-        <div class="max-w-2xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-medium tracking-tight mb-6 text-white">Ready to upgrade your
-                infrastructure?</h2>
-            <p class="text-[#888] mb-10 text-lg font-light">
-                Stop renting generic tools. Start building your own assets. Zeffron brings the engineering discipline
-                required to scale.
-            </p>
-            <button
-                class="inline-flex items-center gap-2 px-8 py-4 bg-[#0145F2] hover:bg-[#0039cc] text-white text-sm font-medium rounded transition-all duration-200">
-                Book a Technical Strategy Session
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-            </button>
-        </div>
-
-        <div
-            class="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/5 grid grid-cols-1 md:grid-cols-3 gap-8 text-left text-sm mb-12">
-            <div>
-                <h4 class="text-white font-medium mb-4">Zeffron Midlands</h4>
-                <p class="text-[#888] mb-2">Cornwall Buildings, 45 Newhall St</p>
-                <p class="text-[#888]">Midlands England, B3 3QR</p>
-                <p class="text-[#888]">United Kingdom</p>
+            <div
+                class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#444]">
+                <div class="font-mono uppercase tracking-widest">Zeffron Systems © 2024</div>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                </div>
             </div>
-            <div>
-                <h4 class="text-white font-medium mb-4">Contact</h4>
-                <p class="text-[#888] mb-2">hello@zeffron.ai</p>
-                <p class="text-[#888]">+44 (0) 121 555 0123</p>
-            </div>
-            <div>
-                <h4 class="text-white font-medium mb-4">Service Areas</h4>
-                <p class="text-[#888]">Midlands England • Solihull • Wolverhampton</p>
-                <p class="text-[#888]">Coventry • The Midlands</p>
-            </div>
-        </div>
-
-        <div
-            class="max-w-7xl mx-auto mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#444]">
-            <div class="font-mono uppercase tracking-widest">Zeffron Systems © 2024</div>
-            <div class="flex gap-6">
-                <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                <a href="#" class="hover:text-white transition-colors">Terms</a>
-                <a href="#" class="hover:text-white transition-colors">Twitter</a>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <script>
-        lucide.createIcons();
+        document.addEventListener("DOMContentLoaded", (event) => {
+            console.log("DOM loaded. Initializing animations...");
+            lucide.createIcons();
 
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+            // Mobile Menu Toggle
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileBackdrop = document.getElementById('mobileBackdrop');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // Only animate once
+            function toggleMobileMenu() {
+                mobileMenu.classList.toggle('active');
+                mobileBackdrop.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            }
+
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+            }
+
+            if (mobileMenuClose) {
+                mobileMenuClose.addEventListener('click', toggleMobileMenu);
+            }
+
+            if (mobileBackdrop) {
+                mobileBackdrop.addEventListener('click', toggleMobileMenu);
+            }
+
+            // Close mobile menu when clicking nav links
+            const mobileNavLinks = document.querySelectorAll('#mobileMenu a');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('active')) {
+                        toggleMobileMenu();
+                    }
+                });
+            });
+
+            // Register GSAP ScrollTrigger
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+                console.log("GSAP & ScrollTrigger registered.");
+            } else {
+                console.error("GSAP or ScrollTrigger not loaded.");
+                return;
+            }
+
+            // 1. Horizontal Scroll Logic
+            const track = document.getElementById('showcase-track');
+            const panels = gsap.utils.toArray('.h-scroll-panel');
+            console.log(`Found ${panels.length} panels for horizontal scroll.`);
+
+            if (track && panels.length > 0) {
+                // Ensure the track is wide enough
+                gsap.set(track, { width: (panels.length * 100) + "%" });
+
+                gsap.to(track, {
+                    x: () => -(track.scrollWidth - window.innerWidth),
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: "#showcase-pin",
+                        pin: true,
+                        start: "top top",
+                        scrub: 1, // Smooth scrubbing
+                        snap: {
+                            snapTo: 1 / (panels.length - 1),
+                            duration: { min: 0.1, max: 0.2 }, // Faster snap
+                            delay: 0
+                        },
+                        // Dynamic end based on track width relative to viewport
+                        end: () => "+=" + (panels.length * window.innerWidth),
+                        invalidateOnRefresh: true,
+                        markers: false // Set to true to debug triggers
+                    }
+                });
+            } else {
+                console.error("Horizontal scroll track or panels not found.");
+            }
+
+            // 3. Logo Animation
+            if (document.querySelector(".logo-anim")) {
+                gsap.from(".logo-anim", {
+                    duration: 1.5,
+                    y: -20,
+                    opacity: 0,
+                    ease: "power3.out",
+                    delay: 0.2
+                });
+            }
+
+            // 4. Reveal Animations (Legacy + New)
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+
+            // 5. Custom Cursor
+            const cursor = document.querySelector('.custom-cursor');
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            let mouseX = 0;
+            let mouseY = 0;
+            let cursorX = 0;
+            let cursorY = 0;
+
+            // Track mouse position
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            // Smooth cursor following
+            function animateCursor() {
+                const speed = 0.15;
+                cursorX += (mouseX - cursorX) * speed;
+                cursorY += (mouseY - cursorY) * speed;
+
+                cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Add hover effect for interactive elements
+            const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, [role="button"]');
+
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                });
+
+                // Add ripple effect on click for buttons
+                if (el.tagName === 'BUTTON' || el.tagName === 'A') {
+                    el.addEventListener('click', function (e) {
+                        const ripple = document.createElement('span');
+                        ripple.classList.add('ripple');
+
+                        const rect = this.getBoundingClientRect();
+                        const size = Math.max(rect.width, rect.height);
+                        const x = e.clientX - rect.left - size / 2;
+                        const y = e.clientY - rect.top - size / 2;
+
+                        ripple.style.width = ripple.style.height = size + 'px';
+                        ripple.style.left = x + 'px';
+                        ripple.style.top = y + 'px';
+
+                        // Make sure the element has position relative
+                        const position = window.getComputedStyle(this).position;
+                        if (position === 'static') {
+                            this.style.position = 'relative';
+                        }
+
+                        this.appendChild(ripple);
+
+                        setTimeout(() => {
+                            ripple.remove();
+                        }, 600);
+                    });
                 }
             });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => {
-            observer.observe(el);
         });
     </script>
 
