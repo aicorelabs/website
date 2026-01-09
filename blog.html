@@ -1,0 +1,734 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Zeffron - AI & Software Insights</title>
+    <meta name="description"
+        content="Insights, guides, and stories from Zeffron on AI development, software engineering, and building MVPs.">
+
+    <link rel="icon" type="image/png" href="./assets/Icons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./assets/Icons/favicon.svg" />
+    <link rel="shortcut icon" href="./assets/Icons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/Icons/apple-touch-icon.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Magnetik', 'Archivo', 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #E5E5E5;
+            overflow-x: hidden;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(1, 69, 242, 0.4);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 30px rgba(1, 69, 242, 0.1);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #FFFFFF, #A3A3A3);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-point {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: #0145F2;
+            filter: blur(150px);
+            opacity: 0.12;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            filter: blur(10px);
+            transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+            will-change: opacity, transform, filter;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+        }
+
+        .stagger-1 {
+            transition-delay: 100ms;
+        }
+
+        .stagger-2 {
+            transition-delay: 200ms;
+        }
+
+        .stagger-3 {
+            transition-delay: 300ms;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0A0A0A;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #262626;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0145F2;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        *:focus-visible {
+            outline: 2px solid #0145F2;
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 5rem 2rem 2rem;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu-backdrop.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .blog-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .category-tag {
+            transition: all 0.2s ease;
+        }
+
+        .category-tag:hover {
+            background: rgba(1, 69, 242, 0.2);
+            border-color: rgba(1, 69, 242, 0.5);
+        }
+
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+        }
+
+        .cursor-outline {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .custom-cursor.hover .cursor-dot {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-cursor.hover .cursor-outline {
+            width: 32px;
+            height: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .custom-cursor {
+                display: none !important;
+            }
+
+            h1 {
+                font-size: 2.25rem !important;
+            }
+
+            h2 {
+                font-size: 1.875rem !important;
+            }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .custom-cursor {
+                display: none !important;
+            }
+        }
+    </style>
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="E7AH9GmSZB5rPAX14Of8Cg" async></script>
+</head>
+
+<body class="antialiased selection:bg-[#0145F2] selection:text-white">
+
+    <!-- Mobile Menu Backdrop -->
+    <div class="mobile-menu-backdrop" id="mobileBackdrop"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu"
+            style="position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: white; cursor: pointer; padding: 0.5rem;">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <nav class="flex flex-col gap-6 text-lg">
+            <a href="index.html" class="text-white hover:text-[#0145F2] transition-colors">Home</a>
+            <a href="index.html#showcase" class="text-white hover:text-[#0145F2] transition-colors">Showcase</a>
+            <a href="index.html#services" class="text-white hover:text-[#0145F2] transition-colors">Services</a>
+            <a href="index.html#pricing" class="text-white hover:text-[#0145F2] transition-colors">Pricing</a>
+            <a href="demos.html" class="text-white hover:text-[#0145F2] transition-colors">Live Lab</a>
+            <a href="blog.html" class="text-[#0145F2] font-semibold transition-colors">Blog</a>
+            <a href="index.html#contact"
+                class="mt-4 px-6 py-3 bg-[#0145F2] text-white text-center rounded hover:bg-[#0039cc] transition-colors">Start
+                Building</a>
+        </nav>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#0A0A0A]/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="index.html" class="text-lg tracking-tighter font-semibold text-white flex items-center gap-2"
+                aria-label="Zeffron Home">
+                <img src="./assets/PNG/Logo - White@2x.png" alt="Zeffron Logo" class="h-8 sm:h-10 md:h-12" />
+            </a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-[#888]">
+                <a href="index.html#showcase" class="hover:text-white transition-colors duration-200">Showcase</a>
+                <a href="index.html#services" class="hover:text-white transition-colors duration-200">Services</a>
+                <a href="index.html#pricing" class="hover:text-white transition-colors duration-200">Pricing</a>
+                <a href="demos.html" class="hover:text-white transition-colors duration-200">Live Lab</a>
+                <a href="blog.html" class="text-[#0145F2] border-[#0145F2]">Blog</a>
+            </div>
+            <a href="index.html#contact"
+                class="hidden md:flex items-center gap-2 px-4 py-2 bg-white text-black text-xs font-semibold rounded hover:bg-[#E5E5E5] transition-all duration-200 tracking-tight">
+                Start Building
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <button class="md:hidden text-white" id="mobileMenuToggle" aria-label="Open menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main id="main-content">
+        <section class="relative pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 overflow-hidden">
+            <div class="glow-point top-0 left-1/2 -translate-x-1/2"></div>
+            <div class="max-w-5xl mx-auto text-center">
+                <div
+                    class="reveal inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[#97B9CD] text-xs font-mono mb-8">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0145F2] opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#0145F2]"></span>
+                    </span>
+                    INSIGHTS & UPDATES
+                </div>
+                <h1 class="reveal stagger-1 text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight leading-[1.05] mb-6 text-white">
+                    The Zeffron <span class="text-gradient">Blog</span>
+                </h1>
+                <p class="reveal stagger-2 text-base sm:text-lg md:text-xl text-[#A8A8A8] max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                    Insights on AI, software development, and building products that scale.
+                </p>
+            </div>
+        </section>
+
+        <!-- Category Filter -->
+        <!-- <section class="py-8 px-4 sm:px-6 max-w-7xl mx-auto border-b border-white/5">
+            <div class="reveal flex flex-wrap gap-3 justify-center">
+                <button class="category-tag px-4 py-2 rounded-full border border-[#0145F2] bg-[#0145F2]/10 text-[#0145F2] text-sm font-medium">
+                    All Posts
+                </button>
+                <button class="category-tag px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[#888] text-sm font-medium hover:text-white">
+                    AI & Machine Learning
+                </button>
+                <button class="category-tag px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[#888] text-sm font-medium hover:text-white">
+                    MVP Development
+                </button>
+                <button class="category-tag px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[#888] text-sm font-medium hover:text-white">
+                    Startup Guides
+                </button>
+                <button class="category-tag px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[#888] text-sm font-medium hover:text-white">
+                    Case Studies
+                </button>
+            </div>
+        </section> -->
+
+        <!-- Featured Post -->
+        <!-- <section class="py-16 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto">
+            <div class="reveal">
+                <p class="text-xs font-mono text-[#0145F2] uppercase tracking-[0.2em] mb-6">Featured</p>
+                <a href="blog/how-we-built-ai-mvp.html" class="group block glass-panel rounded-2xl overflow-hidden blog-card">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                        <div class="aspect-video lg:aspect-auto bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center">
+                            <div class="text-center p-8">
+                                <i data-lucide="sparkles" class="w-20 h-20 text-[#0145F2] mx-auto mb-4"></i>
+                                <p class="text-[#888] text-sm font-mono">Featured Image</p>
+                            </div>
+                        </div>
+                        <div class="p-8 lg:p-12">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono">
+                                    AI & ML
+                                </span>
+                                <span class="text-[#666] text-sm font-mono">5 min read</span>
+                            </div>
+                            <h2 class="text-2xl sm:text-3xl font-medium text-white mb-4 group-hover:text-[#0145F2] transition-colors">
+                                How We Built an AI-Powered MVP in 10 Days
+                            </h2>
+                            <p class="text-[#A8A8A8] leading-relaxed mb-6">
+                                A deep dive into the architecture, tools, and strategies that enable rapid AI product development without compromising quality.
+                            </p>
+                            <div class="flex items-center gap-4 text-sm text-[#666]">
+                                <span class="font-mono">Dec 15, 2024</span>
+                                <span>•</span>
+                                <span>Joe Zeffron</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section> -->
+
+        <!-- Blog Posts Grid -->
+        <section class="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
+
+                <article class="reveal stagger-2 text-center flex justify-center">
+                    <img src="./assets/coming-soon-blog.png" alt="Coming Soon" width="750px" class=""/>
+                </article>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Blog Post 1 -->
+                <!-- <article class="reveal stagger-1">
+                    <a href="blog/10-mvp-mistakes.html" class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col">
+                        <div class="aspect-video bg-gradient-to-br from-[#977DFF]/20 to-[#F7A505]/20 flex items-center justify-center">
+                            <i data-lucide="rocket" class="w-12 h-12 text-[#977DFF]"></i>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="px-3 py-1 rounded-full bg-[#977DFF]/10 border border-[#977DFF]/20 text-[#977DFF] text-xs font-mono">
+                                    Startup Guides
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">
+                                10 Mistakes to Avoid When Building Your First MVP
+                            </h3>
+                            <p class="text-[#A8A8A8] text-sm leading-relaxed mb-4 flex-1">
+                                Learn from the mistakes we've seen founders make and save yourself time and money.
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-[#666]">
+                                <span class="font-mono">Dec 10, 2024</span>
+                                <span>3 min read</span>
+                            </div>
+                        </div>
+                    </a>
+                </article> -->
+
+                <!-- Blog Post 2 -->
+                <!-- <article class="reveal stagger-2">
+                    <a href="blog/how-we-built-ai-mvp.html" class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col">
+                        <div class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#00D4FF]/20 flex items-center justify-center">
+                            <i data-lucide="brain" class="w-12 h-12 text-[#0145F2]"></i>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono">
+                                    AI & ML
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">
+                                Understanding LLMs: A Founder's Guide
+                            </h3>
+                            <p class="text-[#A8A8A8] text-sm leading-relaxed mb-4 flex-1">
+                                What every non-technical founder needs to know about Large Language Models.
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-[#666]">
+                                <span class="font-mono">Dec 5, 2024</span>
+                                <span>7 min read</span>
+                            </div>
+                        </div>
+                    </a>
+                </article> -->
+
+                <!-- Blog Post 3 -->
+                <!-- <article class="reveal stagger-3">
+                    <a href="blog/how-we-built-ai-mvp.html" class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col">
+                        <div class="aspect-video bg-gradient-to-br from-[#F7A505]/20 to-[#FF6B6B]/20 flex items-center justify-center">
+                            <i data-lucide="code" class="w-12 h-12 text-[#F7A505]"></i>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-mono">
+                                    Case Studies
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">
+                                TrendMind: From Idea to £20k in Angel Interest
+                            </h3>
+                            <p class="text-[#A8A8A8] text-sm leading-relaxed mb-4 flex-1">
+                                How we helped a non-technical founder validate their AI idea and secure funding.
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-[#666]">
+                                <span class="font-mono">Nov 28, 2024</span>
+                                <span>8 min read</span>
+                            </div>
+                        </div>
+                    </a>
+                </article> -->
+
+                <!-- Blog Post 4 -->
+                <!-- <article class="reveal">
+                    <a href="blog/how-we-built-ai-mvp.html" class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col">
+                        <div class="aspect-video bg-gradient-to-br from-[#00D4FF]/20 to-[#0145F2]/20 flex items-center justify-center">
+                            <i data-lucide="layers" class="w-12 h-12 text-[#00D4FF]"></i>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono">
+                                    MVP Development
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">
+                                The Tech Stack We Use for Rapid Prototyping
+                            </h3>
+                            <p class="text-[#A8A8A8] text-sm leading-relaxed mb-4 flex-1">
+                                Our proven technology choices that enable us to build fast without technical debt.
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-[#666]">
+                                <span class="font-mono">Nov 20, 2024</span>
+                                <span>6 min read</span>
+                            </div>
+                        </div>
+                    </a>
+                </article> -->
+
+                <!-- Blog Post 5 -->
+                <!-- <article class="reveal stagger-1">
+                    <a href="blog/how-we-built-ai-mvp.html" class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col">
+                        <div class="aspect-video bg-gradient-to-br from-[#FF6B6B]/20 to-[#977DFF]/20 flex items-center justify-center">
+                            <i data-lucide="trending-up" class="w-12 h-12 text-[#FF6B6B]"></i>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="px-3 py-1 rounded-full bg-[#977DFF]/10 border border-[#977DFF]/20 text-[#977DFF] text-xs font-mono">
+                                    Startup Guides
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">
+                                How to Pitch Your MVP to Investors
+                            </h3>
+                            <p class="text-[#A8A8A8] text-sm leading-relaxed mb-4 flex-1">
+                                The framework we use to help founders craft compelling investor presentations.
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-[#666]">
+                                <span class="font-mono">Nov 15, 2024</span>
+                                <span>5 min read</span>
+                            </div>
+                        </div>
+                    </a>
+                </article> -->
+
+                <!-- Blog Post 6 -->
+                <!-- <article class="reveal stagger-2">
+                    <a href="blog/how-we-built-ai-mvp.html" class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col">
+                        <div class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center">
+                            <i data-lucide="zap" class="w-12 h-12 text-[#0145F2]"></i>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono">
+                                    AI & ML
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">
+                                5 Ways AI Can Transform Your Business in 2025
+                            </h3>
+                            <p class="text-[#A8A8A8] text-sm leading-relaxed mb-4 flex-1">
+                                Practical AI applications that deliver real ROI for SMEs and startups.
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-[#666]">
+                                <span class="font-mono">Nov 8, 2024</span>
+                                <span>6 min read</span>
+                            </div>
+                        </div>
+                    </a>
+                </article> -->
+
+            </div>
+
+            <!-- Pagination -->
+            <!-- <div class="reveal mt-16 flex justify-center items-center gap-4">
+                <button class="px-4 py-2 rounded border border-white/10 bg-white/5 text-[#666] text-sm hover:border-white/20 hover:text-white transition-colors" disabled>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+                <div class="flex gap-2">
+                    <button class="w-10 h-10 rounded bg-[#0145F2] text-white text-sm font-medium">1</button>
+                    <button class="w-10 h-10 rounded border border-white/10 bg-white/5 text-[#888] text-sm hover:border-white/20 hover:text-white transition-colors">2</button>
+                    <button class="w-10 h-10 rounded border border-white/10 bg-white/5 text-[#888] text-sm hover:border-white/20 hover:text-white transition-colors">3</button>
+                </div>
+                <button class="px-4 py-2 rounded border border-white/10 bg-white/5 text-[#888] text-sm hover:border-white/20 hover:text-white transition-colors">
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            </div> -->
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="py-16 sm:py-20 px-4 sm:px-6 max-w-4xl mx-auto">
+            <div class="reveal glass-panel rounded-2xl p-8 sm:p-12 text-center">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#0145F2]/20 bg-[#0145F2]/10 text-[#0145F2] text-xs font-mono mb-6">
+                    <i data-lucide="mail" class="w-3 h-3"></i>
+                    NEWSLETTER
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-medium text-white mb-4">
+                    Stay Updated
+                </h2>
+                <p class="text-[#A8A8A8] mb-8 max-w-xl mx-auto">
+                    Get the latest insights on AI, MVPs, and building great products delivered to your inbox.
+                </p>
+                <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input type="email" placeholder="your.email@company.com"
+                        class="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded text-white placeholder-[#666] focus:outline-none focus:border-[#0145F2] transition-colors">
+                    <button type="submit"
+                        class="px-6 py-3 bg-[#0145F2] text-white rounded font-medium hover:bg-[#0039cc] transition-colors whitespace-nowrap">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 sm:py-20 px-4 sm:px-6 border-t border-white/10 bg-[#050505] text-center">
+            <div class="max-w-3xl mx-auto reveal">
+                <h2 class="text-3xl sm:text-4xl font-medium tracking-tight mb-6 text-white leading-tight">
+                    Ready to Build Your MVP?
+                </h2>
+                <p class="text-[#888] mb-10 text-lg font-light">
+                    Let's turn your idea into a launch-ready product in 10 days.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="index.html#contact"
+                        class="px-8 py-4 bg-[#0145F2] hover:bg-[#0039cc] text-white text-sm font-medium rounded transition-all duration-200">
+                        Start Your MVP Sprint
+                    </a>
+                    <a href="index.html#pricing"
+                        class="px-8 py-4 border border-white/10 hover:bg-white/5 text-white text-sm font-medium rounded transition-all duration-200">
+                        View Pricing
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 px-4 sm:px-6 border-t border-white/5">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm">
+                    <div>
+                        <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">About Zeffron</h4>
+                        <p class="text-[#888] leading-relaxed max-w-md">
+                            Zeffron is a modern product & AI studio built for founders. We combine engineering excellence with rapid execution.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">Contact</h4>
+                            <p class="text-[#888] mb-2">hello@zeffron.ai</p>
+                            <p class="text-[#888]">+44 (0) 121 555 0123</p>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">Quick Links</h4>
+                            <nav class="flex flex-col gap-2">
+                                <a href="index.html" class="text-[#888] hover:text-white transition-colors">Home</a>
+                                <a href="demos.html" class="text-[#888] hover:text-white transition-colors">Live Lab</a>
+                                <a href="blog.html" class="text-[#888] hover:text-white transition-colors">Blog</a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#444]">
+                    <div class="font-mono uppercase tracking-widest">Zeffron Systems © 2024</div>
+                    <div class="flex gap-6">
+                        <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                        <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            lucide.createIcons();
+
+            // Mobile Menu Toggle
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileBackdrop = document.getElementById('mobileBackdrop');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+            function toggleMobileMenu() {
+                mobileMenu.classList.toggle('active');
+                mobileBackdrop.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            }
+
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+            }
+
+            if (mobileMenuClose) {
+                mobileMenuClose.addEventListener('click', toggleMobileMenu);
+            }
+
+            if (mobileBackdrop) {
+                mobileBackdrop.addEventListener('click', toggleMobileMenu);
+            }
+
+            // Close mobile menu when clicking nav links
+            const mobileNavLinks = document.querySelectorAll('#mobileMenu a');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('active')) {
+                        toggleMobileMenu();
+                    }
+                });
+            });
+
+            // Reveal Animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Custom Cursor
+            const cursor = document.querySelector('.custom-cursor');
+            let mouseX = 0;
+            let mouseY = 0;
+            let cursorX = 0;
+            let cursorY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCursor() {
+                const speed = 0.15;
+                cursorX += (mouseX - cursorX) * speed;
+                cursorY += (mouseY - cursorY) * speed;
+
+                cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, [role="button"]');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
