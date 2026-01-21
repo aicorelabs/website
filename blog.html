@@ -568,14 +568,19 @@
                 <p class="text-[#A8A8A8] mb-8 max-w-xl mx-auto">
                     Get the latest insights on AI, MVPs, and building great products delivered to your inbox.
                 </p>
-                <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                    <input type="email" placeholder="your.email@company.com"
+                <form id="newsletter-form" action="https://api.web3forms.com/submit" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input type="hidden" name="access_key" value="e7729d29-1943-4c0b-b180-4b5d829b32b9">
+                    <input type="hidden" name="subject" value="New Newsletter Subscriber - Zeffron">
+                    <input type="hidden" name="from_name" value="Zeffron Newsletter">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                    <input type="email" name="email" placeholder="your.email@company.com" required
                         class="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded text-white placeholder-[#666] focus:outline-none focus:border-[#0145F2] transition-colors">
-                    <button type="submit"
+                    <button type="submit" id="newsletter-btn"
                         class="px-6 py-3 bg-[#0145F2] text-white rounded font-medium hover:bg-[#0039cc] transition-colors whitespace-nowrap">
                         Subscribe
                     </button>
                 </form>
+                <p id="newsletter-message" class="mt-4 text-sm hidden"></p>
             </div>
         </section>
 
@@ -589,7 +594,7 @@
                     Let's turn your idea into a launch-ready product in 10 days.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="index.html#contact"
+                    <a href="https://cal.com/zeffron-ai/30min"
                         class="px-8 py-4 bg-[#0145F2] hover:bg-[#0039cc] text-white text-sm font-medium rounded transition-all duration-200">
                         Start Your MVP Sprint
                     </a>
@@ -728,6 +733,46 @@
                     cursor.classList.remove('hover');
                 });
             });
+
+            // Newsletter Form Handler
+            const newsletterForm = document.getElementById('newsletter-form');
+            const newsletterBtn = document.getElementById('newsletter-btn');
+            const newsletterMessage = document.getElementById('newsletter-message');
+
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    newsletterBtn.disabled = true;
+                    newsletterBtn.textContent = 'Subscribing...';
+                    newsletterMessage.classList.add('hidden');
+
+                    try {
+                        const formData = new FormData(newsletterForm);
+                        const response = await fetch('https://api.web3forms.com/submit', {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        const result = await response.json();
+
+                        if (result.success) {
+                            newsletterMessage.textContent = 'Thanks for subscribing! We\'ll be in touch.';
+                            newsletterMessage.className = 'mt-4 text-sm text-green-400';
+                            newsletterForm.reset();
+                        } else {
+                            throw new Error(result.message || 'Something went wrong');
+                        }
+                    } catch (error) {
+                        newsletterMessage.textContent = 'Oops! Something went wrong. Please try again.';
+                        newsletterMessage.className = 'mt-4 text-sm text-red-400';
+                    }
+
+                    newsletterBtn.disabled = false;
+                    newsletterBtn.textContent = 'Subscribe';
+                    newsletterMessage.classList.remove('hidden');
+                });
+            }
         });
     </script>
 </body>
