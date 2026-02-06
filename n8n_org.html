@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n8n Concurrency Calculator & Simulator</title>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons (Vanilla) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body { background-color: #0f172a; color: #e2e8f0; font-family: 'Inter', sans-serif; }
+        .slider-thumb::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; background: #10b981; border-radius: 50%; cursor: pointer; }
+        .slider-thumb-red::-webkit-slider-thumb { background: #ef4444; }
+        
+        /* Animation classes need to be defined here since we'll add them dynamically */
+        .dot-pulse {
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .5; transform: scale(0.9); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="max-w-6xl mx-auto p-4 md:p-8">
+    
+    <!-- Hero Header -->
+    <header class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+            <i data-lucide="activity" class="w-10 h-10 text-emerald-400"></i>
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">
+                n8n Concurrency Calculator
+            </span>
+        </h1>
+        <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+            Simulate how your AI architecture handles traffic spikes. 
+            Don't let your agents crash during a shift broadcast.
+        </p>
+    </header>
+
+    <!-- Input Panel -->
+    <div class="grid md:grid-cols-2 gap-8 mb-12 bg-slate-800/50 p-6 rounded-2xl border border-slate-700 shadow-xl">
+        
+        <!-- Shift Volume Slider -->
+        <div class="space-y-4">
+            <div class="flex justify-between items-end">
+                <label class="text-slate-300 font-semibold flex items-center gap-2">
+                    <i data-lucide="database" class="w-4 h-4 text-blue-400"></i>
+                    Monthly Shifts
+                </label>
+                <span id="shifts-display" class="text-2xl font-bold text-white">150</span>
+            </div>
+            <input 
+                id="shifts-slider"
+                type="range" min="10" max="2000" step="10"
+                value="150"
+                class="w-full h-3 bg-slate-700 rounded-lg appearance-none cursor-pointer slider-thumb"
+            />
+            <div class="flex justify-between text-xs text-slate-500">
+                <span>Small Biz (10)</span>
+                <span>Enterprise (2000)</span>
+            </div>
+            <div class="bg-slate-900/50 p-3 rounded border border-slate-700 text-xs text-slate-400">
+                <span class="block mb-1 text-slate-300">Est. Workflow Executions:</span>
+                <span id="total-execs-display" class="text-emerald-400 font-mono text-lg">1,200 / mo</span>
+                <span class="block mt-1 text-[10px] opacity-70">(Based on 8 execs per shift cycle)</span>
+            </div>
+        </div>
+
+        <!-- Burst Traffic Slider -->
+        <div class="space-y-4">
+            <div class="flex justify-between items-end">
+                <label class="text-slate-300 font-semibold flex items-center gap-2">
+                    <i data-lucide="zap" class="w-4 h-4 text-yellow-400"></i>
+                    Burst Size (Concurrent Msgs)
+                </label>
+                <span id="burst-display" class="text-2xl font-bold text-red-400">200</span>
+            </div>
+            <input 
+                id="burst-slider"
+                type="range" min="1" max="500" step="1"
+                value="200"
+                class="w-full h-3 bg-slate-700 rounded-lg appearance-none cursor-pointer slider-thumb-red"
+            />
+            <div class="flex justify-between text-xs text-slate-500">
+                <span>Direct msg (1)</span>
+                <span>Mass Broadcast (500)</span>
+            </div>
+            <div class="bg-red-900/20 p-3 rounded border border-red-900/50 text-xs text-red-200">
+                <span class="block mb-1 text-red-300">Simulation Scenario:</span>
+                <p>
+                    You send a broadcast and <b id="burst-text-display">200 workers</b> reply at the exact same second.
+                    WhatsApp will timeout if not ACKed in ~15s.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulation Grid -->
+    <div id="plans-container" class="grid lg:grid-cols-3 gap-6">
+        <!-- Plans will be injected here by jQuery -->
+    </div>
+
+    <!-- Footer / Recommendation -->
+    <div class="mt-12 bg-slate-800 border-l-4 border-emerald-500 rounded-r-lg p-6 shadow-lg">
+        <h4 class="text-xl font-bold text-white mb-2">Architect's Recommendation</h4>
+        <div id="recommendation-text" class="text-slate-300 leading-relaxed">
+            <!-- Recommendation text injected here -->
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        // --- Constants & State ---
+        const EXECS_PER_SHIFT = 8;
+        const PROCESSING_TIME_PER_MSG = 3.0;
+        
+        const plans = {
+            starter: {
+                id: "starter",
+                name: "Cloud Starter",
+                price: 20,
+                execLimit: 2500,
+                concurrency: 5,
+                type: "cloud"
+            },
+            pro: {
+                id: "pro",
+                name: "Cloud Pro",
+                price: 50,
+                execLimit: 10000,
+                concurrency: 20,
+                type: "cloud"
+            },
+            self: {
+                id: "self",
+                name: "Self-Hosted (Queue Mode)",
+                price: 48,
+                execLimit: 999999999,
+                concurrency: 150,
+                type: "self"
+            }
+        };
+
+        // --- Initialization ---
+        function initPlans() {
+            const container = $('#plans-container');
+            container.empty();
+
+            Object.values(plans).forEach(plan => {
+                const isSelfHosted = plan.type === 'self';
+                const cardClass = isSelfHosted 
+                    ? 'border-emerald-500 bg-slate-800 shadow-2xl shadow-emerald-900/20 transform md:-translate-y-4' 
+                    : 'border-slate-700 bg-slate-800/60 opacity-90';
+                
+                const headerClass = isSelfHosted ? 'bg-emerald-900/20' : '';
+                const iconName = isSelfHosted ? 'server' : 'cloud';
+                const iconColor = isSelfHosted ? 'text-emerald-400' : 'text-blue-400';
+
+                const html = `
+                    <div id="plan-${plan.id}" class="relative overflow-hidden rounded-xl border-2 transition-all ${cardClass}">
+                        <!-- Header -->
+                        <div class="p-4 border-b border-slate-700/50 flex justify-between items-center ${headerClass}">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="${iconName}" class="${iconColor}" width="20" height="20"></i>
+                                <h3 class="font-bold text-white">${plan.name}</h3>
+                            </div>
+                            <span class="text-slate-400 font-mono text-sm">$${plan.price}/mo</span>
+                        </div>
+
+                        <!-- Stats Body -->
+                        <div class="p-5 space-y-6">
+                            
+                            <!-- Clearing Time -->
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-slate-400">Burst Clearing Time</span>
+                                    <span class="stat-time font-mono font-bold">0.0s</span>
+                                </div>
+                                <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                                    <div class="stat-progress-time h-full bg-emerald-500" style="width: 0%"></div>
+                                </div>
+                                <p class="stat-status text-xs mt-2 font-bold text-center border p-1 rounded">
+                                    Healthy
+                                </p>
+                            </div>
+
+                            <!-- Pipe Animation -->
+                            <div class="bg-slate-900 rounded-lg p-3 border border-slate-700/50">
+                                <div class="flex justify-between text-[10px] text-slate-500 uppercase tracking-wider mb-2">
+                                    <span>In Queue</span>
+                                    <span>Processing (${plan.concurrency} lanes)</span>
+                                </div>
+                                
+                                <div class="flex items-center gap-2">
+                                    <!-- Queue visualization -->
+                                    <div class="queue-vis flex-1 h-8 bg-slate-800 rounded relative overflow-hidden">
+                                        <!-- Dots injected via JS -->
+                                    </div>
+                                    
+                                    <!-- Gate -->
+                                    <div class="stat-gate w-1 h-8 bg-emerald-500"></div>
+                                    
+                                    <!-- Output -->
+                                    <div class="w-8 h-8 rounded bg-slate-800 border border-slate-600 flex items-center justify-center">
+                                        <span class="text-xs font-mono">${plan.concurrency}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Monthly Limit -->
+                            <div>
+                                <div class="flex justify-between text-xs mb-1 text-slate-400">
+                                    <span>Monthly Limit</span>
+                                    <span class="stat-limit-text">0% Used</span>
+                                </div>
+                                <div class="h-1 bg-slate-700 rounded-full overflow-hidden">
+                                    <div class="stat-progress-limit h-full bg-blue-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                `;
+                container.append(html);
+            });
+            
+            // Re-scan for new icons
+            lucide.createIcons();
+        }
+
+        // --- Core Logic ---
+        function updateSimulation() {
+            const shiftsPerMonth = parseInt($('#shifts-slider').val());
+            const burstTraffic = parseInt($('#burst-slider').val());
+
+            // Update Input Displays
+            $('#shifts-display').text(shiftsPerMonth);
+            $('#burst-display').text(burstTraffic);
+            $('#burst-text-display').text(burstTraffic + " workers");
+            
+            const totalExecs = shiftsPerMonth * EXECS_PER_SHIFT;
+            $('#total-execs-display').text(totalExecs.toLocaleString() + " / mo");
+
+            // Update Plans
+            Object.values(plans).forEach(plan => {
+                const $el = $(`#plan-${plan.id}`);
+                
+                // Calculations
+                const batches = Math.ceil(burstTraffic / plan.concurrency);
+                const timeToClear = batches * PROCESSING_TIME_PER_MSG;
+                
+                // Status Logic
+                let status = "Healthy";
+                let statusClass = "border-emerald-900 bg-emerald-900/20 text-emerald-400";
+                let timeColor = "text-emerald-400";
+                let progressColor = "bg-emerald-500";
+                let isFail = false;
+
+                if (totalExecs > plan.execLimit) {
+                    status = "Monthly Limit Exceeded";
+                    statusClass = "border-red-900 bg-red-900/20 text-red-500";
+                    isFail = true;
+                } else if (timeToClear > 15) {
+                    status = "CRITICAL FAIL (Timeout)";
+                    statusClass = "border-red-900 bg-red-900/20 text-red-500 font-bold";
+                    timeColor = "text-red-500";
+                    progressColor = "bg-red-500";
+                    isFail = true;
+                } else if (timeToClear > 5) {
+                    status = "High Latency (Lag)";
+                    statusClass = "border-yellow-900 bg-yellow-900/20 text-yellow-400";
+                    timeColor = "text-yellow-400";
+                }
+
+                // Apply Updates to DOM
+                
+                // 1. Time & Status
+                $el.find('.stat-time').text(timeToClear.toFixed(1) + 's').attr('class', `stat-time font-mono font-bold ${timeColor}`);
+                $el.find('.stat-status').text(status).attr('class', `stat-status text-xs mt-2 font-bold text-center border p-1 rounded ${statusClass}`);
+                
+                // 2. Time Progress Bar
+                const timePct = Math.min(100, (15 / timeToClear) * 100);
+                $el.find('.stat-progress-time').css('width', `${timePct}%`).attr('class', `stat-progress-time h-full ${progressColor}`);
+
+                // 3. Gate Color
+                const gateColor = timeToClear > 15 ? 'bg-red-600' : 'bg-emerald-500';
+                $el.find('.stat-gate').attr('class', `stat-gate w-1 h-8 ${gateColor}`);
+
+                // 4. Queue Visuals (Dots)
+                const $queue = $el.find('.queue-vis');
+                $queue.empty();
+                
+                const dotCount = Math.min(20, burstTraffic);
+                for (let i = 0; i < dotCount; i++) {
+                    const delay = i * 0.1;
+                    const dotClass = timeToClear > 15 
+                        ? 'bg-red-500 shadow-lg shadow-red-500/50' 
+                        : 'bg-blue-400 dot-pulse'; // dot-pulse defined in CSS
+                    
+                    // Simple animation reset trick not easily available in vanilla CSS without classes, 
+                    // relying on CSS animation 'pulse'
+                    const style = `left: ${i * 8}px; animation-delay: ${delay}s; animation-name: ${timeToClear > 15 ? 'none' : 'pulse'}`;
+                    
+                    const dot = $(`<div class="absolute top-2 w-4 h-4 rounded-full transition-all duration-1000 ${dotClass}" style="${style}"></div>`);
+                    $queue.append(dot);
+                }
+
+                // 5. Monthly Limit
+                const limitPct = Math.min(100, (totalExecs / plan.execLimit) * 100);
+                const limitColor = totalExecs > plan.execLimit ? 'bg-red-500' : 'bg-blue-500';
+                $el.find('.stat-limit-text').text(`${limitPct.toFixed(0)}% Used`);
+                $el.find('.stat-progress-limit').css('width', `${limitPct}%`).attr('class', `stat-progress-limit h-full ${limitColor}`);
+            });
+
+            // Recommendation Logic
+            const recContainer = $('#recommendation-text');
+            if (burstTraffic > 20) {
+                const selfTime = (burstTraffic * 3 / 150).toFixed(1);
+                recContainer.html(`
+                    <span>
+                        ⚠️ <b>Warning:</b> With a burst of <b>${burstTraffic} messages</b>, the Standard Cloud plans will fail. 
+                        The messages will queue up, exceed the 15s timeout, and trigger WhatsApp retries (a "retry storm"). 
+                        <br/><br/>
+                        <span class="text-emerald-400 font-bold">Recommended:</span> You strictly need a 
+                        <b> Self-Hosted (Queue Mode)</b> setup. A $48/mo VPS (4 vCPU / 8GB RAM) can safely clear this burst in 
+                        <b>~${selfTime} seconds</b>.
+                    </span>
+                `);
+            } else {
+                recContainer.html(`
+                    <span>
+                        ✅ <b>Safe Zone:</b> Your burst traffic is low enough for <b>Cloud Pro</b>. 
+                        You do not need to manage your own server yet, provided you stay under the 10,000 monthly execution limit.
+                    </span>
+                `);
+            }
+        }
+
+        // --- Event Listeners ---
+        $('#shifts-slider, #burst-slider').on('input', updateSimulation);
+
+        // --- Start ---
+        initPlans();
+        updateSimulation();
+    });
+</script>
+
+</body>
+</html>
