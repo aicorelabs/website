@@ -3,360 +3,976 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>n8n Concurrency Calculator & Simulator</title>
-    
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons (Vanilla) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
+    <title>n8n - whatsapp Capacity Calculator - Real-Time Shift Matching at Scale</title>
     <style>
-        body { background-color: #0f172a; color: #e2e8f0; font-family: 'Inter', sans-serif; }
-        .slider-thumb::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; background: #10b981; border-radius: 50%; cursor: pointer; }
-        .slider-thumb-red::-webkit-slider-thumb { background: #ef4444; }
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Sora:wght@300;400;600;700&display=swap');
         
-        /* Animation classes need to be defined here since we'll add them dynamically */
-        .dot-pulse {
-            animation: pulse 1s infinite;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: .5; transform: scale(0.9); }
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-card: #141824;
+            --bg-input: #1a1f2e;
+            --accent-primary: #00ff88;
+            --accent-secondary: #00ccff;
+            --accent-warning: #ffaa00;
+            --accent-danger: #ff4444;
+            --text-primary: #ffffff;
+            --text-secondary: #8b92a7;
+            --text-muted: #4a5568;
+            --border: #2d3748;
+            --shadow: rgba(0, 255, 136, 0.1);
+        }
+        
+        body {
+            font-family: 'Sora', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 204, 255, 0.05) 0%, transparent 50%);
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+        
+        .card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+        
+        .input-group {
+            margin-bottom: 2rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-input);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+        }
+        
+        .select-input {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-input);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: 'Sora', sans-serif;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .select-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+        }
+        
+        /* Slider Styles */
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: var(--bg-input);
+            outline: none;
+            -webkit-appearance: none;
+            margin: 1rem 0;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            transition: all 0.2s ease;
+        }
+        
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            transition: all 0.2s ease;
+        }
+        
+        .slider::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+        }
+        
+        .value-display {
+            float: right;
+            background: var(--accent-primary);
+            color: var(--bg-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .example {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(0, 255, 136, 0.05);
+            border-left: 2px solid var(--accent-primary);
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        /* Formula Visualization */
+        .formula-section {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(0, 204, 255, 0.05));
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .formula-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-secondary);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .formula-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .formula-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .formula-label {
+            flex: 1;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+        
+        .formula-calc {
+            flex: 2;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            padding: 0.75rem;
+            background: var(--bg-input);
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+        
+        .formula-result {
+            flex: 1;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            text-align: right;
+        }
+        
+        .formula-arrow {
+            text-align: center;
+            color: var(--accent-secondary);
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+        }
+        
+        .help-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .metric {
+            background: var(--bg-input);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .metric:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+        
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-primary);
+        }
+        
+        .metric-unit {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-left: 0.5rem;
+        }
+        
+        .plan-comparison {
+            margin-top: 2rem;
+        }
+        
+        .plan-card {
+            background: var(--bg-input);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .plan-card.recommended {
+            border-color: var(--accent-primary);
+            background: rgba(0, 255, 136, 0.05);
+        }
+        
+        .plan-card.warning {
+            border-color: var(--accent-warning);
+            background: rgba(255, 170, 0, 0.05);
+        }
+        
+        .plan-card.danger {
+            border-color: var(--accent-danger);
+            background: rgba(255, 68, 68, 0.05);
+        }
+        
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .plan-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .plan-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .plan-badge.recommended {
+            background: var(--accent-primary);
+            color: var(--bg-dark);
+        }
+        
+        .plan-badge.warning {
+            background: var(--accent-warning);
+            color: var(--bg-dark);
+        }
+        
+        .plan-badge.danger {
+            background: var(--accent-danger);
+            color: var(--text-primary);
+        }
+        
+        .plan-specs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .spec {
+            text-align: center;
+        }
+        
+        .spec-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+        
+        .spec-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+        }
+        
+        .utilization-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-dark);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+        
+        .utilization-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transition: width 0.5s ease;
+        }
+        
+        .utilization-fill.warning {
+            background: linear-gradient(90deg, var(--accent-warning), var(--accent-danger));
+        }
+        
+        .utilization-fill.danger {
+            background: var(--accent-danger);
+        }
+        
+        .cost-summary {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 204, 255, 0.1));
+            border: 2px solid var(--accent-primary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .cost-row:last-child {
+            border-bottom: none;
+            padding-top: 1.5rem;
+            margin-top: 0.5rem;
+            border-top: 2px solid var(--accent-primary);
+        }
+        
+        .cost-label {
+            color: var(--text-secondary);
+        }
+        
+        .cost-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .assumptions {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(139, 146, 167, 0.05);
+            border-left: 4px solid var(--accent-secondary);
+            border-radius: 4px;
+        }
+        
+        .assumptions h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--accent-secondary);
+        }
+        
+        .assumptions ul {
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .assumptions li {
+            padding: 0.25rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .assumptions li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-secondary);
+        }
+        
+        @media (max-width: 1200px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .metric-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .plan-specs {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-
-<div class="max-w-6xl mx-auto p-4 md:p-8">
-    
-    <!-- Hero Header -->
-    <header class="text-center mb-12">
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-            <i data-lucide="activity" class="w-10 h-10 text-emerald-400"></i>
-            <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">
-                n8n Concurrency Calculator
-            </span>
-        </h1>
-        <p class="text-slate-400 text-lg max-w-2xl mx-auto">
-            Simulate how your AI architecture handles traffic spikes. 
-            Don't let your agents crash during a shift broadcast.
-        </p>
-    </header>
-
-    <!-- Input Panel -->
-    <div class="grid md:grid-cols-2 gap-8 mb-12 bg-slate-800/50 p-6 rounded-2xl border border-slate-700 shadow-xl">
+    <div class="container">
+        <header>
+            <h1>n8n - whatsapp Capacity Calculator</h1>
+            <p class="subtitle">Real-time shift matching at Uber scale — Calculate your infrastructure needs</p>
+        </header>
         
-        <!-- Shift Volume Slider -->
-        <div class="space-y-4">
-            <div class="flex justify-between items-end">
-                <label class="text-slate-300 font-semibold flex items-center gap-2">
-                    <i data-lucide="database" class="w-4 h-4 text-blue-400"></i>
-                    Monthly Shifts
-                </label>
-                <span id="shifts-display" class="text-2xl font-bold text-white">150</span>
-            </div>
-            <input 
-                id="shifts-slider"
-                type="range" min="10" max="2000" step="10"
-                value="150"
-                class="w-full h-3 bg-slate-700 rounded-lg appearance-none cursor-pointer slider-thumb"
-            />
-            <div class="flex justify-between text-xs text-slate-500">
-                <span>Small Biz (10)</span>
-                <span>Enterprise (2000)</span>
-            </div>
-            <div class="bg-slate-900/50 p-3 rounded border border-slate-700 text-xs text-slate-400">
-                <span class="block mb-1 text-slate-300">Est. Workflow Executions:</span>
-                <span id="total-execs-display" class="text-emerald-400 font-mono text-lg">1,200 / mo</span>
-                <span class="block mt-1 text-[10px] opacity-70">(Based on 8 execs per shift cycle)</span>
-            </div>
-        </div>
-
-        <!-- Burst Traffic Slider -->
-        <div class="space-y-4">
-            <div class="flex justify-between items-end">
-                <label class="text-slate-300 font-semibold flex items-center gap-2">
-                    <i data-lucide="zap" class="w-4 h-4 text-yellow-400"></i>
-                    Burst Size (Concurrent Msgs)
-                </label>
-                <span id="burst-display" class="text-2xl font-bold text-red-400">200</span>
-            </div>
-            <input 
-                id="burst-slider"
-                type="range" min="1" max="500" step="1"
-                value="200"
-                class="w-full h-3 bg-slate-700 rounded-lg appearance-none cursor-pointer slider-thumb-red"
-            />
-            <div class="flex justify-between text-xs text-slate-500">
-                <span>Direct msg (1)</span>
-                <span>Mass Broadcast (500)</span>
-            </div>
-            <div class="bg-red-900/20 p-3 rounded border border-red-900/50 text-xs text-red-200">
-                <span class="block mb-1 text-red-300">Simulation Scenario:</span>
-                <p>
-                    You send a broadcast and <b id="burst-text-display">200 workers</b> reply at the exact same second.
-                    WhatsApp will timeout if not ACKed in ~15s.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Simulation Grid -->
-    <div id="plans-container" class="grid lg:grid-cols-3 gap-6">
-        <!-- Plans will be injected here by jQuery -->
-    </div>
-
-    <!-- Footer / Recommendation -->
-    <div class="mt-12 bg-slate-800 border-l-4 border-emerald-500 rounded-r-lg p-6 shadow-lg">
-        <h4 class="text-xl font-bold text-white mb-2">Architect's Recommendation</h4>
-        <div id="recommendation-text" class="text-slate-300 leading-relaxed">
-            <!-- Recommendation text injected here -->
-        </div>
-    </div>
-
-</div>
-
-<script>
-    $(document).ready(function() {
-        // --- Constants & State ---
-        const EXECS_PER_SHIFT = 8;
-        const PROCESSING_TIME_PER_MSG = 3.0;
-        
-        const plans = {
-            starter: {
-                id: "starter",
-                name: "Cloud Starter",
-                price: 20,
-                execLimit: 2500,
-                concurrency: 5,
-                type: "cloud"
-            },
-            pro: {
-                id: "pro",
-                name: "Cloud Pro",
-                price: 50,
-                execLimit: 10000,
-                concurrency: 20,
-                type: "cloud"
-            },
-            self: {
-                id: "self",
-                name: "Self-Hosted (Queue Mode)",
-                price: 48,
-                execLimit: 999999999,
-                concurrency: 150,
-                type: "self"
-            }
-        };
-
-        // --- Initialization ---
-        function initPlans() {
-            const container = $('#plans-container');
-            container.empty();
-
-            Object.values(plans).forEach(plan => {
-                const isSelfHosted = plan.type === 'self';
-                const cardClass = isSelfHosted 
-                    ? 'border-emerald-500 bg-slate-800 shadow-2xl shadow-emerald-900/20 transform md:-translate-y-4' 
-                    : 'border-slate-700 bg-slate-800/60 opacity-90';
+        <div class="grid">
+            <!-- Input Panel -->
+            <div class="card">
+                <h2>Input Parameters</h2>
                 
-                const headerClass = isSelfHosted ? 'bg-emerald-900/20' : '';
-                const iconName = isSelfHosted ? 'server' : 'cloud';
-                const iconColor = isSelfHosted ? 'text-emerald-400' : 'text-blue-400';
-
-                const html = `
-                    <div id="plan-${plan.id}" class="relative overflow-hidden rounded-xl border-2 transition-all ${cardClass}">
-                        <!-- Header -->
-                        <div class="p-4 border-b border-slate-700/50 flex justify-between items-center ${headerClass}">
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="${iconName}" class="${iconColor}" width="20" height="20"></i>
-                                <h3 class="font-bold text-white">${plan.name}</h3>
-                            </div>
-                            <span class="text-slate-400 font-mono text-sm">$${plan.price}/mo</span>
+                <div class="input-group">
+                    <label for="concurrent">
+                        Concurrent Conversations
+                        <span class="value-display" id="concurrentValue">20</span>
+                    </label>
+                    <input type="range" id="concurrent" value="20" min="5" max="500" step="5" class="slider">
+                    <div class="help-text">
+                        <strong>What this means:</strong> How many users are actively messaging your platform at the same time (per second). Like Uber showing "500 riders nearby" - this is your real-time load.
+                        <div class="example">Example: 20 = Small market, 100 = Medium city, 500 = Major metro</div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="conversion">
+                        Shift Conversion Rate
+                        <span class="value-display" id="conversionValue">30%</span>
+                    </label>
+                    <input type="range" id="conversion" value="30" min="10" max="80" step="5" class="slider">
+                    <div class="help-text">
+                        <strong>What this means:</strong> Percentage of conversations that end with a successful shift match. Not every chat results in a booking - this accounts for browsing, questions, and failed matches.
+                        <div class="example">Example: 30% = 3 out of 10 conversations book a shift</div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="aiTime">
+                        AI Processing Time
+                        <span class="value-display" id="aiTimeValue">3.0s</span>
+                    </label>
+                    <input type="range" id="aiTime" value="3" min="1" max="15" step="0.5" class="slider">
+                    <div class="help-text">
+                        <strong>What this means:</strong> How long each AI call takes to understand and respond to a message. Faster = more throughput.
+                        <div class="example">GPT-3.5 Turbo: 2-3s | GPT-4: 8-12s | Local models: 10-15s</div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="peakHours">
+                        Peak Hours per Day
+                        <span class="value-display" id="peakHoursValue">4 hours</span>
+                    </label>
+                    <input type="range" id="peakHours" value="4" min="2" max="12" step="1" class="slider">
+                    <div class="help-text">
+                        <strong>What this means:</strong> How many hours per day you operate at maximum capacity. Typically morning rush (7-9am) and evening (5-7pm). Rest of day runs at 30% capacity.
+                        <div class="example">Example: 4 hours = Morning & evening peaks | 8 hours = Business hours | 12 hours = All day</div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="deployment">Deployment Type</label>
+                    <select id="deployment" class="select-input">
+                        <option value="cloud">n8n Cloud (Managed)</option>
+                        <option value="selfhosted">Self-Hosted (Docker)</option>
+                    </select>
+                    <div class="help-text">
+                        <strong>Cloud:</strong> Fully managed, no DevOps needed, higher cost
+                        <br><strong>Self-Hosted:</strong> More control, lower cost, requires technical setup
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results Panel -->
+            <div>
+                <!-- Formula Visualization -->
+                <div class="formula-section">
+                    <h2 class="formula-title">Mathematical Flow: Conversations → Shifts</h2>
+                    
+                    <div class="formula-flow">
+                        <div class="formula-step">
+                            <div class="formula-label">AI Calls/Min</div>
+                            <div class="formula-calc" id="formulaStep1">(C × 60) ÷ T</div>
+                            <div class="formula-result" id="resultStep1">400</div>
                         </div>
-
-                        <!-- Stats Body -->
-                        <div class="p-5 space-y-6">
-                            
-                            <!-- Clearing Time -->
-                            <div>
-                                <div class="flex justify-between text-sm mb-1">
-                                    <span class="text-slate-400">Burst Clearing Time</span>
-                                    <span class="stat-time font-mono font-bold">0.0s</span>
-                                </div>
-                                <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                                    <div class="stat-progress-time h-full bg-emerald-500" style="width: 0%"></div>
-                                </div>
-                                <p class="stat-status text-xs mt-2 font-bold text-center border p-1 rounded">
-                                    Healthy
-                                </p>
-                            </div>
-
-                            <!-- Pipe Animation -->
-                            <div class="bg-slate-900 rounded-lg p-3 border border-slate-700/50">
-                                <div class="flex justify-between text-[10px] text-slate-500 uppercase tracking-wider mb-2">
-                                    <span>In Queue</span>
-                                    <span>Processing (${plan.concurrency} lanes)</span>
-                                </div>
-                                
-                                <div class="flex items-center gap-2">
-                                    <!-- Queue visualization -->
-                                    <div class="queue-vis flex-1 h-8 bg-slate-800 rounded relative overflow-hidden">
-                                        <!-- Dots injected via JS -->
-                                    </div>
-                                    
-                                    <!-- Gate -->
-                                    <div class="stat-gate w-1 h-8 bg-emerald-500"></div>
-                                    
-                                    <!-- Output -->
-                                    <div class="w-8 h-8 rounded bg-slate-800 border border-slate-600 flex items-center justify-center">
-                                        <span class="text-xs font-mono">${plan.concurrency}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Monthly Limit -->
-                            <div>
-                                <div class="flex justify-between text-xs mb-1 text-slate-400">
-                                    <span>Monthly Limit</span>
-                                    <span class="stat-limit-text">0% Used</span>
-                                </div>
-                                <div class="h-1 bg-slate-700 rounded-full overflow-hidden">
-                                    <div class="stat-progress-limit h-full bg-blue-500" style="width: 0%"></div>
-                                </div>
-                            </div>
-
+                        
+                        <div class="formula-arrow">↓</div>
+                        
+                        <div class="formula-step">
+                            <div class="formula-label">Shifts/Min</div>
+                            <div class="formula-calc" id="formulaStep2">(AI_calls × R%) ÷ 4</div>
+                            <div class="formula-result" id="resultStep2">30</div>
+                        </div>
+                        
+                        <div class="formula-arrow">↓</div>
+                        
+                        <div class="formula-step">
+                            <div class="formula-label">Shifts/Hour</div>
+                            <div class="formula-calc" id="formulaStep3">Shifts/min × 60</div>
+                            <div class="formula-result" id="resultStep3">1,800</div>
+                        </div>
+                        
+                        <div class="formula-arrow">↓</div>
+                        
+                        <div class="formula-step">
+                            <div class="formula-label">Shifts/Day</div>
+                            <div class="formula-calc" id="formulaStep4">(S/h × Peak) + (S/h × 0.3 × OffPeak)</div>
+                            <div class="formula-result" id="resultStep4">18,000</div>
                         </div>
                     </div>
-                `;
-                container.append(html);
-            });
+                    
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(0, 204, 255, 0.05); border-radius: 8px; text-align: center;">
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                            Where: C = Concurrent, T = AI Time, R = Conversion Rate
+                        </div>
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--accent-secondary);">
+                            4 messages/shift average (post + responses + confirmations)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                <h2>Capacity Metrics</h2>
+                
+                <div class="metric-grid">
+                    <div class="metric">
+                        <div class="metric-label">Shifts per Minute</div>
+                        <div class="metric-value" id="shiftsPerMin">0</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div class="metric-label">Shifts per Hour</div>
+                        <div class="metric-value" id="shiftsPerHour">0</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div class="metric-label">Shifts per Day</div>
+                        <div class="metric-value" id="shiftsPerDay">0</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div class="metric-label">Monthly Volume</div>
+                        <div class="metric-value" id="shiftsPerMonth">0</div>
+                    </div>
+                </div>
+                
+                <div class="metric-grid">
+                    <div class="metric">
+                        <div class="metric-label">Messages per Minute</div>
+                        <div class="metric-value" id="messagesPerMin">0</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div class="metric-label">Daily Messages</div>
+                        <div class="metric-value" id="messagesPerDay">0</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div class="metric-label">AI Calls per Minute</div>
+                        <div class="metric-value" id="aiPerMin">0</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div class="metric-label">Daily AI Calls</div>
+                        <div class="metric-value" id="aiPerDay">0</div>
+                    </div>
+                </div>
+                
+                <!-- n8n Plan Comparison -->
+                <div class="plan-comparison">
+                    <h2 style="margin-bottom: 1.5rem;">n8n Plan Requirements</h2>
+                    
+                    <div id="planCards"></div>
+                </div>
+                
+                <!-- Cost Summary -->
+                <div class="cost-summary" id="costSummary"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Assumptions -->
+        <div class="assumptions">
+            <h3>Calculation Assumptions</h3>
+            <ul>
+                <li>Each conversation = 1 customer posting shift + worker responses</li>
+                <li>Average 3-5 workers respond per shift (wave-based matching)</li>
+                <li>Each message requires 1 AI call for intent detection</li>
+                <li>Peak hours run at 100% capacity, off-peak at 30%</li>
+                <li>n8n concurrency = 10 per worker (default setting)</li>
+                <li>WhatsApp rate limit: 80 msg/sec (upgradable to 1,000)</li>
+                <li>Each shift = ~6 total messages (post + responses + confirmations)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        const n8nPlans = {
+            cloud: [
+                {
+                    name: "Starter",
+                    executions: 2500,
+                    cost: 20,
+                    workers: 1,
+                    concurrency: 10,
+                    description: "Small team testing"
+                },
+                {
+                    name: "Pro",
+                    executions: 10000,
+                    cost: 50,
+                    workers: 1,
+                    concurrency: 10,
+                    description: "Growing business"
+                },
+                {
+                    name: "Business",
+                    executions: 100000,
+                    cost: 500,
+                    workers: 3,
+                    concurrency: 30,
+                    description: "High-volume operations"
+                },
+                {
+                    name: "Enterprise",
+                    executions: 1000000,
+                    cost: 2000,
+                    workers: 10,
+                    concurrency: 100,
+                    description: "Unlimited scale"
+                }
+            ],
+            selfhosted: [
+                {
+                    name: "Small (2 workers)",
+                    executions: 999999999,
+                    cost: 300,
+                    workers: 2,
+                    concurrency: 20,
+                    description: "2 CPU, 8GB RAM"
+                },
+                {
+                    name: "Medium (4 workers)",
+                    executions: 999999999,
+                    cost: 500,
+                    workers: 4,
+                    concurrency: 40,
+                    description: "4 CPU, 16GB RAM"
+                },
+                {
+                    name: "Large (10 workers)",
+                    executions: 999999999,
+                    cost: 900,
+                    workers: 10,
+                    concurrency: 100,
+                    description: "8 CPU, 32GB RAM"
+                },
+                {
+                    name: "XLarge (20 workers)",
+                    executions: 999999999,
+                    cost: 1500,
+                    workers: 20,
+                    concurrency: 200,
+                    description: "16 CPU, 64GB RAM"
+                }
+            ]
+        };
+        
+        function calculate() {
+            // Get inputs
+            const concurrent = parseInt(document.getElementById('concurrent').value) || 0;
+            const conversion = parseInt(document.getElementById('conversion').value) || 0;
+            const aiTime = parseFloat(document.getElementById('aiTime').value) || 0;
+            const peakHours = parseInt(document.getElementById('peakHours').value) || 0;
+            const deployment = document.getElementById('deployment').value;
             
-            // Re-scan for new icons
-            lucide.createIcons();
+            // Update value displays
+            document.getElementById('concurrentValue').textContent = concurrent;
+            document.getElementById('conversionValue').textContent = conversion + '%';
+            document.getElementById('aiTimeValue').textContent = aiTime.toFixed(1) + 's';
+            document.getElementById('peakHoursValue').textContent = peakHours + ' hours';
+            
+            // Calculate concurrent AI capacity needed
+            const concurrentAICalls = concurrent;
+            
+            // Step 1: Calculate AI calls per minute
+            const aiCallsPerMin = concurrent * 60 / aiTime;
+            
+            // Step 2: Calculate shifts per minute
+            const shiftsPerMin = (aiCallsPerMin * (conversion / 100)) / 4; // 4 AI calls per shift avg
+            
+            // Step 3: Calculate per hour
+            const shiftsPerHour = shiftsPerMin * 60;
+            
+            // Step 4: Calculate messages per minute
+            const messagesPerMin = concurrent * 60 / aiTime * 6; // 6 messages per shift total
+            
+            // Step 5: Daily calculation (peak hours at 100%, off-peak at 30%)
+            const offPeakHours = 24 - peakHours;
+            const shiftsPerDay = (shiftsPerHour * peakHours) + (shiftsPerHour * 0.3 * offPeakHours);
+            const messagesPerDay = (messagesPerMin * 60 * peakHours) + (messagesPerMin * 60 * 0.3 * offPeakHours);
+            const aiPerDay = messagesPerDay; // 1 AI call per message
+            
+            // Monthly
+            const shiftsPerMonth = shiftsPerDay * 30;
+            
+            // Update formula visualization
+            document.getElementById('formulaStep1').textContent = `(${concurrent} × 60) ÷ ${aiTime} = AI calls/min`;
+            document.getElementById('resultStep1').textContent = Math.round(aiCallsPerMin).toLocaleString();
+            
+            document.getElementById('formulaStep2').textContent = `(${Math.round(aiCallsPerMin).toLocaleString()} × ${conversion}%) ÷ 4 = shifts/min`;
+            document.getElementById('resultStep2').textContent = Math.round(shiftsPerMin).toLocaleString();
+            
+            document.getElementById('formulaStep3').textContent = `${Math.round(shiftsPerMin).toLocaleString()} × 60 = shifts/hour`;
+            document.getElementById('resultStep3').textContent = Math.round(shiftsPerHour).toLocaleString();
+            
+            document.getElementById('formulaStep4').textContent = `(${Math.round(shiftsPerHour).toLocaleString()} × ${peakHours}) + (${Math.round(shiftsPerHour).toLocaleString()} × 0.3 × ${offPeakHours})`;
+            document.getElementById('resultStep4').textContent = Math.round(shiftsPerDay).toLocaleString();
+            
+            // Update UI
+            document.getElementById('shiftsPerMin').textContent = Math.round(shiftsPerMin).toLocaleString();
+            document.getElementById('shiftsPerHour').textContent = Math.round(shiftsPerHour).toLocaleString();
+            document.getElementById('shiftsPerDay').textContent = Math.round(shiftsPerDay).toLocaleString();
+            document.getElementById('shiftsPerMonth').textContent = Math.round(shiftsPerMonth).toLocaleString();
+            document.getElementById('messagesPerMin').textContent = Math.round(messagesPerMin).toLocaleString();
+            document.getElementById('messagesPerDay').textContent = Math.round(messagesPerDay).toLocaleString();
+            document.getElementById('aiPerMin').textContent = Math.round(aiCallsPerMin).toLocaleString();
+            document.getElementById('aiPerDay').textContent = Math.round(aiPerDay).toLocaleString();
+            
+            // Calculate plan requirements
+            renderPlans(concurrentAICalls, messagesPerDay, deployment, aiPerDay);
         }
-
-        // --- Core Logic ---
-        function updateSimulation() {
-            const shiftsPerMonth = parseInt($('#shifts-slider').val());
-            const burstTraffic = parseInt($('#burst-slider').val());
-
-            // Update Input Displays
-            $('#shifts-display').text(shiftsPerMonth);
-            $('#burst-display').text(burstTraffic);
-            $('#burst-text-display').text(burstTraffic + " workers");
+        
+        function renderPlans(requiredConcurrency, messagesPerDay, deployment, aiPerDay) {
+            const plans = n8nPlans[deployment];
+            const planCardsContainer = document.getElementById('planCards');
+            planCardsContainer.innerHTML = '';
             
-            const totalExecs = shiftsPerMonth * EXECS_PER_SHIFT;
-            $('#total-execs-display').text(totalExecs.toLocaleString() + " / mo");
-
-            // Update Plans
-            Object.values(plans).forEach(plan => {
-                const $el = $(`#plan-${plan.id}`);
+            let recommendedPlan = null;
+            
+            plans.forEach(plan => {
+                const utilization = (requiredConcurrency / plan.concurrency) * 100;
+                const isCapable = plan.concurrency >= requiredConcurrency;
+                const isOptimal = utilization >= 30 && utilization <= 70;
                 
-                // Calculations
-                const batches = Math.ceil(burstTraffic / plan.concurrency);
-                const timeToClear = batches * PROCESSING_TIME_PER_MSG;
+                let status = 'danger';
+                let badge = 'Insufficient';
                 
-                // Status Logic
-                let status = "Healthy";
-                let statusClass = "border-emerald-900 bg-emerald-900/20 text-emerald-400";
-                let timeColor = "text-emerald-400";
-                let progressColor = "bg-emerald-500";
-                let isFail = false;
-
-                if (totalExecs > plan.execLimit) {
-                    status = "Monthly Limit Exceeded";
-                    statusClass = "border-red-900 bg-red-900/20 text-red-500";
-                    isFail = true;
-                } else if (timeToClear > 15) {
-                    status = "CRITICAL FAIL (Timeout)";
-                    statusClass = "border-red-900 bg-red-900/20 text-red-500 font-bold";
-                    timeColor = "text-red-500";
-                    progressColor = "bg-red-500";
-                    isFail = true;
-                } else if (timeToClear > 5) {
-                    status = "High Latency (Lag)";
-                    statusClass = "border-yellow-900 bg-yellow-900/20 text-yellow-400";
-                    timeColor = "text-yellow-400";
+                if (isCapable) {
+                    if (isOptimal) {
+                        status = 'recommended';
+                        badge = 'Recommended';
+                        if (!recommendedPlan) recommendedPlan = plan;
+                    } else if (utilization < 30) {
+                        status = 'warning';
+                        badge = 'Over-provisioned';
+                    } else if (utilization <= 90) {
+                        status = 'recommended';
+                        badge = 'Good Fit';
+                        if (!recommendedPlan) recommendedPlan = plan;
+                    } else {
+                        status = 'warning';
+                        badge = 'Near Capacity';
+                    }
                 }
-
-                // Apply Updates to DOM
                 
-                // 1. Time & Status
-                $el.find('.stat-time').text(timeToClear.toFixed(1) + 's').attr('class', `stat-time font-mono font-bold ${timeColor}`);
-                $el.find('.stat-status').text(status).attr('class', `stat-status text-xs mt-2 font-bold text-center border p-1 rounded ${statusClass}`);
-                
-                // 2. Time Progress Bar
-                const timePct = Math.min(100, (15 / timeToClear) * 100);
-                $el.find('.stat-progress-time').css('width', `${timePct}%`).attr('class', `stat-progress-time h-full ${progressColor}`);
-
-                // 3. Gate Color
-                const gateColor = timeToClear > 15 ? 'bg-red-600' : 'bg-emerald-500';
-                $el.find('.stat-gate').attr('class', `stat-gate w-1 h-8 ${gateColor}`);
-
-                // 4. Queue Visuals (Dots)
-                const $queue = $el.find('.queue-vis');
-                $queue.empty();
-                
-                const dotCount = Math.min(20, burstTraffic);
-                for (let i = 0; i < dotCount; i++) {
-                    const delay = i * 0.1;
-                    const dotClass = timeToClear > 15 
-                        ? 'bg-red-500 shadow-lg shadow-red-500/50' 
-                        : 'bg-blue-400 dot-pulse'; // dot-pulse defined in CSS
-                    
-                    // Simple animation reset trick not easily available in vanilla CSS without classes, 
-                    // relying on CSS animation 'pulse'
-                    const style = `left: ${i * 8}px; animation-delay: ${delay}s; animation-name: ${timeToClear > 15 ? 'none' : 'pulse'}`;
-                    
-                    const dot = $(`<div class="absolute top-2 w-4 h-4 rounded-full transition-all duration-1000 ${dotClass}" style="${style}"></div>`);
-                    $queue.append(dot);
-                }
-
-                // 5. Monthly Limit
-                const limitPct = Math.min(100, (totalExecs / plan.execLimit) * 100);
-                const limitColor = totalExecs > plan.execLimit ? 'bg-red-500' : 'bg-blue-500';
-                $el.find('.stat-limit-text').text(`${limitPct.toFixed(0)}% Used`);
-                $el.find('.stat-progress-limit').css('width', `${limitPct}%`).attr('class', `stat-progress-limit h-full ${limitColor}`);
+                const planCard = document.createElement('div');
+                planCard.className = `plan-card ${status}`;
+                planCard.innerHTML = `
+                    <div class="plan-header">
+                        <div class="plan-name">${plan.name}</div>
+                        <div class="plan-badge ${status}">${badge}</div>
+                    </div>
+                    <div style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem;">
+                        ${plan.description}
+                    </div>
+                    <div class="plan-specs">
+                        <div class="spec">
+                            <div class="spec-label">Workers</div>
+                            <div class="spec-value">${plan.workers}</div>
+                        </div>
+                        <div class="spec">
+                            <div class="spec-label">Concurrency</div>
+                            <div class="spec-value">${plan.concurrency}</div>
+                        </div>
+                        <div class="spec">
+                            <div class="spec-label">Monthly Cost</div>
+                            <div class="spec-value">$${plan.cost}</div>
+                        </div>
+                    </div>
+                    <div class="utilization-bar">
+                        <div class="utilization-fill ${utilization > 90 ? 'danger' : utilization > 70 ? 'warning' : ''}" 
+                             style="width: ${Math.min(100, utilization)}%"></div>
+                    </div>
+                    <div style="text-align: center; margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">
+                        Utilization: ${Math.round(utilization)}%
+                    </div>
+                `;
+                planCardsContainer.appendChild(planCard);
             });
-
-            // Recommendation Logic
-            const recContainer = $('#recommendation-text');
-            if (burstTraffic > 20) {
-                const selfTime = (burstTraffic * 3 / 150).toFixed(1);
-                recContainer.html(`
-                    <span>
-                        ⚠️ <b>Warning:</b> With a burst of <b>${burstTraffic} messages</b>, the Standard Cloud plans will fail. 
-                        The messages will queue up, exceed the 15s timeout, and trigger WhatsApp retries (a "retry storm"). 
-                        <br/><br/>
-                        <span class="text-emerald-400 font-bold">Recommended:</span> You strictly need a 
-                        <b> Self-Hosted (Queue Mode)</b> setup. A $48/mo VPS (4 vCPU / 8GB RAM) can safely clear this burst in 
-                        <b>~${selfTime} seconds</b>.
-                    </span>
-                `);
-            } else {
-                recContainer.html(`
-                    <span>
-                        ✅ <b>Safe Zone:</b> Your burst traffic is low enough for <b>Cloud Pro</b>. 
-                        You do not need to manage your own server yet, provided you stay under the 10,000 monthly execution limit.
-                    </span>
-                `);
+            
+            // Render cost summary
+            if (recommendedPlan) {
+                renderCostSummary(recommendedPlan, aiPerDay, messagesPerDay);
             }
         }
-
-        // --- Event Listeners ---
-        $('#shifts-slider, #burst-slider').on('input', updateSimulation);
-
-        // --- Start ---
-        initPlans();
-        updateSimulation();
-    });
-</script>
-
+        
+        function renderCostSummary(plan, aiPerDay, messagesPerDay) {
+            const costSummary = document.getElementById('costSummary');
+            
+            // Calculate costs
+            const n8nCost = plan.cost;
+            const aiCost = (aiPerDay * 30 * 0.002); // $0.002 per AI call (GPT-3.5)
+            const whatsappCost = (messagesPerDay * 30 * 0.008); // $0.008 per message
+            const infraCost = 150; // DB, Redis, hosting
+            const totalCost = n8nCost + aiCost + whatsappCost + infraCost;
+            
+            costSummary.innerHTML = `
+                <!-- <h2 style="margin-bottom: 1rem; color: var(--accent-primary);">Monthly Cost Estimate</h2>
+                <div class="cost-row">
+                    <div class="cost-label">n8n (${plan.name})</div>
+                    <div class="cost-value">$${n8nCost.toLocaleString()}</div>
+                </div>
+                <div class="cost-row">
+                    <div class="cost-label">OpenAI API (${(aiPerDay * 30).toLocaleString()} calls)</div>
+                    <div class="cost-value">$${Math.round(aiCost).toLocaleString()}</div>
+                </div>
+                <div class="cost-row">
+                    <div class="cost-label">WhatsApp API (${(messagesPerDay * 30).toLocaleString()} msgs)</div>
+                    <div class="cost-value">$${Math.round(whatsappCost).toLocaleString()}</div>
+                </div>
+                <div class="cost-row">
+                    <div class="cost-label">Infrastructure (DB, Redis, Hosting)</div>
+                    <div class="cost-value">$${infraCost}</div>
+                </div>
+                <div class="cost-row">
+                    <div class="cost-label" style="font-weight: 700; color: var(--text-primary);">Total Monthly Cost</div>
+                    <div class="cost-value" style="font-size: 1.5rem; color: var(--accent-primary);">$${Math.round(totalCost).toLocaleString()}</div>
+                </div> -->
+            `;
+        }
+        
+        // Event listeners - use 'input' for real-time slider updates
+        document.getElementById('concurrent').addEventListener('input', calculate);
+        document.getElementById('conversion').addEventListener('input', calculate);
+        document.getElementById('aiTime').addEventListener('input', calculate);
+        document.getElementById('peakHours').addEventListener('input', calculate);
+        document.getElementById('deployment').addEventListener('change', calculate);
+        
+        // Initial calculation
+        calculate();
+    </script>
 </body>
 </html>
