@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroChecklists Board | Zeffron</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0A0A0A;
+            --card-bg: #1A1A1A;
+            --text-primary: #E5E5E5;
+            --text-secondary: #A0A0A0;
+            --accent-blue: #0145F2;
+            --accent-green: #00C853;
+            --accent-purple: #AA00FF;
+            --accent-orange: #FF6D00;
+            --accent-pink: #FF0080;
+            --accent-teal: #00B8D4;
+            --border-color: #333;
+            --column-bg: #121212;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header {
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .board-container {
+            display: flex;
+            gap: 20px;
+            padding: 40px;
+            height: 100%;
+            overflow-x: auto;
+        }
+
+        .column {
+            background-color: var(--column-bg);
+            border-radius: 12px;
+            min-width: 320px;
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+            height: fit-content;
+            max-height: 100%;
+        }
+
+        .column-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Archivo', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .task-count {
+            background-color: var(--border-color);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            color: var(--text-primary);
+        }
+
+        .task-list {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            min-height: 100px;
+            /* Needed for dropping into empty columns */
+        }
+
+        .task-card {
+            background-color: var(--card-bg);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            cursor: grab;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+            user-select: none;
+        }
+
+        .task-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            background-color: #252525;
+        }
+
+        .task-card:active {
+            cursor: grabbing;
+        }
+
+        .task-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .tag-analytics {
+            background-color: rgba(1, 69, 242, 0.2);
+            color: #80A4FF;
+        }
+
+        .tag-strategy {
+            background-color: rgba(255, 109, 0, 0.2);
+            color: #FFB080;
+        }
+
+        .tag-seo {
+            background-color: rgba(0, 200, 83, 0.2);
+            color: #69F0AE;
+        }
+
+        .tag-content {
+            background-color: rgba(170, 0, 255, 0.2);
+            color: #D180FF;
+        }
+
+        .tag-ai {
+            background-color: rgba(255, 0, 128, 0.2);
+            color: #FF80BF;
+        }
+
+        .task-title {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .task-duration {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .task-duration::before {
+            content: '⏱';
+            font-size: 10px;
+        }
+
+        .task-id {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background-color: #1A1A1A;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transform: translateY(20px);
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            max-height: 85vh;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .modal-title {
+            font-family: 'Archivo', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .modal-body h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .modal-body h3:first-child {
+            margin-top: 0;
+        }
+
+        .modal-meta-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .meta-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .meta-value {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .modal-description ul {
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+
+        .modal-description li {
+            margin-bottom: 6px;
+        }
+
+        /* Drag and Drop Styles */
+        .dragging {
+            opacity: 0.5;
+            border: 1px dashed var(--accent-blue);
+        }
+
+        .drag-over {
+            background-color: rgba(1, 69, 242, 0.1);
+            border: 1px dashed var(--accent-blue);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>NeuroChecklists Board</h1>
+        <div style="font-family: 'JetBrains Mono'; font-size: 12px; color: var(--text-secondary);">Client View • Local
+            Mode</div>
+    </header>
+
+    <div class="board-container">
+        <!-- To Do Column -->
+        <div class="column" id="col-todo" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="column-header">
+                To Do <span class="task-count" id="count-todo">0</span>
+            </div>
+            <div class="task-list" id="todo-list">
+                <!-- Tasks will be injected here -->
+            </div>
+        </div>
+
+        <!-- In Progress Column -->
+        <div class="column" id="col-progress" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="column-header">
+                In Progress <span class="task-count" id="count-progress">0</span>
+            </div>
+            <div class="task-list" id="progress-list">
+                <!-- Tasks will be injected here -->
+            </div>
+        </div>
+
+        <!-- Review Column -->
+        <div class="column" id="col-review" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="column-header">
+                Review <span class="task-count" id="count-review">0</span>
+            </div>
+            <div class="task-list" id="review-list">
+                <!-- Tasks will be injected here -->
+            </div>
+        </div>
+
+        <!-- Done Column -->
+        <div class="column" id="col-done" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="column-header">
+                Done <span class="task-count" id="count-done">0</span>
+            </div>
+            <div class="task-list" id="done-list">
+                <!-- Tasks will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Details Modal -->
+    <div class="modal-overlay" id="task-modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-title" id="modal-title">Task Title</div>
+                <button class="close-modal" onclick="closeModal(event)">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-meta-row">
+                    <div class="meta-item">
+                        <span class="meta-label">Status</span>
+                        <span class="meta-value" id="modal-status">To Do</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Duration</span>
+                        <span class="meta-value" id="modal-duration">--</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Tag</span>
+                        <span class="meta-value" id="modal-tag">--</span>
+                    </div>
+                </div>
+
+                <h3>Description & Deliverables</h3>
+                <div class="modal-description" id="modal-description">
+                    <!-- Description injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // NeuroChecklists Project Data
+        const initialTasks = [
+            // Task 1: Analytics
+            {
+                id: 'NC-101',
+                title: 'PostHog Implementation',
+                tag: 'Analytics',
+                status: 'todo',
+                duration: '3 Days',
+                description: 'Complete integration of PostHog analytics.<br><br><strong>Deliverables:</strong><ul><li>Session Recordings & Heatmaps</li><li>Conversion Funnels & Surveys</li><li>Feature Flags & Event Tracking</li><li>User Paths & Autocapture</li></ul>'
+            },
+            {
+                id: 'NC-102',
+                title: 'Analytics Dashboard Setup',
+                tag: 'Analytics',
+                status: 'todo',
+                duration: '1 Day',
+                description: 'Consolidation of key metrics into a single view.<br>Custom report configuration for stakeholder access.'
+            },
+
+            // Task 2: Strategy
+            {
+                id: 'NC-201',
+                title: 'User Behavior Analysis',
+                tag: 'Strategy',
+                status: 'todo',
+                duration: '1 Day',
+                description: 'Analysis of collected data from Phase 1.<br><br><strong>Deliverables:</strong><ul><li>Identification of user behaviour trends</li><li>Drop-off point analysis</li><li>User journey mapping</li></ul>'
+            },
+
+            // Task 3: Search & Discoverability
+            {
+                id: 'NC-301',
+                title: 'Technical SEO Enhancements',
+                tag: 'SEO',
+                status: 'todo',
+                duration: '2 Days',
+                description: '<strong>Deliverables:</strong><ul><li>Meta Tag Optimisation</li><li>Semantic HTML structure</li><li>Social media excerpt optimisation (Open Graph, Twitter Cards)</li></ul>'
+            },
+            {
+                id: 'NC-302',
+                title: 'Homepage Content Optimization',
+                tag: 'SEO',
+                status: 'todo',
+                duration: '1 Day',
+                description: '<strong>Deliverables:</strong><ul><li>SERP-optimised homepage content</li><li>Clear value proposition and messaging</li><li>Improved call-to-action placement</li></ul>'
+            },
+            {
+                id: 'NC-303',
+                title: 'Most Popular Dynamic Section',
+                tag: 'SEO',
+                status: 'todo',
+                duration: '1 Day',
+                description: 'Dynamic "Most Popular" content section based on analytics from PostHog data.'
+            },
+            {
+                id: 'NC-304',
+                title: 'Multi-Audience Marketing Pages',
+                tag: 'SEO',
+                status: 'todo',
+                duration: '3 Days',
+                description: 'Development of targeted landing pages for:<br><ul><li>Students & Patients</li><li>Healthcare professionals</li><li>Lecturers and educators</li><li>Organisations and institutions</li></ul>'
+            },
+
+            // Task 4: Content
+            {
+                id: 'NC-401',
+                title: 'Blog/Podcast Transformation',
+                tag: 'Content',
+                status: 'todo',
+                duration: '1 Week',
+                description: '<strong>Deliverables:</strong><ul><li>Rename "Podcast" to "Blog"</li><li>Enhanced meta tags/descriptions</li><li>Image optimisation & accessibility</li><li>Improved layout & typography</li></ul>'
+            },
+
+            // Task 5: AI Layer
+            {
+                id: 'NC-501',
+                title: 'Graph RAG Implementation',
+                tag: 'AI',
+                status: 'todo',
+                duration: '1.5 Weeks',
+                description: 'AI chatbot interface for user queries.<br><br><strong>Deliverables:</strong><ul><li>Integration with existing platform data</li><li>NLP for medical/clinical content</li><li>Conversational interface</li></ul>'
+            },
+            {
+                id: 'NC-502',
+                title: 'Knowledge Base Integration',
+                tag: 'AI',
+                status: 'todo',
+                duration: '3 Days',
+                description: '<strong>Deliverables:</strong><ul><li>Connection to checklists, protocols, content</li><li>Contextual retrieval</li><li>Citation and source tracking</li></ul>'
+            },
+            {
+                id: 'NC-503',
+                title: 'User Testing & Refinement',
+                tag: 'AI',
+                status: 'todo',
+                duration: '2 Days',
+                description: '<strong>Deliverables:</strong><ul><li>Beta testing with select groups</li><li>Response accuracy validation</li><li>Interface optimisation</li></ul>'
+            }
+        ];
+
+        // Ensure we load new data structure. 
+        // Force refresh of tasks for this version update.
+        let tasks = initialTasks;
+
+        // Try to merge statuses if they exist in local storage, but preserve new descriptions
+        const savedTasks = JSON.parse(localStorage.getItem('neuro_tasks'));
+        if (savedTasks) {
+            tasks = tasks.map(t => {
+                const saved = savedTasks.find(s => s.id === t.id);
+                return saved ? { ...t, status: saved.status } : t;
+            });
+        }
+
+        function saveTasks() {
+            localStorage.setItem('neuro_tasks', JSON.stringify(tasks));
+            renderBoard();
+        }
+
+        function getTagClass(tag) {
+            switch (tag.toLowerCase()) {
+                case 'analytics': return 'tag-analytics';
+                case 'strategy': return 'tag-strategy';
+                case 'seo': return 'tag-seo';
+                case 'content': return 'tag-content';
+                case 'ai': return 'tag-ai';
+                default: return 'tag-dev';
+            }
+        }
+
+        function renderBoard() {
+            // Clear current lists
+            document.getElementById('todo-list').innerHTML = '';
+            document.getElementById('progress-list').innerHTML = '';
+            document.getElementById('review-list').innerHTML = '';
+            document.getElementById('done-list').innerHTML = '';
+
+            // Reset Counts
+            const counts = { todo: 0, progress: 0, review: 0, done: 0 };
+
+            tasks.forEach(task => {
+                const card = document.createElement('div');
+                card.className = 'task-card';
+                card.draggable = true;
+                card.id = task.id;
+
+                // Click to open modal
+                card.onclick = () => openModal(task.id);
+
+                card.innerHTML = `
+                    <span class="task-tag ${getTagClass(task.tag)}">${task.tag}</span>
+                    <div class="task-title">${task.title}</div>
+                    <div class="task-meta">
+                        <span class="task-id">${task.id}</span>
+                        <span class="task-duration">${task.duration || '--'}</span>
+                    </div>
+                `;
+
+                // Add drag events
+                card.addEventListener('dragstart', drag);
+
+                // Append to correct column
+                if (counts.hasOwnProperty(task.status)) {
+                    document.getElementById(`${task.status}-list`).appendChild(card);
+                    counts[task.status]++;
+                }
+            });
+
+            // Update Count UI
+            const setSafeContent = (id, text) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = text;
+            };
+
+            setSafeContent('count-todo', counts.todo);
+            setSafeContent('count-progress', counts.progress);
+            setSafeContent('count-review', counts.review);
+            setSafeContent('count-done', counts.done);
+        }
+
+        // Modal Functions
+        function openModal(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            document.getElementById('modal-title').textContent = task.title;
+            document.getElementById('modal-status').textContent = task.status.replace('-', ' ').toUpperCase();
+            document.getElementById('modal-duration').textContent = task.duration || '--';
+            document.getElementById('modal-tag').textContent = task.tag;
+            document.getElementById('modal-description').innerHTML = task.description || 'No description available.';
+
+            document.getElementById('task-modal').classList.add('active');
+        }
+
+        function closeModal(event) {
+            document.getElementById('task-modal').classList.remove('active');
+        }
+
+        // Drag and Drop Functions
+        function allowDrop(ev) {
+            ev.preventDefault();
+            const column = ev.currentTarget;
+            column.classList.add('drag-over');
+        }
+
+        // Remove drag-over styling when leaving or dropping
+        document.querySelectorAll('.column').forEach(col => {
+            col.addEventListener('dragleave', (e) => {
+                e.currentTarget.classList.remove('drag-over');
+            });
+            col.addEventListener('drop', (e) => {
+                e.currentTarget.classList.remove('drag-over');
+            });
+        });
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+            ev.target.classList.add('dragging');
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const taskId = ev.dataTransfer.getData("text");
+            const draggedElement = document.getElementById(taskId);
+
+            // Find the closest column parent
+            const column = ev.target.closest('.column');
+
+            if (column) {
+                const newStatus = column.id.replace('col-', ''); // col-todo -> todo
+
+                // Update Data
+                const taskIndex = tasks.findIndex(t => t.id === taskId);
+                if (taskIndex > -1) {
+                    tasks[taskIndex].status = newStatus;
+                    saveTasks(); // Re-renders the board
+                }
+            }
+
+            if (draggedElement) draggedElement.classList.remove('dragging');
+        }
+
+        // Initial Render
+        renderBoard();
+
+    </script>
+</body>
+
+</html>
