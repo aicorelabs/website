@@ -1,4 +1,16 @@
 User-agent: *
 Allow: /
+Disallow: /invoice.html
+Disallow: /jira.html
+Disallow: /alpha.html
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
 
 Sitemap: https://zeffron.ai/sitemap.xml
