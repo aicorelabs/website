@@ -8,6 +8,17 @@
         content="Insights, guides, and stories from Zeffron on AI development, software engineering, and building MVPs.">
     <meta name="ahrefs-site-verification" content="56868341b1860a29ed0c1b9d59d0bb9146cd0e258ffea4c656fbafae819513a4">
 
+    <!-- SEO / Social Meta Tags -->
+    <meta property="og:title" content="Blog | Zeffron - AI & Software Insights">
+    <meta property="og:description" content="Insights, guides, and stories from Zeffron on AI development, software engineering, and building MVPs.">
+    <meta property="og:image" content="https://zeffron.ai/assets/whatsapp.png">
+    <meta property="og:url" content="https://zeffron.ai/blog.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blog | Zeffron - AI & Software Insights">
+    <meta name="twitter:description" content="Insights, guides, and stories from Zeffron on AI development, software engineering, and building MVPs.">
+    <meta name="twitter:image" content="https://zeffron.ai/assets/whatsapp.png">
+
     <link rel="icon" type="image/png" href="./assets/Icons/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="./assets/Icons/favicon.svg" />
     <link rel="shortcut icon" href="./assets/Icons/favicon.ico" />
@@ -380,40 +391,8 @@
         <!-- Blog Posts Grid -->
         <section class="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Blog Post: WhatsApp and AI Agents -->
-                <article class="reveal stagger-1">
-                    <a href="blog/whatsapp-ai-agents.html"
-                        class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col">
-                        <div
-                            class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#90FFBD]/20 flex items-center justify-center relative overflow-hidden">
-                            <img src="./assets/whatsapp.png" alt="WhatsApp AI Agents"
-                                class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500 z-10" />
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span
-                                    class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono">
-                                    Future of AI
-                                </span>
-                            </div>
-                            <h3
-                                class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">
-                                The Next Phase of Application Interfaces Might Be WhatsApp and AI Agents
-                            </h3>
-                            <p class="text-[#A8A8A8] text-sm leading-relaxed mb-4 flex-1">
-                                Conversation-driven execution is replacing interface-driven software. The next phase
-                                might be WhatsApp powered by AI agents.
-                            </p>
-                            <div class="flex items-center justify-between text-xs text-[#666]">
-                                <span class="font-mono">Mar 6, 2026</span>
-                                <span>5 min read</span>
-                            </div>
-                        </div>
-                    </a>
-                </article>
-
                 <!-- Blog Post 1: Custom AI Solutions 2026 -->
-                <article class="reveal stagger-2">
+                <article class="reveal stagger-1">
                     <a href="blog/custom-ai-solutions-2026.html"
                         class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col">
                         <div
@@ -444,8 +423,40 @@
                     </a>
                 </article>
 
-                <!-- Blog Post 2: Let Your Users Build For You -->
+                <!-- Blog Post 2: WhatsApp and AI Agents -->
                 <article class="reveal stagger-2">
+                    <a href="blog/whatsapp-ai-agents.html"
+                        class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col">
+                        <div
+                            class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#90FFBD]/20 flex items-center justify-center relative overflow-hidden">
+                            <img src="./assets/whatsapp.png" alt="WhatsApp AI Agents"
+                                class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500 z-10" />
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span
+                                    class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono">
+                                    Future of AI
+                                </span>
+                            </div>
+                            <h3
+                                class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">
+                                The Next Phase of Application Interfaces Might Be WhatsApp and AI Agents
+                            </h3>
+                            <p class="text-[#A8A8A8] text-sm leading-relaxed mb-4 flex-1">
+                                Conversation-driven execution is replacing interface-driven software. The next phase
+                                might be WhatsApp powered by AI agents.
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-[#666]">
+                                <span class="font-mono">Mar 6, 2026</span>
+                                <span>5 min read</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Blog Post 3: Let Your Users Build For You -->
+                <article class="reveal stagger-3">
                     <a href="blog/let-your-users-build-for-you.html"
                         class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col">
                         <div
@@ -802,16 +813,22 @@
                 observer.observe(el);
             });
 
-            // Custom Cursor
+            // Custom Cursor - Fixed visibility
             const cursor = document.querySelector('.custom-cursor');
+            cursor.style.opacity = '0';
             let mouseX = 0;
             let mouseY = 0;
             let cursorX = 0;
             let cursorY = 0;
+            let hasMoved = false;
 
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
+                if (!hasMoved) {
+                    hasMoved = true;
+                    cursor.style.opacity = '1';
+                }
             });
 
             function animateCursor() {

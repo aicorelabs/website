@@ -1404,19 +1404,25 @@
                 observer.observe(el);
             });
 
-            // 5. Custom Cursor
+            // 5. Custom Cursor - Fixed visibility
             const cursor = document.querySelector('.custom-cursor');
+            cursor.style.opacity = '0';
             const cursorDot = document.querySelector('.cursor-dot');
             const cursorOutline = document.querySelector('.cursor-outline');
             let mouseX = 0;
             let mouseY = 0;
             let cursorX = 0;
             let cursorY = 0;
+            let hasMoved = false;
 
             // Track mouse position
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
+                if (!hasMoved) {
+                    hasMoved = true;
+                    cursor.style.opacity = '1';
+                }
             });
 
             // Smooth cursor following

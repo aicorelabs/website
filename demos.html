@@ -118,7 +118,6 @@
         }
         @keyframes ripple-animation { to { transform: scale(2); opacity: 0; } }
 
-    <style>
         @media (max-width: 768px) {
             .custom-cursor { display: none !important; }
             h1 { font-size: 2.25rem !important; line-height: 1.1; }
@@ -408,10 +407,25 @@
             }, observerOptions);
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            // Custom Cursor
+            // 5. Custom Cursor - Fixed visibility
             const cursor = document.querySelector('.custom-cursor');
-            let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
-            document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+            cursor.style.opacity = '0';
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            let mouseX = 0;
+            let mouseY = 0;
+            let cursorX = 0;
+            let cursorY = 0;
+            let hasMoved = false;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                if (!hasMoved) {
+                    hasMoved = true;
+                    cursor.style.opacity = '1';
+                }
+            });    
             function animateCursor() {
                 const speed = 0.15;
                 cursorX += (mouseX - cursorX) * speed;
