@@ -268,51 +268,7 @@
             opacity: 1 !important;
         }
 
-        /* Custom Cursor Styles */
-        .custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 20px;
-            height: 20px;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-        }
 
-        .cursor-dot {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 6px;
-            height: 6px;
-            background: white;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s;
-        }
-
-        .cursor-outline {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            border: 2px solid white;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s;
-        }
-
-        .custom-cursor.hover .cursor-dot {
-            width: 8px;
-            height: 8px;
-        }
-
-        .custom-cursor.hover .cursor-outline {
-            width: 32px;
-            height: 32px;
-        }
 
         /* Ripple Effect */
         .ripple {
@@ -459,11 +415,7 @@
         </nav>
     </div>
 
-    <!-- Custom Cursor -->
-    <div class="custom-cursor">
-        <div class="cursor-dot"></div>
-        <div class="cursor-outline"></div>
-    </div>
+
 
     <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#0A0A0A]/80 backdrop-blur-md">
@@ -1258,24 +1210,24 @@
 
             <div
                 class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#444]">
-                <div class="font-mono uppercase tracking-widest">Zeffron Systems © 2024</div>
+                <div class="font-mono uppercase tracking-widest">Zeffron Systems © 2026</div>
                 <div class="flex gap-6 items-center">
                     <a href="demos.html" class="text-[#888] hover:text-white transition-colors">Live Lab</a>
                     <a href="career.html" class="text-[#888] hover:text-white transition-colors">Careers</a>
                     <a href="blog.html" class="text-[#888] hover:text-white transition-colors">Blog</a>
                     <div class="w-px h-4 bg-white/10 mx-2 hidden sm:block"></div>
-                    <a href="https://x.com/zeffron_ai?s=21" target="_blank" rel="noopener noreferrer"
+                    <a href="https://x.com/zeffron_ai" target="_blank" rel="noopener noreferrer"
                         class="text-[#888] hover:text-[#0145F2] transition-colors" aria-label="Zeffron Twitter">
-                        <i data-lucide="twitter" class="w-4 h-4"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
                     </a>
-                    <a href="https://www.instagram.com/zeffron_ai_?igsh=MW16bHBmcTg2d2MxMg%3D%3D&utm_source=qr"
+                    <a href="https://www.instagram.com/zeffron_ai_"
                         target="_blank" rel="noopener noreferrer"
                         class="text-[#888] hover:text-[#0145F2] transition-colors" aria-label="Zeffron Instagram">
-                        <i data-lucide="instagram" class="w-4 h-4"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
                     </a>
                     <a href="https://www.linkedin.com/company/zeffron-ai/" target="_blank" rel="noopener noreferrer"
                         class="text-[#888] hover:text-[#0145F2] transition-colors" aria-label="Zeffron LinkedIn">
-                        <i data-lucide="linkedin" class="w-4 h-4"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                     </a>
                 </div>
             </div>
@@ -1404,44 +1356,11 @@
                 observer.observe(el);
             });
 
-            // 5. Custom Cursor
-            const cursor = document.querySelector('.custom-cursor');
-            const cursorDot = document.querySelector('.cursor-dot');
-            const cursorOutline = document.querySelector('.cursor-outline');
-            let mouseX = 0;
-            let mouseY = 0;
-            let cursorX = 0;
-            let cursorY = 0;
 
-            // Track mouse position
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            // Smooth cursor following
-            function animateCursor() {
-                const speed = 0.15;
-                cursorX += (mouseX - cursorX) * speed;
-                cursorY += (mouseY - cursorY) * speed;
-
-                cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            // Add hover effect for interactive elements
+            // Add ripple effect for interactive elements
             const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, [role="button"]');
 
             interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.classList.add('hover');
-                });
-
-                el.addEventListener('mouseleave', () => {
-                    cursor.classList.remove('hover');
-                });
-
                 // Add ripple effect on click for buttons
                 if (el.tagName === 'BUTTON' || el.tagName === 'A') {
                     el.addEventListener('click', function (e) {
