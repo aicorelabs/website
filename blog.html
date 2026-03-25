@@ -8,6 +8,17 @@
         content="Insights, guides, and stories from Zeffron on AI development, software engineering, and building MVPs.">
     <meta name="ahrefs-site-verification" content="56868341b1860a29ed0c1b9d59d0bb9146cd0e258ffea4c656fbafae819513a4">
 
+    <!-- SEO / Social Meta Tags -->
+    <meta property="og:title" content="Blog | Zeffron - AI & Software Insights">
+    <meta property="og:description" content="Insights, guides, and stories from Zeffron on AI development, software engineering, and building MVPs.">
+    <meta property="og:image" content="https://zeffron.ai/assets/whatsapp.png">
+    <meta property="og:url" content="https://zeffron.ai/blog.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blog | Zeffron - AI & Software Insights">
+    <meta name="twitter:description" content="Insights, guides, and stories from Zeffron on AI development, software engineering, and building MVPs.">
+    <meta name="twitter:image" content="https://zeffron.ai/assets/whatsapp.png">
+
     <link rel="icon" type="image/png" href="./assets/Icons/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="./assets/Icons/favicon.svg" />
     <link rel="shortcut icon" href="./assets/Icons/favicon.ico" />
@@ -170,50 +181,7 @@
             border-color: rgba(1, 69, 242, 0.5);
         }
 
-        .custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 20px;
-            height: 20px;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-        }
 
-        .cursor-dot {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 6px;
-            height: 6px;
-            background: white;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s;
-        }
-
-        .cursor-outline {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            border: 2px solid white;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s;
-        }
-
-        .custom-cursor.hover .cursor-dot {
-            width: 8px;
-            height: 8px;
-        }
-
-        .custom-cursor.hover .cursor-outline {
-            width: 32px;
-            height: 32px;
-        }
 
         @media (max-width: 768px) {
             .custom-cursor {
@@ -263,11 +231,7 @@
         </nav>
     </div>
 
-    <!-- Custom Cursor -->
-    <div class="custom-cursor">
-        <div class="cursor-dot"></div>
-        <div class="cursor-outline"></div>
-    </div>
+
 
     <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#0A0A0A]/80 backdrop-blur-md">
@@ -380,8 +344,44 @@
         <!-- Blog Posts Grid -->
         <section class="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Blog Post: WhatsApp and AI Agents -->
+                <!-- Blog Post 1: Let Your Users Build For You (LATEST) -->
                 <article class="reveal stagger-1">
+                    <a href="blog/let-your-users-build-for-you.html"
+                        class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col border border-[#0145F2]/30 shadow-[0_0_20px_rgba(1,69,242,0.1)]">
+                        <div
+                            class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center relative overflow-hidden">
+                            <img src="./assets/let-users-build-doc-image.png"
+                                alt="Let Your Users Build For You" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500" />
+                            <div class="absolute inset-0 bg-[#0145F2]/10 mix-blend-overlay"></div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col bg-[#0145F2]/5">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span
+                                    class="px-3 py-1 rounded-full bg-[#0145F2] text-white text-[10px] font-bold font-mono tracking-wider uppercase">
+                                    Featured / Latest
+                                </span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#888] text-xs font-mono">
+                                    Product Strategy
+                                </span>
+                            </div>
+                            <h3
+                                class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">
+                                Let Your Users Build For You
+                            </h3>
+                            <p class="text-[#A8A8A8] text-sm leading-relaxed mb-4 flex-1">
+                                The shift from predefined features to generative systems is here. Discover why the future belongs to products that turn users into builders.
+                            </p>
+                            <div class="flex items-center justify-between text-xs text-[#666]">
+                                <span class="font-mono">Mar 18, 2026</span>
+                                <span>8 min read</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Blog Post 2: WhatsApp and AI Agents -->
+                <article class="reveal stagger-2">
                     <a href="blog/whatsapp-ai-agents.html"
                         class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col">
                         <div
@@ -412,14 +412,14 @@
                     </a>
                 </article>
 
-                <!-- Blog Post 1: Custom AI Solutions 2026 -->
-                <article class="reveal stagger-2">
+                <!-- Blog Post 3: Custom AI Solutions 2026 -->
+                <article class="reveal stagger-3">
                     <a href="blog/custom-ai-solutions-2026.html"
                         class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col">
                         <div
                             class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center relative overflow-hidden">
                             <img src="./assets/Will AI Completely Wipe Out The Customer Services Profession_.png"
-                                alt="AI Future" class="w-full h-full object-cover opacity-80" />
+                                alt="AI Future" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" />
                         </div>
                         <div class="p-6 flex-1 flex flex-col">
                             <div class="flex items-center gap-3 mb-3">
@@ -444,32 +444,31 @@
                     </a>
                 </article>
 
-                <!-- Blog Post 2: Let Your Users Build For You -->
-                <article class="reveal stagger-2">
-                    <a href="blog/let-your-users-build-for-you.html"
+                <!-- Blog Post 4: AI MVP Development -->
+                <article class="reveal">
+                    <a href="blog/how-we-built-ai-mvp.html"
                         class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col">
                         <div
                             class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center relative overflow-hidden">
-                            <img src="./assets/let-users-build-doc-image.png"
-                                alt="Let Your Users Build For You" class="w-full h-full object-cover opacity-90" />
+                            <i data-lucide="brain" class="w-12 h-12 text-[#0145F2] opacity-50"></i>
                         </div>
                         <div class="p-6 flex-1 flex flex-col">
                             <div class="flex items-center gap-3 mb-3">
                                 <span
                                     class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono">
-                                    Product Strategy
+                                    AI & ML
                                 </span>
                             </div>
                             <h3
                                 class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">
-                                Let Your Users Build For You
+                                How We Built an AI-Powered MVP in 10 Days
                             </h3>
                             <p class="text-[#A8A8A8] text-sm leading-relaxed mb-4 flex-1">
-                                The shift from predefined features to generative systems is here. Discover why the future belongs to products that turn users into builders.
+                                A deep dive into the architecture, tools, and strategies that enable rapid AI product development without compromising quality.
                             </p>
                             <div class="flex items-center justify-between text-xs text-[#666]">
-                                <span class="font-mono">Mar 18, 2026</span>
-                                <span>8 min read</span>
+                                <span class="font-mono">Dec 15, 2024</span>
+                                <span>5 min read</span>
                             </div>
                         </div>
                     </a>
@@ -710,21 +709,24 @@
                     <div>
                         <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">About Zeffron</h4>
                         <p class="text-[#888] leading-relaxed max-w-md">
-                            Zeffron is a modern product & AI studio built for founders. We combine engineering
-                            excellence with rapid execution.
+                            Zeffron is a modern product & AI studio built for founders. We combine engineering excellence
+                            with rapid execution, delivering solutions that scale, impress investors, and give founders momentum.
                         </p>
                     </div>
-                    <div class="grid grid-cols-2 gap-8">
+                    <div class="grid grid-cols-3 gap-8">
                         <div>
                             <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">Contact</h4>
                             <p class="text-[#888] mb-2">hello@zeffron.ai</p>
                             <p class="text-[#888]">+44 (0) 121 555 0123</p>
                         </div>
                         <div>
+                            <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">Service Areas</h4>
+                            <p class="text-[#888]">Midlands England • Solihull • Wolverhampton • Coventry</p>
+                        </div>
+                        <div>
                             <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">Quick Links</h4>
                             <nav class="flex flex-col gap-2">
                                 <a href="index.html" class="text-[#888] hover:text-white transition-colors">Home</a>
-                                <a href="demos.html" class="text-[#888] hover:text-white transition-colors">Live Lab</a>
                                 <a href="demos.html" class="text-[#888] hover:text-white transition-colors">Live Lab</a>
                                 <a href="career.html" class="text-[#888] hover:text-white transition-colors">Careers</a>
                                 <a href="blog.html" class="text-[#888] hover:text-white transition-colors">Blog</a>
@@ -734,10 +736,25 @@
                 </div>
                 <div
                     class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#444]">
-                    <div class="font-mono uppercase tracking-widest">Zeffron Systems © 2024</div>
-                    <div class="flex gap-6">
-                        <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                        <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <div class="font-mono uppercase tracking-widest">Zeffron Systems © 2026</div>
+                    <div class="flex gap-6 items-center">
+                        <a href="demos.html" class="text-[#888] hover:text-white transition-colors">Live Lab</a>
+                        <a href="career.html" class="text-[#888] hover:text-white transition-colors">Careers</a>
+                        <a href="blog.html" class="text-[#888] hover:text-white transition-colors">Blog</a>
+                        <div class="w-px h-4 bg-white/10 mx-2 hidden sm:block"></div>
+                        <a href="https://x.com/zeffron_ai" target="_blank" rel="noopener noreferrer"
+                            class="text-[#888] hover:text-[#0145F2] transition-colors" aria-label="Zeffron Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/zeffron_ai_"
+                            target="_blank" rel="noopener noreferrer"
+                            class="text-[#888] hover:text-[#0145F2] transition-colors" aria-label="Zeffron Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/company/zeffron-ai/" target="_blank" rel="noopener noreferrer"
+                            class="text-[#888] hover:text-[#0145F2] transition-colors" aria-label="Zeffron LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -804,6 +821,8 @@
 
             // Custom Cursor
             const cursor = document.querySelector('.custom-cursor');
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
             let mouseX = 0;
             let mouseY = 0;
             let cursorX = 0;
