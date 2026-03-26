@@ -1,0 +1,13 @@
+{
+  "name": "zeffron-website",
+  "version": "1.0.0",
+  "description": "Zeffron AI & MVP Development Website",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo 'No build step needed for static site'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
