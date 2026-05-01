@@ -1,497 +1,249 @@
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI & Software Development Blog | Zeffron</title>
-    <meta name="description"
-        content="Insights, guides, and stories from Zeffron on AI development, software engineering, and building AI products.">
-    <meta name="ahrefs-site-verification" content="56868341b1860a29ed0c1b9d59d0bb9146cd0e258ffea4c656fbafae819513a4">
-    <link rel="canonical" href="https://zeffron.ai/blog.html" />
-
-    <!-- SEO / Social Meta Tags -->
-    <meta property="og:title" content="AI & Software Development Blog | Zeffron">
-    <meta property="og:description" content="Insights, guides, and stories from Zeffron on AI development, software engineering, and building AI products.">
-    <meta property="og:image" content="https://zeffron.ai/assets/whatsapp.png">
-    <meta property="og:url" content="https://zeffron.ai/blog.html">
-    <meta property="og:type" content="website">
+    <title>Blog — Engineering Intelligence for Founders | Zeffron</title>
+    <meta name="description" content="Strategic AI insights and technical engineering deep-dives from the Zeffron team.">
     
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="AI & Software Development Blog | Zeffron">
-    <meta name="twitter:description" content="Insights, guides, and stories from Zeffron on AI development, software engineering, and building AI products.">
-    <meta name="twitter:image" content="https://zeffron.ai/assets/whatsapp.png">
-
-    <!-- LocalBusiness JSON-LD -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Zeffron",
-      "image": "https://zeffron.ai/assets/PNG/Logo%20-%20White@2x.png",
-      "@id": "https://zeffron.ai",
-      "url": "https://zeffron.ai",
-      "telephone": "+441215550123",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "London",
-        "addressLocality": "London",
-        "addressRegion": "ENG",
-        "postalCode": "B1",
-        "addressCountry": "GB"
-      }
-    }
-    </script>
-
-    <link rel="icon" type="image/png" href="./assets/Icons/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="./assets/Icons/favicon.svg" />
-    <link rel="shortcut icon" href="./assets/Icons/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/Icons/apple-touch-icon.png" />
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        zeffron: '#0145F2',
+                        ink: '#070709',
+                        paper: '#F8F8F8',
+                        surface: '#0f0f13',
+                        surface2: '#17171c',
+                    },
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+
     <style>
-        body {
-            font-family: 'Magnetik', 'Archivo', 'Inter', sans-serif;
-            background-color: #0A0A0A;
-            color: #E5E5E5;
-            overflow-x: hidden;
+        .grid-bg {
+            background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
-
-        .font-mono {
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .glass-panel:hover {
-            border-color: rgba(1, 69, 242, 0.4);
-            background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 0 30px rgba(1, 69, 242, 0.1);
-        }
-
-        .text-gradient {
-            background: linear-gradient(to right, #FFFFFF, #A3A3A3);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .glow-point {
-            position: absolute;
-            width: 400px;
-            height: 400px;
+        .rv { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.2, 1, 0.2, 1); }
+        .rv.in { opacity: 1; transform: translateY(0); }
+        
+        /* Category Toggle Styles */
+        .category-tab.active {
             background: #0145F2;
-            filter: blur(150px);
-            opacity: 0.12;
-            z-index: -1;
-            border-radius: 50%;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px) scale(0.98);
-            filter: blur(10px);
-            transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
-            will-change: opacity, transform, filter;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            filter: blur(0);
-        }
-
-        .stagger-1 {
-            transition-delay: 100ms;
-        }
-
-        .stagger-2 {
-            transition-delay: 200ms;
-        }
-
-        .stagger-3 {
-            transition-delay: 300ms;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #0A0A0A;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #262626;
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #0145F2;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        *:focus-visible {
-            outline: 2px solid #0145F2;
-            outline-offset: 4px;
-            border-radius: 4px;
-        }
-
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 280px;
-            height: 100vh;
-            background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(20px);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 1000;
-            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 5rem 2rem 2rem;
-            overflow-y: auto;
-        }
-
-        .mobile-menu.active {
-            right: 0;
-        }
-
-        .mobile-menu-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .mobile-menu-backdrop.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .blog-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .blog-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .category-tag {
-            transition: all 0.2s ease;
-        }
-
-        .category-tag:hover {
-            background: rgba(1, 69, 242, 0.2);
-            border-color: rgba(1, 69, 242, 0.5);
-        }
-
-
-
-        @media (max-width: 768px) {
-            .custom-cursor {
-                display: none !important;
-            }
-
-            h1 {
-                font-size: 2.25rem !important;
-            }
-
-            h2 {
-                font-size: 1.875rem !important;
-            }
-        }
-
-        @media (hover: none) and (pointer: coarse) {
-            .custom-cursor {
-                display: none !important;
-            }
+            color: white;
+            border-color: #0145F2;
         }
     </style>
-    <script src="https://analytics.ahrefs.com/analytics.js" data-key="E7AH9GmSZB5rPAX14Of8Cg" async></script>
 </head>
 
-<body class="antialiased selection:bg-[#0145F2] selection:text-white">
+<body class="bg-ink text-white font-body antialiased selection:bg-zeffron selection:text-white">
 
-    <!-- Mobile Menu Backdrop -->
-    <div class="mobile-menu-backdrop" id="mobileBackdrop"></div>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu"
-            style="position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: white; cursor: pointer; padding: 0.5rem;">
-            <i data-lucide="x" class="w-6 h-6"></i>
-        </button>
-        <nav class="flex flex-col gap-6 text-lg">
-            <a href="index.html" class="text-white hover:text-[#0145F2] transition-colors">Home</a>
-            <a href="index.html#showcase" class="text-white hover:text-[#0145F2] transition-colors">Showcase</a>
-            <a href="index.html#services" class="text-white hover:text-[#0145F2] transition-colors">Services</a>
-            <a href="index.html#pricing" class="text-white hover:text-[#0145F2] transition-colors">Pricing</a>
-            <a href="demos.html" class="text-white hover:text-[#0145F2] transition-colors">Live Lab</a>
-            <a href="career.html" class="text-white hover:text-[#0145F2] transition-colors">Careers</a>
-            <a href="blog.html" class="text-[#0145F2] font-semibold transition-colors">Blog</a>
-            <a href="index.html#contact"
-                class="mt-4 px-6 py-3 bg-[#0145F2] text-white text-center rounded hover:bg-[#0039cc] transition-colors">Start
-                Building</a>
-        </nav>
-    </div>
-
-
-
-    <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#0A0A0A]/80 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="index.html" class="text-lg tracking-tighter font-semibold text-white flex items-center gap-2"
-                aria-label="Zeffron Home">
-                <img src="./assets/PNG/Logo - White@2x.png" alt="Zeffron Logo" class="h-8 sm:h-10 md:h-12" />
+    <!-- Navbar (Synced with V2) -->
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-ink/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="./assets/PNG/Logo - White@2x.png" alt="Zeffron Logo" class="h-6" />
             </a>
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-[#888]">
-                <a href="index.html#showcase" class="hover:text-white transition-colors duration-200">Showcase</a>
-                <a href="index.html#services" class="hover:text-white transition-colors duration-200">Services</a>
-                <a href="index.html#pricing" class="hover:text-white transition-colors duration-200">Pricing</a>
-                <a href="demos.html" class="hover:text-white transition-colors duration-200">Live Lab</a>
-                <a href="career.html" class="hover:text-white transition-colors duration-200">Careers</a>
-                <a href="blog.html" class="text-[#0145F2] border-[#0145F2]">Blog</a>
+
+            <div class="hidden md:flex items-center gap-10">
+                <a href="index.html#work" class="text-[11px] font-display font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-white transition-colors">Work</a>
+                <a href="index.html#services" class="text-[11px] font-display font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-white transition-colors">Services</a>
+                <a href="blog.html" class="text-[11px] font-display font-bold uppercase tracking-[0.2em] text-zeffron">Insights</a>
+                <a href="demos.html" class="text-[11px] font-display font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-white transition-colors">Live Lab</a>
+                <a href="index.html#contact" class="bg-white text-ink px-6 py-2.5 rounded-sm text-[11px] font-display font-bold uppercase tracking-[0.2em] hover:bg-zinc-200 transition-all">Start Building</a>
             </div>
-            <a href="index.html#contact"
-                class="hidden md:flex items-center gap-2 px-4 py-2 bg-white text-black text-xs font-semibold rounded hover:bg-[#E5E5E5] transition-all duration-200 tracking-tight">
-                Start Building
-                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </a>
-            <button class="md:hidden text-white" id="mobileMenuToggle" aria-label="Open menu">
-                <i data-lucide="menu" class="w-6 h-6"></i>
+
+            <button class="md:hidden text-white">
+                <span class="material-symbols-outlined">menu</span>
             </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <main id="main-content">
-        <section class="relative pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 overflow-hidden">
-            <div class="glow-point top-0 left-1/2 -translate-x-1/2"></div>
-            <div class="max-w-5xl mx-auto text-center">
-                <div
-                    class="reveal inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[#97B9CD] text-xs font-mono mb-8">
-                    <span class="relative flex h-2 w-2">
-                        <span
-                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0145F2] opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#0145F2]"></span>
-                    </span>
-                    INSIGHTS & UPDATES
+    <!-- Blog Hero -->
+    <main class="pt-40 pb-20">
+        <section class="max-w-7xl mx-auto px-6 md:px-10 mb-20">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-10">
+                <div class="max-w-2xl rv">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-8 h-px bg-zeffron"></div>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">Insights & Intelligence</span>
+                    </div>
+                    <h1 class="font-display text-5xl md:text-7xl font-extrabold text-white tracking-tighter leading-[0.9] mb-8">
+                        The Zeffron<br/>Intelligence <span class="text-zeffron">Report</span>
+                    </h1>
+                    <p class="text-zinc-500 text-lg font-light leading-relaxed">
+                        Deep-dives into AI engineering, founder strategy, and the products defining the 2026 tech landscape.
+                    </p>
                 </div>
-                <h1
-                    class="reveal stagger-1 text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight leading-[1.05] mb-6 text-white">
-                    The Zeffron <span class="text-gradient">Blog</span>
-                </h1>
-                <p
-                    class="reveal stagger-2 text-base sm:text-lg md:text-xl text-[#A8A8A8] max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-                    Insights on AI, software development, and building products that scale.
-                </p>
+
+                <!-- Category Switcher -->
+                <div class="flex bg-surface p-1 rounded-sm border border-white/5 rv">
+                    <button onclick="filterCategory('founders')" class="category-tab px-6 py-3 text-[10px] font-display font-bold uppercase tracking-widest text-zinc-500 hover:text-white transition-all rounded-sm border border-transparent" id="tab-founders">
+                        Insights for Founders
+                    </button>
+                    <button onclick="filterCategory('technical')" class="category-tab active px-6 py-3 text-[10px] font-display font-bold uppercase tracking-widest text-white transition-all rounded-sm border border-transparent" id="tab-technical">
+                        Insights for Technical Team
+                    </button>
+                </div>
             </div>
         </section>
 
-
-
-
-
-        <!-- Blog Posts Grid -->
-        <section class="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <!-- Blog Post 0.5: AI Adoption -->
-                <article class="reveal">
-                    <a href="blog/ai-adoption.html"
-                        class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col border border-white/10 bg-white/5">
-                        <div class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center overflow-hidden bg-[#111]">
-                            <img src="./assets/AI Adoption.jpeg" alt="AI Adoption" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500" />
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono">
-                                    AI Strategy
-                                </span>
-                            </div>
-                            <h3 class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors leading-tight">
-                                The AI Adoption Gap Nobody Wants to Talk About: Why the Threat Landscape Has Permanently Changed.
-                            </h3>
-                            <p class="text-[#888] text-sm leading-relaxed flex-1">
-                                Almost every organisation using AI today has a strategy for adopting it. Far fewer have a strategy for governing it.
-                            </p>
-                            <div class="flex items-center justify-between text-xs text-[#888] mt-6">
-                                <span class="font-mono">Apr 10, 2026</span>
-                                <span>8 min read</span>
-                            </div>
-                        </div>
+        <!-- Blog Grid -->
+        <section class="max-w-7xl mx-auto px-6 md:px-10 mb-40">
+            <div id="blog-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Blog Post 1 -->
+                <article class="blog-post flex flex-col group rv" data-category="technical">
+                    <a href="blog/ai-adoption.html" class="block aspect-video mb-6 overflow-hidden bg-surface border border-white/5 rounded-sm relative">
+                        <img src="./assets/AI Adoption.jpeg" alt="AI Adoption" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
                     </a>
+                    <div class="flex flex-col flex-grow">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="font-mono text-[8px] uppercase tracking-widest text-zeffron bg-zeffron/10 px-2 py-1 border border-zeffron/20">AI Strategy</span>
+                            <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-600">Apr 10, 2026</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white group-hover:text-zeffron transition-colors leading-tight mb-4">
+                            The AI Adoption Gap Nobody Wants to Talk About: Why the Threat Landscape Has Permanently Changed.
+                        </h3>
+                        <p class="text-zinc-500 text-[13px] leading-relaxed line-clamp-3 mb-6">
+                            Almost every organisation using AI today has a strategy for adopting it. Far fewer have a strategy for governing it.
+                        </p>
+                        <a href="blog/ai-adoption.html" class="mt-auto font-mono text-[10px] uppercase tracking-widest text-white hover:text-zeffron transition-colors flex items-center gap-2">
+                            Read Deep-Dive &rarr;
+                        </a>
+                    </div>
                 </article>
 
-
-                <!-- Blog Post 0: AI Stack Compromise -->
-                <article class="reveal">
-                    <a href="blog/ai-stack-compromise.html"
-                        class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col border border-white/10 bg-white/5">
-                        <div class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center overflow-hidden bg-[#111]">
-                            <img src="./assets/Blog%20V_125527.jpg.jpeg" alt="AI Compromise" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500" />
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono">
-                                    Cybersecurity
-                                </span>
-                            </div>
-                            <h3 class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors leading-tight">
-                                Why Nobody Is Talking About What Happens When the AI Stack Gets Compromised
-                            </h3>
-                            <p class="text-[#888] text-sm leading-relaxed flex-1">
-                                Two significant security incidents revealed that the infrastructure holding AI capability together is still fragile, under attack, and built with too much implicit trust.
-                            </p>
-                            <div class="flex items-center justify-between text-xs text-[#888] mt-6">
-                                <span class="font-mono">April 3, 2026</span>
-                                <span>8 min read</span>
-                            </div>
-                        </div>
+                <!-- Blog Post 2 -->
+                <article class="blog-post flex flex-col group rv" data-category="technical">
+                    <a href="blog/ai-stack-compromise.html" class="block aspect-video mb-6 overflow-hidden bg-surface border border-white/5 rounded-sm relative">
+                        <img src="./assets/Blog%20V_125527.jpg.jpeg" alt="AI Compromise" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
                     </a>
+                    <div class="flex flex-col flex-grow">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="font-mono text-[8px] uppercase tracking-widest text-zeffron bg-zeffron/10 px-2 py-1 border border-zeffron/20">Cybersecurity</span>
+                            <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-600">Apr 3, 2026</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white group-hover:text-zeffron transition-colors leading-tight mb-4">
+                            Why Nobody Is Talking About What Happens When the AI Stack Gets Compromised
+                        </h3>
+                        <p class="text-zinc-500 text-[13px] leading-relaxed line-clamp-3 mb-6">
+                            Two significant security incidents revealed that the infrastructure holding AI capability together is still fragile, under attack, and built with too much implicit trust.
+                        </p>
+                        <a href="blog/ai-stack-compromise.html" class="mt-auto font-mono text-[10px] uppercase tracking-widest text-white hover:text-zeffron transition-colors flex items-center gap-2">
+                            Read Deep-Dive &rarr;
+                        </a>
+                    </div>
                 </article>
 
-                <!-- Blog Post 1: 5 Signs Business Problem AI Fit -->
-                <article class="reveal">
-                    <a href="blog/5-signs-business-problem-ai-fit.html"
-                        class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col border border-white/10 bg-white/5">
-                        <div class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center overflow-hidden bg-[#111]">
-                            <img src="./assets/blog-5-signs-hero.jpg" alt="5 Signs your Business Problem is a perfect fit for an AI Solution" class="w-full h-full object-contain opacity-90 group-hover:scale-105 transition-transform duration-500" />
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono">
-                                    AI Strategy
-                                </span>
-                            </div>
-                            <h3 class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors leading-tight">
-                                5 Signs Your Business Problem Is a Perfect Fit for an AI Solution
-                            </h3>
-                            <p class="text-[#888] text-sm leading-relaxed flex-1">
-                                Before investing in AI, ask the right question. Here are 5 rigorous signs your business problem is a perfect candidate for an AI solution, and 3 warning signs it isn't.
-                            </p>
-                            <div class="flex items-center justify-between text-xs text-[#888] mt-6">
-                                <span class="font-mono">March 25, 2026</span>
-                                <span>10 min read</span>
-                            </div>
-                        </div>
+                <!-- Blog Post 3 -->
+                <article class="blog-post flex flex-col group rv" data-category="technical">
+                    <a href="blog/5-signs-business-problem-ai-fit.html" class="block aspect-video mb-6 overflow-hidden bg-surface border border-white/5 rounded-sm relative">
+                        <img src="./assets/blog-5-signs-hero.jpg" alt="AI Fit" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
                     </a>
+                    <div class="flex flex-col flex-grow">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="font-mono text-[8px] uppercase tracking-widest text-zeffron bg-zeffron/10 px-2 py-1 border border-zeffron/20">AI Strategy</span>
+                            <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-600">Mar 25, 2026</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white group-hover:text-zeffron transition-colors leading-tight mb-4">
+                            5 Signs Your Business Problem Is a Perfect Fit for an AI Solution
+                        </h3>
+                        <p class="text-zinc-500 text-[13px] leading-relaxed line-clamp-3 mb-6">
+                            Before investing in AI, ask the right question. Here are 5 rigorous signs your business problem is a perfect candidate for an AI solution.
+                        </p>
+                        <a href="blog/5-signs-business-problem-ai-fit.html" class="mt-auto font-mono text-[10px] uppercase tracking-widest text-white hover:text-zeffron transition-colors flex items-center gap-2">
+                            Read Deep-Dive &rarr;
+                        </a>
+                    </div>
                 </article>
 
-                <!-- Blog Post 2: Let Your Users Build For You -->
-                <article class="reveal stagger-1">
-                    <a href="blog/let-your-users-build-for-you.html"
-                        class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col border border-white/10 bg-white/5">
-                        <div
-                            class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center overflow-hidden relative">
-                            <img src="./assets/let-users-build-doc-image.png"
-                                alt="Let Your Users Build For You" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500" />
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span
-                                    class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono">
-                                    Product Strategy
-                                </span>
-                            </div>
-                            <h3
-                                class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">
-                                Let Your Users Build For You
-                            </h3>
-                            <p class="text-[#A8A8A8] text-sm leading-relaxed mb-4 flex-1">
-                                The shift from predefined features to generative systems is here. Discover why the future belongs to products that turn users into builders.
-                            </p>
-                            <div class="flex items-center justify-between text-xs text-[#888]">
-                                <span class="font-mono">Mar 18, 2026</span>
-                                <span>8 min read</span>
-                            </div>
-                        </div>
+                <!-- Blog Post 4 -->
+                <article class="blog-post flex flex-col group rv" data-category="technical">
+                    <a href="blog/let-your-users-build-for-you.html" class="block aspect-video mb-6 overflow-hidden bg-surface border border-white/5 rounded-sm relative">
+                        <img src="./assets/let-users-build-doc-image.png" alt="Users as Builders" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
                     </a>
+                    <div class="flex flex-col flex-grow">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="font-mono text-[8px] uppercase tracking-widest text-zeffron bg-zeffron/10 px-2 py-1 border border-zeffron/20">Product Strategy</span>
+                            <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-600">Mar 18, 2026</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white group-hover:text-zeffron transition-colors leading-tight mb-4">
+                            Let Your Users Build For You
+                        </h3>
+                        <p class="text-zinc-500 text-[13px] leading-relaxed line-clamp-3 mb-6">
+                            The shift from predefined features to generative systems is here. Discover why the future belongs to products that turn users into builders.
+                        </p>
+                        <a href="blog/let-your-users-build-for-you.html" class="mt-auto font-mono text-[10px] uppercase tracking-widest text-white hover:text-zeffron transition-colors flex items-center gap-2">
+                            Read Deep-Dive &rarr;
+                        </a>
+                    </div>
                 </article>
 
-                <!-- Blog Post 3: WhatsApp and AI Agents -->
-                <article class="reveal stagger-2">
-                    <a href="blog/whatsapp-ai-agents.html"
-                        class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col border border-white/10 bg-white/5">
-                        <div
-                            class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#90FFBD]/20 flex items-center justify-center relative overflow-hidden">
-                            <img src="./assets/whatsapp.png" alt="WhatsApp AI Agents"
-                                class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500 z-10" />
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span
-                                    class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono">
-                                    Future of AI
-                                </span>
-                            </div>
-                            <h3
-                                class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">
-                                The Next Phase of Application Interfaces Might Be WhatsApp and AI Agents
-                            </h3>
-                            <p class="text-[#A8A8A8] text-sm leading-relaxed mb-4 flex-1">
-                                Conversation-driven execution is replacing interface-driven software. The next phase
-                                might be WhatsApp powered by AI agents.
-                            </p>
-                            <div class="flex items-center justify-between text-xs text-[#888]">
-                                <span class="font-mono">Mar 6, 2026</span>
-                                <span>5 min read</span>
-                            </div>
-                        </div>
+                <!-- Blog Post 5 -->
+                <article class="blog-post flex flex-col group rv" data-category="technical">
+                    <a href="blog/whatsapp-ai-agents.html" class="block aspect-video mb-6 overflow-hidden bg-surface border border-white/5 rounded-sm relative">
+                        <img src="./assets/whatsapp.png" alt="WhatsApp AI" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
                     </a>
+                    <div class="flex flex-col flex-grow">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="font-mono text-[8px] uppercase tracking-widest text-zeffron bg-zeffron/10 px-2 py-1 border border-zeffron/20">Future of AI</span>
+                            <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-600">Mar 6, 2026</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white group-hover:text-zeffron transition-colors leading-tight mb-4">
+                            The Next Phase of Application Interfaces Might Be WhatsApp and AI Agents
+                        </h3>
+                        <p class="text-zinc-500 text-[13px] leading-relaxed line-clamp-3 mb-6">
+                            Conversation-driven execution is replacing interface-driven software. The next phase might be WhatsApp powered by AI agents.
+                        </p>
+                        <a href="blog/whatsapp-ai-agents.html" class="mt-auto font-mono text-[10px] uppercase tracking-widest text-white hover:text-zeffron transition-colors flex items-center gap-2">
+                            Read Deep-Dive &rarr;
+                        </a>
+                    </div>
                 </article>
 
-                <!-- Blog Post 4: Custom AI Solutions 2026 -->
-                <article class="reveal stagger-3">
-                    <a href="blog/custom-ai-solutions-2026.html"
-                        class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col border border-white/10 bg-white/5">
-                        <div
-                            class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center relative overflow-hidden">
-                            <img src="./assets/Will AI Completely Wipe Out The Customer Services Profession_.png"
-                                alt="AI Future" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" />
-                        </div>
-                        <div class="p-6 flex-1 flex flex-col">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span
-                                    class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono">
-                                    Future of AI
-                                </span>
-                            </div>
-                            <h3
-                                class="text-xl font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">
-                                How Custom AI Solutions Are Redefining Business Efficiency in 2026
-                            </h3>
-                            <p class="text-[#A8A8A8] text-sm leading-relaxed mb-4 flex-1">
-                                It's 2026, and AI is no longer just assistive—it's agentic. Discover how custom AI
-                                solutions are redefining business efficiency.
-                            </p>
-                            <div class="flex items-center justify-between text-xs text-[#888]">
-                                <span class="font-mono">Feb 13, 2026</span>
-                                <span>6 min read</span>
-                            </div>
-                        </div>
+                <!-- Blog Post 6 -->
+                <article class="blog-post flex flex-col group rv" data-category="technical">
+                    <a href="blog/custom-ai-solutions-2026.html" class="block aspect-video mb-6 overflow-hidden bg-surface border border-white/5 rounded-sm relative">
+                        <img src="./assets/Will AI Completely Wipe Out The Customer Services Profession_.png" alt="AI Efficiency" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
                     </a>
+                    <div class="flex flex-col flex-grow">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="font-mono text-[8px] uppercase tracking-widest text-zeffron bg-zeffron/10 px-2 py-1 border border-zeffron/20">Future of AI</span>
+                            <span class="font-mono text-[8px] uppercase tracking-widest text-zinc-600">Feb 13, 2026</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-white group-hover:text-zeffron transition-colors leading-tight mb-4">
+                            How Custom AI Solutions Are Redefining Business Efficiency in 2026
+                        </h3>
+                        <p class="text-zinc-500 text-[13px] leading-relaxed line-clamp-3 mb-6">
+                            It's 2026, and AI is no longer just assistive—it's agentic. Discover how custom AI solutions are redefining efficiency.
+                        </p>
+                        <a href="blog/custom-ai-solutions-2026.html" class="mt-auto font-mono text-[10px] uppercase tracking-widest text-white hover:text-zeffron transition-colors flex items-center gap-2">
+                            Read Deep-Dive &rarr;
+                        </a>
+                    </div>
                 </article>
 
+                <!-- Empty State for Founders (Track 01) -->
+                <div id="empty-founders" class="hidden col-span-full py-40 text-center">
+                    <span class="material-symbols-outlined text-zeffron text-5xl mb-6">construction</span>
+                    <h3 class="font-display text-2xl font-bold text-white mb-2">Strategic Briefs in Progress</h3>
+                    <p class="text-zinc-500 text-sm">We are preparing founder-focused insights for May 2026. Check the technical track for current reports.</p>
+                </div>
             </div>
         </section>
 
@@ -509,254 +261,119 @@
                     <i data-lucide="chevron-right" class="w-4 h-4"></i>
                 </button>
             </div> -->
-        </section>
-
-        <!-- Newsletter Section -->
-        <section class="py-16 sm:py-20 px-4 sm:px-6 max-w-4xl mx-auto">
-            <div class="reveal glass-panel rounded-2xl p-8 sm:p-12 text-center">
-                <div
-                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#0145F2]/20 bg-[#0145F2]/10 text-[#0145F2] text-xs font-mono mb-6">
-                    <i data-lucide="mail" class="w-3 h-3"></i>
-                    NEWSLETTER
-                </div>
-                <h2 class="text-2xl sm:text-3xl font-medium text-white mb-4">
-                    Stay Updated
-                </h2>
-                <p class="text-[#A8A8A8] mb-8 max-w-xl mx-auto">
-                    Get the latest insights on AI, custom software, and building great products delivered to your inbox.
-                </p>
-                <form id="newsletter-form" action="https://api.web3forms.com/submit" method="POST"
-                    class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                    <input type="hidden" name="access_key" value="e7729d29-1943-4c0b-b180-4b5d829b32b9">
-                    <input type="hidden" name="subject" value="New Newsletter Subscriber - Zeffron">
-                    <input type="hidden" name="from_name" value="Zeffron Newsletter">
-                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-                    <input type="email" name="email" placeholder="your.email@company.com" required
-                        class="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded text-white placeholder-[#666] focus:outline-none focus:border-[#0145F2] transition-colors">
-                    <button type="submit" id="newsletter-btn"
-                        class="px-6 py-3 bg-[#0145F2] text-white rounded font-medium hover:bg-[#0039cc] transition-colors whitespace-nowrap">
-                        Subscribe
-                    </button>
-                </form>
-                <p id="newsletter-message" class="mt-4 text-sm hidden"></p>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="py-16 sm:py-20 px-4 sm:px-6 border-t border-white/10 bg-[#050505] text-center">
-            <div class="max-w-3xl mx-auto reveal">
-                <h2 class="text-3xl sm:text-4xl font-medium tracking-tight mb-6 text-white leading-tight">
-                    Ready to Build Your AI Product?
-                </h2>
-                <p class="text-[#888] mb-10 text-lg font-light">
-                    Let's turn your idea into a launch-ready product in 10 days.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="https://cal.com/zeffron-ai/30min"
-                        class="px-8 py-4 bg-[#0145F2] hover:bg-[#0039cc] text-white text-sm font-medium rounded transition-all duration-200">
-                        Start Your AI Product Sprint
-                    </a>
-                    <a href="index.html#pricing"
-                        class="px-8 py-4 border border-white/10 hover:bg-white/5 text-white text-sm font-medium rounded transition-all duration-200">
-                        View Pricing
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="py-12 px-4 sm:px-6 border-t border-white/5">
-            <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm">
-                    <div>
-                        <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">About Zeffron</h4>
-                        <p class="text-[#888] leading-relaxed max-w-md">
-                            Zeffron is a modern product & AI studio built for founders. We combine engineering excellence
-                            with rapid execution, delivering solutions that scale, impress investors, and give founders momentum.
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-3 gap-8">
-                        <div>
-                            <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">Contact</h4>
-                            <p class="text-[#888] mb-2">hello@zeffron.ai</p>
-                            <p class="text-[#888]">+44 (0) 121 555 0123</p>
-                        </div>
-                        <div>
-                            <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">Service Areas</h4>
-                            <p class="text-[#888]">London • United Kingdom</p>
-                        </div>
-                        <div>
-                            <h4 class="text-white font-medium mb-4 uppercase tracking-widest text-xs">Quick Links</h4>
-                            <nav class="flex flex-col gap-2">
-                                <a href="index.html" class="text-[#888] hover:text-white transition-colors">Home</a>
-                                <a href="demos.html" class="text-[#888] hover:text-white transition-colors">Live Lab</a>
-                                <a href="career.html" class="text-[#888] hover:text-white transition-colors">Careers</a>
-                                <a href="blog.html" class="text-[#888] hover:text-white transition-colors">Blog</a>
-                            </nav>
-                        </div>
+        </section>    <footer class="bg-surface border-t border-white/5 pt-24 pb-12">
+        <div class="max-w-7xl mx-auto px-6 md:px-10">
+            <div class="grid md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-12 mb-24">
+                <!-- Brand Column -->
+                <div>
+                    <img src="./assets/PNG/Logo - White@2x.png" alt="Zeffron Logo" class="h-6 mb-8" />
+                    <p class="text-zinc-500 text-[13px] font-light leading-relaxed max-w-xs mb-10">
+                        Engineering Intelligence for Founders. Based in London, working globally.
+                    </p>
+                    <div class="space-y-1">
+                        <a href="mailto:hello@zeffron.ai" class="block text-zinc-400 hover:text-white text-[13px] transition-colors">hello@zeffron.ai</a>
+                        <a href="tel:+4401215550123" class="block text-zinc-400 hover:text-white text-[13px] transition-colors">+44 (0) 121 555 0123</a>
                     </div>
                 </div>
-                <div
-                    class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#444]">
-                    <div class="font-mono uppercase tracking-widest">Zeffron Systems © 2026</div>
-                    <div class="flex gap-6 items-center">
-                        <a href="demos.html" class="text-[#888] hover:text-white transition-colors">Live Lab</a>
-                        <a href="career.html" class="text-[#888] hover:text-white transition-colors">Careers</a>
-                        <a href="blog.html" class="text-[#888] hover:text-white transition-colors">Blog</a>
-                        <div class="w-px h-4 bg-white/10 mx-2 hidden sm:block"></div>
-                        <a href="https://x.com/zeffron_ai" target="_blank" rel="noopener noreferrer"
-                            class="text-[#888] hover:text-[#0145F2] transition-colors" aria-label="Zeffron Twitter">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                        </a>
-                        <a href="https://www.instagram.com/zeffron_ai_"
-                            target="_blank" rel="noopener noreferrer"
-                            class="text-[#888] hover:text-[#0145F2] transition-colors" aria-label="Zeffron Instagram">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                        </a>
-                        <a href="https://www.linkedin.com/company/zeffron-ai/" target="_blank" rel="noopener noreferrer"
-                            class="text-[#888] hover:text-[#0145F2] transition-colors" aria-label="Zeffron LinkedIn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                        </a>
-                    </div>
+
+                <!-- Services Column -->
+                <div>
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-zinc-600 block mb-8">Services</span>
+                    <ul class="space-y-4">
+                        <li><a href="index.html#how" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">Rapid AI Development</a></li>
+                        <li><a href="index.html#how" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">Custom AI Solutions</a></li>
+                        <li><a href="index.html#how" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">Technical Team</a></li>
+                        <li><a href="index.html#how" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">Investor Readiness</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company Column -->
+                <div>
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-zinc-600 block mb-8">Company</span>
+                    <ul class="space-y-4">
+                        <li><a href="index.html#work" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">Work</a></li>
+                        <li><a href="pricing.html" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">Pricing</a></li>
+                        <li><a href="demos.html" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">Live Lab</a></li>
+                        <li><a href="career.html" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">Careers</a></li>
+                        <li><a href="blog.html" class="text-zeffron text-[13px] transition-colors font-body">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Connect Column -->
+                <div>
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-zinc-600 block mb-8">Connect</span>
+                    <ul class="space-y-4">
+                        <li><a href="https://cal.com/zeffron-ai/30min" target="_blank" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">Book a call</a></li>
+                        <li><a href="mailto:hello@zeffron.ai" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">hello@zeffron.ai</a></li>
+                        <li><a href="#" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">LinkedIn</a></li>
+                        <li class="text-zinc-600 text-[12px] pt-2">London, UK</li>
+                    </ul>
                 </div>
             </div>
-        </footer>
-    </main>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-6">
+                    <span class="font-mono text-[10px] text-zinc-600 uppercase tracking-widest">Zeffron Systems &copy; 2026</span>
+                    <a href="#" class="font-mono text-[10px] text-zinc-600 hover:text-white uppercase tracking-widest transition-colors">Privacy</a>
+                    <a href="#" class="font-mono text-[10px] text-zinc-600 hover:text-white uppercase tracking-widest transition-colors">Terms</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-1.5 h-1.5 rounded-full bg-zeffron shadow-[0_0_8px_rgba(1,69,242,0.8)]"></div>
+                    <span class="font-mono text-[10px] text-zinc-600 uppercase tracking-widest">London, United Kingdom &middot; zeffron.ai</span>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", (event) => {
-            lucide.createIcons();
+        function filterCategory(category) {
+            const posts = document.querySelectorAll('.blog-post');
+            const emptyState = document.getElementById('empty-founders');
+            const tabs = document.querySelectorAll('.category-tab');
+            
+            // Update Tabs
+            tabs.forEach(tab => {
+                tab.classList.remove('active', 'text-white');
+                tab.classList.add('text-zinc-500');
+            });
+            document.getElementById(`tab-${category}`).classList.add('active', 'text-white');
+            document.getElementById(`tab-${category}`).classList.remove('text-zinc-500');
 
-            // Mobile Menu Toggle
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const mobileBackdrop = document.getElementById('mobileBackdrop');
-            const mobileMenuClose = document.getElementById('mobileMenuClose');
-
-            function toggleMobileMenu() {
-                mobileMenu.classList.toggle('active');
-                mobileBackdrop.classList.toggle('active');
-                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-            }
-
-            if (mobileMenuToggle) {
-                mobileMenuToggle.addEventListener('click', toggleMobileMenu);
-            }
-
-            if (mobileMenuClose) {
-                mobileMenuClose.addEventListener('click', toggleMobileMenu);
-            }
-
-            if (mobileBackdrop) {
-                mobileBackdrop.addEventListener('click', toggleMobileMenu);
-            }
-
-            // Close mobile menu when clicking nav links
-            const mobileNavLinks = document.querySelectorAll('#mobileMenu a');
-            mobileNavLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (mobileMenu.classList.contains('active')) {
-                        toggleMobileMenu();
-                    }
-                });
+            // Filter Posts
+            let count = 0;
+            posts.forEach(post => {
+                if (post.getAttribute('data-category') === category) {
+                    post.classList.remove('hidden');
+                    count++;
+                } else {
+                    post.classList.add('hidden');
+                }
             });
 
-            // Reveal Animations
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.reveal').forEach(el => {
-                observer.observe(el);
-            });
-
-            // Custom Cursor
-            const cursor = document.querySelector('.custom-cursor');
-            const cursorDot = document.querySelector('.cursor-dot');
-            const cursorOutline = document.querySelector('.cursor-outline');
-            let mouseX = 0;
-            let mouseY = 0;
-            let cursorX = 0;
-            let cursorY = 0;
-
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            function animateCursor() {
-                const speed = 0.15;
-                cursorX += (mouseX - cursorX) * speed;
-                cursorY += (mouseY - cursorY) * speed;
-
-                cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-                requestAnimationFrame(animateCursor);
+            // Handle Empty State
+            if (count === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
             }
-            animateCursor();
+        }
 
-            const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, [role="button"]');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.classList.add('hover');
-                });
-
-                el.addEventListener('mouseleave', () => {
-                    cursor.classList.remove('hover');
-                });
+        // Reveal Animations
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                }
             });
+        }, observerOptions);
 
-            // Newsletter Form Handler
-            const newsletterForm = document.getElementById('newsletter-form');
-            const newsletterBtn = document.getElementById('newsletter-btn');
-            const newsletterMessage = document.getElementById('newsletter-message');
-
-            if (newsletterForm) {
-                newsletterForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-
-                    newsletterBtn.disabled = true;
-                    newsletterBtn.textContent = 'Subscribing...';
-                    newsletterMessage.classList.add('hidden');
-
-                    try {
-                        const formData = new FormData(newsletterForm);
-                        const response = await fetch('https://api.web3forms.com/submit', {
-                            method: 'POST',
-                            body: formData
-                        });
-
-                        const result = await response.json();
-
-                        if (result.success) {
-                            newsletterMessage.textContent = 'Thanks for subscribing! We\'ll be in touch.';
-                            newsletterMessage.className = 'mt-4 text-sm text-green-400';
-                            newsletterForm.reset();
-                        } else {
-                            throw new Error(result.message || 'Something went wrong');
-                        }
-                    } catch (error) {
-                        newsletterMessage.textContent = 'Oops! Something went wrong. Please try again.';
-                        newsletterMessage.className = 'mt-4 text-sm text-red-400';
-                    }
-
-                    newsletterBtn.disabled = false;
-                    newsletterBtn.textContent = 'Subscribe';
-                    newsletterMessage.classList.remove('hidden');
-                });
-            }
-        });
+        document.querySelectorAll('.rv').forEach(el => observer.observe(el));
+        
+        // Initial state
+        window.onload = () => filterCategory('technical');
     </script>
 </body>
-
+</html>
 </html>
