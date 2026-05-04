@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeffron — AI Products Built in 10 Days</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,200,0,0" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════ */
+:root {
+  /* Core */
+  --ink:       #070709;
+  --surface:   #0f0f13;
+  --surface2:  #17171c;
+  --blue:      #0145F2;
+  --blue-mid:  rgba(1,69,242,0.18);
+  --blue-soft: rgba(1,69,242,0.08);
+  --blue-glow: rgba(1,69,242,0.3);
+
+  /* Light sections */
+  --paper:     #F5F4EF;
+  --paper2:    #EDECE6;
+  --ink-body:  #3a3a3e;
+  --ink-dim:   #7a7a85;
+  --border-l:  rgba(7,7,9,0.08);
+
+  /* Dark */
+  --white:     #ffffff;
+  --grey:      #9898a6;
+  --grey-dim:  rgba(152,152,166,0.12);
+  --border-d:  rgba(255,255,255,0.07);
+  --border-d2: rgba(255,255,255,0.04);
+
+  /* Type */
+  --display: 'Syne', sans-serif;
+  --body:    'DM Sans', sans-serif;
+  --mono:    'DM Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: var(--body);
+  background: var(--surface);
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
+}
+
+/* ═══════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════ */
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; position: relative; z-index: 1; }
+.sec-dark  { background: var(--surface); }
+.sec-dark2 { background: var(--surface2); }
+.sec-light { background: var(--paper); }
+.sec-light2{ background: var(--paper2); }
+.section   { padding: 7rem 0; }
+.section-sm{ padding: 4.5rem 0; }
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY
+═══════════════════════════════════════════ */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; font-weight: 400;
+}
+.eyebrow::before { content: ''; width: 20px; height: 1px; background: currentColor; flex-shrink: 0; }
+.eyebrow-d { color: var(--grey); }
+.eyebrow-l { color: var(--ink-dim); }
+.eyebrow-b { color: var(--blue); }
+.eyebrow-b::before { background: var(--blue); }
+
+h2.section-heading {
+  font-family: var(--display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700; letter-spacing: -0.04em; line-height: 1.05;
+}
+.heading-d { color: var(--white); }
+.heading-l { color: var(--ink); }
+
+/* ═══════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--display); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.01em; text-decoration: none;
+  padding: 12px 22px; border-radius: 3px;
+  border: none; cursor: pointer; transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-blue {
+  background: var(--blue); color: #fff;
+  box-shadow: 0 0 0 0 var(--blue-glow);
+}
+.btn-blue:hover { transform: translateY(-1px); box-shadow: 0 6px 28px var(--blue-glow); }
+.btn-outline-d { background: transparent; color: var(--grey); border: 1px solid var(--border-d); }
+.btn-outline-d:hover { border-color: rgba(255,255,255,0.2); color: var(--white); }
+.btn-outline-l { background: transparent; color: var(--ink-body); border: 1px solid var(--border-l); }
+.btn-outline-l:hover { border-color: rgba(7,7,9,0.25); color: var(--ink); }
+.btn-white { background: #fff; color: var(--blue); }
+.btn-white:hover { background: rgba(255,255,255,0.92); transform: translateY(-1px); }
+.btn-ghost-white { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+.btn-ghost-white:hover { background: rgba(255,255,255,0.16); }
+.btn-lg { padding: 15px 28px; font-size: 14px; }
+.btn-sm { padding: 9px 16px; font-size: 12px; }
+.btn .material-symbols-outlined { font-size: 16px; }
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+.rv { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.rv.in { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.08s; }
+.d2 { transition-delay: 0.16s; }
+.d3 { transition-delay: 0.24s; }
+.d4 { transition-delay: 0.32s; }
+
+/* ═══════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════ */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 58px; display: flex; align-items: center;
+  background: rgba(7,7,9,0.82);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-d2);
+  transition: border-color 0.3s;
+}
+#nav.scrolled { border-color: var(--border-d); }
+.nav-wrap {
+  max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--display); font-size: 1.05rem; font-weight: 800;
+  color: var(--white); text-decoration: none; letter-spacing: -0.03em;
+  display: flex; align-items: center; gap: 2px;
+}
+.nav-logo .z { color: var(--blue); }
+.nav-center { display: flex; list-style: none; }
+.nav-center a {
+  font-family: var(--body); font-size: 13px; color: var(--grey);
+  text-decoration: none; padding: 6px 14px; font-weight: 400;
+  transition: color 0.15s; letter-spacing: 0.005em;
+}
+.nav-center a:hover { color: var(--white); }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+
+/* ── CAL.COM CTA BUTTON — special treatment ── */
+.btn-cal {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--blue); color: #fff;
+  font-family: var(--display); font-size: 12.5px; font-weight: 700;
+  padding: 9px 18px; border-radius: 3px; border: none; cursor: pointer;
+  text-decoration: none; letter-spacing: 0.01em;
+  transition: all 0.2s; position: relative; overflow: hidden;
+}
+.btn-cal::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+}
+.btn-cal:hover { transform: translateY(-1px); box-shadow: 0 5px 22px var(--blue-glow); }
+.btn-cal .cal-icon { width: 16px; height: 16px; border-radius: 3px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; }
+.btn-cal .cal-icon .material-symbols-outlined { font-size: 11px; }
+
+/* ═══════════════════════════════════════════
+   HERO — DARK
+═══════════════════════════════════════════ */
+.hero {
+  background: var(--ink);
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: flex-end; padding-top: 58px;
+  position: relative; overflow: hidden;
+}
+
+/* Blueprint grid */
+.hero-grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(1,69,242,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(1,69,242,0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 90% 70% at 60% 40%, black 20%, transparent 100%);
+}
+
+/* Blue radial glow top right */
+.hero-glow {
+  position: absolute; z-index: 0; pointer-events: none;
+  width: 700px; height: 600px; right: 0; top: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(1,69,242,0.18) 0%, transparent 65%);
+}
+
+/* Bottom gradient to transition into light section */
+.hero-fade {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 180px; z-index: 2;
+  background: linear-gradient(to bottom, transparent, var(--ink));
+}
+
+.hero-body {
+  position: relative; z-index: 3;
+  max-width: 1280px; margin: 0 auto; padding: 7rem 2.5rem 0; width: 100%;
+  display: grid; grid-template-columns: 1fr 440px; gap: 5rem; align-items: end;
+}
+
+/* Speed badge */
+.speed-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--blue-soft); border: 1px solid rgba(1,69,242,0.28);
+  border-radius: 2px; padding: 7px 14px; margin-bottom: 2.2rem; width: fit-content;
+}
+.speed-badge .pulse-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--blue);
+  animation: pulse-anim 2.2s ease-in-out infinite;
+}
+@keyframes pulse-anim {
+  0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.35;transform:scale(0.65)}
+}
+.speed-badge span {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: #6b9fff;
+}
+
+/* H1 */
+.hero-h1 {
+  font-family: var(--display);
+  font-size: clamp(3.4rem, 7.5vw, 6.6rem);
+  font-weight: 800; line-height: 0.92; letter-spacing: -0.045em;
+  margin-bottom: 2rem; color: var(--white);
+}
+.hero-h1 .line2 { color: var(--blue); display: block; }
+.hero-h1 .line3 { color: rgba(255,255,255,0.38); display: block; }
+
+.hero-sub {
+  font-size: 1.05rem; line-height: 1.82; color: var(--grey);
+  font-weight: 300; max-width: 500px; margin-bottom: 2.5rem;
+}
+.hero-ctas { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.hero-micro {
+  margin-top: 1.4rem;
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(152,152,166,0.4);
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-micro::before { content:''; width:14px; height:1px; background:var(--border-d); display:block; }
+
+/* ── SPRINT CARD (right side) ── */
+.sprint-card {
+  background: var(--surface); border: 1px solid var(--border-d);
+  border-radius: 8px; overflow: hidden; padding: 1.8rem;
+  position: relative; display: flex; flex-direction: column; gap: 1.4rem;
+  align-self: flex-end; margin-bottom: 0;
+}
+.sprint-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, var(--blue) 0%, transparent 100%);
+}
+.sc-header {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.sc-eyebrow { font-family:var(--mono); font-size:9px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(152,152,166,0.5); }
+.sc-title { font-family:var(--display); font-size:1rem; font-weight:700; color:var(--white); letter-spacing:-0.02em; }
+
+/* Timeline */
+.timeline { display:flex; flex-direction:column; gap:0; border:1px solid var(--border-d); border-radius:5px; overflow:hidden; }
+.tl-row {
+  display:grid; grid-template-columns:64px 1fr auto;
+  align-items:center; gap:10px; padding:9px 12px;
+  border-bottom:1px solid var(--border-d2);
+  transition: background 0.15s;
+}
+.tl-row:last-child { border-bottom:none; }
+.tl-row:hover { background: var(--surface2); }
+.tl-row.complete { background: rgba(1,69,242,0.06); }
+.tl-label { font-family:var(--mono); font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--blue); }
+.tl-bar { height:3px; border-radius:2px; background:rgba(255,255,255,0.06); position:relative; overflow:hidden; }
+.tl-fill { position:absolute; left:0;top:0;height:100%; border-radius:2px; background:var(--blue); }
+.tl-step { font-size:10.5px; color:var(--grey); font-family:var(--body); font-weight:300; white-space:nowrap; }
+.tl-step.done { color:rgba(255,255,255,0.75); font-weight:500; }
+
+/* Launch outcome */
+.sprint-outcome {
+  background: var(--blue-mid); border: 1px solid rgba(1,69,242,0.25);
+  border-radius:4px; padding:12px 14px;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+}
+.so-left { display:flex; flex-direction:column; gap:3px; }
+.so-num { font-family:var(--display); font-size:1.6rem; font-weight:800; color:var(--white); letter-spacing:-0.04em; line-height:1; }
+.so-sub { font-family:var(--mono); font-size:8.5px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(1,69,242,0.65); }
+.so-check {
+  width:30px; height:30px; border-radius:50%; background:var(--blue);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.so-check .material-symbols-outlined { font-size:16px; color:#fff; }
+
+/* ═══════════════════════════════════════════
+   PROOF BAR — dark/surface
+═══════════════════════════════════════════ */
+.proof-bar { background:var(--surface2); border-top:1px solid var(--border-d); border-bottom:1px solid var(--border-d); }
+.proof-inner { display:flex; }
+.proof-cell {
+  flex:1; padding:1.5rem 2.5rem;
+  border-right:1px solid var(--border-d); display:flex; flex-direction:column; gap:5px;
+}
+.proof-cell:last-child { border-right:none; }
+.proof-num {
+  font-family:var(--display); font-size:2rem; font-weight:800;
+  letter-spacing:-0.04em; color:var(--white); line-height:1;
+}
+.proof-num .accent { color:var(--blue); }
+.proof-desc { font-family:var(--mono); font-size:9.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--grey); }
+
+/* ═══════════════════════════════════════════
+   AUDIENCE — LIGHT (who we build for)
+═══════════════════════════════════════════ */
+.audience-section { background: var(--paper); }
+.audience-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.5rem; margin-top:3.5rem; }
+.audience-card {
+  background:#fff; border:1px solid var(--border-l); border-radius:8px; padding:1.8rem;
+  display:flex; flex-direction:column; gap:1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.audience-card:hover { border-color: rgba(1,69,242,0.2); box-shadow:0 4px 20px rgba(1,69,242,0.06); }
+.ac-icon {
+  width:40px; height:40px; border-radius:6px;
+  background: rgba(1,69,242,0.07); display:flex; align-items:center; justify-content:center;
+}
+.ac-icon .material-symbols-outlined { font-size:20px; color:var(--blue); }
+.ac-label { font-family:var(--mono); font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:-4px; }
+.ac-title { font-family:var(--display); font-size:1.05rem; font-weight:700; color:var(--ink); letter-spacing:-0.02em; line-height:1.25; }
+.ac-desc { font-size:13.5px; line-height:1.72; color:var(--ink-dim); font-weight:300; }
+.ac-tag {
+  margin-top:auto; display:inline-block;
+  font-family:var(--mono); font-size:9px; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--blue); background:rgba(1,69,242,0.07); border:1px solid rgba(1,69,242,0.14);
+  padding:4px 10px; border-radius:2px; width:fit-content;
+}
+
+/* ═══════════════════════════════════════════
+   HOW IT WORKS — DARK, with speed emphasis
+═══════════════════════════════════════════ */
+.how-section { background: var(--ink); }
+.how-header { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:4rem; }
+.how-intro-text { font-size:1rem; line-height:1.82; color:var(--grey); font-weight:300; max-width:400px; }
+
+/* Large sprint timeline visual */
+.big-timeline { display:grid; grid-template-columns:repeat(5,1fr); gap:0; border:1px solid var(--border-d); border-radius:8px; overflow:hidden; }
+.bt-col {
+  display:flex; flex-direction:column; align-items:flex-start;
+  padding:1.6rem 1.4rem; border-right:1px solid var(--border-d2);
+  position:relative; transition:background 0.2s;
+}
+.bt-col:last-child { border-right:none; }
+.bt-col:hover { background:var(--surface); }
+.bt-col.day10 { background:var(--blue-soft); border-right:none; }
+.bt-col.day10:hover { background:var(--blue-mid); }
+.bt-day { font-family:var(--mono); font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue); margin-bottom:1.2rem; }
+.bt-icon { width:36px; height:36px; border-radius:5px; border:1px solid var(--border-d); display:flex; align-items:center; justify-content:center; margin-bottom:1rem; background:var(--surface); }
+.bt-icon.blue-ico { background:var(--blue); border-color:var(--blue); }
+.bt-icon .material-symbols-outlined { font-size:18px; color:var(--grey); }
+.bt-icon.blue-ico .material-symbols-outlined { color:#fff; }
+.bt-title { font-family:var(--display); font-size:13px; font-weight:700; color:var(--white); letter-spacing:-0.01em; margin-bottom:6px; }
+.bt-desc { font-size:12px; line-height:1.65; color:var(--grey); font-weight:300; }
+.bt-col.day10 .bt-title { color:#fff; }
+.bt-livebadge {
+  display:inline-flex; align-items:center; gap:5px; margin-top:10px;
+  font-family:var(--mono); font-size:8.5px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--blue); background:rgba(1,69,242,0.15); border:1px solid rgba(1,69,242,0.3);
+  padding:3px 8px; border-radius:2px;
+}
+.bt-livebadge::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--blue); display:block; animation:pulse-anim 2s infinite; }
+
+/* ═══════════════════════════════════════════
+   CASE STUDIES — LIGHT
+═══════════════════════════════════════════ */
+.cases-section { background: var(--paper); }
+.cases-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:3.5rem; }
+.case-card {
+  background:#fff; border:1px solid var(--border-l); border-radius:8px; overflow:hidden;
+  transition: border-color 0.2s, transform 0.25s;
+}
+.case-card:hover { border-color:rgba(1,69,242,0.2); transform:translateY(-2px); }
+.cc-top {
+  padding:1.6rem 1.8rem; border-bottom:1px solid var(--border-l);
+  display:flex; align-items:flex-start; justify-content:space-between; gap:1rem;
+}
+.cc-industry { font-family:var(--mono); font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue); margin-bottom:6px; }
+.cc-title { font-family:var(--display); font-size:1.05rem; font-weight:700; color:var(--ink); letter-spacing:-0.02em; line-height:1.28; max-width:260px; }
+.cc-badge {
+  background:var(--blue); border-radius:4px; padding:8px 12px; flex-shrink:0;
+  display:flex; flex-direction:column; align-items:flex-end; gap:2px; text-align:right;
+}
+.cc-bval { font-family:var(--display); font-size:1.15rem; font-weight:800; color:#fff; letter-spacing:-0.03em; line-height:1; }
+.cc-blbl { font-family:var(--mono); font-size:8px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.65); }
+.cc-body { padding:1.5rem 1.8rem; display:flex; flex-direction:column; gap:1rem; }
+.cc-desc { font-size:13.5px; line-height:1.72; color:var(--ink-body); font-weight:300; }
+.cc-quote { border-left:2px solid rgba(1,69,242,0.25); padding-left:12px; font-size:12.5px; font-style:italic; color:var(--ink-dim); line-height:1.65; }
+.cc-metrics { display:flex; gap:0; border-top:1px solid var(--border-l); }
+.cc-metric { flex:1; padding:1rem 0; display:flex; flex-direction:column; gap:3px; border-right:1px solid var(--border-l); padding-left:1rem; }
+.cc-metric:last-child { border-right:none; }
+.cm-v { font-family:var(--display); font-size:1.2rem; font-weight:800; color:var(--ink); letter-spacing:-0.03em; }
+.cm-l { font-family:var(--mono); font-size:8.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-dim); }
+
+/* ═══════════════════════════════════════════
+   SERVICES — DARK surface2
+═══════════════════════════════════════════ */
+.services-section { background: var(--surface2); }
+.services-header { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:3.5rem; }
+.sh-right p { font-size:14px; line-height:1.82; color:var(--grey); font-weight:300; }
+.services-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border-d); border:1px solid var(--border-d); border-radius:8px; overflow:hidden; }
+.svc-card {
+  background:var(--surface2); padding:2.2rem;
+  display:flex; flex-direction:column; gap:1rem; transition:background 0.2s;
+}
+.svc-card:hover { background: rgba(255,255,255,0.025); }
+.svc-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px; }
+.svc-num { font-family:var(--mono); font-size:10px; letter-spacing:0.12em; color:rgba(152,152,166,0.3); }
+.svc-for { font-family:var(--mono); font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--blue); background:var(--blue-soft); border:1px solid rgba(1,69,242,0.15); padding:4px 10px; border-radius:2px; }
+.svc-ico { width:38px; height:38px; border-radius:5px; border:1px solid var(--border-d); background:var(--surface); display:flex; align-items:center; justify-content:center; }
+.svc-ico .material-symbols-outlined { font-size:19px; color:var(--blue); }
+.svc-card h3 { font-family:var(--display); font-size:1rem; font-weight:700; color:var(--white); letter-spacing:-0.02em; }
+.svc-card>p { font-size:13px; line-height:1.72; color:var(--grey); font-weight:300; }
+.svc-list { list-style:none; display:flex; flex-direction:column; gap:5px; }
+.svc-list li { display:flex; gap:8px; align-items:flex-start; font-size:12.5px; color:var(--grey); font-weight:300; line-height:1.5; }
+.svc-list li::before { content:''; width:4px; height:4px; border-radius:50%; background:var(--blue); flex-shrink:0; margin-top:6px; opacity:0.6; }
+.svc-price { margin-top:auto; padding-top:1rem; border-top:1px solid var(--border-d); display:flex; align-items:baseline; gap:8px; }
+.sp-from { font-family:var(--mono); font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(152,152,166,0.4); }
+.sp-val { font-family:var(--display); font-size:1.1rem; font-weight:700; color:var(--white); letter-spacing:-0.02em; }
+
+/* ═══════════════════════════════════════════
+   WHY ZEFFRON — LIGHT
+═══════════════════════════════════════════ */
+.why-section { background: var(--paper2); }
+.why-layout { display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:start; }
+.why-list { display:flex; flex-direction:column; gap:0; margin-top:2.5rem; }
+.why-row {
+  display:flex; gap:1.2rem; align-items:flex-start;
+  padding:1.3rem 0; border-bottom:1px solid var(--border-l);
+}
+.why-row:first-child { padding-top:0; }
+.why-row:last-child { border-bottom:none; padding-bottom:0; }
+.why-ico {
+  width:34px; height:34px; border-radius:5px; flex-shrink:0;
+  background: rgba(1,69,242,0.07); display:flex; align-items:center; justify-content:center;
+}
+.why-ico .material-symbols-outlined { font-size:17px; color:var(--blue); }
+.why-row h4 { font-family:var(--display); font-size:14px; font-weight:700; color:var(--ink); margin-bottom:4px; letter-spacing:-0.01em; }
+.why-row p { font-size:13px; line-height:1.65; color:var(--ink-dim); font-weight:300; }
+
+.why-panel {
+  background:#fff; border:1px solid var(--border-l); border-radius:8px; padding:2.2rem;
+  position:sticky; top:70px; overflow:hidden;
+}
+.why-panel::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, var(--blue) 0%, transparent 100%);
+}
+.why-panel-title { font-family:var(--display); font-size:15px; font-weight:700; color:var(--ink); letter-spacing:-0.02em; margin-bottom:1.5rem; padding-bottom:1.2rem; border-bottom:1px solid var(--border-l); }
+.stat-grid { display:flex; flex-direction:column; gap:0; }
+.stat-row { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border-l); }
+.stat-row:last-child { border-bottom:none; padding-bottom:0; }
+.sr-key { font-family:var(--mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-dim); }
+.sr-val { font-family:var(--display); font-size:1.15rem; font-weight:800; color:var(--ink); letter-spacing:-0.03em; }
+.sr-val.blue { color:var(--blue); }
+
+/* ═══════════════════════════════════════════
+   CONTACT — DARK
+═══════════════════════════════════════════ */
+.contact-section { background:var(--ink); }
+.contact-layout { display:grid; grid-template-columns:1fr 1fr; gap:5rem; }
+
+/* Form styles */
+.form-toggle { display:flex; border:1px solid var(--border-d); border-radius:4px; overflow:hidden; width:fit-content; margin-bottom:1.5rem; }
+.ftog {
+  font-family:var(--display); font-size:12px; font-weight:600; letter-spacing:0.01em;
+  padding:9px 20px; background:transparent; color:var(--grey);
+  border:none; cursor:pointer; transition:all 0.15s;
+}
+.ftog.on { background:var(--blue); color:#fff; }
+.ftog:not(.on):hover { background:var(--grey-dim); color:var(--white); }
+.fg { display:flex; flex-direction:column; gap:5px; margin-bottom:1rem; }
+.fg label { font-family:var(--mono); font-size:9.5px; letter-spacing:0.13em; text-transform:uppercase; color:var(--grey); }
+.fg input, .fg textarea, .fg select {
+  font-family:var(--body); font-size:13.5px; font-weight:300;
+  padding:11px 14px; background:var(--surface);
+  border:1px solid var(--border-d); border-radius:4px;
+  color:var(--white); outline:none; transition:border-color 0.15s;
+}
+.fg input::placeholder, .fg textarea::placeholder { color:rgba(152,152,166,0.28); }
+.fg input:focus, .fg textarea:focus, .fg select:focus { border-color:rgba(1,69,242,0.45); }
+.fg textarea { resize:vertical; min-height:100px; }
+.fg select { -webkit-appearance:none; color:var(--grey); background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%239898a6' d='M5 6L0 0h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position: right 14px center; }
+.fg select option { background:var(--surface2); }
+.fg-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.file-drop {
+  border:1px dashed rgba(255,255,255,0.1); border-radius:4px;
+  padding:1.4rem; text-align:center; cursor:pointer; transition:all 0.15s;
+  background:rgba(255,255,255,0.01);
+}
+.file-drop:hover { border-color:rgba(1,69,242,0.4); background:var(--blue-soft); }
+.file-drop p { font-size:12.5px; color:var(--grey); font-weight:300; }
+.file-drop .lnk { color:#6b9fff; text-decoration:underline; text-underline-offset:2px; }
+.form-checks { display:flex; flex-direction:column; gap:8px; margin:0.8rem 0 1.2rem; }
+.check-row { display:flex; gap:8px; align-items:flex-start; }
+.check-row input[type="checkbox"] { width:13px; height:13px; accent-color:var(--blue); flex-shrink:0; margin-top:3px; }
+.check-row label { font-size:12px; color:var(--grey); font-weight:300; line-height:1.5; }
+.form-note { font-family:var(--mono); font-size:9px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(152,152,166,0.3); text-align:center; margin-top:0.7rem; }
+
+/* Contact right side */
+.contact-right { display:flex; flex-direction:column; gap:1.5rem; padding-top:5.5rem; }
+.audit-card-d {
+  background:var(--blue-soft); border:1px solid rgba(1,69,242,0.2); border-radius:8px; padding:1.8rem;
+  display:flex; flex-direction:column; gap:0.9rem; position:relative; overflow:hidden;
+}
+.audit-card-d::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--blue), transparent); }
+.acd-label { font-family:var(--mono); font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(107,159,255,0.7); }
+.acd-title { font-family:var(--display); font-size:1rem; font-weight:700; color:var(--white); letter-spacing:-0.02em; line-height:1.35; }
+.acd-body { font-size:13px; line-height:1.72; color:var(--grey); font-weight:300; }
+.cal-link {
+  display:inline-flex; align-items:center; gap:8px;
+  background:#fff; color:var(--ink); font-family:var(--display); font-size:13px; font-weight:700;
+  padding:11px 18px; border-radius:3px; text-decoration:none; border:none; cursor:pointer;
+  transition:all 0.15s; width:fit-content;
+}
+.cal-link:hover { background:rgba(255,255,255,0.9); }
+.cal-link .material-symbols-outlined { font-size:15px; color:var(--blue); }
+.contact-direct {
+  background:var(--surface2); border:1px solid var(--border-d); border-radius:8px; padding:1.4rem 1.6rem;
+  display:flex; flex-direction:column; gap:0.6rem;
+}
+.contact-direct a { font-size:13px; color:var(--grey); text-decoration:none; font-weight:300; transition:color 0.15s; }
+.contact-direct a:hover { color:var(--white); }
+.contact-direct .cd-city { font-family:var(--mono); font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(152,152,166,0.35); margin-top:4px; }
+
+/* ═══════════════════════════════════════════
+   FAQ — DARK
+═══════════════════════════════════════════ */
+.faq-section { background:var(--surface); }
+.faq-layout { display:grid; grid-template-columns:360px 1fr; gap:6rem; align-items:start; }
+.faq-sticky { position:sticky; top:70px; display:flex; flex-direction:column; gap:1.5rem; }
+.faq-sticky p { font-size:14px; line-height:1.82; color:var(--grey); font-weight:300; }
+.faq-sticky .btn-cal { margin-top:0.5rem; width:fit-content; }
+.faq-list { display:flex; flex-direction:column; }
+.faq-item { border-bottom:1px solid var(--border-d2); }
+.faq-item:first-child { border-top:1px solid var(--border-d2); }
+.faq-btn {
+  width:100%; display:flex; justify-content:space-between; align-items:center;
+  gap:1rem; padding:1.15rem 0; background:none; border:none; cursor:pointer; text-align:left;
+  font-family:var(--display); font-size:14px; font-weight:600; color:var(--white);
+  transition:color 0.15s; letter-spacing:-0.01em;
+}
+.faq-btn:hover { color:rgba(255,255,255,0.7); }
+.faq-chevron {
+  width:22px; height:22px; border-radius:50%; border:1px solid var(--border-d);
+  background:var(--surface2); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all 0.22s;
+}
+.faq-chevron .material-symbols-outlined { font-size:13px; color:var(--grey); transition:transform 0.25s; }
+.faq-item.open .faq-chevron { background:var(--blue); border-color:var(--blue); }
+.faq-item.open .faq-chevron .material-symbols-outlined { color:#fff; transform:rotate(45deg); }
+.faq-answer {
+  max-height:0; overflow:hidden; padding-bottom:0;
+  font-size:13.5px; line-height:1.85; color:var(--grey); font-weight:300;
+  transition: max-height 0.38s ease, padding 0.28s ease;
+}
+.faq-item.open .faq-answer { max-height:400px; padding-bottom:1.3rem; }
+
+/* ═══════════════════════════════════════════
+   CTA — BLUE
+═══════════════════════════════════════════ */
+.cta-section {
+  background:var(--blue); position:relative; overflow:hidden;
+  padding:8rem 0; text-align:center;
+}
+.cta-section::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse 55% 90% at 15% 50%, rgba(255,255,255,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 90% at 85% 50%, rgba(0,0,30,0.2) 0%, transparent 60%);
+}
+.cta-section::after {
+  content:''; position:absolute; inset:0; z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size:48px 48px;
+}
+.cta-inner { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:0; }
+.cta-avail {
+  display:inline-flex; align-items:center; gap:8px; margin-bottom:2rem;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:0.16em; text-transform:uppercase;
+  color:rgba(255,255,255,0.65); border:1px solid rgba(255,255,255,0.2);
+  padding:6px 14px; border-radius:2px; background:rgba(255,255,255,0.07);
+}
+.cta-avail .dot { width:6px; height:6px; border-radius:50%; background:#fff; animation:pulse-anim 2s infinite; }
+.cta-h {
+  font-family:var(--display); font-size:clamp(2.8rem,6vw,5rem);
+  font-weight:800; color:#fff; letter-spacing:-0.05em; line-height:0.93;
+  margin-bottom:1.4rem;
+}
+.cta-sub { font-size:1rem; color:rgba(255,255,255,0.65); line-height:1.78; max-width:480px; font-weight:300; margin-bottom:3rem; }
+.cta-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer { background:var(--surface2); border-top:1px solid var(--border-d); padding:4rem 0 2.2rem; }
+.foot-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; margin-bottom:3rem; }
+.foot-logo { font-family:var(--display); font-size:1.05rem; font-weight:800; color:var(--white); display:block; text-decoration:none; letter-spacing:-0.03em; margin-bottom:0.9rem; }
+.foot-logo .z { color:var(--blue); }
+.foot-tag { font-size:13px; color:var(--grey); font-weight:300; line-height:1.7; max-width:210px; margin-bottom:1.2rem; }
+.foot-contacts a { display:block; font-size:13px; color:var(--grey); text-decoration:none; font-weight:300; margin-bottom:4px; transition:color 0.15s; }
+.foot-contacts a:hover { color:var(--white); }
+.foot-col h5 { font-family:var(--mono); font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(152,152,166,0.38); margin-bottom:1rem; }
+.foot-col ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.foot-col ul a { font-size:13px; color:var(--grey); text-decoration:none; font-weight:300; transition:color 0.15s; }
+.foot-col ul a:hover { color:var(--white); }
+.foot-bottom { border-top:1px solid var(--border-d2); padding-top:1.8rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
+.foot-legal { font-family:var(--mono); font-size:9.5px; letter-spacing:0.08em; color:rgba(152,152,166,0.3); }
+.foot-loc { font-family:var(--mono); font-size:9.5px; letter-spacing:0.08em; color:rgba(152,152,166,0.22); display:flex; align-items:center; gap:6px; }
+.foot-loc::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--blue); opacity:0.55; display:block; }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:960px){
+  .hero-body { grid-template-columns:1fr; }
+  .sprint-card { display:none; }
+  .hero-grid { display:none; }
+  .proof-inner { flex-wrap:wrap; }
+  .proof-cell { min-width:50%; }
+  .audience-grid,.how-header,.services-grid,
+  .why-layout,.contact-layout,.faq-layout,.foot-grid { grid-template-columns:1fr; gap:2rem; }
+  .big-timeline { grid-template-columns:1fr 1fr; }
+  .cases-grid { grid-template-columns:1fr; }
+  .services-header { grid-template-columns:1fr; gap:1.5rem; }
+  .why-panel { position:static; }
+  .faq-sticky { position:static; }
+  .contact-right { padding-top:0; }
+  .wrap { padding:0 1.2rem; }
+  .hero-body { padding:6rem 1.2rem 0; }
+  .section { padding:5rem 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <div class="nav-wrap">
+    <a href="#" class="nav-logo"><span class="z">Z</span>effron</a>
+    <ul class="nav-center">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#work">Case studies</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#why">Why us</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#contact" class="btn btn-outline-d btn-sm">Free AI Audit</a>
+      <!-- CAL.COM PRIMARY NAV CTA -->
+      <a href="https://cal.com/zeffron" target="_blank" rel="noopener" class="btn-cal">
+        <span class="cal-icon"><span class="material-symbols-outlined">calendar_month</span></span>
+        Book a Discovery Call
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-body">
+    <div class="rv">
+      <div class="speed-badge">
+        <span class="pulse-dot"></span>
+        <span>10-Day Sprint Guarantee — Fastest in the UK</span>
+      </div>
+      <h1 class="hero-h1">
+        Build fast.<br>
+        <span class="line2">Raise faster.</span>
+        <span class="line3">Launch today.</span>
+      </h1>
+      <p class="hero-sub">
+        We are the on-demand technical team for startup founders and B2B businesses who need an investor-ready AI product — built and live in 10 days, not 10 months.
+      </p>
+      <div class="hero-ctas">
+        <a href="https://cal.com/zeffron" target="_blank" rel="noopener" class="btn btn-blue btn-lg">
+          <span class="material-symbols-outlined">calendar_month</span>
+          Book a Discovery Call
+        </a>
+        <a href="#work" class="btn btn-outline-d btn-lg">View our work</a>
+      </div>
+      <div class="hero-micro">No commitment required · Response within 1 business day</div>
+    </div>
+
+    <!-- Sprint timeline card -->
+    <div class="sprint-card rv d2">
+      <div class="sc-header">
+        <span class="sc-eyebrow">Sprint timeline</span>
+        <span class="sc-title">Brief to investor-ready product</span>
+      </div>
+      <div class="timeline">
+        <div class="tl-row">
+          <span class="tl-label">Day 01</span>
+          <div class="tl-bar"><div class="tl-fill" style="width:100%"></div></div>
+          <span class="tl-step">Scoping</span>
+        </div>
+        <div class="tl-row">
+          <span class="tl-label">Day 02</span>
+          <div class="tl-bar"><div class="tl-fill" style="width:90%"></div></div>
+          <span class="tl-step">Architecture</span>
+        </div>
+        <div class="tl-row">
+          <span class="tl-label">Day 03–07</span>
+          <div class="tl-bar"><div class="tl-fill" style="width:80%"></div></div>
+          <span class="tl-step">Sprint build</span>
+        </div>
+        <div class="tl-row">
+          <span class="tl-label">Day 08–09</span>
+          <div class="tl-bar"><div class="tl-fill" style="width:60%"></div></div>
+          <span class="tl-step">QA + Polish</span>
+        </div>
+        <div class="tl-row complete">
+          <span class="tl-label">Day 10</span>
+          <div class="tl-bar"><div class="tl-fill" style="width:100%"></div></div>
+          <span class="tl-step done">Live ✓</span>
+        </div>
+      </div>
+      <div class="sprint-outcome">
+        <div class="so-left">
+          <span class="so-num">Day 11</span>
+          <span class="so-sub">Demo to angels</span>
+        </div>
+        <div class="so-check">
+          <span class="material-symbols-outlined">check</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- overlap buffer -->
+  <div style="height:4rem;position:relative;z-index:3;background:linear-gradient(var(--ink),var(--paper))"></div>
+</section>
+
+<!-- ═══ PROOF BAR ═══ -->
+<div class="proof-bar sec-dark2">
+  <div class="wrap">
+    <div class="proof-inner">
+      <div class="proof-cell rv">
+        <span class="proof-num"><span class="accent">£20k</span></span>
+        <span class="proof-desc">Angel interest — TrendMind</span>
+      </div>
+      <div class="proof-cell rv d1">
+        <span class="proof-num">10 <span style="font-size:1.1rem;color:var(--grey);font-weight:400">days</span></span>
+        <span class="proof-desc">Brief to live product</span>
+      </div>
+      <div class="proof-cell rv d2">
+        <span class="proof-num">70<span class="accent">%</span></span>
+        <span class="proof-desc">Lower cost vs agencies</span>
+      </div>
+      <div class="proof-cell rv d3">
+        <span class="proof-num">4</span>
+        <span class="proof-desc">Investor-ready products shipped</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WHO WE BUILD FOR — LIGHT ═══ -->
+<section class="audience-section section">
+  <div class="wrap">
+    <div class="eyebrow eyebrow-l rv">Who we build for</div>
+    <h2 class="section-heading heading-l rv d1" style="margin-top:0.8rem;max-width:520px">Three types of founder. One outcome — shipped.</h2>
+    <div class="audience-grid rv d2">
+      <div class="audience-card">
+        <div class="ac-icon"><span class="material-symbols-outlined">lightbulb</span></div>
+        <span class="ac-label">Track 01</span>
+        <span class="ac-title">Non-technical founders, pre-seed</span>
+        <p class="ac-desc">You have the idea, the market knowledge, and the ambition. You need a senior technical partner who will execute it fast, without you having to manage engineers.</p>
+        <span class="ac-tag">10-Day AI Product Sprint</span>
+      </div>
+      <div class="audience-card">
+        <div class="ac-icon"><span class="material-symbols-outlined">trending_up</span></div>
+        <span class="ac-label">Track 02</span>
+        <span class="ac-title">Startup founders preparing to raise</span>
+        <p class="ac-desc">You're heading into investor conversations. You need a product that works under scrutiny — with the technical documentation, demo, and story to close the room.</p>
+        <span class="ac-tag">Investor Pitch Readiness</span>
+      </div>
+      <div class="audience-card">
+        <div class="ac-icon"><span class="material-symbols-outlined">business_center</span></div>
+        <span class="ac-label">Track 03</span>
+        <span class="ac-title">B2B businesses integrating AI</span>
+        <p class="ac-desc">You're scaling, and AI should be central to your operations — not bolted on. We build custom AI systems that fit your stack, your data, and your team's workflow.</p>
+        <span class="ac-tag">Custom AI Integration</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS — DARK ═══ -->
+<section class="how-section section" id="how">
+  <div class="wrap">
+    <div class="how-header rv">
+      <div>
+        <div class="eyebrow eyebrow-b">How we work</div>
+        <h2 class="section-heading heading-d" style="margin-top:0.8rem">From brief to live.<br>In exactly 10 days.</h2>
+      </div>
+      <p class="how-intro-text">No discovery phases that stretch to months. No project managers between you and the engineers. We scope, build, and ship in a single intensive sprint — with daily updates throughout.</p>
+    </div>
+    <div class="big-timeline rv d1">
+      <div class="bt-col">
+        <span class="bt-day">Day 01</span>
+        <div class="bt-icon"><span class="material-symbols-outlined">fact_check</span></div>
+        <span class="bt-title">Discovery call</span>
+        <p class="bt-desc">We review your brief together. Scope, stack, and timeline confirmed in writing. No surprises.</p>
+      </div>
+      <div class="bt-col">
+        <span class="bt-day">Day 02</span>
+        <div class="bt-icon"><span class="material-symbols-outlined">architecture</span></div>
+        <span class="bt-title">Design & architecture</span>
+        <p class="bt-desc">System architecture and UX flow designed. You approve everything before a single line of code.</p>
+      </div>
+      <div class="bt-col">
+        <span class="bt-day">Days 03–07</span>
+        <div class="bt-icon"><span class="material-symbols-outlined">terminal</span></div>
+        <span class="bt-title">Sprint build</span>
+        <p class="bt-desc">Intensive build phase. Daily Slack updates. Direct access to the engineers doing the work.</p>
+      </div>
+      <div class="bt-col">
+        <span class="bt-day">Days 08–09</span>
+        <div class="bt-icon"><span class="material-symbols-outlined">bug_report</span></div>
+        <span class="bt-title">QA & polish</span>
+        <p class="bt-desc">Testing, performance checks, and UX refinement. Everything is production-grade before it ships.</p>
+      </div>
+      <div class="bt-col day10">
+        <span class="bt-day">Day 10</span>
+        <div class="bt-icon blue-ico"><span class="material-symbols-outlined">rocket_launch</span></div>
+        <span class="bt-title">Live + handover</span>
+        <p class="bt-desc">Deployed, documented, and handed over. Post-launch support included for 1 week.</p>
+        <span class="bt-livebadge">Investor-ready</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CASE STUDIES — LIGHT ═══ -->
+<section class="cases-section section" id="work">
+  <div class="wrap">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:0;flex-wrap:wrap;gap:1.5rem">
+      <div>
+        <div class="eyebrow eyebrow-l rv">Case studies</div>
+        <h2 class="section-heading heading-l rv d1" style="margin-top:0.8rem">Real founders.<br>Real results.</h2>
+      </div>
+      <a href="#" class="btn btn-outline-l rv d2">View all work →</a>
+    </div>
+    <div class="cases-grid">
+      <div class="case-card rv">
+        <div class="cc-top">
+          <div><div class="cc-industry">Content · AI Product</div><div class="cc-title">TrendMind — LinkedIn content engine</div></div>
+          <div class="cc-badge"><span class="cc-bval">£20k</span><span class="cc-blbl">Angel interest</span></div>
+        </div>
+        <div class="cc-body">
+          <p class="cc-desc">A non-technical founder with no prototype and stalled fundraising. We shipped an AI content generator, scheduler, and analytics platform in a 10-day sprint — demo-ready on Day 11.</p>
+          <div class="cc-quote">"Zeffron didn't just build a product; they built my confidence." — Founder, TrendMind</div>
+          <div class="cc-metrics">
+            <div class="cc-metric"><span class="cm-v">£20k</span><span class="cm-l">Angel interest</span></div>
+            <div class="cc-metric"><span class="cm-v">1,000+</span><span class="cm-l">Early users / 30d</span></div>
+            <div class="cc-metric"><span class="cm-v">70%</span><span class="cm-l">Lower build cost</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card rv d1">
+        <div class="cc-top">
+          <div><div class="cc-industry">Sales Tech · AI Prototype</div><div class="cc-title">WhisperCoach — Real-time AI sales coaching</div></div>
+          <div class="cc-badge"><span class="cc-bval">6 wks</span><span class="cc-blbl">Enterprise pilot</span></div>
+        </div>
+        <div class="cc-body">
+          <p class="cc-desc">An investor-ready prototype simulating real-time AI feedback — validated before a single line of production code was written. Enterprise pilot conversation landed in 6 weeks.</p>
+          <div class="cc-quote">"Precision and speed. Zeffron helped us land our first enterprise conversation." — Co-Founder, WhisperCoach</div>
+          <div class="cc-metrics">
+            <div class="cc-metric"><span class="cm-v">6 wks</span><span class="cm-l">Enterprise pilot</span></div>
+            <div class="cc-metric"><span class="cm-v">75%</span><span class="cm-l">Faster ramp-up</span></div>
+            <div class="cc-metric"><span class="cm-v">100%</span><span class="cm-l">Validated pre-code</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card rv d2">
+        <div class="cc-top">
+          <div><div class="cc-industry">Travel Tech · Full Platform</div><div class="cc-title">AlphaCruise — Modern booking automation</div></div>
+          <div class="cc-badge"><span class="cc-bval">45%</span><span class="cc-blbl">Revenue growth</span></div>
+        </div>
+        <div class="cc-body">
+          <p class="cc-desc">A travel brand with no internal tech team. We built a full booking platform with real-time API integrations and custom admin portal — from architecture to deployment.</p>
+          <div class="cc-quote">"Tech used to be a barrier. Now it's our edge." — Founder, AlphaCruise</div>
+          <div class="cc-metrics">
+            <div class="cc-metric"><span class="cm-v">60%</span><span class="cm-l">Fewer manual ops</span></div>
+            <div class="cc-metric"><span class="cm-v">120+</span><span class="cm-l">Beta users</span></div>
+            <div class="cc-metric"><span class="cm-v">45%</span><span class="cm-l">Revenue growth</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-card rv d3">
+        <div class="cc-top">
+          <div><div class="cc-industry">EdTech · Adaptive Learning</div><div class="cc-title">Techcify — AI-powered learning platform</div></div>
+          <div class="cc-badge"><span class="cc-bval">95%</span><span class="cc-blbl">Pass rate</span></div>
+        </div>
+        <div class="cc-body">
+          <p class="cc-desc">Adaptive learning engine, analytics dashboard, and smart question generation — engineered to scale to thousands of users with zero downtime during peak exam season.</p>
+          <div class="cc-quote">"The system handles exam season traffic without breaking a sweat." — Techcify Team</div>
+          <div class="cc-metrics">
+            <div class="cc-metric"><span class="cm-v">95%</span><span class="cm-l">User pass rate</span></div>
+            <div class="cc-metric"><span class="cm-v">1,000s</span><span class="cm-l">Active learners</span></div>
+            <div class="cc-metric"><span class="cm-v">0%</span><span class="cm-l">Downtime</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES — DARK ═══ -->
+<section class="services-section section" id="services">
+  <div class="wrap">
+    <div class="services-header">
+      <div>
+        <div class="eyebrow eyebrow-b rv">How we work with you</div>
+        <h2 class="section-heading heading-d rv d1" style="margin-top:0.8rem">Four ways to build,<br>from idea to scale.</h2>
+      </div>
+      <div class="sh-right rv d2">
+        <p>From your first AI product to ongoing technical support — we meet you at your current stage and take you to the next one.</p>
+      </div>
+    </div>
+    <div class="services-grid rv d2">
+      <div class="svc-card">
+        <div class="svc-top"><span class="svc-num">01</span><span class="svc-for">Pre-seed</span></div>
+        <div class="svc-ico"><span class="material-symbols-outlined">rocket_launch</span></div>
+        <h3>Rapid AI Product Development</h3>
+        <p>From idea to investor-ready in 10 days. Your first AI product, live and demo-ready.</p>
+        <ul class="svc-list">
+          <li>Product ideation and scoping session</li>
+          <li>UX/UI design with prototype</li>
+          <li>Full AI product build (web or mobile)</li>
+          <li>Hosting, deployment, go-live</li>
+          <li>1 week post-launch support included</li>
+        </ul>
+        <div class="svc-price"><span class="sp-from">From</span><span class="sp-val">£3,000</span></div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-top"><span class="svc-num">02</span><span class="svc-for">B2B & Scaleups</span></div>
+        <div class="svc-ico"><span class="material-symbols-outlined">memory</span></div>
+        <h3>Custom AI Solutions</h3>
+        <p>AI embedded as a core business capability — strategy, custom models, data pipelines.</p>
+        <ul class="svc-list">
+          <li>AI strategy and opportunity mapping</li>
+          <li>Custom AI model development</li>
+          <li>CRM and ERP integrations</li>
+          <li>Data pipelines and optimisation</li>
+          <li>Ongoing maintenance and iteration</li>
+        </ul>
+        <div class="svc-price"><span class="sp-from">From</span><span class="sp-val">£5,000</span></div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-top"><span class="svc-num">03</span><span class="svc-for">Funded founders</span></div>
+        <div class="svc-ico"><span class="material-symbols-outlined">group</span></div>
+        <h3>Technical Team On Demand</h3>
+        <p>Senior engineers embedded into your team. No hiring overhead, no ramp-up delays.</p>
+        <ul class="svc-list">
+          <li>Full-stack and AI/ML engineers</li>
+          <li>UI/UX and product design</li>
+          <li>Technical co-founder as a service</li>
+          <li>Feature dev and roadmap execution</li>
+        </ul>
+        <div class="svc-price"><span class="sp-from">Pricing</span><span class="sp-val">Monthly</span></div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-top"><span class="svc-num">04</span><span class="svc-for">Raising founders</span></div>
+        <div class="svc-ico"><span class="material-symbols-outlined">trending_up</span></div>
+        <h3>Investor & Pitch Readiness</h3>
+        <p>A product that survives technical scrutiny — with the story, demo, and docs to close the room.</p>
+        <ul class="svc-list">
+          <li>Live product demo and walkthrough</li>
+          <li>Technical due diligence documentation</li>
+          <li>Co-developed investor pitch deck</li>
+          <li>GTM strategy documentation</li>
+        </ul>
+        <div class="svc-price"><span class="sp-from">From</span><span class="sp-val">£1,000</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY ZEFFRON — LIGHT ═══ -->
+<section class="why-section section" id="why">
+  <div class="wrap">
+    <div class="why-layout">
+      <div>
+        <div class="eyebrow eyebrow-l rv">Why Zeffron</div>
+        <h2 class="section-heading heading-l rv d1" style="margin-top:0.8rem;margin-bottom:1.2rem">We engineer outcomes.<br>Not just software.</h2>
+        <p style="font-size:14px;line-height:1.85;color:var(--ink-dim);font-weight:300;max-width:420px" class="rv d2">Most agencies optimise for billable hours. Freelancers optimise for what's in the brief. Zeffron optimises for what's in your business model — and we don't disappear after launch.</p>
+        <div class="why-list rv d2">
+          <div class="why-row">
+            <div class="why-ico"><span class="material-symbols-outlined">psychology</span></div>
+            <div><h4>Senior AI engineers from day one</h4><p>No juniors. The engineers who scope your project are the ones who build it.</p></div>
+          </div>
+          <div class="why-row">
+            <div class="why-ico"><span class="material-symbols-outlined">speed</span></div>
+            <div><h4>Fastest delivery in the market</h4><p>10-day guarantee. No competitor publishes a timeline. We do — and we keep it.</p></div>
+          </div>
+          <div class="why-row">
+            <div class="why-ico"><span class="material-symbols-outlined">verified</span></div>
+            <div><h4>End-to-end ownership</h4><p>From whiteboard to launch — we own the whole problem, not just the scoped parts.</p></div>
+          </div>
+          <div class="why-row">
+            <div class="why-ico"><span class="material-symbols-outlined">lock</span></div>
+            <div><h4>100% IP ownership, contractually</h4><p>Code, design, architecture — all yours. No retained rights, no back-end access after handover.</p></div>
+          </div>
+          <div class="why-row">
+            <div class="why-ico"><span class="material-symbols-outlined">forum</span></div>
+            <div><h4>Direct access — no PM layer</h4><p>Slack access to the engineers doing the work. Daily updates. No account managers.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="rv d3">
+        <div class="why-panel">
+          <div class="why-panel-title">What you can expect</div>
+          <div class="stat-grid">
+            <div class="stat-row"><span class="sr-key">Sprint delivery</span><span class="sr-val blue">10 days</span></div>
+            <div class="stat-row"><span class="sr-key">Team onboarding</span><span class="sr-val">48 hours</span></div>
+            <div class="stat-row"><span class="sr-key">IP ownership</span><span class="sr-val">100% yours</span></div>
+            <div class="stat-row"><span class="sr-key">Contract model</span><span class="sr-val">Monthly rolling</span></div>
+            <div class="stat-row"><span class="sr-key">Post-launch support</span><span class="sr-val">Included</span></div>
+            <div class="stat-row"><span class="sr-key">Cost vs agency</span><span class="sr-val blue">70% less</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT — DARK ═══ -->
+<section class="contact-section section" id="contact">
+  <div class="wrap">
+    <div class="contact-layout">
+      <div class="rv">
+        <div class="eyebrow eyebrow-b" style="margin-bottom:1rem">Let's get to work</div>
+        <h2 class="section-heading heading-d" style="margin-bottom:0.8rem;font-size:clamp(1.6rem,3vw,2.2rem)">Tell us what you're building.<br>We'll take it from there.</h2>
+        <p style="font-size:14px;color:var(--grey);line-height:1.8;font-weight:300;margin-bottom:2rem">We respond within 1 business day. Time-sensitive? Note it in your message and we'll prioritise.</p>
+
+        <div class="form-toggle">
+          <button class="ftog on" onclick="setForm('new',this)">A New Project</button>
+          <button class="ftog" onclick="setForm('existing',this)">An Existing Project</button>
+        </div>
+
+        <form onsubmit="return false">
+          <div class="fg-row">
+            <div class="fg"><label>Name</label><input type="text" placeholder="Full name"></div>
+            <div class="fg"><label>Email</label><input type="email" placeholder="you@company.com"></div>
+          </div>
+          <div class="fg"><label>Company <span style="opacity:.4">(if any)</span></label><input type="text" placeholder="Company or project name"></div>
+          <div id="nf">
+            <div class="fg"><label>Project description</label><textarea placeholder="What are you building and who is it for?"></textarea></div>
+            <div class="fg"><label>Project type</label><select><option value="">Select type</option><option>AI Product Build</option><option>Custom AI Integration</option><option>Website or Platform</option><option>Not sure yet</option></select></div>
+          </div>
+          <div id="ef" style="display:none">
+            <div class="fg"><label>What you have so far</label><textarea placeholder="What was built, how, and what the problem is now?"></textarea></div>
+            <div class="fg"><label>Help needed</label><select><option value="">Select one</option><option>Production Hardening</option><option>Security Review</option><option>AI Integration</option><option>Ongoing Development</option><option>Not sure</option></select></div>
+            <div class="fg"><label>Build link <span style="opacity:.4">(optional)</span></label><input type="url" placeholder="https://staging.yourapp.com"></div>
+          </div>
+          <div class="fg">
+            <label>Files <span style="opacity:.4">(briefs, wireframes, pitch decks)</span></label>
+            <div class="file-drop" onclick="this.querySelector('input').click()">
+              <input type="file" multiple style="display:none">
+              <p>Drag and drop, or <span class="lnk">browse to select</span></p>
+            </div>
+          </div>
+          <div class="form-checks">
+            <div class="check-row"><input type="checkbox" id="pp"><label for="pp">I agree to the Privacy Policy and Terms of Use</label></div>
+            <div class="check-row"><input type="checkbox" id="uu"><label for="uu">Keep me updated on Zeffron products and insights</label></div>
+          </div>
+          <button type="submit" class="btn btn-blue" style="width:100%;justify-content:center;padding:15px;font-size:14px">Send My Brief →</button>
+          <div class="form-note" style="margin-top:0.8rem">We respond within 1 business day</div>
+        </form>
+      </div>
+
+      <div class="contact-right rv d2">
+        <!-- Primary Cal.com prompt -->
+        <div class="audit-card-d">
+          <span class="acd-label">Free · 30 minutes · No commitment</span>
+          <h4 class="acd-title">Prefer to talk first? Book a discovery call directly.</h4>
+          <p class="acd-body">We review your product goals together on a call. No pitch required — just an honest conversation about what you're building and whether we're the right fit.</p>
+          <a href="https://cal.com/zeffron" target="_blank" rel="noopener" class="cal-link">
+            <span class="material-symbols-outlined">calendar_month</span>
+            Book on Cal.com →
+          </a>
+        </div>
+        <!-- Free audit -->
+        <div class="audit-card-d" style="background:rgba(255,255,255,0.03);border-color:var(--border-d)">
+          <span class="acd-label" style="color:rgba(152,152,166,0.6)">Free · 45 minutes</span>
+          <h4 class="acd-title" style="font-size:0.95rem">Not sure where AI fits? Book a free AI Audit.</h4>
+          <p class="acd-body">A straight-talking conversation with our engineers about where AI can move the needle for your business. No sales pitch.</p>
+          <a href="https://cal.com/zeffron/ai-audit" target="_blank" rel="noopener" class="btn btn-outline-d btn-sm" style="width:fit-content">Book Free Audit →</a>
+        </div>
+        <div class="contact-direct rv d3">
+          <div class="eyebrow eyebrow-d" style="margin-bottom:0.8rem">Or reach us directly</div>
+          <a href="mailto:hello@zeffron.ai">hello@zeffron.ai</a>
+          <a href="tel:+441215550123">+44 (0) 121 555 0123</a>
+          <div class="cd-city">London, United Kingdom</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ — DARK ═══ -->
+<section class="faq-section section" id="faq">
+  <div class="wrap">
+    <div class="faq-layout">
+      <div class="faq-sticky rv">
+        <div class="eyebrow eyebrow-b">FAQ</div>
+        <h2 class="section-heading heading-d" style="font-size:clamp(1.6rem,2.5vw,2.2rem);margin-top:0.8rem">Common founder questions.</h2>
+        <p>If yours isn't here, book a call and ask us directly — that's exactly what the first conversation is for.</p>
+        <a href="https://cal.com/zeffron" target="_blank" rel="noopener" class="btn-cal" style="margin-top:0.5rem;width:fit-content">
+          <span class="cal-icon"><span class="material-symbols-outlined">calendar_month</span></span>
+          Book a Discovery Call
+        </a>
+      </div>
+      <div class="faq-list rv d2">
+        <div class="faq-item open">
+          <button class="faq-btn" onclick="faq(this)">I'm not technical. Can I still work with Zeffron?<div class="faq-chevron"><span class="material-symbols-outlined">add</span></div></button>
+          <div class="faq-answer">Yes — most of our best engagements are with non-technical founders. You don't need to understand code or infrastructure. What you need is a clear problem, a target user, and a willingness to make decisions fast. We handle everything else, and explain the technical parts in plain language throughout.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="faq(this)">How is Zeffron different from a freelancer or agency?<div class="faq-chevron"><span class="material-symbols-outlined">add</span></div></button>
+          <div class="faq-answer">Freelancers build what you ask for — if you ask for the wrong thing, they build that too. Large agencies are thorough but slow; months to kickoff, layers of project management. Zeffron is a lean senior team at startup speed. We'll tell you when a feature is a distraction and when you're ready to raise before you think you are.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="faq(this)">Do you really deliver in 10 days?<div class="faq-chevron"><span class="material-symbols-outlined">add</span></div></button>
+          <div class="faq-answer">Yes. The 10-day sprint is our core offering and we hold it. Day 1 is scoping and architecture sign-off. Days 3–7 are the intensive build. Days 8–9 are QA and polish. Day 10 is deployment. What we deliver in 10 days is a production-grade, investor-ready product — not a prototype or MVP shortcut.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="faq(this)">What happens after the sprint ends?<div class="faq-chevron"><span class="material-symbols-outlined">add</span></div></button>
+          <div class="faq-answer">The first week post-launch is included — if something isn't right, we fix it. Most founders who want to keep building move onto a monthly retainer where we act as their ongoing technical team. We'll always be transparent about what makes sense for your stage before recommending anything.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="faq(this)">Do I own all the code and IP?<div class="faq-chevron"><span class="material-symbols-outlined">add</span></div></button>
+          <div class="faq-answer">Completely and contractually. The code, design, data architecture — all of it belongs to you. We don't retain licensing rights, back-end access after handover, or the right to use your product as a portfolio asset without explicit permission.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="faq(this)">Can you help me prepare for investor conversations?<div class="faq-chevron"><span class="material-symbols-outlined">add</span></div></button>
+          <div class="faq-answer">Yes. Investor readiness is one of our four core services. We've seen founders walk in with a great product and a weak story — and vice versa. Our Investor Readiness package covers live demo, technical documentation for due diligence, a co-developed pitch deck, and a GTM plan. We can also join investor calls to handle technical questions directly.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="faq(this)">How developed does my idea need to be?<div class="faq-chevron"><span class="material-symbols-outlined">add</span></div></button>
+          <div class="faq-answer">Not very. What matters isn't the polish of your brief — it's whether the problem you're solving is real. If you can describe your user, their struggle, and roughly what a solution looks like, that's enough. Our discovery process is designed to turn loose thinking into a sharp, scoped product plan.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA — BLUE ═══ -->
+<section class="cta-section">
+  <div class="wrap">
+    <div class="cta-inner rv">
+      <div class="cta-avail"><span class="dot"></span>Accepting briefs for May 2026 sprints · 3–4 slots per month</div>
+      <h2 class="cta-h">Your idea is<br>one sprint away.</h2>
+      <p class="cta-sub">Startup founders, non-technical founders, and B2B businesses across London trust Zeffron to take them from concept to clarity — fast.</p>
+      <div class="cta-btns">
+        <a href="https://cal.com/zeffron" target="_blank" rel="noopener" class="btn btn-white btn-lg">
+          <span class="material-symbols-outlined" style="font-size:16px;color:var(--blue)">calendar_month</span>
+          Book a Discovery Call
+        </a>
+        <a href="#contact" class="btn btn-ghost-white btn-lg">Book a Free AI Audit →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="foot-logo"><span class="z">Z</span>effron</a>
+        <p class="foot-tag">Engineering Intelligence for Founders. Based in London, working globally.</p>
+        <div class="foot-contacts">
+          <a href="mailto:hello@zeffron.ai">hello@zeffron.ai</a>
+          <a href="tel:+441215550123">+44 (0) 121 555 0123</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#">Rapid AI Development</a></li>
+          <li><a href="#">Custom AI Solutions</a></li>
+          <li><a href="#">Technical Team</a></li>
+          <li><a href="#">Investor Readiness</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">Work</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Live Lab</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="https://cal.com/zeffron" target="_blank">Book a call</a></li>
+          <li><a href="#">hello@zeffron.ai</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">London, UK</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="foot-legal">Zeffron Systems © 2026 · <a href="#" style="color:inherit;text-decoration:none">Privacy</a> · <a href="#" style="color:inherit;text-decoration:none">Terms</a></span>
+      <span class="foot-loc">London, United Kingdom · zeffron.ai</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const obs = new IntersectionObserver(e => e.forEach(el => { if(el.isIntersecting){el.target.classList.add('in');obs.unobserve(el.target);} }), {threshold:0.1,rootMargin:'0px 0px -36px 0px'});
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+// Nav
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20));
+
+// FAQ
+function faq(btn) {
+  const item = btn.closest('.faq-item'), open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if(!open) item.classList.add('open');
+}
+
+// Form toggle
+function setForm(t, el) {
+  document.querySelectorAll('.ftog').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('nf').style.display = t==='new'?'':'none';
+  document.getElementById('ef').style.display = t==='existing'?'':'none';
+}
+
+// File drag-drop
+const fd = document.querySelector('.file-drop');
+if(fd){
+  fd.addEventListener('dragover', e => { e.preventDefault(); fd.style.borderColor='rgba(1,69,242,0.5)'; });
+  fd.addEventListener('dragleave', () => fd.style.borderColor='');
+  fd.addEventListener('drop', e => {
+    e.preventDefault(); fd.style.borderColor='';
+    const f = e.dataTransfer.files;
+    if(f.length) fd.querySelector('p').textContent = `${f.length} file${f.length>1?'s':''} selected`;
+  });
+}
+</script>
+</body>
+</html>
