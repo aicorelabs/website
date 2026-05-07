@@ -203,15 +203,8 @@
             background: rgba(1, 69, 242, 0.2);
             border-color: rgba(1, 69, 242, 0.5);
         }
-
-
-
         @media (max-width: 768px) {
-            .custom-cursor {
-                display: none !important;
-            }
-
-            h1 {
+h1 {
                 font-size: 2.25rem !important;
             }
 
@@ -219,13 +212,7 @@
                 font-size: 1.875rem !important;
             }
         }
-
-        @media (hover: none) and (pointer: coarse) {
-            .custom-cursor {
-                display: none !important;
-            }
-        }
-    </style>
+</style>
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="E7AH9GmSZB5rPAX14Of8Cg" async></script>
 </head>
 
@@ -680,43 +667,7 @@
             document.querySelectorAll('.reveal').forEach(el => {
                 observer.observe(el);
             });
-
-            // Custom Cursor
-            const cursor = document.querySelector('.custom-cursor');
-            const cursorDot = document.querySelector('.cursor-dot');
-            const cursorOutline = document.querySelector('.cursor-outline');
-            let mouseX = 0;
-            let mouseY = 0;
-            let cursorX = 0;
-            let cursorY = 0;
-
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            function animateCursor() {
-                const speed = 0.15;
-                cursorX += (mouseX - cursorX) * speed;
-                cursorY += (mouseY - cursorY) * speed;
-
-                cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, [role="button"]');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.classList.add('hover');
-                });
-
-                el.addEventListener('mouseleave', () => {
-                    cursor.classList.remove('hover');
-                });
-            });
-
-            // Newsletter Form Handler
+// Newsletter Form Handler
             const newsletterForm = document.getElementById('newsletter-form');
             const newsletterBtn = document.getElementById('newsletter-btn');
             const newsletterMessage = document.getElementById('newsletter-message');

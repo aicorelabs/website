@@ -765,43 +765,7 @@
             if (mobileBackdrop) {
                 mobileBackdrop.addEventListener('click', toggleMobileMenu);
             }
-
-
-
-            // Custom Cursor
-            const cursor = document.querySelector('.custom-cursor');
-            let mouseX = 0;
-            let mouseY = 0;
-            let cursorX = 0;
-            let cursorY = 0;
-
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            function animateCursor() {
-                const speed = 0.15;
-                cursorX += (mouseX - cursorX) * speed;
-                cursorY += (mouseY - cursorY) * speed;
-
-                cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, [role="button"]');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.classList.add('hover');
-                });
-
-                el.addEventListener('mouseleave', () => {
-                    cursor.classList.remove('hover');
-                });
-            });
-
-            // Newsletter Modal & Form Logic
+// Newsletter Modal & Form Logic
             const modalTrigger = document.getElementById('newsletter-modal-trigger');
             const modal = document.getElementById('newsletter-modal');
             const modalBackdrop = document.getElementById('newsletter-modal-backdrop');
