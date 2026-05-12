@@ -2,47 +2,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog — Engineering Intelligence for Founders | Zeffron</title>
-    <meta name="description" content="Strategic AI insights and technical engineering deep-dives from the Zeffron team.">
+    <title>AI & Software Development Blog | Zeffron</title>
+    <meta name="description"
+        content="Insights, guides, and stories from Zeffron on AI development, software engineering, and building AI products.">
+    <meta name="ahrefs-site-verification" content="56868341b1860a29ed0c1b9d59d0bb9146cd0e258ffea4c656fbafae819513a4">
+    <link rel="canonical" href="https://zeffron.ai/blog.html" />
+
+    <!-- SEO / Social Meta Tags -->
+    <meta property="og:title" content="AI & Software Development Blog | Zeffron">
+    <meta property="og:description" content="Insights, guides, and stories from Zeffron on AI development, software engineering, and building AI products.">
+    <meta property="og:image" content="https://zeffron.ai/assets/whatsapp.png">
+    <meta property="og:url" content="https://zeffron.ai/blog.html">
+    <meta property="og:type" content="website">
     
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        zeffron: '#0145F2',
-                        ink: '#070709',
-                        paper: '#F8F8F8',
-                        surface: '#0f0f13',
-                        surface2: '#17171c',
-                    },
-                    fontFamily: {
-                        display: ['Space Grotesk', 'sans-serif'],
-                        body: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                }
-            }
-        }
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI & Software Development Blog | Zeffron">
+    <meta name="twitter:description" content="Insights, guides, and stories from Zeffron on AI development, software engineering, and building AI products.">
+    <meta name="twitter:image" content="https://zeffron.ai/assets/whatsapp.png">
+
+    <!-- LocalBusiness JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Zeffron",
+      "image": "https://zeffron.ai/assets/PNG/Logo%20-%20White@2x.png",
+      "@id": "https://zeffron.ai",
+      "url": "https://zeffron.ai",
+      "telephone": "+441215550123",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "London",
+        "addressLocality": "London",
+        "addressRegion": "ENG",
+        "postalCode": "B1",
+        "addressCountry": "GB"
+      }
+    }
     </script>
 
+    <link rel="icon" type="image/png" href="./assets/Icons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./assets/Icons/favicon.svg" />
+    <link rel="shortcut icon" href="./assets/Icons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/Icons/apple-touch-icon.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <style>
-        .grid-bg {
-            background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
+        body {
+            font-family: 'Magnetik', 'Archivo', 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #E5E5E5;
+            overflow-x: hidden;
         }
-        .rv { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.2, 1, 0.2, 1); }
-        .rv.in { opacity: 1; transform: translateY(0); }
-        
-        /* Category Toggle Styles */
-        .category-tab.active {
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(1, 69, 242, 0.4);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 30px rgba(1, 69, 242, 0.1);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #FFFFFF, #A3A3A3);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-point {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: #0145F2;
+            filter: blur(150px);
+            opacity: 0.12;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            filter: blur(10px);
+            transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+            will-change: opacity, transform, filter;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+        }
+
+        .stagger-1 {
+            transition-delay: 100ms;
+        }
+
+        .stagger-2 {
+            transition-delay: 200ms;
+        }
+
+        .stagger-3 {
+            transition-delay: 300ms;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0A0A0A;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #262626;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
             background: #0145F2;
         }
 
@@ -110,8 +202,15 @@
             background: rgba(1, 69, 242, 0.2);
             border-color: rgba(1, 69, 242, 0.5);
         }
+
+
+
         @media (max-width: 768px) {
-h1 {
+            .custom-cursor {
+                display: none !important;
+            }
+
+            h1 {
                 font-size: 2.25rem !important;
             }
 
@@ -119,7 +218,13 @@ h1 {
                 font-size: 1.875rem !important;
             }
         }
-</style>
+
+        @media (hover: none) and (pointer: coarse) {
+            .custom-cursor {
+                display: none !important;
+            }
+        }
+    </style>
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="E7AH9GmSZB5rPAX14Of8Cg" async></script>
 </head>
 
@@ -137,7 +242,6 @@ h1 {
                 <a href="index.html#services" class="text-[11px] font-display font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-white transition-colors">Services</a>
                 <a href="blog.html" class="text-[11px] font-display font-bold uppercase tracking-[0.2em] text-zeffron">Insights</a>
                 <a href="demos.html" class="text-[11px] font-display font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-white transition-colors">Live Lab</a>
-                <a href="index.html#contact" class="bg-white text-ink px-6 py-2.5 rounded-sm text-[11px] font-display font-bold uppercase tracking-[0.2em] hover:bg-zinc-200 transition-all">Start Building</a>
             </div>
 
             <button class="md:hidden text-white">
@@ -378,7 +482,9 @@ h1 {
                     <ul class="space-y-4">
                         <li><a href="https://cal.com/zeffron-ai/30min" target="_blank" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">Book a call</a></li>
                         <li><a href="mailto:hello@zeffron.ai" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">hello@zeffron.ai</a></li>
-                        <li><a href="#" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">LinkedIn</a></li>
+                        <li><a href="https://x.com/zeffron_ai" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">X (Twitter)</a></li>
+                        <li><a href="https://www.instagram.com/zeffron_ai_" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">Instagram</a></li>
+                        <li><a href="https://www.linkedin.com/company/zeffron-ai/" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-white text-[13px] transition-colors font-body">LinkedIn</a></li>
                         <li class="text-zinc-600 text-[12px] pt-2">London, UK</li>
                     </ul>
                 </div>
