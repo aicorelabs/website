@@ -7,61 +7,61 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://zeffron.ai/blog.html</loc>
+    <loc>https://zeffron.ai/blog</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://zeffron.ai/career.html</loc>
+    <loc>https://zeffron.ai/career</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zeffron.ai/demos.html</loc>
+    <loc>https://zeffron.ai/demos</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zeffron.ai/n8n_org.html</loc>
+    <loc>https://zeffron.ai/n8n_org</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://zeffron.ai/blog/custom-ai-solutions-2026.html</loc>
+    <loc>https://zeffron.ai/blog/custom-ai-solutions-2026</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://zeffron.ai/blog/whatsapp-ai-agents.html</loc>
+    <loc>https://zeffron.ai/blog/whatsapp-ai-agents</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://zeffron.ai/blog/let-your-users-build-for-you.html</loc>
+    <loc>https://zeffron.ai/blog/let-your-users-build-for-you</loc>
     <lastmod>2026-03-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://zeffron.ai/blog/5-signs-business-problem-ai-fit.html</loc>
+    <loc>https://zeffron.ai/blog/5-signs-business-problem-ai-fit</loc>
     <lastmod>2026-03-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://zeffron.ai/blog/ai-stack-compromise.html</loc>
+    <loc>https://zeffron.ai/blog/ai-stack-compromise</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
     <url>
-        <loc>https://zeffron.ai/blog/ai-adoption.html</loc>
+        <loc>https://zeffron.ai/blog/ai-adoption</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
