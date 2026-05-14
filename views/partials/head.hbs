@@ -1,0 +1,72 @@
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <meta name="description" content="{{description}}">
+    {{#if keywords}}
+    <meta name="keywords" content="{{keywords}}">
+    {{/if}}
+    {{#if author}}
+    <meta name="author" content="{{author}}">
+    {{else}}
+    <meta name="author" content="Zeffron">
+    {{/if}}
+    {{#if noindex}}
+    <meta name="robots" content="noindex, nofollow">
+    {{else}}
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    {{/if}}
+    <meta name="geo.region" content="GB-ENG">
+    <meta name="theme-color" content="#0A0A0A">
+    <meta name="ahrefs-site-verification" content="56868341b1860a29ed0c1b9d59d0bb9146cd0e258ffea4c656fbafae819513a4">
+    <link rel="canonical" href="{{canonical}}">
+
+    {{!-- Structured data: passed in per-page as { jsonLd: [{...}, {...}] } --}}
+    {{#each jsonLd}}
+    <script type="application/ld+json">{{{json this}}}</script>
+    {{/each}}
+
+    <link rel="icon" type="image/png" href="/assets/Icons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/assets/Icons/favicon.svg" />
+    <link rel="shortcut icon" href="/assets/Icons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/Icons/site.webmanifest" />
+
+    {{!-- Open Graph / Facebook --}}
+    <meta property="og:type" content="{{#if ogType}}{{ogType}}{{else}}website{{/if}}">
+    <meta property="og:site_name" content="Zeffron">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="{{title}}">
+    <meta property="og:description" content="{{description}}">
+    <meta property="og:url" content="{{canonical}}">
+    <meta property="og:image" content="{{#if ogImage}}{{ogImage}}{{else}}https://zeffron.ai/assets/iphone-16-pro-mockup-v2.jpg{{/if}}">
+    <meta property="og:image:alt" content="{{#if ogImageAlt}}{{ogImageAlt}}{{else}}Zeffron — AI & MVP Development Studio{{/if}}">
+
+    {{!-- Twitter --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@zeffron_ai">
+    <meta name="twitter:creator" content="@zeffron_ai">
+    <meta name="twitter:title" content="{{title}}">
+    <meta name="twitter:description" content="{{description}}">
+    <meta name="twitter:image" content="{{#if ogImage}}{{ogImage}}{{else}}https://zeffron.ai/assets/iphone-16-pro-mockup-v2.jpg{{/if}}">
+    <meta name="twitter:image:alt" content="{{#if ogImageAlt}}{{ogImageAlt}}{{else}}Zeffron — AI & MVP Development Studio{{/if}}">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/zeffron.css">
+
+    {{!-- GSAP --}}
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    {{!-- Lenis Smooth Scroll --}}
+    <script src="https://unpkg.com/lenis@1/dist/lenis.min.js"></script>
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="E7AH9GmSZB5rPAX14Of8Cg" async></script>
+
+    {{!-- Shared chrome wiring (mobile menu, cursor, Lenis, brief modal). Loaded
+         on every page; per-page scripts run after and may read window.lenisInstance. --}}
+    <script src="/js/site.js" defer></script>

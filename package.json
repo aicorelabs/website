@@ -2,12 +2,21 @@
   "name": "zeffron-website",
   "version": "1.0.0",
   "description": "Zeffron AI & MVP Development Website",
-  "main": "index.html",
+  "main": "server.js",
   "scripts": {
-    "start": "npx serve .",
-    "build": "echo 'No build step needed for static site'"
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "static": "npx serve .",
+    "build": "echo 'No build step needed.'"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^4.21.2",
+    "express-handlebars": "^9.0.1",
+    "multer": "^2.0.0",
+    "resend": "^6.12.3"
+  }
 }

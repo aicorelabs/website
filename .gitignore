@@ -11,3 +11,7 @@ build/
 node_modules
 assets/js/firebase-config.local.js
 zeffron_client_management/.env.local
+
+# Express runtime
+uploads/*
+!uploads/.gitkeep

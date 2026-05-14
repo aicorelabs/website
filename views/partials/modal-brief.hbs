@@ -1,0 +1,125 @@
+    {{!-- Brief Form Modal — opened by [data-open-brief] --}}
+    <div class="brief-modal" id="brief-modal" hidden role="dialog" aria-modal="true" aria-labelledby="brief-modal-title" data-lenis-prevent>
+        <div class="brief-modal-backdrop" data-close></div>
+        <div class="brief-modal-panel">
+            <button type="button" class="brief-modal-close" data-close aria-label="Close">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="brief-modal-header">
+                <p class="brief-modal-eyebrow">Project brief</p>
+                <h2 id="brief-modal-title" class="brief-modal-title">Tell us what you're building.</h2>
+                <p class="brief-modal-sub">A short call first to talk through your challenges. <span class="brief-modal-sub-muted">Response in 1–3 business days.</span></p>
+            </div>
+
+            <form id="brief-form" class="space-y-10" method="POST" action="/api/brief" enctype="multipart/form-data" novalidate>
+                <fieldset>
+                    <legend class="brief-label mb-3">I want to scope out</legend>
+                    <div class="brief-toggle-track" role="tablist">
+                        <button type="button" class="brief-toggle-btn active" data-mode="new" role="tab">A new project</button>
+                        <button type="button" class="brief-toggle-btn" data-mode="existing" role="tab">An existing project</button>
+                    </div>
+                    <input type="hidden" name="brief_mode" id="brief-mode-input" value="new">
+                </fieldset>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8">
+                    <div>
+                        <label class="brief-label" for="brief-name">Your name</label>
+                        <input class="brief-input" id="brief-name" name="name" type="text" autocomplete="name" required>
+                    </div>
+                    <div>
+                        <label class="brief-label" for="brief-email">Email address</label>
+                        <input class="brief-input" id="brief-email" name="email" type="email" autocomplete="email" required>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="brief-label" for="brief-company">Company name <span class="brief-optional">(if any)</span></label>
+                        <input class="brief-input" id="brief-company" name="company" type="text" autocomplete="organization">
+                    </div>
+                </div>
+
+                <div class="brief-branch space-y-8" data-branch="new">
+                    <div>
+                        <label class="brief-label" for="brief-new-desc">Describe your project</label>
+                        <p class="brief-helptext">What are you building, and who is it for?</p>
+                        <textarea class="brief-input brief-textarea" id="brief-new-desc" name="project_description" rows="5" required></textarea>
+                    </div>
+                    <div>
+                        <label class="brief-label" for="brief-new-type">What type of project is this?</label>
+                        <select class="brief-input brief-select" id="brief-new-type" name="project_type" required>
+                            <option value="">Select one</option>
+                            <option>AI product build</option>
+                            <option>Custom AI integration</option>
+                            <option>Website or platform</option>
+                            <option>Not sure yet</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="brief-branch space-y-8" data-branch="existing" hidden>
+                    <div>
+                        <label class="brief-label" for="brief-existing-desc">Tell us about what you have so far</label>
+                        <p class="brief-helptext">What was built, how, and what the problem is now.</p>
+                        <textarea class="brief-input brief-textarea" id="brief-existing-desc" name="existing_description" rows="5"></textarea>
+                    </div>
+                    <div>
+                        <label class="brief-label" for="brief-existing-type">What type of help do you need?</label>
+                        <select class="brief-input brief-select" id="brief-existing-type" name="help_type">
+                            <option value="">Select one</option>
+                            <option>Production hardening</option>
+                            <option>Security review</option>
+                            <option>AI integration</option>
+                            <option>Ongoing development</option>
+                            <option>Not sure yet</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="brief-label" for="brief-existing-url">Link to your build or staging <span class="brief-optional">(optional)</span></label>
+                        <input class="brief-input" id="brief-existing-url" name="staging_url" type="url" placeholder="https://" autocomplete="url">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="brief-label" for="brief-files">Upload files <span class="brief-optional">(briefs, wireframes, decks)</span></label>
+                    <div class="brief-dropzone" id="brief-dropzone">
+                        <input type="file" id="brief-files" name="files" multiple class="brief-file-input" aria-label="Upload files">
+                        <div class="brief-dropzone-content">
+                            <p class="brief-dropzone-title">Drop files here, or <span class="text-[#0145F2] underline underline-offset-4">browse</span></p>
+                            <p class="brief-dropzone-hint">PDF · IMG · DECK · UP TO 25MB EACH</p>
+                        </div>
+                        <ul class="brief-file-list" id="brief-file-list"></ul>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <label class="brief-checkbox">
+                        <input type="checkbox" name="consent_terms" required>
+                        <span class="brief-checkbox-text">I agree to the <a href="/privacy" class="text-white underline decoration-white/30 hover:decoration-[#0145F2] underline-offset-4 transition-colors">Privacy Policy</a> and <a href="/terms" class="text-white underline decoration-white/30 hover:decoration-[#0145F2] underline-offset-4 transition-colors">Terms of Use</a>.</span>
+                    </label>
+                    <label class="brief-checkbox">
+                        <input type="checkbox" name="consent_marketing">
+                        <span class="brief-checkbox-text">I'd like updates on Zeffron's latest products, events, and thought leadership.</span>
+                    </label>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 sm:items-center pt-2">
+                    <button type="submit" class="btn btn-primary btn-lg" id="brief-submit">
+                        Send my brief
+                        <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                    </button>
+                    <span class="text-[#666] text-sm" id="brief-error" hidden></span>
+                </div>
+            </form>
+
+            <div id="brief-thanks" class="brief-thanks" hidden>
+                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#0145F2] mb-3">Brief received</p>
+                <h3 class="text-2xl sm:text-3xl font-medium text-white mb-4 tracking-tight">Thanks — we'll be in touch.</h3>
+                <p class="text-[#A8A8A8] mb-6 leading-relaxed max-w-md">
+                    A senior engineer is already reviewing what you sent. Expect a reply within one to three business days. If it's time-sensitive, reply to the confirmation email and we'll move things up.
+                </p>
+                <a href="https://cal.com/zeffron-ai/30min" class="btn btn-secondary">
+                    Book a call instead
+                    <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>

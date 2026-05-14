@@ -1,0 +1,28 @@
+    <nav class="fixed top-0 w-full z-50 border-b border-white/[0.06] bg-[#0A0A0A]/85 backdrop-blur-xl">
+        <div class="max-w-[1400px] mx-auto px-6 sm:px-10 md:px-14 h-16 flex items-center justify-between">
+            <a href="/" class="flex items-center" aria-label="Zeffron Home">
+                <img src="/assets/PNG/Logo - White@2x.png" alt="Zeffron - AI and Custom Software Company Logo"
+                    class="h-10" />
+            </a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-normal text-[#888] tracking-tight">
+                <a href="/#showcase" class="{{#if (eq activeNav 'work')}}text-white{{else}}hover:text-white{{/if}} transition-colors duration-300">Work</a>
+                <a href="/#services" class="{{#if (eq activeNav 'services')}}text-white{{else}}hover:text-white{{/if}} transition-colors duration-300">Services</a>
+                <a href="/#faq" class="{{#if (eq activeNav 'faq')}}text-white{{else}}hover:text-white{{/if}} transition-colors duration-300">FAQ</a>
+                <a href="/demos" class="{{#if (eq activeNav 'demos')}}text-white{{else}}hover:text-white{{/if}} transition-colors duration-300">Live Lab</a>
+                <a href="/career" class="{{#if (eq activeNav 'careers')}}text-white{{else}}hover:text-white{{/if}} transition-colors duration-300">Careers</a>
+                <a href="/blog" class="{{#if (eq activeNav 'blog')}}text-white{{else}}hover:text-white{{/if}} transition-colors duration-300">Blog</a>
+            </div>
+            <div class="hidden md:flex items-center gap-3">
+                <button type="button" data-open-brief class="btn btn-secondary btn-sm">
+                    Send a brief
+                </button>
+                <a href="https://cal.com/zeffron-ai/30min" class="btn btn-primary btn-sm">
+                    Book a call
+                    <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                </a>
+            </div>
+            <button class="md:hidden text-white" id="mobileMenuToggle" aria-label="Open menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>

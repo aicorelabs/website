@@ -1,14 +1,27 @@
 User-agent: *
 Allow: /
-Disallow: /invoice.html
+Disallow: /api/
+Disallow: /uploads/
+Disallow: /jira
 Disallow: /jira.html
+Disallow: /n8n
+Disallow: /n8n_org.html
+Disallow: /invoice.html
 Disallow: /alpha.html
 
 User-agent: Googlebot
 Allow: /
+Disallow: /api/
+Disallow: /uploads/
+Disallow: /jira
+Disallow: /n8n
 
 User-agent: Bingbot
 Allow: /
+Disallow: /api/
+Disallow: /uploads/
+Disallow: /jira
+Disallow: /n8n
 
 User-agent: Slurp
 Allow: /

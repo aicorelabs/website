@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{> head}}
+</head>
+
+<body class="antialiased selection:bg-[#0145F2] selection:text-white">
+
+    {{> cursor}}
+
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+    {{> mobile-menu}}
+
+    {{> nav}}
+
+    <main id="main-content">
+        {{{body}}}
+    </main>
+
+    {{> footer}}
+
+    {{> modal-brief}}
+
+    {{!-- Per-page scripts injected via the {{#contentFor "scripts"}} block in the view --}}
+    {{#if pageScripts}}{{{pageScripts}}}{{/if}}
+</body>
+
+</html>
