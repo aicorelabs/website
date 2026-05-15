@@ -1,9 +1,8 @@
 {{> blog-post-header}}
 
 <article class="py-16 px-4 sm:px-6">
-    <div class="max-w-4xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            <aside class="hidden lg:block lg:col-span-3">
+            <div class="max-w-3xl mx-auto xl:max-w-7xl xl:grid xl:grid-cols-[300px_768px] xl:gap-12">
+            <aside class="hidden xl:block">
                 <div class="sticky top-24">
                     <div class="glass-panel rounded-xl p-6">
                         <h3 class="text-xs font-mono text-[#666] uppercase tracking-wider mb-4">On This Page</h3>
@@ -17,9 +16,7 @@
                     </div>
                 </div>
             </aside>
-
-            <div class="lg:col-span-9">
-                <div class="blog-content reveal">
+                <div class="blog-content">
                     <div class="w-full aspect-video rounded-xl mb-12 border border-white/10 overflow-hidden bg-[#111]">
                         <img src="/assets/ai-adoption.jpeg" alt="The AI Adoption Gap" class="w-full h-full object-cover" />
                     </div>
@@ -42,7 +39,7 @@
                     <p>Cyberhaven's 2026 AI Adoption and Risk Report, built on data from 222 companies and billions of real-world data movements, found that 39.7% of all AI interactions now involve sensitive data. The average employee inputs proprietary information into an AI tool once every three days. Nearly 30% of organisations have no formal AI governance policy at all, despite AI tools being pervasive across their networks.</p>
                     <p>Deloitte's State of AI 2026 adds the sharpest dimension: nearly three-quarters of organisations plan to deploy autonomous AI agents within the next two years. Yet only 21% report having proper governance in place for them. The organisations racing to deploy agentic AI are, in the majority of cases, doing so without the governance infrastructure to manage what those agents can access, what they can do, and what happens when something goes wrong.</p>
                     <p>Governance readiness in enterprise AI sits at 30%. Talent readiness sits at 20%. Adoption is racing ahead. The infrastructure built to support it is not keeping up — and the gap between the two is where attackers are building their campaigns.</p>
-                    <p>These numbers do not describe a future risk. They describe the conditions that existed when the LiteLLM supply chain attack landed in March 2026, when the CareCloud breach went undetected for eight hours, and when thousands of developer machines were silently harvested of credentials while their owners thought they were running a routine dependency update. (<a href="/blog/ai-stack-compromise">We covered both incidents in detail here.</a>)</p>
+                    <p>These numbers do not describe a future risk. They describe the conditions that existed when the LiteLLM supply chain attack landed in March 2026, when the CareCloud breach went undetected for eight hours, and when thousands of developer machines were silently harvested of credentials while their owners thought they were running a routine dependency update. (<a href="/blog/ai-stack-compromise-march-2026-security-incidents">We covered both incidents in detail here.</a>)</p>
 
                     <hr style="border-color: rgba(255,255,255,0.08); margin: 3rem 0;" />
 
@@ -119,7 +116,7 @@
 
                     <div class="next-part">
                         <span class="label">Coming Next — Part 2</span>
-                        <p>What building responsibly with AI actually means in practice — the governance framework, the practical checklist, and the four things the organisations successfully navigating this era are doing differently. <a href="/blog/building-responsibly-with-ai">Read Part 2 →</a></p>
+                        <p>What building responsibly with AI actually means in practice — the governance framework, the practical checklist, and the four things the organisations successfully navigating this era are doing differently. <a href="/blog/building-responsibly-with-ai-governance-playbook-2026">Read Part 2 →</a></p>
                     </div>
 
                     <div class="my-12 p-8 glass-panel rounded-xl bg-gradient-to-br from-[#0145F2]/10 to-transparent border-[#0145F2]/20 relative overflow-hidden text-left">
@@ -135,19 +132,17 @@
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
     </div>
 </article>
 
 <section class="py-16 px-4 sm:px-6 border-t border-white/5">
     <div class="max-w-7xl mx-auto">
         <h2 class="text-2xl font-semibold text-white mb-8">Related Articles</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <article class="reveal">
-                <a href="/blog/building-responsibly-with-ai" class="group block glass-panel rounded-xl overflow-hidden hover:border-[#0145F2]/40 transition-all h-full flex flex-col">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <article >
+                <a href="/blog/building-responsibly-with-ai-governance-playbook-2026" class="group block glass-panel rounded-xl overflow-hidden hover:border-[#0145F2]/40 transition-all h-full flex flex-col">
                     <div class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center overflow-hidden bg-[#111]">
-                        <img src="/assets/Blog%20VII_090404.jpg.jpeg" alt="Building Responsibly with AI in 2026" class="w-full h-full object-cover opacity-90" />
+                        <img src="/assets/blog-custom-ai.jpeg" alt="Building Responsibly with AI in 2026" class="w-full h-full object-cover opacity-90" />
                     </div>
                     <div class="p-6 flex-1 flex flex-col">
                         <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono mb-3 self-start">AI Governance · Part 2</span>
@@ -157,8 +152,8 @@
                     </div>
                 </a>
             </article>
-            <article class="reveal stagger-1">
-                <a href="/blog/ai-stack-compromise" class="group block glass-panel rounded-xl overflow-hidden hover:border-[#0145F2]/40 transition-all h-full flex flex-col">
+            <article >
+                <a href="/blog/ai-stack-compromise-march-2026-security-incidents" class="group block glass-panel rounded-xl overflow-hidden hover:border-[#0145F2]/40 transition-all h-full flex flex-col">
                     <div class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center overflow-hidden bg-[#111]">
                         <img src="/assets/blog-ai-compromise.jpeg" alt="AI Stack Compromise" class="w-full h-full object-cover opacity-90" />
                     </div>
@@ -167,6 +162,19 @@
                         <h3 class="text-lg font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">Why Nobody Is Talking About What Happens When the AI Stack Gets Compromised</h3>
                         <p class="text-[#888] text-sm leading-relaxed flex-1">Two security incidents revealed the infrastructure holding AI capability together is still fragile, under attack, and built with too much implicit trust.</p>
                         <div class="flex items-center justify-between text-xs text-[#666] mt-4"><span class="font-mono">Apr 3, 2026</span><span>8 min read</span></div>
+                    </div>
+                </a>
+            </article>
+            <article>
+                <a href="/blog/5-signs-business-problem-ai-fit" class="group block glass-panel rounded-xl overflow-hidden hover:border-[#0145F2]/40 transition-all h-full flex flex-col">
+                    <div class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center overflow-hidden bg-[#111]">
+                        <img src="/assets/blog-5-signs-hero.jpg" alt="5 Signs your Business Problem is a perfect fit for an AI Solution" class="w-full h-full object-cover opacity-90" />
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono mb-3 self-start">AI Strategy</span>
+                        <h3 class="text-lg font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">5 Signs Your Business Problem Is a Perfect Fit for AI</h3>
+                        <p class="text-[#888] text-sm leading-relaxed flex-1">Before investing in AI, ask the right question. Here are 5 rigorous signs your business problem is a perfect candidate for an AI solution.</p>
+                        <div class="flex items-center justify-between text-xs text-[#666] mt-4"><span class="font-mono">Mar 25, 2026</span><span>10 min read</span></div>
                     </div>
                 </a>
             </article>

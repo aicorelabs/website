@@ -511,7 +511,7 @@ app.get('/demos', (_req, res) => res.render('demos', {
 // Listing-only fields: imageGradient, imageBg, imageFit, imageOpacity, stagger.
 const blogPosts = [
     {
-        slug: 'building-responsibly-with-ai',
+        slug: 'building-responsibly-with-ai-governance-playbook-2026',
         postTitle: 'Building Responsibly with AI in 2026: The Governance Playbook for Businesses That Want to Get This Right',
         seoTitle: 'Building Responsibly with AI in 2026: The Governance Playbook | Zeffron Blog',
         description: 'The prescription for the AI governance gap: a practical playbook for what building responsibly with AI looks like in practice — dependency hygiene, agent permissions, data minimisation, breach containment, and the four things the 12% share.',
@@ -523,7 +523,7 @@ const blogPosts = [
         listingDate: 'Apr 24, 2026',
         datePublished: '2026-04-24',
         readTime: '8 min read',
-        image: '/assets/Blog%20VII_090404.jpg.jpeg',
+        image: '/assets/blog-custom-ai.jpeg',
         imageAlt: 'Building Responsibly with AI in 2026',
         imageGradient: 'from-[#0145F2]/20 to-[#977DFF]/20',
         imageBg: 'bg-[#111]',
@@ -531,7 +531,7 @@ const blogPosts = [
         imageOpacity: 'opacity-90',
     },
     {
-        slug: 'ai-adoption',
+        slug: 'ai-adoption-gap-threat-landscape-2026',
         postTitle: 'The AI Adoption Gap Nobody Wants to Talk About: Why the Threat Landscape Has Permanently Changed',
         seoTitle: 'The AI Adoption Gap Nobody Wants to Talk About | Zeffron Blog',
         description: "The gap between how fast AI is moving into businesses and how slowly oversight is following is not theoretical. It is the operational reality that made the most serious AI security incidents of 2026 possible — and it's widening.",
@@ -551,7 +551,7 @@ const blogPosts = [
         imageOpacity: 'opacity-90',
     },
     {
-        slug: 'ai-stack-compromise',
+        slug: 'ai-stack-compromise-march-2026-security-incidents',
         postTitle: 'Why Nobody Is Talking About What Happens When the AI Stack Gets Compromised',
         seoTitle: 'When the AI Stack Gets Compromised: Two March 2026 Incidents | Zeffron Blog',
         description: 'Two security incidents in March 2026 revealed the infrastructure holding AI capability together is still fragile, still under attack, and built with too much implicit trust. Here is what they reveal and what to do about it.',
@@ -610,7 +610,7 @@ const blogPosts = [
         stagger: 1,
     },
     {
-        slug: 'whatsapp-ai-agents',
+        slug: 'whatsapp-ai-agents-next-application-interface',
         postTitle: 'The Next Phase of Application Interfaces Might Be WhatsApp and AI Agents',
         seoTitle: 'WhatsApp + AI Agents: The Next Application Interface | Zeffron',
         description: 'Discover how AI-powered WhatsApp agents are bypassing traditional apps to transform the enterprise application interface in 2026.',
@@ -667,7 +667,7 @@ app.get('/blog', (_req, res) => res.render('blog', {
     keywords: 'AI development blog, MVP blog, AI engineering UK, software engineering blog, Zeffron blog, founder insights',
     canonical: 'https://zeffron.ai/blog',
     activeNav: 'blog',
-    ogImage: 'https://zeffron.ai/assets/whatsapp.png',
+    ogImage: 'https://zeffron.ai/assets/blog-custom-ai.jpeg',
     ogImageAlt: 'Zeffron — AI & Software Development Blog',
     posts: listingCards,
     jsonLd: [
@@ -701,6 +701,18 @@ app.get('/blog', (_req, res) => res.render('blog', {
     ],
 }));
 
+// 301 redirects from previous slug structure to the keyword-rich slugs above.
+// Preserves accumulated ranking signal and inbound links after the rename.
+const slugRedirects = {
+    'building-responsibly-with-ai': 'building-responsibly-with-ai-governance-playbook-2026',
+    'ai-adoption': 'ai-adoption-gap-threat-landscape-2026',
+    'ai-stack-compromise': 'ai-stack-compromise-march-2026-security-incidents',
+    'whatsapp-ai-agents': 'whatsapp-ai-agents-next-application-interface',
+};
+for (const [oldSlug, newSlug] of Object.entries(slugRedirects)) {
+    app.get(`/blog/${oldSlug}`, (_req, res) => res.redirect(301, `/blog/${newSlug}`));
+}
+
 // --- Per-post routes -------------------------------------------------------
 // Each post renders views/blog/<slug>.hbs through the shared main layout with
 // full SEO locals (title, description, canonical, OG/Twitter image + alt,
@@ -709,6 +721,7 @@ app.get('/blog', (_req, res) => res.render('blog', {
 for (const post of blogPosts) {
     const canonical = `https://zeffron.ai/blog/${post.slug}`;
     const absoluteImage = `https://zeffron.ai${post.image}`;
+    const ogImageType = /\.png$/i.test(post.image) ? 'image/png' : 'image/jpeg';
     const shareTitleEncoded = encodeURIComponent(post.postTitle);
 
     app.get(`/blog/${post.slug}`, (_req, res) => res.render(`blog/${post.slug}`, {
@@ -719,6 +732,7 @@ for (const post of blogPosts) {
         activeNav: 'blog',
         ogType: 'article',
         ogImage: absoluteImage,
+        ogImageType,
         ogImageAlt: post.imageAlt,
         // Locals consumed by partials/blog-post-header.hbs
         postTitle: post.postTitle,

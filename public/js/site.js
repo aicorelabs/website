@@ -131,6 +131,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { root: null, rootMargin: '0px', threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
+    // --- Copy-link share buttons -------------------------------------------
+    document.querySelectorAll('[data-copy-link]').forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const url = btn.getAttribute('data-copy-link') || window.location.href;
+            try {
+                await navigator.clipboard.writeText(url);
+            } catch {
+                const ta = document.createElement('textarea');
+                ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+                document.body.appendChild(ta); ta.select();
+                try { document.execCommand('copy'); } finally { ta.remove(); }
+            }
+            const prev = btn.getAttribute('aria-label');
+            btn.setAttribute('aria-label', 'Link copied');
+            btn.classList.add('copy-link-success');
+            setTimeout(() => {
+                btn.setAttribute('aria-label', prev || 'Copy link');
+                btn.classList.remove('copy-link-success');
+            }, 1500);
+        });
+    });
+
     // --- Ripple on click ---------------------------------------------------
     document.querySelectorAll('a, button').forEach((el) => {
         el.addEventListener('click', function (e) {

@@ -1102,6 +1102,15 @@
     margin: 2rem 0;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
+/* Hero image sits inside an aspect-ratio frame; opt it out of the default
+   .blog-content img margin/border so it fills the frame edge-to-edge. */
+.blog-content .aspect-video > img,
+.blog-content .aspect-video > img:first-child {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    display: block;
+}
 .blog-content a {
     color: #0145F2;
     text-decoration: underline;
@@ -1126,6 +1135,12 @@
     transform: translateY(-2px);
     border-color: #0145F2;
     background: rgba(1, 69, 242, 0.1);
+}
+.copy-link-button { cursor: pointer; }
+.copy-link-success {
+    border-color: #4ADE80 !important;
+    background: rgba(74, 222, 128, 0.12) !important;
+    color: #4ADE80 !important;
 }
 
 .pull-quote {
