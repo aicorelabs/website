@@ -1,0 +1,393 @@
+NAVIGATION
+Home  |  Work  |  Services  |  Pricing  |  Live Lab  |  Careers  | Blog  |  Start Building
+
+
+HERO SECTION
+HEADLINE
+Build the Custom AI Products Your Investors Want to Fund
+From idea to product with no technical co-founder hassle.
+SUBHEADLINE
+We are the on-demand technical team for founders who need to integrate AI in their operations for a working launch-ready product.
+CTA
+Begin your first call here .
+
+ABOUT ZEFFRON
+BODY
+Zeffron is a modern product and AI studio built for founders who need to move fast. We combine engineering excellence with rapid execution, delivering intelligent product solutions that can scale, ready to pitch and earn. We believe good software is only good if it ships, and it only matters if it works for the people using it. Many times, great ideas get killed by slow, expensive, or indifferent technical teams, and that can change when you partner with us. 
+
+SOCIAL PROOF BAR (Excluded)
+Trusted by founders building the future.
+[Client logos or placeholder icons for case study brands: TrendMind  |  WhisperCoach  |  AlphaCruise  |  Techcify]
+Note: The original had no trust bar. Competitors (RaftLabs, Witsberry, Kitrum) all lead with logos or proof signals. Added to build immediate credibility and reduce bounce.
+ 
+
+WHAT DO WE DO?
+Zeffron works with visionary founders who have the vision and are aware of their market value to build a customised AI focused sprint product model so you can build and ship quickly. Great ideas deserve more than a backlog and that is why you do not need to either wait for months hiring developers or spend six figures building the wrong product. You have access to an actual working product beyond your concept that investors can fund and users can love. 
+
+ 
+WHO DO WE BUILD FOR?
+Non-technical founders ready to validate their first AI product
+Business owners that need to integrate AI into existing tools and workflows
+Scaling businesses that want a fractional technical team, on demand
+
+
+FEATURED PRODUCTS WE HAVE LAUNCHED (Excluded)
+
+These are some of the problems we have solved with our engineering team to ship the products with AI
+01. TrendMind 
+Industry: Content 
+TAGLINE
+High performance LinkedIn content at scale, powered by AI.
+CHALLENGE
+A high-performing founder with no technical capacity and no investor-ready prototype which stalled the fundraising efforts.
+WHAT WE BUILT
+An AI-powered content generator, scheduler, and analytics platform which was shipped in a 10-day sprint and ready to demo to angels on day 11.
+
+RESULTS
+£20k  Angel interest secured
+1,000+  Early users within 30 days
+70%  Lower build cost vs traditional agencies
+"Zeffron didn't just build a product; they built my confidence.  — Founder, TrendMind"
+
+
+02. WhisperCoach 
+Industry: Sales Tech
+TAGLINE
+Real-time AI coaching assistant for high-velocity sales teams.
+CHALLENGE
+The team needed a fast and investor-ready prototype that could demonstrate complex real-time capabilities without a full build budget.
+WHAT WE BUILT
+A high-fidelity, clickable AI prototype simulating real-time feedback loops and analytics dashboards. This concept was validated before a single line of production code was written.
+RESULTS
+6 Weeks  To first enterprise pilot conversation
+75%  Faster sales team ramp-up
+100%  Concept validated without production code
+"Precision and speed. Zeffron helped us land our first enterprise conversation.  — Co-Founder, WhisperCoach"
+
+03. AlphaCruise
+Industry: Travel Tech
+TAGLINE
+Modern booking automation for the digital-first travel era
+
+CHALLENGE
+A travel brand relying on manual processes, with no internal tech team and no roadmap for digital transformation.
+WHAT WE BUILT
+A full booking platform with real-time API integrations and a custom admin portal all delivered end-to-end, from architecture to deployment.
+RESULTS
+60%  Reduction in manual operations
+120+  Beta users onboarded
+45%  Revenue growth post-launch
+"Tech used to be a barrier. Now it's our edge.  — Founder, AlphaCruise"
+
+04. Techcify
+Industry: EdTech
+TAGLINE
+A leading Edtech platform powered by Zeffron.
+WHAT WE BUILT
+An adaptive learning engine, comprehensive analytics dashboard, and smart question generation system engineered to scale to thousands of users with zero downtime.
+RESULTS
+95%  User pass rate
+1,000s  Active learners
+0%  Downtime at scale
+
+HOW WE CAN WORK WITH YOU
+SECTION INTRO
+Here are four ways we can work with you from your first idea to a full AI customisation project  
+
+
+01. Rapid AI Product Development
+WHO IT'S FOR
+Non-technical founders, early-stage startups, and entrepreneurs who need to move from ideation to an investable product launch fast.
+WHAT YOU GET
+–      Product ideation and scoping session
+–      UX and UI design with a clickable, demo-ready prototype
+–      Full AI product build (web or mobile)
+–      Hosting, deployment, and go-live support
+–      One week of post-launch technical support
+
+
+02. Custom AI Solutions
+
+WHO IT'S FOR
+SMEs, scaleups, and brands that want AI embedded in their operations innovation not as an afterthought.
+WHAT YOU GET
+–      AI strategy consulting and opportunity mapping
+–      Custom AI model and tooling development
+–      CRM and ERP integrations
+–      Data pipelines and performance optimisation
+–      Ongoing AI maintenance and iteration
+
+
+
+03. Technical Team On Demand
+
+WHO IT'S FOR
+Founders who need senior technical capability without the overhead cost of a full-time team
+WHAT YOU GET
+–      Full-stack developers and AI/ML engineers
+–      UI/UX designers and product thinkers
+–      Technical co-founder as a service
+–      Feature development, scaling, and roadmap execution
+
+
+
+04. Investor and Pitch Readiness
+WHO IT'S FOR
+Founders preparing for their first round or their next one.
+WHAT YOU GET
+–      Live AI product demo and technical walkthrough
+–      Business model and GTM strategy documentation
+–      Investor pitch deck (co-developed with your team)
+–      Technical documentation for due diligence
+
+
+WHY BUSINESSES CHOOSE ZEFFRON
+HEADLINE
+We do not just build software, we engineer intelligent systems to deliver real business agencies.
+BODY
+Most agencies optimise for billable hours. Freelancers optimise for what's in the brief. Zeffron optimises for what's in your business model. We have been here before and our engineers have shipped real products under real founder pressure so we know what investors look for because we have built things that raised. We own the outcome with your products  and do not disappear after your build. 
+WHAT SETS US APART:
+–      Expert AI and ML engineers embedded from day one
+–      Excellent delivery with no short cuts
+–      End-to-end ownership from whiteboard to launch
+–      Transparent, founder-first communication throughout
+–      Proven results across industries
+–      Data-driven builds
+
+
+Let’s get to work with a call first to discuss your challenges
+Tell us what you are building and we will take it from there. 
+FORM COPY — SCOPING TOGGLE
+TOGGLE LABEL: I want to scope out:
+OPTION A: A New Project
+OPTION B: An Existing Project
+(Design note: We can replicate the Kitrum toggle pattern; two pill buttons or similar, one selected state. "A New Project" selected by default.)
+FORM FIELDS
+IF "A NEW PROJECT" IS SELECTED
+–	Your name
+–	Email address
+–	Company name (if any)
+–	Describe your project: what are you building and who is it for?
+–	What type of project is this? [selectors: AI Product Build / Custom AI Integration / Website or Platform / Not sure yet]
+–	Upload files( briefs, wireframes, pitch decks are welcome) : there should be the option of drag and drop or browse/select files
+I agree to the Privacy and Terms
+I would like to be updated on Zeffron’s latest products, event announcements,  and thought leadership.
+IF "AN EXISTING PROJECT" IS SELECTED
+–	Your name
+–	Email address
+–	Company name
+–	Tell us about what you have so far( what was built, how, and what the problem is now)
+–	What type of help do you need? [selector: Production Hardening / Security Review / AI Integration / Ongoing Development / Not sure yet]
+–	Link to your current build or staging environment (optional)
+–	Upload files
+
+CTA Button: Send My Brief
+BELOW THE BUTTON
+We respond within one to three business days. If your project is time-sensitive, mark it in your message and we will prioritise accordingly.
+AUTOMATED FOLLOW-UP EMAIL
+(Sent automatically 10 minutes or less after form submission. Triggered regardless of whether A or B was selected; personalisation tokens noted in brackets are required. The Cal.com booking link should be embedded in the CTA call link and the sender name is based on what was agreed)
+
+
+
+
+If it is a new project: 
+
+EMAIL FROM: hello@zeffron.ai or jonathan@zeffron.ai or samuel@zeffron.ai 
+EMAIL FROM NAME: The Zeffron Team or Jonathan Atiene
+SUBJECT LINE: We got your brief for your {Insert Name of Project}
+PREVIEW TEXT: Here is what happens next
+
+EMAIL BODY: 
+Hi [First Name],
+
+Thank you for sending your brief, we are taking a close look at it.
+
+I am [Insert Name], and I am on the Zeffron team. One of our senior engineers is already reviewing what you shared, and we will come back to you with an honest first take as soon as possible.
+
+In the meantime, a couple of things worth knowing is that we do not take every project as we like to be selective because we want every build to actually work so when we say yes, we mean it. If your brief has a few gaps, do not worry, that is what the first call is for. If you have a hard deadline or something time-sensitive, reply to this email and let us know. We can move things up.
+
+Typically a project like this can be completed within [X number of weeks] with a budget around [insert the amount]. Depending on the scope, feedback cycles and other components we would be integrating, we can move faster and more cost-effectively, or take a bit longer for builds that are more complex. 
+
+We would love to get your response to this email but if you would rather skip the wait and just talk to us directly, you can book a call here:
+
+CTA: [Book a Discovery Call] [Cal.com link]
+
+Either way, you will hear from us shortly.
+
+[Name]
+The Zeffron Team
+hello@zeffron.ai
+
+If "An Existing Project" was selected:
+
+
+EMAIL FROM: hello@zeffron.ai or jonathan@zeffron.ai or samuel@zeffron.ai 
+EMAIL FROM NAME: The Zeffron Team or Jonathan Atiene
+SUBJECT LINE: We got your brief for your {Insert Name of Project}
+PREVIEW TEXT: Here is what happens next
+
+EMAIL BODY: 
+Hi [First Name],
+
+Thank you for sending your brief, we are taking a close look at it.
+
+I am [Insert Name], and I am on the Zeffron team.  You mentioned you have something already built in [name of project or build], one of our engineers is reviewing the details now. We have a lot of experience coming into pre-existing projects that need to be made solid for production so this is familiar territory. We will come back to you with honest thoughts as soon as possible. 
+
+In the meantime, a couple of things worth knowing is that we do not take every project as we like to be selective because we want every build to actually work so when we say yes, we mean it. If your brief has a few gaps, do not worry, that is what the first call is for. If you have a hard deadline or something time-sensitive, reply to this email and let us know. We can move things up.
+
+Typically a project like this can be completed within [X number of weeks] with a budget around [insert the amount]. Depending on the scope, feedback cycles and other components we would be integrating, we can move faster and more cost-effectively, or take a bit longer for builds that are more complex. 
+
+We would love to get your response to this email but if you would rather skip the wait and just talk to us directly, you can book a call here:
+
+CTA: [Book a Discovery Call] [Cal.com link]
+
+Either way, you will hear from us shortly.
+
+[Name]
+The Zeffron Team
+hello@zeffron.ai
+
+
+
+
+A FREE AUDIT FOR YOU
+Not sure where AI fits in your business? Find out in less than 60 minutes. 
+We offer a free, no-obligation AI Audit for businesses that are curious about AI but do not know where to start or have already started and want to know if they are doing it right. 
+This is for business owners, operators, and founding teams — not necessarily technical. If you have questions about AI and want straight answers from engineers who build it, this call is for you.
+Book Your Free AI Audit Call [Link to Cal.com booking page]
+
+PRICING (Excluded from the website) 
+
+Here is exactly what you get and what it costs.
+Launch Pad — £3,000 to £4,500
+TAGLINE
+Your first AI product, shipped in 10 days.
+–      Full AI product build (web or mobile)
+–      UX/UI design and clickable prototype
+–      10-day delivery guarantee
+–      Hosting and deployment
+–      1 week post-launch support
+CTA
+Start Your Product Sprint Here
+
+AI Sprint — As Low as £5,000 
+TAGLINE
+Custom AI, built around your business logic.
+–      Custom AI model development
+–      Data engineering and pipeline setup
+–      CRM/ERP integration and support
+–      Ongoing iteration post-launch
+BADGE
+[Most Popular]
+CTA
+Begin Your AI Sprint Here
+
+
+
+
+
+
+
+Monthly Retainer — Custom Pricing
+TAGLINE
+A dedicated technical team that grows with you.
+–      Dedicated engineers and AI/ML specialists
+–      Ongoing product development and feature work
+–      Fractional CTO and technical leadership
+CTA
+Contact Sales Team
+Add-Ons
+Investor Prep and Advisory — £1,000 to £2,000
+
+MID-PAGE CTA BLOCK
+HEADLINE
+Your Idea Is One Call Away.
+BODY
+Founders across the United Kingdom trust Zeffron to take them from concept to clarity fast. No matter your current business positioning in revenue or investment, we'll help you build the right thing at the right time.
+PRIMARY CTA
+Book a Discovery Call
+
+BLOG 
+SECTION LABEL
+The Zeffron Insights
+SECTION INTRO
+Think clearly about AI, product, and what it actually takes to build something people want.
+Track 01: Insights For Founders 
+WHO IT'S FOR
+Practical thinking for non-technical founders making product and strategy decisions.
+Proposed Topics:
+–      How to Validate an AI Product Idea Without Writing a Single Line of Code
+–      What Investors Actually Want to See in your AI Product Demo
+–      From Idea to Launch: What Happens Inside a Zeffron Sprint
+–      The Difference Between an AI Feature and an AI Product (And Why It Matters for Your Pitch) 
+–      No Technical Co-Founder? Here Is What You Should Do Instead
+–      How to Brief a Developer When You Are Not Technical Leader
+–      What Your MVP Should (and Should Not) Do on Day One
+–      Why the Best Founders Kill Features Before They Build Them
+
+
+Track 02: Insights for Technical Teams
+WHO IT'S FOR
+Deeper thinking for builders, engineers, and technically-minded founders who want to understand the craft.
+Proposed Topics:
+–      WhatsApp as an Application Interface: Architecture Patterns for AI Agents at Scale
+–      Lessons We Discovered From Engineering TrendMind's AI Content Layer 
+How To Choose the Right AI Architecture for Your Product
+–      Building Real-Time Feedback Systems: The Engineering Behind WhisperCoach
+–      Why AI Products Fail After Launch (And How We Design Against It)
+–      API-First Design: How We Built AlphaCruise's Booking Engine to Survive Traffic Spikes
+–      The Hidden Complexity of "Simple" AI Features — What Non-Technical Founders Don't Know They're Asking For
+–      Designing Adaptive Learning Engines: Lessons from the Techcify Build
+–      Prompt Engineering Is Not a Strategy — What Sustainable AI Products Look Like Under the Hood
+–      How We Handle Data Quality, Bias, and Auditability in Custom AI Builds
+
+
+
+
+
+
+We built Zeffron because we watched too many good ideas get killed by slow, expensive, or indifferent technical teams.
+We are a product and AI studio for founders. Our team combines engineering precision with the urgency of a startup — because we have been in one. We work in sprints, we ship fast, and we care about what happens after launch.
+We believe the best software is built when technical excellence and founder ambition are in the same room at the same time. That is what we bring.
+
+
+COMMON QUESTIONS YOU MIGHT HAVE 
+Do you have any of these concerns? We have some answers here for you
+Q1: I'm not technical at all. Can I still work with Zeffron?
+Yes — and frankly, most of our best engagements are with non-technical founders. You do not need to understand code, architecture, or infrastructure to work with us. What you need is a clear problem, a target user, and a willingness to make decisions fast. We handle everything else and we will explain the technical parts in plain language, flag the trade-offs that matter to your business, and make sure you feel in control throughout the build.
+Q2  How is Zeffron different from hiring a freelancer or a larger agency?
+Freelancers are affordable but solo. They build what you ask for, and if you ask for the wrong thing, they build that too. Larger agencies are thorough but slow, you will wait months for a kickoff, pay for project managers, and still not own the product thinking. Zeffron sits in neither category. We are a lean senior team that moves at startup speed. We will tell you when a feature is a distraction, when a simpler architecture is the smarter bet, and when you are ready to raise before you think you are.
+Q3  What if I need changes after the build days are up?
+The first week after launch is included in every sprint,  if something is not right, we fix it. Beyond that, most founders who want to keep building move onto a monthly retainer with us, where we act as their ongoing technical team. Some projects roll directly from a sprint into a Custom AI build or a fractional team arrangement depending on what growth looks like. We will always be transparent about what makes sense for your stage before recommending anything.
+Q4  I have an idea but I am not sure it is ready. How developed does my concept need to be before we talk?
+Not very. What matters is not the polish of your brief,  it is whether the problem you are solving is real. If you can describe who your user is, what they are struggling with today, and roughly what you imagine the solution looks like, that is enough to start. Our discovery process is specifically designed to turn loose thinking into a sharp, scoped product plan.
+Q5  Do I own the code and the intellectual property after the build?
+Completely and contractually. Everything we build for you belongs to you: the code, the design, the data architecture, all of it. We do not retain licensing rights, we do not keep back-end access after handover, and we do not use your product as a portfolio asset without your explicit permission. 
+Q6  Can you help me get investor-ready — not just build the product?
+Yes. Investor readiness is one of our four core services for exactly this reason. We have seen too many founders walk into fundraising conversations with a strong product and a weak story — or worse, a strong story and a product that falls apart under technical scrutiny. Our Investor and Pitch Readiness package includes a live product demo, technical documentation for due diligence, a co-developed pitch deck, and a GTM plan. We can also join investor calls to answer technical questions directly if that would be useful. Getting funded is not just about having a good product. It is about being able to show it clearly, defend it confidently, and frame it in a language investors already trust.
+Q7: I already have something built  but it was put together quickly and I am not sure it is production-ready. Can you help?
+Yes, and this is one of the most common situations we work with. A lot of founders today are using AI-assisted tools to ship a first version fast — which is smart for validating an idea, but those builds were not designed to scale, handle real user traffic, or pass a security review. What you have is a starting point, not a finished product. We come in, audit what exists, identify where it breaks under pressure, fix the underlying architecture, and harden it for production. This includes security vulnerabilities, data handling, performance under load, and making the codebase something a future engineering team can actually work with. You keep the momentum you have built. We make it solid enough to put in front of real users, enterprise clients, or investors without it becoming a liability.
+Still have a question we have not answered here?
+Book a Discovery Call — and ask us directly. (embed the link here) 
+
+If you are not sure your business is ready for a full AI build? Book a free call  instead. It is a 45-minute conversation with our team — no commitment, no sales pitch, just clarity.
+[Book a Free AI Audit] [Cal.com link]
+
+FOOTER
+TAGLINE
+Zeffron — Engineering Intelligence for Founders 
+CONTACT
+hello@zeffron.ai
++44 (0) 121 555 0123
+SERVICE AREAS
+London  |  United Kingdom
+FOOTER LINKS
+Work  |  Services  |  Pricing  |  Live Lab  |  Careers  | Blog
+LEGAL
+Zeffron Systems © 2026  |  Privacy Policy  |  Terms of Use
+ 
+
+
+
+
+

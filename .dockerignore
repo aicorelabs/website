@@ -1,0 +1,41 @@
+# Keep the Nixpacks build context lean. Files listed here are NOT shipped
+# to the Railway image — they're either rebuilt (node_modules), secret
+# (.env), runtime-only (uploads), or local scratch.
+
+# Dependencies — Nixpacks runs `npm install` itself
+node_modules
+npm-debug.log
+yarn-error.log
+.pnpm-store
+
+# Secrets / local config
+.env
+.env.local
+.env.*.local
+
+# VCS + editor metadata
+.git
+.gitignore
+.gitattributes
+.vscode
+.idea
+.DS_Store
+
+# Runtime data — ephemeral; uploads are forwarded via Resend in-request
+uploads
+*.log
+
+# Build artefacts (none yet, but future-proof)
+dist
+build
+.next
+
+# Local scratch the studio keeps in the repo
+content.txt
+todo.txt
+*.bak
+
+# Test + CI artefacts
+coverage
+.nyc_output
+.github/workflows

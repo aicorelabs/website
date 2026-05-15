@@ -1,0 +1,59 @@
+  Pending — major (need real work)                                                                                                                               
+                                                                                                                                                                 
+  1. The scoping form — content.txt lines 160–186. Currently the closing CTA falls back to a mailto: for "Send a brief." Still to build:                         
+  - Toggle: A New Project / An Existing Project (pill switcher, "New Project" default)                                                                           
+  - Conditional fields per branch (name, email, company, project description, project-type selector, optional staging URL for existing builds)                   
+  - File upload with drag-and-drop + browse (briefs, wireframes, decks)                                                                                        
+  - Privacy/Terms consent checkbox                                                                                                                               
+  - Marketing opt-in checkbox                                                                                                                                    
+  - Send My Brief submit                                                                                                                                         
+  - Below-button microcopy: "We respond within one to three business days. If your project is time-sensitive…"                                                   
+                                                                                                                                                                 
+  2. Automated follow-up email system — content.txt lines 187–249. Two templates (one per branch) with personalization tokens ({First Name}, {Insert Name of     
+  Project}, sender variants). Needs:                                                                                                                             
+  - A form handler (Cloudflare Worker, Vercel function, Formspree, etc.)                                                                                         
+  - Email service integration (Resend, Postmark, SendGrid)                                                                                                       
+  - Template rendering with the tokens                                                                                                                         
+  - Cal.com booking link embedded in the in-email CTA                                                                                                            
+  - Routing logic: 10-min delay; if-new-project vs if-existing-project sender selection                                                                          
+                                                                                                                                                                 
+  3. Blog section on the homepage — content.txt lines 310–342. Currently the homepage has no blog teaser; blog.html exists separately but isn't surfaced.        
+  Pending:                                                                                                                                                       
+  - "The Zeffron Insights" preview block on the homepage                                                                                                         
+  - Two-track layout: Insights for Founders + Insights for Technical Teams                                                                                       
+  - Latest post cards (probably 3–4 most recent)                                                                                                               
+  - Link out to /blog                                                                                                                                            
+                                                                                                                                                                 
+  4. Blog post content itself — 8 founder-focused topics + 10 technical topics listed in content.txt. None of these posts are written or published yet (they're
+  proposed titles).                                                                                                                                              
+                                                                                                                                                               
+  Pending — content blocks I didn't place anywhere                                                                                                               
+                                                                                                                                                               
+  5. "What do we do?" body copy (line 25) — "Zeffron works with visionary founders… Great ideas deserve more than a backlog…" This paragraph is currently        
+  unplaced. Should sit either as a lead paragraph above "Who we build for" or as its own intro band between the marquee and the audience block.                
+                                                                                                                                                                 
+  6. Long-form "About Zeffron" body (line 16) — "Zeffron is a modern product and AI studio… good software is only good if it ships, and it only matters if it    
+  works for the people using it." I used a shortened version of this in the footer About block. The full paragraph isn't on the page. Could become a small
+  Studio/About section near the bottom or expand the footer About copy.                                                                                          
+                                                                                                                                                               
+  7. Studio manifesto block (lines 349–351) — "We built Zeffron because we watched too many good ideas get killed… the best software is built when technical     
+  excellence and founder ambition are in the same room at the same time." The first line went into the footer; the rest didn't make it. This is a strong
+  manifesto-style block that could anchor a Studio/About section.                                                                                                
+                                                                                                                                                               
+  8. Legal footer links (line 387) — currently the bottom strip shows "Zeffron Systems © 2026" with no Privacy Policy / Terms of Use links. Both pages also need 
+  to exist.
+                                                                                                                                                                 
+  Correctly skipped (per your (Excluded) markers)                                                                                                                
+   
+  - Social Proof / trust-bar of client logos                                                                                                                     
+  - Pricing section + nav link                                                                                                                                 
+  - (You marked the "FEATURED PRODUCTS" header as excluded but the case studies themselves are present — they live in Selected Works)                            
+                                                                                                                                                                 
+  ---
+  Want me to tackle any of these now? Quickest wins in order of effort:                                                                                          
+                                                                                                                                                                 
+  - Add the unplaced copy (#5, #6, #7, #8) — pure markup, can ship in one pass
+  - Add the homepage blog teaser (#3) — markup only, post content can be placeholder until the actual posts exist                                                
+  - Build the scoping form UI (#1) — markup + JS toggle + client-side validation; submission handler can be a mailto: or Formspree placeholder until #2 is wired 
+  - Wire #2 (form handler + emails) — biggest piece; needs an email service account and a deployed function/endpoint                                             
+                          

@@ -25,32 +25,38 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zeffron.ai/blog/custom-ai-solutions-2026.html</loc>
+    <loc>https://zeffron.ai/privacy</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://zeffron.ai/terms</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://zeffron.ai/blog/5-signs-business-problem-ai-fit</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zeffron.ai/blog/let-your-users-build-for-you</loc>
+    <lastmod>2026-03-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://zeffron.ai/blog/whatsapp-ai-agents</loc>
     <lastmod>2026-03-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://zeffron.ai/blog/whatsapp-ai-agents.html</loc>
-    <lastmod>2026-03-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://zeffron.ai/blog/let-your-users-build-for-you.html</loc>
-    <lastmod>2026-03-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://zeffron.ai/blog/5-signs-business-problem-ai-fit.html</loc>
-    <lastmod>2026-03-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://zeffron.ai/blog/10-mvp-mistakes.html</loc>
-    <lastmod>2026-03-25</lastmod>
+    <loc>https://zeffron.ai/blog/custom-ai-solutions-2026</loc>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

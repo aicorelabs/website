@@ -10,15 +10,26 @@
     {{else}}
     <meta name="author" content="Zeffron">
     {{/if}}
+    <meta name="copyright" content="© Zeffron Systems">
     {{#if noindex}}
     <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
     {{else}}
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1">
     {{/if}}
     <meta name="geo.region" content="GB-ENG">
+    <meta name="geo.placename" content="London">
     <meta name="theme-color" content="#0A0A0A">
+    <meta name="color-scheme" content="dark">
+    <meta name="format-detection" content="telephone=no">
     <meta name="ahrefs-site-verification" content="56868341b1860a29ed0c1b9d59d0bb9146cd0e258ffea4c656fbafae819513a4">
     <link rel="canonical" href="{{canonical}}">
+
+    {{!-- Microdata fallbacks for crawlers that don't read JSON-LD --}}
+    <meta itemprop="name" content="{{title}}">
+    <meta itemprop="description" content="{{description}}">
+    <meta itemprop="image" content="{{#if ogImage}}{{ogImage}}{{else}}https://zeffron.ai/assets/iphone-16-pro-mockup-v2.jpg{{/if}}">
 
     {{!-- Structured data: passed in per-page as { jsonLd: [{...}, {...}] } --}}
     {{#each jsonLd}}
@@ -29,7 +40,17 @@
     <link rel="icon" type="image/svg+xml" href="/assets/Icons/favicon.svg" />
     <link rel="shortcut icon" href="/assets/Icons/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/Icons/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/assets/Icons/favicon.svg" color="#0145F2" />
     <link rel="manifest" href="/assets/Icons/site.webmanifest" />
+
+    {{!-- iOS / Windows / Android polish for installed and pinned states --}}
+    <meta name="application-name" content="Zeffron">
+    <meta name="apple-mobile-web-app-title" content="Zeffron">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#0A0A0A">
+    <meta name="msapplication-tap-highlight" content="no">
 
     {{!-- Open Graph / Facebook --}}
     <meta property="og:type" content="{{#if ogType}}{{ogType}}{{else}}website{{/if}}">
@@ -39,21 +60,33 @@
     <meta property="og:description" content="{{description}}">
     <meta property="og:url" content="{{canonical}}">
     <meta property="og:image" content="{{#if ogImage}}{{ogImage}}{{else}}https://zeffron.ai/assets/iphone-16-pro-mockup-v2.jpg{{/if}}">
+    <meta property="og:image:secure_url" content="{{#if ogImage}}{{ogImage}}{{else}}https://zeffron.ai/assets/iphone-16-pro-mockup-v2.jpg{{/if}}">
+    <meta property="og:image:type" content="{{#if ogImageType}}{{ogImageType}}{{else}}image/jpeg{{/if}}">
+    <meta property="og:image:width" content="{{#if ogImageWidth}}{{ogImageWidth}}{{else}}1200{{/if}}">
+    <meta property="og:image:height" content="{{#if ogImageHeight}}{{ogImageHeight}}{{else}}800{{/if}}">
     <meta property="og:image:alt" content="{{#if ogImageAlt}}{{ogImageAlt}}{{else}}Zeffron — AI & MVP Development Studio{{/if}}">
 
     {{!-- Twitter --}}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@zeffron_ai">
     <meta name="twitter:creator" content="@zeffron_ai">
+    <meta name="twitter:domain" content="zeffron.ai">
+    <meta name="twitter:url" content="{{canonical}}">
     <meta name="twitter:title" content="{{title}}">
     <meta name="twitter:description" content="{{description}}">
     <meta name="twitter:image" content="{{#if ogImage}}{{ogImage}}{{else}}https://zeffron.ai/assets/iphone-16-pro-mockup-v2.jpg{{/if}}">
     <meta name="twitter:image:alt" content="{{#if ogImageAlt}}{{ogImageAlt}}{{else}}Zeffron — AI & MVP Development Studio{{/if}}">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    {{!-- Performance hints. Connect early to the origins we'll hit before the
+         first paint, so the browser overlaps DNS/TLS with parsing. --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">

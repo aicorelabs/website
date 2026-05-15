@@ -1,0 +1,57 @@
+<section class="relative pt-24 pb-8 md:pt-32 md:pb-12 px-4 sm:px-6 overflow-hidden border-b border-white/5">
+    <div class="glow-point top-0 left-1/2 -translate-x-1/2"></div>
+    <div class="max-w-4xl mx-auto">
+        <div class="reveal mb-8">
+            <a href="/blog" class="inline-flex items-center gap-2 text-[#888] hover:text-white transition-colors text-sm">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                Back to Blog
+            </a>
+        </div>
+
+        <div class="reveal stagger-1 flex flex-wrap items-center gap-4 mb-6">
+            <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono uppercase tracking-wider">
+                {{category}}
+            </span>
+            <span class="text-[#666] text-sm font-mono">{{readTime}}</span>
+            <span class="text-[#666] text-sm">•</span>
+            <span class="text-[#666] text-sm font-mono">{{date}}</span>
+        </div>
+
+        <h1 class="reveal stagger-2 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight text-white mb-6">
+            {{postTitle}}
+        </h1>
+
+        <p class="reveal stagger-3 text-lg sm:text-xl text-[#A8A8A8] leading-relaxed mb-8">
+            {{excerpt}}
+        </p>
+
+        <div class="reveal flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-8">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#0145F2] to-[#977DFF] flex items-center justify-center">
+                    <span class="text-white font-semibold text-lg">Z</span>
+                </div>
+                <div>
+                    <p class="text-white font-medium">Zeffron</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-[#666] text-sm mr-2">Share:</span>
+                <a href="https://x.com/intent/tweet?text={{shareTitleEncoded}}&url={{canonical}}" target="_blank" rel="noopener noreferrer"
+                    class="share-button w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-[#888] hover:text-white"
+                    aria-label="Share on X (formerly Twitter)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url={{canonical}}&title={{shareTitleEncoded}}" target="_blank" rel="noopener noreferrer"
+                    class="share-button w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-[#888] hover:text-white"
+                    aria-label="Share on LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+                <a href="https://www.instagram.com/zeffron_ai_" target="_blank" rel="noopener noreferrer"
+                    class="share-button w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-[#888] hover:text-white"
+                    aria-label="Zeffron on Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
