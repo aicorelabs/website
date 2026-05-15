@@ -17,16 +17,10 @@ const ROOT = __dirname;
 // reflect the real client, not the proxy. Required for accurate audit logging.
 app.set('trust proxy', true);
 
-// --- HTTP Basic Auth (Jira board) ------------------------------------------
-// Gate /jira and /api/jira/* behind a shared username + password from env.
-// If either var is missing, log once at boot and let traffic through — that
-// way local dev doesn't need to configure secrets, but production should.
-const JIRA_USER = process.env.JIRA_AUTH_USER || '';
-const JIRA_PASS = process.env.JIRA_AUTH_PASS || '';
-if (!JIRA_USER || !JIRA_PASS) {
-    console.warn('[auth] JIRA_AUTH_USER / JIRA_AUTH_PASS not set — /jira is open. Set both to enable Basic Auth.');
-}
-
+// --- HTTP Basic Auth (factory) --------------------------------------------
+// Returns a middleware that checks Basic Auth against the given user/pass.
+// If either credential is empty, the gate is open (logged at boot) — keeps
+// local dev frictionless while production should always have both set.
 const timingSafeEq = (a, b) => {
     const bufA = Buffer.from(a, 'utf8');
     const bufB = Buffer.from(b, 'utf8');
@@ -34,8 +28,8 @@ const timingSafeEq = (a, b) => {
     return crypto.timingSafeEqual(bufA, bufB);
 };
 
-const jiraBasicAuth = (req, res, next) => {
-    if (!JIRA_USER || !JIRA_PASS) return next(); // auth disabled — see warning above
+const makeBasicAuth = (user, pass, realm) => (req, res, next) => {
+    if (!user || !pass) return next(); // auth disabled — see boot warning
 
     const header = req.headers.authorization || '';
     const [scheme, encoded] = header.split(' ');
@@ -45,17 +39,119 @@ const jiraBasicAuth = (req, res, next) => {
         if (idx !== -1) {
             const u = decoded.slice(0, idx);
             const p = decoded.slice(idx + 1);
-            if (timingSafeEq(u, JIRA_USER) && timingSafeEq(p, JIRA_PASS)) return next();
+            if (timingSafeEq(u, user) && timingSafeEq(p, pass)) return next();
         }
     }
 
-    // API requests get a JSON 401 (no native dialog needed); browsers hitting
-    // the HTML page get the WWW-Authenticate header so the browser prompts.
-    res.setHeader('WWW-Authenticate', 'Basic realm="Zeffron Jira", charset="UTF-8"');
+    res.setHeader('WWW-Authenticate', `Basic realm="${realm}", charset="UTF-8"`);
     if (req.path.startsWith('/api/') || req.accepts('json') === 'json') {
         return res.status(401).json({ ok: false, error: 'Authentication required' });
     }
     res.status(401).type('html').send('<h1>401 — Authentication required</h1>');
+};
+
+const JIRA_USER = process.env.JIRA_AUTH_USER || '';
+const JIRA_PASS = process.env.JIRA_AUTH_PASS || '';
+if (!JIRA_USER || !JIRA_PASS) {
+    console.warn('[auth] JIRA_AUTH_USER / JIRA_AUTH_PASS not set — /jira is open. Set both to enable Basic Auth.');
+}
+const jiraBasicAuth = makeBasicAuth(JIRA_USER, JIRA_PASS, 'Zeffron Jira');
+
+// --- Admin session auth (cookie-based, in-app login page) -----------------
+// Admin uses ADMIN_AUTH_* if set; otherwise falls back to the Jira creds so
+// existing deployments don't need a second secret. Either pair, both gates.
+// The session itself is a self-contained signed cookie (HMAC-SHA256) — no
+// server-side store, so it survives process restarts and scales horizontally
+// without a Redis/session table. Cookie is HttpOnly + SameSite=Lax + Secure
+// (in production), so it can't be read by client JS and isn't sent on
+// cross-site POSTs.
+const ADMIN_USER = process.env.ADMIN_AUTH_USER || JIRA_USER;
+const ADMIN_PASS = process.env.ADMIN_AUTH_PASS || JIRA_PASS;
+if (!ADMIN_USER || !ADMIN_PASS) {
+    console.warn('[auth] ADMIN_AUTH_USER / ADMIN_AUTH_PASS (or JIRA fallback) not set — /admin is open.');
+}
+
+// SESSION_SECRET should be set in production. If not, derive a stable secret
+// from the admin creds so existing sessions survive restarts in dev — NOT a
+// security claim, just a pragmatic fallback.
+const SESSION_SECRET = process.env.SESSION_SECRET
+    || `${ADMIN_USER}|${ADMIN_PASS}|zeffron-admin-dev-fallback`;
+if (!process.env.SESSION_SECRET) {
+    console.warn('[auth] SESSION_SECRET not set — using a derived fallback. Set SESSION_SECRET in production.');
+}
+const SESSION_COOKIE = '__zsess';
+const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7; // 7 days
+
+const signSession = (payload) => {
+    const data = Buffer.from(JSON.stringify(payload)).toString('base64url');
+    const sig = crypto.createHmac('sha256', SESSION_SECRET).update(data).digest('hex');
+    return `${data}.${sig}`;
+};
+
+const verifySession = (token) => {
+    if (!token || typeof token !== 'string') return null;
+    const dot = token.lastIndexOf('.');
+    if (dot < 0) return null;
+    const data = token.slice(0, dot);
+    const sig  = token.slice(dot + 1);
+    const expected = crypto.createHmac('sha256', SESSION_SECRET).update(data).digest('hex');
+    let sigBuf, expBuf;
+    try {
+        sigBuf = Buffer.from(sig, 'hex');
+        expBuf = Buffer.from(expected, 'hex');
+    } catch { return null; }
+    if (sigBuf.length !== expBuf.length) return null;
+    if (!crypto.timingSafeEqual(sigBuf, expBuf)) return null;
+    try {
+        const payload = JSON.parse(Buffer.from(data, 'base64url').toString('utf8'));
+        if (!payload.exp || payload.exp < Date.now()) return null;
+        return payload;
+    } catch { return null; }
+};
+
+// Tiny cookie parser — avoids pulling in cookie-parser for a single use.
+const parseCookies = (header) => {
+    const out = {};
+    if (!header || typeof header !== 'string') return out;
+    for (const pair of header.split(';')) {
+        const i = pair.indexOf('=');
+        if (i < 0) continue;
+        const k = pair.slice(0, i).trim();
+        if (!k) continue;
+        const v = pair.slice(i + 1).trim();
+        try { out[k] = decodeURIComponent(v); }
+        catch { out[k] = v; }
+    }
+    return out;
+};
+
+// Only allow same-origin relative paths for post-login redirects, so an
+// attacker can't craft /backstage/login?next=https://evil.com.
+const safeNext = (n) => {
+    if (typeof n !== 'string' || !n) return '/backstage';
+    if (!n.startsWith('/') || n.startsWith('//')) return '/backstage';
+    return n;
+};
+
+const adminSessionAuth = (req, res, next) => {
+    if (!ADMIN_USER || !ADMIN_PASS) return next(); // auth disabled — see boot warning
+
+    const cookies = parseCookies(req.headers.cookie);
+    const session = verifySession(cookies[SESSION_COOKIE]);
+    if (session && session.u === ADMIN_USER) {
+        req.adminUser = session.u;
+        return next();
+    }
+
+    // API requests get JSON 401; HTML/anything-else gets redirected to the
+    // login page. Note: req.accepts(['html','json']) returns the *best* match
+    // — using accepts('json') alone misfires on browser requests because
+    // their Accept header includes "*/*", which matches json.
+    const wantsJson = req.path.startsWith('/api/') || req.accepts(['html', 'json']) === 'json';
+    if (wantsJson) {
+        return res.status(401).json({ ok: false, error: 'Authentication required' });
+    }
+    return res.redirect(302, `/backstage/login?next=${encodeURIComponent(req.originalUrl)}`);
 };
 
 // --- Handlebars view engine -------------------------------------------------
@@ -70,6 +166,14 @@ app.engine('hbs', engine({
         eq: (a, b) => a === b,
         currentYear: () => new Date().getFullYear(),
         json: (v) => JSON.stringify(v),
+        // Compact date/time used in the admin tables. Locale-stable so the
+        // output doesn't shift between dev and prod machines.
+        dt: (v) => {
+            if (!v) return '';
+            const d = v instanceof Date ? v : new Date(v);
+            if (isNaN(d)) return '';
+            return d.toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
+        },
     },
 }));
 app.set('view engine', 'hbs');
@@ -327,6 +431,47 @@ app.get('/terms', (_req, res) => res.render('terms', {
     ],
 }));
 
+app.get('/playbook', (_req, res) => res.render('playbook', {
+    title: "The Founder's AI Prompt Playbook — Free | Zeffron",
+    description: '50+ AI prompts that take you from messy idea to MVP scope, user stories, and pitch deck in 30 minutes. The exact framework Zeffron uses to scope every sprint — free for non-technical founders.',
+    keywords: 'AI prompts for founders, MVP scope template, non-technical founder playbook, founder AI guide, ChatGPT prompts startup, AI product scoping, Zeffron playbook',
+    canonical: 'https://zeffron.ai/playbook',
+    activeNav: 'playbook',
+    ogImageAlt: "The Founder's AI Prompt Playbook — Zeffron",
+    jsonLd: [
+        organization,
+        {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: "The Founder's AI Prompt Playbook",
+            url: 'https://zeffron.ai/playbook',
+            inLanguage: 'en-GB',
+            isPartOf: { '@type': 'WebSite', '@id': 'https://zeffron.ai/' },
+            about: { '@id': 'https://zeffron.ai' },
+            description: '50+ AI prompts to go from idea to MVP scope, user stories, and pitch deck in 30 minutes.',
+            breadcrumb: {
+                '@type': 'BreadcrumbList',
+                itemListElement: [
+                    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://zeffron.ai/' },
+                    { '@type': 'ListItem', position: 2, name: 'Playbook', item: 'https://zeffron.ai/playbook' },
+                ],
+            },
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+                { '@type': 'Question', name: 'Is this actually free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. No cost, no trial, no card. Drop your name and email and the playbook lands in your inbox.' } },
+                { '@type': 'Question', name: 'Do I need to be technical to use it?', acceptedAnswer: { '@type': 'Answer', text: 'No. These prompts are designed for non-technical founders. If you can describe your idea in a few sentences, you can use every prompt in this guide.' } },
+                { '@type': 'Question', name: 'How will I receive it?', acceptedAnswer: { '@type': 'Answer', text: "Instantly by email after you submit the form. Check your spam folder if it doesn't arrive within two minutes." } },
+                { '@type': 'Question', name: "I've never used AI tools before. Can I still use this?", acceptedAnswer: { '@type': 'Answer', text: 'Yes. We recommend ChatGPT (the free version works), Claude, or Gemini. Each prompt tells you exactly what to paste in.' } },
+                { '@type': 'Question', name: 'What is Zeffron?', acceptedAnswer: { '@type': 'Answer', text: "We're an AI & MVP studio. We help non-technical founders build working AI products in 10 days. If you finish the playbook and want to talk — there's a booking link inside." } },
+                { '@type': 'Question', name: 'Will I be added to a mailing list?', acceptedAnswer: { '@type': 'Answer', text: "Yes — you'll receive a short email series with extra prompts and founder resources. Unsubscribe any time, one click." } },
+            ],
+        },
+    ],
+}));
+
 app.get('/demos', (_req, res) => res.render('demos', {
     title: 'Live AI Demos — Supply Chain, CX & Ledger Tools | Zeffron',
     description: "Experience Zeffron's engineering capabilities firsthand. Interactive AI demos for supply chain forecasting, customer intent analysis, and automated ledger reconciliation — no login required.",
@@ -365,6 +510,66 @@ app.get('/demos', (_req, res) => res.render('demos', {
 // `slug` drives both the URL (`/blog/<slug>`) and the view path (`blog/<slug>`).
 // Listing-only fields: imageGradient, imageBg, imageFit, imageOpacity, stagger.
 const blogPosts = [
+    {
+        slug: 'building-responsibly-with-ai',
+        postTitle: 'Building Responsibly with AI in 2026: The Governance Playbook for Businesses That Want to Get This Right',
+        seoTitle: 'Building Responsibly with AI in 2026: The Governance Playbook | Zeffron Blog',
+        description: 'The prescription for the AI governance gap: a practical playbook for what building responsibly with AI looks like in practice — dependency hygiene, agent permissions, data minimisation, breach containment, and the four things the 12% share.',
+        excerpt: 'The prescription for the AI governance gap. What building responsibly with AI actually looks like in practice — and what the organisations navigating this era successfully are doing differently from everyone else.',
+        listingExcerpt: 'The prescription for the AI governance gap. What building responsibly with AI actually looks like in practice — and what the 12% successfully deploying agentic AI at scale all share.',
+        keywords: 'AI governance, AI security, AI policy, dependency hygiene, agent permissions, data minimisation, breach containment, Zeffron AI',
+        category: 'AI Governance',
+        date: 'April 24, 2026',
+        listingDate: 'Apr 24, 2026',
+        datePublished: '2026-04-24',
+        readTime: '8 min read',
+        image: '/assets/Blog%20VII_090404.jpg.jpeg',
+        imageAlt: 'Building Responsibly with AI in 2026',
+        imageGradient: 'from-[#0145F2]/20 to-[#977DFF]/20',
+        imageBg: 'bg-[#111]',
+        imageFit: 'object-cover',
+        imageOpacity: 'opacity-90',
+    },
+    {
+        slug: 'ai-adoption',
+        postTitle: 'The AI Adoption Gap Nobody Wants to Talk About: Why the Threat Landscape Has Permanently Changed',
+        seoTitle: 'The AI Adoption Gap Nobody Wants to Talk About | Zeffron Blog',
+        description: "The gap between how fast AI is moving into businesses and how slowly oversight is following is not theoretical. It is the operational reality that made the most serious AI security incidents of 2026 possible — and it's widening.",
+        excerpt: "Almost every organisation using AI today has a strategy for adopting it. Far fewer have a strategy for governing it. The gap is widening — and it's where attackers are building their campaigns.",
+        listingExcerpt: 'Almost every organisation using AI today has a strategy for adopting it. Far fewer have a strategy for governing it. That gap is widening.',
+        keywords: 'AI adoption gap, AI governance, AI security 2026, threat landscape, supply chain attacks, agentic AI risk, Zeffron AI',
+        category: 'AI Governance',
+        date: 'April 10, 2026',
+        listingDate: 'Apr 10, 2026',
+        datePublished: '2026-04-10',
+        readTime: '8 min read',
+        image: '/assets/ai-adoption.jpeg',
+        imageAlt: 'The AI Adoption Gap Nobody Wants to Talk About',
+        imageGradient: 'from-[#0145F2]/20 to-[#977DFF]/20',
+        imageBg: 'bg-[#111]',
+        imageFit: 'object-cover',
+        imageOpacity: 'opacity-90',
+    },
+    {
+        slug: 'ai-stack-compromise',
+        postTitle: 'Why Nobody Is Talking About What Happens When the AI Stack Gets Compromised',
+        seoTitle: 'When the AI Stack Gets Compromised: Two March 2026 Incidents | Zeffron Blog',
+        description: 'Two security incidents in March 2026 revealed the infrastructure holding AI capability together is still fragile, still under attack, and built with too much implicit trust. Here is what they reveal and what to do about it.',
+        excerpt: 'Two security incidents quietly reminded us that the infrastructure holding all of this AI capability together is still fragile, still under attack, and built with too much implicit trust. Neither incident made the front page. Both should have.',
+        listingExcerpt: 'Two security incidents revealed the infrastructure holding AI capability together is still fragile, under attack, and built with too much implicit trust.',
+        keywords: 'AI stack compromise, LiteLLM attack, CareCloud breach, supply chain attack, AI security incidents, Zeffron AI',
+        category: 'Cybersecurity',
+        date: 'April 3, 2026',
+        listingDate: 'Apr 3, 2026',
+        datePublished: '2026-04-03',
+        readTime: '8 min read',
+        image: '/assets/blog-ai-compromise.jpeg',
+        imageAlt: 'AI Stack Compromise',
+        imageGradient: 'from-[#0145F2]/20 to-[#977DFF]/20',
+        imageBg: 'bg-[#111]',
+        imageFit: 'object-cover',
+        imageOpacity: 'opacity-90',
+    },
     {
         slug: '5-signs-business-problem-ai-fit',
         postTitle: '5 Signs Your Business Problem Is a Perfect Fit for an AI Solution',
@@ -437,7 +642,7 @@ const blogPosts = [
         listingDate: 'Feb 13, 2026',
         datePublished: '2026-02-13',
         readTime: '6 min read',
-        image: '/assets/Will AI Completely Wipe Out The Customer Services Profession_.png',
+        image: '/assets/blog-custom-ai.jpeg',
         imageAlt: 'AI Future',
         imageGradient: 'from-[#0145F2]/20 to-[#977DFF]/20',
         imageFit: 'object-cover',
@@ -573,6 +778,113 @@ app.get('/jira', jiraBasicAuth, (_req, res) => res.render('jira', {
     description: 'Internal Postgres-backed project board for the NeuroChecklists engagement.',
 }));
 
+// --- Admin pages (cookie-session gated, chrome-less) ----------------------
+// Internal-only views of form submissions. Auth: adminSessionAuth checks the
+// signed __zsess cookie and redirects to /backstage/login on miss. Falls back to
+// "auth disabled" only when ADMIN_AUTH_* (or JIRA fallback) is unset.
+const adminDb = require('./db');
+
+// Login page — shows the form, or redirects if already authenticated.
+app.get('/backstage/login', (req, res) => {
+    const next = safeNext(req.query.next);
+    if (!ADMIN_USER || !ADMIN_PASS) return res.redirect(next); // auth disabled
+    const cookies = parseCookies(req.headers.cookie);
+    if (verifySession(cookies[SESSION_COOKIE])) return res.redirect(next);
+    res.render('admin/login', {
+        layout: 'tool',
+        title: 'Admin login · Zeffron',
+        description: 'Internal admin login.',
+        next, error: null, username: '',
+    });
+});
+
+// Login handler — sets the signed-cookie session on success; re-renders with
+// an error on failure. Constant-time compare on both fields so timing doesn't
+// reveal which one was wrong.
+app.post('/backstage/login', (req, res) => {
+    const next = safeNext(req.body && req.body.next);
+    const username = (req.body && req.body.username) || '';
+    const password = (req.body && req.body.password) || '';
+
+    if (!ADMIN_USER || !ADMIN_PASS) return res.redirect(next); // auth disabled
+
+    const userOk = typeof username === 'string' && timingSafeEq(username, ADMIN_USER);
+    const passOk = typeof password === 'string' && timingSafeEq(password, ADMIN_PASS);
+    if (userOk && passOk) {
+        const now = Date.now();
+        const token = signSession({ u: ADMIN_USER, iat: now, exp: now + SESSION_TTL_MS });
+        res.cookie(SESSION_COOKIE, token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: SESSION_TTL_MS,
+            path: '/',
+        });
+        return res.redirect(next);
+    }
+
+    res.status(401).render('admin/login', {
+        layout: 'tool',
+        title: 'Admin login · Zeffron',
+        description: 'Internal admin login.',
+        next, error: 'Wrong username or password.',
+        username: typeof username === 'string' ? username : '',
+    });
+});
+
+// Logout — clears the session cookie and bounces back to the login page.
+app.post('/backstage/logout', (_req, res) => {
+    res.clearCookie(SESSION_COOKIE, { path: '/' });
+    res.redirect('/backstage/login');
+});
+
+app.get('/backstage', adminSessionAuth, async (_req, res) => {
+    try {
+        const counts = await adminDb.countSubmissions();
+        res.render('admin/index', {
+            layout: 'tool',
+            title: 'Admin · Zeffron',
+            description: 'Internal admin index.',
+            counts,
+        });
+    } catch (err) {
+        console.error('[admin] index render failed:', err.message);
+        res.status(500).type('html').send(`<h1>Admin error</h1><pre>${err.message}</pre>`);
+    }
+});
+
+app.get('/backstage/briefs', adminSessionAuth, async (_req, res) => {
+    try {
+        const briefs = await adminDb.listBriefs(500);
+        res.render('admin/briefs', {
+            layout: 'tool',
+            title: 'Admin · Briefs · Zeffron',
+            description: 'All brief-form submissions.',
+            briefs,
+            total: briefs.length,
+        });
+    } catch (err) {
+        console.error('[admin] briefs render failed:', err.message);
+        res.status(500).type('html').send(`<h1>Admin error</h1><pre>${err.message}</pre>`);
+    }
+});
+
+app.get('/backstage/playbook', adminSessionAuth, async (_req, res) => {
+    try {
+        const leads = await adminDb.listPlaybookLeads(500);
+        res.render('admin/playbook', {
+            layout: 'tool',
+            title: 'Admin · Playbook Leads · Zeffron',
+            description: 'All playbook-form submissions.',
+            leads,
+            total: leads.length,
+        });
+    } catch (err) {
+        console.error('[admin] playbook render failed:', err.message);
+        res.status(500).type('html').send(`<h1>Admin error</h1><pre>${err.message}</pre>`);
+    }
+});
+
 // n8n_org is still a one-off static page.
 app.get('/n8n', (_req, res) => res.sendFile(path.join(ROOT, 'n8n_org.html')));
 
@@ -585,6 +897,7 @@ app.use('/assets', express.static(path.join(ROOT, 'assets'), { maxAge: '7d' }));
 
 // --- API routes -------------------------------------------------------------
 app.use('/api/brief', require('./api/brief'));
+app.use('/api/playbook', require('./api/playbook'));
 app.use('/api/jira',  jiraBasicAuth, require('./api/jira'));
 
 // Health check (handy for deploy targets like Render / Fly / Railway)

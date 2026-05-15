@@ -1,0 +1,301 @@
+    <style>
+        /* === Playbook page — book-cover hero === */
+        .playbook-wrap { position: relative; overflow: hidden; }
+
+        /* Atmospheric blue wash behind the hero, sits below the cover */
+        .playbook-aura {
+            position: absolute; inset: -10% -10% auto -10%; height: 90vh;
+            background:
+                radial-gradient(ellipse 60% 50% at 70% 35%, rgba(1,69,242,0.22), transparent 60%),
+                radial-gradient(ellipse 50% 40% at 30% 60%, rgba(151,125,255,0.10), transparent 60%);
+            filter: blur(20px); pointer-events: none; z-index: 0;
+        }
+
+        /* Book cover — uses the founder_play_book.png artwork. The stage gives
+           perspective so the rotateY/rotateX on the cover reads as 3D. The
+           image aspect is preserved by intrinsic width; the float animation
+           gives idle motion without competing with the scroll parallax. */
+        .book-stage {
+            perspective: 1800px;
+            display: flex; justify-content: center;
+            padding: 1rem;
+        }
+        .book-cover {
+            display: block;
+            width: clamp(240px, 32vw, 380px);
+            height: auto;
+            border-radius: 3px 8px 8px 3px;
+            box-shadow:
+                inset 14px 0 24px -10px rgba(0,0,0,0.45),
+                -30px 40px 80px rgba(0,0,0,0.55),
+                0 0 60px rgba(1,69,242,0.10);
+            transform: rotateY(-14deg) rotateX(2deg);
+            transform-style: preserve-3d;
+            transform-origin: left center;
+            transition: transform 0.9s cubic-bezier(0.2, 1, 0.2, 1);
+            will-change: transform;
+        }
+        .book-cover:hover { transform: rotateY(-6deg) rotateX(0deg) translateY(-4px); }
+
+        /* Floating idle motion — kept subtle so it doesn't fight with the
+           parallax scroll handler in the script block. */
+        @keyframes bookFloat {
+            0%, 100% { transform: rotateY(-14deg) rotateX(2deg) translateY(0); }
+            50%      { transform: rotateY(-12deg) rotateX(1deg) translateY(-8px); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            .book-cover { animation: bookFloat 6s ease-in-out infinite; }
+            .book-cover:hover { animation-play-state: paused; }
+        }
+
+        /* Trust pill row under the CTA */
+        .trust-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .trust-pill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+            color: #888; padding: 0.45rem 0.75rem;
+            border: 1px solid rgba(255,255,255,0.10); border-radius: 999px;
+            background: rgba(255,255,255,0.02);
+        }
+    </style>
+
+    <!-- ───── HERO — book cover + sales pitch ───── -->
+    <section id="hero" class="playbook-wrap relative min-h-screen flex items-center pt-28 md:pt-32 pb-16 md:pb-24">
+        <div class="playbook-aura" aria-hidden="true"></div>
+
+        <div class="relative z-10 max-w-[1400px] w-full mx-auto px-6 sm:px-10 md:px-14 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+            <!-- Left: sell copy -->
+            <div class="lg:col-span-7 order-2 lg:order-1">
+                <div class="hero-fade flex items-center gap-3 text-[10px] font-mono font-bold tracking-[0.3em] uppercase text-[#888] mb-8" style="--fd: 0.2s;">
+                    <span class="block w-6 h-px bg-[#0145F2]"></span>
+                    <span>Free playbook · Zeffron</span>
+                </div>
+
+                <h1 class="hero-headline text-white mb-6"
+                    style="font-size: clamp(2rem, 5.5vw, 4.75rem); letter-spacing: -0.035em; line-height: 1; font-weight: 600;">
+                    <span class="hero-line-mask"><span class="hero-line-inner" style="--d: 0.25s;">You have the idea.</span></span>
+                    <span class="hero-line-mask"><span class="hero-line-inner" style="--d: 0.37s;">This turns it into</span></span>
+                    <span class="hero-line-mask"><span class="hero-line-inner" style="--d: 0.49s;">a product.</span></span>
+                </h1>
+
+                <p class="hero-fade text-[#A8A8A8] text-base sm:text-lg leading-relaxed max-w-xl mb-8" style="--fd: 0.85s;">
+                    <span class="text-white">50+ AI prompts</span> that take you from messy idea to MVP scope, user stories, and pitch deck — in 30 minutes. The exact framework Zeffron uses to scope every sprint.
+                </p>
+
+                <ul class="hero-fade space-y-3 mb-10 max-w-md" style="--fd: 1s;">
+                    <li class="flex items-center gap-3 text-[#E5E5E5]">
+                        <i data-lucide="check" class="w-4 h-4 text-[#0145F2] shrink-0"></i>
+                        Five stages · idea → pitch
+                    </li>
+                    <li class="flex items-center gap-3 text-[#E5E5E5]">
+                        <i data-lucide="check" class="w-4 h-4 text-[#0145F2] shrink-0"></i>
+                        Built for non-technical founders
+                    </li>
+                    <li class="flex items-center gap-3 text-[#E5E5E5]">
+                        <i data-lucide="check" class="w-4 h-4 text-[#0145F2] shrink-0"></i>
+                        MVP readiness quiz included
+                    </li>
+                </ul>
+
+                <div class="hero-fade flex flex-col sm:flex-row gap-3 sm:gap-4 sm:items-center mb-6" style="--fd: 1.15s;">
+                    <a href="#playbook-form" class="btn btn-primary btn-lg">
+                        Send me the playbook
+                        <i data-lucide="arrow-down-right" class="btn-icon"></i>
+                    </a>
+                    <span class="text-[#666] text-sm">Instant · email · no spam</span>
+                </div>
+
+                <div class="hero-fade trust-row" style="--fd: 1.3s;">
+                    <span class="trust-pill">50+ Prompts</span>
+                    <span class="trust-pill">5 Stages</span>
+                    <span class="trust-pill">Free</span>
+                </div>
+            </div>
+
+            <!-- Right: book cover -->
+            <div class="lg:col-span-5 order-1 lg:order-2">
+                <div class="book-stage">
+                    <img src="/assets/founder_play_book.png"
+                         alt="The Founder's AI Prompt Playbook — cover"
+                         class="book-cover" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ───── FORM — direct conversion ───── -->
+    <section id="playbook-form" class="py-16 sm:py-20 md:py-24 border-t border-white/5 bg-[#080808]">
+        <div class="max-w-[820px] mx-auto px-6 sm:px-10">
+            <div class="reveal mb-10 md:mb-12 text-center">
+                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#0145F2] mb-4">Free · Delivered instantly</p>
+                <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-white leading-[1.05] mb-3">
+                    Get the playbook.
+                </h2>
+                <p class="text-[#A8A8A8] text-base sm:text-lg">
+                    Drop your details. We'll email it within two minutes.
+                </p>
+            </div>
+
+            <div class="reveal">
+                <form id="playbook-form-el" class="space-y-8" method="POST" action="/api/playbook" novalidate>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-7">
+                        <div>
+                            <label class="brief-label" for="pb-name">First name</label>
+                            <input class="brief-input" id="pb-name" name="name" type="text" autocomplete="given-name" required>
+                        </div>
+                        <div>
+                            <label class="brief-label" for="pb-email">Work email</label>
+                            <input class="brief-input" id="pb-email" name="email" type="email" autocomplete="email" required>
+                        </div>
+                        <div>
+                            <label class="brief-label" for="pb-role">You are</label>
+                            <select class="brief-input brief-select" id="pb-role" name="role" required>
+                                <option value="">Select one</option>
+                                <option>Solo founder</option>
+                                <option>Startup team</option>
+                                <option>SME owner</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="brief-label" for="pb-stage">Your stage</label>
+                            <select class="brief-input brief-select" id="pb-stage" name="stage" required>
+                                <option value="">Select one</option>
+                                <option>Just an idea</option>
+                                <option>Validating</option>
+                                <option>Ready to build</option>
+                                <option>Already building</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-3 pt-2">
+                        <button type="submit" class="btn btn-primary btn-lg w-full" id="pb-submit">
+                            Send me the playbook
+                            <i data-lucide="arrow-right" class="btn-icon"></i>
+                        </button>
+                        <p class="text-[#666] text-xs text-center">No spam. No sales calls you didn't ask for. Just the playbook.</p>
+                        <span class="text-[#FF6B6B] text-sm text-center" id="pb-error" hidden></span>
+                    </div>
+                </form>
+
+                <div id="pb-thanks" class="ai-audit-card text-center" hidden>
+                    <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#0145F2] mb-3">You're in</p>
+                    <h3 class="text-3xl sm:text-4xl font-medium text-white mb-4 tracking-tight">Your playbook is ready.</h3>
+                    <p class="text-[#A8A8A8] mb-6 leading-relaxed max-w-md mx-auto">
+                        Download <em class="not-italic text-white">The Founder's AI Prompt Playbook</em> below. We've also emailed you a copy — check spam if it hasn't landed in two minutes.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                        <a href="/Founder's Playbook.pdf" download class="btn btn-primary">
+                            Download the playbook
+                            <i data-lucide="arrow-down" class="btn-icon"></i>
+                        </a>
+                        <a href="https://cal.com/zeffron-ai/30min" class="btn btn-secondary">
+                            Or book a call with Zeffron
+                            <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ───── MICRO-FAQ — three quick objections handled ───── -->
+    <section class="py-16 sm:py-20 border-t border-white/5">
+        <div class="max-w-[820px] mx-auto px-6 sm:px-10">
+            <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-6 text-center">Quick answers</p>
+            <div class="border-t border-white/10">
+                <details class="faq-item">
+                    <summary class="faq-q">Is this actually free?</summary>
+                    <div class="faq-a"><p>Yes. No cost, no trial, no card. Email + name and the playbook lands in your inbox.</p></div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-q">Do I need to be technical?</summary>
+                    <div class="faq-a"><p>No. Built for non-technical founders. If you can describe your idea in a few sentences, every prompt in here works for you.</p></div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-q">What's Zeffron?</summary>
+                    <div class="faq-a"><p>An AI &amp; MVP studio. We build investable AI products for non-technical founders in 10 days. This playbook is the framework we use internally — given away free.</p></div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Hero parallax — headline lifts and aura sinks, same recipe as home.
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const heroSection = document.getElementById('hero');
+            const heroHeadlineEl = document.querySelector('.hero-headline');
+            const heroAuraEl = document.querySelector('.playbook-aura');
+            const bookEl = document.querySelector('.book-cover');
+            if (!prefersReducedMotion && heroSection) {
+                if (heroHeadlineEl) {
+                    gsap.to(heroHeadlineEl, {
+                        yPercent: -6, opacity: 0.4, ease: 'none',
+                        scrollTrigger: { trigger: heroSection, start: 'top top', end: 'bottom top', scrub: 0.6 },
+                    });
+                }
+                if (heroAuraEl) {
+                    gsap.to(heroAuraEl, {
+                        yPercent: 14, scale: 1.06, ease: 'none',
+                        scrollTrigger: { trigger: heroSection, start: 'top top', end: 'bottom top', scrub: 0.6 },
+                    });
+                }
+                if (bookEl) {
+                    // Sublte vertical lift on scroll so the cover feels anchored
+                    // in the page rather than fixed in space.
+                    gsap.to(bookEl, {
+                        yPercent: -12, ease: 'none',
+                        scrollTrigger: { trigger: heroSection, start: 'top top', end: 'bottom top', scrub: 0.7 },
+                    });
+                }
+            }
+        }
+
+        // Form handler — POSTs JSON to /api/playbook, swaps in thanks card on success.
+        const form = document.getElementById('playbook-form-el');
+        if (!form) return;
+        const thanks = document.getElementById('pb-thanks');
+        const errorEl = document.getElementById('pb-error');
+        const submitBtn = document.getElementById('pb-submit');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (errorEl) { errorEl.hidden = true; errorEl.textContent = ''; }
+            if (!form.checkValidity()) { form.reportValidity(); return; }
+
+            const originalLabel = submitBtn ? submitBtn.innerHTML : null;
+            if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = 'Sending…'; }
+
+            try {
+                const body = Object.fromEntries(new FormData(form).entries());
+                const res = await fetch('/api/playbook', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                    body: JSON.stringify(body),
+                });
+                const json = await res.json().catch(() => ({}));
+                if (!res.ok) throw new Error(json.error || `Request failed (${res.status})`);
+                if (thanks) {
+                    form.hidden = true;
+                    thanks.hidden = false;
+                    if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+                    thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            } catch (err) {
+                if (errorEl) {
+                    errorEl.textContent = `Couldn't send — ${err.message}. Email hello@zeffron.ai and we'll send it manually.`;
+                    errorEl.hidden = false;
+                }
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalLabel;
+                    if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+                }
+            }
+        });
+    });
+</script>

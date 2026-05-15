@@ -106,16 +106,21 @@
             height: 100vh;
             width: 100%;
             background: #0A0A0A;
-            padding: 5rem 2rem;
+            /* Top padding clears the fixed 64px navbar with breathing room.
+               Anchoring content to flex-start keeps the eyebrow + image top
+               always visible when the column is taller than the viewport;
+               any overflow happens at the bottom and gets cleanly covered by
+               the next sticky panel sliding up. */
+            padding: 6rem 2rem 4rem;
             box-sizing: border-box;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             overflow: hidden;
         }
 
         @media (min-width: 1024px) {
-            .h-scroll-panel { padding: 7rem 2rem; }
+            .h-scroll-panel { padding: 8rem 2rem 5rem; }
         }
 
         /* Smooth Scrolling — handled by Lenis */
@@ -1109,4 +1114,182 @@
     .blog-content h3 { font-size: 1.4rem; }
     .blog-content p,
     .blog-content li { font-size: 1.05rem; line-height: 1.7; }
+}
+
+/* =====================================================================
+   Blog editorial blocks — used by AI Governance series posts.
+   Share-button hover used by the blog-post-header share row.
+   ===================================================================== */
+
+.share-button { transition: all 0.2s; }
+.share-button:hover {
+    transform: translateY(-2px);
+    border-color: #0145F2;
+    background: rgba(1, 69, 242, 0.1);
+}
+
+.pull-quote {
+    border-left: 3px solid #0145F2;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 2.5rem 0;
+    font-style: italic;
+    color: #E5E5E5;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+.big-stat {
+    background: linear-gradient(135deg, rgba(1, 69, 242, 0.08), rgba(151, 125, 255, 0.04));
+    border: 1px solid rgba(1, 69, 242, 0.25);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    margin: 2.5rem 0;
+    text-align: center;
+}
+.big-stat-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6rem;
+    font-weight: 700;
+    color: #0145F2;
+    line-height: 1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.04em;
+}
+.big-stat-caption {
+    color: #E5E5E5;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 36rem;
+    margin: 0 auto 0.75rem;
+}
+.big-stat-source {
+    color: #888;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+@media (max-width: 768px) {
+    .big-stat-number { font-size: 4rem !important; }
+}
+
+.essentials-box,
+.key-facts {
+    background: rgba(1, 69, 242, 0.04);
+    border: 1px solid rgba(1, 69, 242, 0.18);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    margin: 2rem 0;
+}
+.essentials-box h4,
+.key-facts h4 {
+    color: #0145F2;
+    font-size: 0.8rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+}
+.essentials-box ul {
+    list-style: none !important;
+    padding: 0;
+    margin: 0 !important;
+}
+.essentials-box ul li {
+    list-style: none !important;
+    padding-left: 1.75rem !important;
+    margin-bottom: 0.65rem;
+    position: relative;
+    color: #D0D0D0;
+}
+.essentials-box ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #0145F2;
+    font-weight: 600;
+}
+.essentials-box ol {
+    list-style: none !important;
+    padding: 0;
+    margin: 0 !important;
+    counter-reset: essentials-counter;
+}
+.essentials-box ol li {
+    list-style: none !important;
+    padding-left: 2.5rem !important;
+    margin-bottom: 1rem;
+    position: relative;
+    color: #D0D0D0;
+    counter-increment: essentials-counter;
+    line-height: 1.6;
+}
+.essentials-box ol li::before {
+    content: counter(essentials-counter, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #0145F2;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.key-facts dl { margin: 0; }
+.key-facts dt {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+.key-facts dt:first-child { margin-top: 0; }
+.key-facts dd {
+    margin: 0 0 0.25rem 0;
+    color: #C8C8C8;
+    font-size: 0.95rem;
+}
+
+.next-part {
+    background: linear-gradient(135deg, rgba(1, 69, 242, 0.06), rgba(151, 125, 255, 0.03));
+    border: 1px solid rgba(1, 69, 242, 0.2);
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    margin: 3rem 0 0;
+}
+.next-part .label,
+.recap-box .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+.next-part .label { color: #0145F2; }
+.next-part p { color: #C8C8C8; margin-bottom: 0; line-height: 1.6; }
+
+.recap-box {
+    background: rgba(151, 125, 255, 0.05);
+    border-left: 3px solid #977DFF;
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+}
+.recap-box .label { color: #977DFF; }
+.recap-box p { color: #D0D0D0; margin-bottom: 0; line-height: 1.65; }
+
+.timeframe-block { margin: 2rem 0; }
+.timeframe-block h3 {
+    color: #0145F2 !important;
+    font-size: 0.85rem !important;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    margin-bottom: 1rem !important;
+    margin-top: 0 !important;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(1, 69, 242, 0.2);
 }

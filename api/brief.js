@@ -1,35 +1,24 @@
 // POST /api/brief — receives the scoping form (toggle, common fields,
-// branched fields, file uploads, consent flags). Validates input, persists
-// upload metadata, and returns JSON. The actual email send is stubbed for
-// now — see the TODO at the bottom for where to plug in Resend / Postmark /
-// SendGrid / a queue / etc.
+// branched fields, file uploads, consent flags). Validates input, streams
+// uploads to Cloudinary, and returns JSON. The team-notification email is
+// fire-and-forget via Resend (see api/email.js).
 
-const path = require('path');
-const fs = require('fs');
 const express = require('express');
 const multer = require('multer');
 
 const { sendBriefNotification } = require('./email');
+const { uploadBuffer, isConfigured: cloudinaryConfigured } = require('./cloudinary');
+const { insertBrief } = require('../db');
 
 const router = express.Router();
-const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
 
-// Make sure the upload dir exists at boot. Failing silently here would mean
-// every submission errors at write time; better to crash early on a bad setup.
-fs.mkdirSync(UPLOADS_DIR, { recursive: true });
-
-const storage = multer.diskStorage({
-    destination: (_req, _file, cb) => cb(null, UPLOADS_DIR),
-    filename: (_req, file, cb) => {
-        const safe = file.originalname.replace(/[^a-z0-9.\-_]/gi, '_');
-        cb(null, `${Date.now()}_${Math.random().toString(36).slice(2, 8)}_${safe}`);
-    },
-});
-
+// In-memory storage — files never touch disk. Each file is uploaded to
+// Cloudinary immediately after multer parses the multipart body. 25 MB per
+// file matches the dropzone hint on the brief form.
 const upload = multer({
-    storage,
+    storage: multer.memoryStorage(),
     limits: {
-        fileSize: 25 * 1024 * 1024, // 25 MB per file (matches the dropzone hint)
+        fileSize: 25 * 1024 * 1024,
         files: 10,
     },
     fileFilter: (_req, file, cb) => {
@@ -52,7 +41,7 @@ const REQUIRED = {
 
 const isEmail = (s) => typeof s === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 
-router.post('/', upload.array('files', 10), (req, res) => {
+router.post('/', upload.array('files', 10), async (req, res) => {
     const body = req.body || {};
     const mode = body.brief_mode === 'existing' ? 'existing' : 'new';
 
@@ -66,11 +55,39 @@ router.post('/', upload.array('files', 10), (req, res) => {
     }
 
     if (missing.length) {
-        // Clean up any uploads we just accepted so we don't leak storage
-        for (const f of req.files || []) {
-            try { fs.unlinkSync(f.path); } catch (_) { /* ignore */ }
-        }
         return res.status(400).json({ ok: false, error: 'Missing or invalid fields', missing });
+    }
+
+    // Push every uploaded buffer to Cloudinary in parallel before we build
+    // the submission record. If Cloudinary isn't configured we 503 — the
+    // form has no graceful local fallback now that disk storage is gone.
+    const incoming = req.files || [];
+    let uploaded = [];
+    if (incoming.length) {
+        if (!cloudinaryConfigured()) {
+            return res.status(503).json({
+                ok: false,
+                error: 'File uploads unavailable: Cloudinary credentials not configured on the server.',
+            });
+        }
+        try {
+            uploaded = await Promise.all(
+                incoming.map(async (f) => {
+                    const result = await uploadBuffer(f.buffer, f.originalname);
+                    return {
+                        originalName: f.originalname,
+                        url: result.url,
+                        publicId: result.publicId,
+                        size: f.size,
+                        mime: f.mimetype,
+                        resourceType: result.resourceType,
+                    };
+                })
+            );
+        } catch (err) {
+            console.error('[brief] cloudinary upload failed:', err?.message || err);
+            return res.status(502).json({ ok: false, error: 'File upload failed. Please try again.' });
+        }
     }
 
     const submission = {
@@ -92,12 +109,7 @@ router.post('/', upload.array('files', 10), (req, res) => {
                 help_type: body.help_type || null,
                 staging_url: body.staging_url || null,
             },
-        files: (req.files || []).map((f) => ({
-            originalName: f.originalname,
-            storedAs: f.filename,
-            size: f.size,
-            mime: f.mimetype,
-        })),
+        files: uploaded,
         marketingOptIn: body.consent_marketing === 'on' || body.consent_marketing === 'true',
         meta: {
             ip: req.ip,
@@ -110,9 +122,18 @@ router.post('/', upload.array('files', 10), (req, res) => {
     console.log(JSON.stringify(submission, null, 2));
     console.log('────────────────────────────────────────────\n');
 
+    // Fire-and-forget persistence. The user's response is never blocked or
+    // failed by a DB problem — failures are logged. Same contract as the
+    // email send below.
+    insertBrief(submission).catch((err) => {
+        console.error('[brief] db persist failed (non-fatal):', err?.message || err);
+    });
+
     // Fire-and-forget team notification via Resend. The user's response is
     // never blocked or failed by an email problem — failures are logged.
-    sendBriefNotification(submission, req.files).catch((err) => {
+    // Pass the multer file objects so the email layer can attach the raw
+    // buffers (Cloudinary URLs are also in submission.files for linking).
+    sendBriefNotification(submission, incoming).catch((err) => {
         console.error('[brief] notification failed (non-fatal):', err?.message || err);
     });
 

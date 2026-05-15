@@ -38,7 +38,9 @@
             </div>
         </section>
 
-        <!-- Marquee Strip — editorial signature moment -->
+        {{!-- Marquee Strip — temporarily hidden. Uncomment to restore the
+              scrolling editorial banner between the hero and the partners row. --}}
+        {{!--
         <section class="marquee-section relative py-10 md:py-14 border-y border-white/5 bg-[#080808]" aria-hidden="true">
             <div class="marquee-row">
                 <div class="marquee-track">
@@ -58,6 +60,78 @@
                     <span class="marquee-item"><span class="tracking-tight" style="font-size: clamp(1.75rem, 5vw, 3.5rem);">Product Studio</span><span class="marquee-dot"></span></span>
                 </div>
             </div>
+        </section>
+        --}}
+
+        <!-- Partners — supported by / in partnership with strip -->
+        <section class="partners-section relative py-14 sm:py-16 border-b border-white/5">
+            <div class="reveal max-w-[1400px] mx-auto px-6 sm:px-10 md:px-14">
+                <p class="partners-eyebrow">
+                    <span class="partners-eyebrow-rule"></span>
+                    <span>In partnership with</span>
+                </p>
+                <div class="partners-grid">
+                    <a href="https://www.dmu.ac.uk/" target="_blank" rel="noopener noreferrer"
+                       class="partner-logo" aria-label="De Montfort University">
+                        <img src="/assets/demortfort_university.png"
+                             alt="De Montfort University"
+                             loading="lazy" decoding="async" />
+                    </a>
+                    <a href="https://www.dmu.ac.uk/business-services/the-crucible-project/index.aspx" target="_blank" rel="noopener noreferrer"
+                       class="partner-logo" aria-label="The Crucible · De Montfort University">
+                        <img src="/assets/The%20Crucible%20-%20Knowledge_White.png"
+                             alt="The Crucible · De Montfort University"
+                             loading="lazy" decoding="async" />
+                    </a>
+                </div>
+            </div>
+
+            <style>
+                .partners-eyebrow {
+                    display: flex; align-items: center; gap: 14px;
+                    justify-content: center;
+                    font-family: 'JetBrains Mono', monospace;
+                    font-size: 10px; font-weight: 700;
+                    letter-spacing: 0.3em; text-transform: uppercase;
+                    color: #666; margin: 0 0 40px 0;
+                }
+                .partners-eyebrow-rule {
+                    display: block; width: 28px; height: 1px; background: #0145F2;
+                }
+                .partners-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    gap: clamp(2.5rem, 6vw, 5rem);
+                    align-items: center; justify-items: center;
+                    max-width: 900px; margin: 0 auto;
+                }
+                /* Both logos render as solid-white silhouettes so the row reads
+                   as a single typographic line rather than two pasted brand
+                   colours. brightness(0) makes everything black first, then
+                   invert(1) flips it to white — works on any source colour as
+                   long as the transparent areas stay transparent. */
+                .partner-logo {
+                    display: flex; align-items: center; justify-content: center;
+                    width: 100%;
+                    opacity: 0.7;
+                    transition: opacity .4s cubic-bezier(0.16,1,0.3,1),
+                                transform .4s cubic-bezier(0.16,1,0.3,1);
+                }
+                .partner-logo:hover {
+                    opacity: 1;
+                    transform: translateY(-2px);
+                }
+                .partner-logo img {
+                    max-height: clamp(36px, 4.8vw, 52px);
+                    max-width: clamp(160px, 22vw, 240px);
+                    width: auto; height: auto;
+                    object-fit: contain; display: block;
+                    filter: brightness(0) invert(1);
+                }
+                @media (max-width: 520px) {
+                    .partners-grid { gap: 1.75rem; }
+                }
+            </style>
         </section>
 
         <!-- Who We Build For -->
@@ -114,144 +188,121 @@
             <!-- Horizontal Scroll Container -->
             <div id="showcase-pin" class="relative">
                 <div id="showcase-track" class="block">
-                    <!-- Case Study 1: TrendMind -->
+                    <!-- Case Study 1: Neurochecklists (Open research beta) -->
                     <div class="h-scroll-panel">
                         <div class="max-w-[1400px] mx-auto w-full px-6 sm:px-10 md:px-14">
                             <div class="reveal border-t border-white/10 pt-16">
                                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                                    <div class="lg:col-span-4">
-                                        <span
-                                            class="text-[#0145F2] font-mono font-bold text-sm tracking-wider uppercase mb-3 block">01 / Content</span>
-                                        <h3 class="text-4xl font-semibold text-white mb-4">TrendMind</h3>
-                                        <p class="text-[#A8A8A8] mb-8 leading-relaxed">
-                                            High-performance LinkedIn content at scale, powered by AI.
+                                    <div class="lg:col-span-5">
+                                        <div class="flex items-center gap-3 mb-3 flex-wrap">
+                                            <span class="text-[#0145F2] font-mono font-bold text-sm tracking-wider uppercase">01 / Neurology</span>
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono font-bold tracking-[0.2em] uppercase rounded-full border border-[#0145F2]/30 bg-[#0145F2]/10 text-[#6FA8FF]">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-[#0145F2] animate-pulse"></span>
+                                                Open research beta
+                                            </span>
+                                        </div>
+                                        <h3 class="text-4xl font-semibold text-white mb-4">Neurochecklists</h3>
+                                        <p class="text-[#E5E5E5] mb-6 leading-relaxed text-lg">
+                                            Everything neurology, a click away.
                                         </p>
-                                        <blockquote
-                                            class="text-xl text-[#E5E5E5] leading-relaxed border-l-2 border-[#0145F2] pl-6 py-2">
-                                            “Zeffron didn't just build a product; they built my confidence.”
-                                            <footer
-                                                class="mt-4 text-sm text-[#888] not-italic font-mono uppercase tracking-wide">
-                                                –
-                                                Founder, TrendMind</footer>
-                                        </blockquote>
+                                        <p class="text-[#888] mb-8 leading-relaxed">
+                                            The leading neurology checklist database — peer-reviewed criteria, diagnostic protocols, and treatment guidelines, in seconds.
+                                        </p>
+
+                                        <div class="space-y-6 mb-8">
+                                            <div>
+                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Challenge</p>
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Guidelines scattered across journals, PDFs, intranets</span></li>
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Lookups break clinical flow</span></li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Coverage</p>
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Peer-reviewed</strong> diagnostic criteria</span></li>
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Open beta</strong> · free for clinicians</span></li>
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Axon</strong> · AI chat across the database</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex flex-wrap gap-3">
+                                            <button type="button" data-case-open="case-neurochecklists" class="btn btn-secondary">
+                                                View more
+                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                                            </button>
+                                            <a href="https://neurochecklists.com" target="_blank" rel="noopener" class="btn btn-secondary">
+                                                Visit Neurochecklists
+                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                                            </a>
+                                        </div>
                                     </div>
 
-                                    <div class="reveal stagger-huge lg:col-span-8 flex flex-col justify-between">
-                                        <!-- UI Mockup -->
-                                        <img src="./assets/trendmind.png"
-                                            class="showcase-image w-full h-64 sm:h-72 md:h-80 object-cover rounded-lg mb-8 border border-white/10 opacity-80 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
-                                            alt="TrendMind Dashboard UI">
-                                        <div class="grid md:grid-cols-2 gap-12 mb-16">
-                                            <div>
-                                                <h4
-                                                    class="text-xs font-mono text-[#888] uppercase tracking-widest mb-4">
-                                                    The
-                                                    Challenge
-                                                </h4>
-                                                <p class="text-[#E5E5E5] leading-relaxed">A high-performing founder with no technical capacity and no investor-ready prototype — fundraising had stalled.
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <h4
-                                                    class="text-xs font-mono text-[#666] uppercase tracking-widest mb-4">
-                                                    The
-                                                    Solution
-                                                </h4>
-                                                <p class="text-[#E5E5E5] leading-relaxed">An AI content generator, scheduler, and analytics platform — shipped in a 10-day sprint, demoing to angels on day 11.</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="bg-[#111] border border-white/5 rounded-2xl p-8">
-                                            <h4
-                                                class="text-xs font-mono text-[#666] uppercase tracking-widest mb-8 border-b border-white/5 pb-4">
-                                                Key Metrics</h4>
-                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                                <div>
-                                                    <div class="text-4xl font-medium text-white mb-2">£20k</div>
-                                                    <div class="text-sm text-[#888]">Angel interest secured</div>
-                                                </div>
-                                                <div>
-                                                    <div class="text-4xl font-medium text-white mb-2">1,000+</div>
-                                                    <div class="text-sm text-[#888]">Early users within 30 days</div>
-                                                </div>
-                                                <div>
-                                                    <div class="text-4xl font-medium text-white mb-2">70%</div>
-                                                    <div class="text-sm text-[#888]">Lower build cost vs. agencies</div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="reveal stagger-huge lg:col-span-7">
+                                        <img src="./assets/neurochecklists.png"
+                                            class="showcase-image w-full h-80 sm:h-96 md:h-[28rem] lg:h-[34rem] object-cover rounded-xl border border-white/10 opacity-85 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
+                                            alt="Neurochecklists — the leading neurology checklist database">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Case Study 2: WhisperCoach -->
+                    <!-- Case Study 2: Visa Agent -->
                     <div class="h-scroll-panel">
                         <div class="max-w-[1400px] mx-auto w-full px-6 sm:px-10 md:px-14">
                             <div class="reveal border-t border-white/10 pt-16">
                                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                                    <div class="lg:col-span-4">
+                                    <div class="lg:col-span-5">
                                         <span
-                                            class="text-[#977DFF] font-mono font-bold text-sm tracking-wider uppercase mb-3 block">02 / Sales Tech</span>
-                                        <h3 class="text-4xl font-semibold text-white mb-4">WhisperCoach</h3>
-                                        <p class="text-[#888] mb-8 leading-relaxed">
-                                            Real-time AI coaching for high-velocity sales teams.
+                                            class="text-[#977DFF] font-mono font-bold text-sm tracking-wider uppercase mb-3 block">02 / Immigration Tech</span>
+                                        <h3 class="text-4xl font-semibold text-white mb-4">Visa Agent</h3>
+                                        <p class="text-[#888] mb-6 leading-relaxed">
+                                            Chrome extension + dashboard for immigration consultants.
                                         </p>
                                         <blockquote
-                                            class="text-xl text-[#E5E5E5] leading-relaxed border-l-2 border-[#977DFF] pl-6 py-2">
-                                            “Precision and speed. Zeffron helped us land our first enterprise conversation.”
-                                            <footer
-                                                class="mt-4 text-sm text-[#666] not-italic font-mono uppercase tracking-wide">
-                                                –
-                                                Co-Founder, WhisperCoach</footer>
+                                            class="text-lg text-[#E5E5E5] leading-relaxed border-l-2 border-[#977DFF] pl-6 py-2 mb-8">
+                                            “Same 50 fields. Every client. Every form. Every embassy portal.”
+                                            <footer class="mt-3 text-xs text-[#666] not-italic font-mono uppercase tracking-wide">
+                                                – The problem we ended
+                                            </footer>
                                         </blockquote>
+
+                                        <div class="space-y-6 mb-8">
+                                            <div>
+                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Challenge</p>
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Hundreds of hours/month on manual entry</span></li>
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Copy-paste errors that risk applications</span></li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Result</p>
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span><strong class="text-white font-medium">50+</strong> fields per form</span></li>
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span><strong class="text-white font-medium">1 click</strong> · any embassy portal</span></li>
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span><strong class="text-white font-medium">0</strong> data retained or sold</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex flex-wrap gap-3">
+                                            <button type="button" data-case-open="case-visa-agent" class="btn btn-secondary">
+                                                View more
+                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                                            </button>
+                                            <a href="https://visa-agent.zeffron.ai" target="_blank" rel="noopener" class="btn btn-secondary">
+                                                Visit Visa Agent
+                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                                            </a>
+                                        </div>
                                     </div>
 
-                                    <div class="reveal stagger-huge lg:col-span-8 flex flex-col justify-between">
-                                        <!-- UI Mockup -->
-                                        <img src="./assets/whispercoach.png"
-                                            class="showcase-image w-full h-64 sm:h-72 md:h-80 object-cover rounded-lg mb-8 border border-white/10 opacity-80 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
-                                            alt="WhisperCoach AI Interface">
-                                        <div class="grid md:grid-cols-2 gap-12 mb-16">
-                                            <div>
-                                                <h4
-                                                    class="text-xs font-mono text-[#666] uppercase tracking-widest mb-4">
-                                                    The
-                                                    Challenge
-                                                </h4>
-                                                <p class="text-[#E5E5E5] leading-relaxed">Needed a fast, investor-ready prototype to demonstrate complex real-time capabilities — without a full build budget.
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <h4
-                                                    class="text-xs font-mono text-[#666] uppercase tracking-widest mb-4">
-                                                    The
-                                                    Solution
-                                                </h4>
-                                                <p class="text-[#E5E5E5] leading-relaxed">A high-fidelity clickable AI prototype simulating real-time feedback loops and analytics dashboards. Concept validated before a single line of production code was written.</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="bg-[#111] border border-white/5 rounded-2xl p-8">
-                                            <h4
-                                                class="text-xs font-mono text-[#666] uppercase tracking-widest mb-8 border-b border-white/5 pb-4">
-                                                Key Metrics</h4>
-                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                                <div>
-                                                    <div class="text-4xl font-medium text-white mb-2">6 Weeks</div>
-                                                    <div class="text-sm text-[#888]">To first enterprise pilot conversation</div>
-                                                </div>
-                                                <div>
-                                                    <div class="text-4xl font-medium text-white mb-2">75%</div>
-                                                    <div class="text-sm text-[#888]">Faster sales team ramp-up</div>
-                                                </div>
-                                                <div>
-                                                    <div class="text-4xl font-medium text-white mb-2">100%</div>
-                                                    <div class="text-sm text-[#888]">Concept validated without production code</div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="reveal stagger-huge lg:col-span-7">
+                                        <img src="./assets/visa-agent_zeffron.png"
+                                            class="showcase-image w-full h-80 sm:h-96 md:h-[28rem] lg:h-[34rem] object-cover rounded-xl border border-white/10 opacity-85 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
+                                            alt="Visa Agent — Chrome extension and dashboard for immigration consultants">
                                     </div>
                                 </div>
                             </div>
@@ -263,125 +314,112 @@
                         <div class="max-w-[1400px] mx-auto w-full px-6 sm:px-10 md:px-14">
                             <div class="reveal border-t border-white/10 pt-16">
                                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                                    <div class="lg:col-span-4">
+                                    <div class="lg:col-span-5">
                                         <span
                                             class="text-[#F7A505] font-mono font-bold text-sm tracking-wider uppercase mb-3 block">03 / Travel Tech</span>
                                         <h3 class="text-4xl font-semibold text-white mb-4">AlphaCruise</h3>
-                                        <p class="text-[#888] mb-8 leading-relaxed">
-                                            Modern booking automation for the digital-first travel era.
+                                        <p class="text-[#888] mb-6 leading-relaxed">
+                                            Booking automation for digital-first travel.
                                         </p>
                                         <blockquote
-                                            class="text-xl text-[#E5E5E5] leading-relaxed border-l-2 border-[#F7A505] pl-6 py-2">
+                                            class="text-lg text-[#E5E5E5] leading-relaxed border-l-2 border-[#F7A505] pl-6 py-2 mb-8">
                                             “Tech used to be a barrier. Now it's our edge.”
-                                            <footer
-                                                class="mt-4 text-sm text-[#666] not-italic font-mono uppercase tracking-wide">
-                                                –
-                                                Founder, AlphaCruise</footer>
+                                            <footer class="mt-3 text-xs text-[#666] not-italic font-mono uppercase tracking-wide">
+                                                – Founder, AlphaCruise
+                                            </footer>
                                         </blockquote>
+
+                                        <div class="space-y-6 mb-8">
+                                            <div>
+                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Challenge</p>
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span>Manual ops · no tech team · no roadmap</span></li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Result</p>
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span><strong class="text-white font-medium">60%</strong> less manual work</span></li>
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span><strong class="text-white font-medium">120+</strong> beta users onboarded</span></li>
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span><strong class="text-white font-medium">45%</strong> revenue growth</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex flex-wrap gap-3">
+                                            <button type="button" data-case-open="case-alphacruise" class="btn btn-secondary">
+                                                View more
+                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                                            </button>
+                                            <a href="http://alphacruisetravels.com" target="_blank" rel="noopener" class="btn btn-secondary">
+                                                Visit AlphaCruise
+                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                                            </a>
+                                        </div>
                                     </div>
 
-                                    <div class="reveal stagger-huge lg:col-span-8 flex flex-col justify-between">
-                                        <!-- UI Mockup -->
+                                    <div class="reveal stagger-huge lg:col-span-7">
                                         <img src="./assets/alphacruise.png"
-                                            class="showcase-image w-full h-64 sm:h-72 md:h-80 object-cover rounded-lg mb-8 border border-white/10 opacity-80 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
+                                            class="showcase-image w-full h-80 sm:h-96 md:h-[28rem] lg:h-[34rem] object-cover rounded-xl border border-white/10 opacity-85 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
                                             alt="AlphaCruise Global Map UI">
-                                        <div class="grid md:grid-cols-2 gap-12 mb-16">
-                                            <div>
-                                                <h4
-                                                    class="text-xs font-mono text-[#666] uppercase tracking-widest mb-4">
-                                                    The
-                                                    Challenge
-                                                </h4>
-                                                <p class="text-[#E5E5E5] leading-relaxed">A travel brand running on manual processes — no internal tech team, no roadmap for digital transformation.</p>
-                                            </div>
-                                            <div>
-                                                <h4
-                                                    class="text-xs font-mono text-[#666] uppercase tracking-widest mb-4">
-                                                    The
-                                                    Solution
-                                                </h4>
-                                                <p class="text-[#E5E5E5] leading-relaxed">A full booking platform with real-time API integrations and a custom admin portal — delivered end-to-end, from architecture to deployment.</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="bg-[#111] border border-white/5 rounded-2xl p-8">
-                                            <h4
-                                                class="text-xs font-mono text-[#666] uppercase tracking-widest mb-8 border-b border-white/5 pb-4">
-                                                Key Metrics</h4>
-                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                                <div>
-                                                    <div class="text-4xl font-medium text-white mb-2">60%</div>
-                                                    <div class="text-sm text-[#888]">Reduction in manual operations</div>
-                                                </div>
-                                                <div>
-                                                    <div class="text-4xl font-medium text-white mb-2">120+</div>
-                                                    <div class="text-sm text-[#888]">Beta users onboarded</div>
-                                                </div>
-                                                <div>
-                                                    <div class="text-4xl font-medium text-white mb-2">45%</div>
-                                                    <div class="text-sm text-[#888]">Revenue growth post-launch</div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Case Study 4: Techcify -->
+                    <!-- Case Study 4: Hueristo (Pre-launch) -->
                     <div class="h-scroll-panel">
                         <div class="max-w-[1400px] mx-auto w-full px-6 sm:px-10 md:px-14">
                             <div class="reveal border-t border-white/10 pt-16">
                                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                                    <div class="lg:col-span-4">
-                                        <span
-                                            class="text-white font-mono font-bold text-sm tracking-wider uppercase mb-3 block">04 / EdTech</span>
-                                        <h3 class="text-4xl font-semibold text-white mb-4">Techcify</h3>
-                                        <p class="text-[#888] mb-8 leading-relaxed">
-                                            A leading EdTech platform, powered by Zeffron.
+                                    <div class="lg:col-span-5">
+                                        <div class="flex items-center gap-3 mb-3 flex-wrap">
+                                            <span class="text-[#00C853] font-mono font-bold text-sm tracking-wider uppercase">04 / HR Tech</span>
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono font-bold tracking-[0.2em] uppercase rounded-full border border-[#00C853]/30 bg-[#00C853]/10 text-[#00C853]">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-[#00C853] animate-pulse"></span>
+                                                Coming Soon
+                                            </span>
+                                        </div>
+                                        <h3 class="text-4xl font-semibold text-white mb-4">Hueristo</h3>
+                                        <p class="text-[#E5E5E5] mb-8 leading-relaxed text-lg">
+                                            HR on autopilot for UK founders.
                                         </p>
-                                        <div class="text-sm text-[#666] font-mono mt-auto">
-                                            Adaptive learning · Analytics · Zero downtime
+
+                                        <div class="space-y-6 mb-8">
+                                            <div>
+                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Building</p>
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>Opinionated · compliance-first · UK-only</span></li>
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>What we wished we'd had at our first companies</span></li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Founding offer</p>
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>Tell us where HR breaks for you</span></li>
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>We prioritise your bugs in the build</span></li>
+                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Free founding-member access</strong> at launch</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex flex-wrap gap-3">
+                                            <button type="button" data-case-open="case-hueristo" class="btn btn-secondary">
+                                                View more
+                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                                            </button>
+                                            <a href="https://hueristo.com" target="_blank" rel="noopener" class="btn btn-secondary">
+                                                Visit Hueristo
+                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                                            </a>
                                         </div>
                                     </div>
 
-                                    <div class="reveal stagger-huge lg:col-span-8 flex flex-col justify-between">
-                                        <!-- UI Mockup -->
-                                        <img src="./assets/techcify.png"
-                                            class="showcase-image w-full h-64 sm:h-72 md:h-80 object-cover rounded-lg mb-8 border border-white/10 opacity-80 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
-                                            alt="Techcify Code Dashboard">
-                                        <div class="grid md:grid-cols-1 gap-12 mb-16">
-                                            <div>
-                                                <h4
-                                                    class="text-xs font-mono text-[#666] uppercase tracking-widest mb-4">
-                                                    The
-                                                    Solution
-                                                </h4>
-                                                <p class="text-[#E5E5E5] leading-relaxed text-lg">An adaptive learning engine, comprehensive analytics dashboard, and smart question-generation system — engineered to scale to thousands of users with zero downtime.
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="bg-[#111] border border-white/5 rounded-2xl p-8">
-                                            <h4
-                                                class="text-xs font-mono text-[#666] uppercase tracking-widest mb-8 border-b border-white/5 pb-4">
-                                                Key Metrics</h4>
-                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                                <div>
-                                                    <div class="text-4xl font-medium text-white mb-2">95%</div>
-                                                    <div class="text-sm text-[#888]">User pass rate</div>
-                                                </div>
-                                                <div>
-                                                    <div class="text-4xl font-medium text-white mb-2">1,000s</div>
-                                                    <div class="text-sm text-[#888]">Active learners</div>
-                                                </div>
-                                                <div>
-                                                    <div class="text-4xl font-medium text-white mb-2">0%</div>
-                                                    <div class="text-sm text-[#888]">Downtime at scale</div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="reveal stagger-huge lg:col-span-7">
+                                        <img src="./assets/hueristo.png"
+                                            class="showcase-image w-full h-80 sm:h-96 md:h-[28rem] lg:h-[34rem] object-cover rounded-xl border border-white/10 opacity-85 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
+                                            alt="Hueristo — HR on autopilot for UK founders">
                                     </div>
                                 </div>
                             </div>
@@ -749,6 +787,201 @@
             </div>
         </section>
 
+        {{!-- ────── Case Study Modals (deep-dive content) ──────
+              Reuses the .brief-modal* CSS classes so styling matches the rest of
+              the site. Opened by [data-case-open="<id>"] buttons inside each
+              showcase panel. Handler is the IIFE at the bottom of this file. --}}
+
+        <div class="brief-modal" id="case-neurochecklists" hidden role="dialog" aria-modal="true" aria-labelledby="case-neurochecklists-title" data-lenis-prevent>
+            <div class="brief-modal-backdrop" data-close></div>
+            <div class="brief-modal-panel">
+                <button type="button" class="brief-modal-close" data-close aria-label="Close">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <div class="brief-modal-header">
+                    <div class="flex items-center gap-3 mb-3 flex-wrap">
+                        <p class="brief-modal-eyebrow" style="color:#0145F2;margin:0">01 / Neurology</p>
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono font-bold tracking-[0.2em] uppercase rounded-full border border-[#0145F2]/30 bg-[#0145F2]/10 text-[#6FA8FF]">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#0145F2] animate-pulse"></span>
+                            Open research beta
+                        </span>
+                    </div>
+                    <h2 id="case-neurochecklists-title" class="brief-modal-title">Neurochecklists</h2>
+                    <p class="brief-modal-sub">Everything neurology, a click away.</p>
+                </div>
+                <p class="text-[#A8A8A8] leading-relaxed mb-8">
+                    The leading neurology checklist database. Peer-reviewed criteria, diagnostic protocols, and treatment guidelines — searchable in seconds, with Axon, an AI chat companion that knows the whole library.
+                </p>
+                <div class="space-y-6 mb-8">
+                    <div>
+                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Challenge</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Neurology guidelines scattered across journals, PDFs and hospital intranets</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Lookup interrupts clinical flow when seconds matter</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>No single, peer-reviewed, searchable reference</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Built</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Searchable database of diagnostic criteria + treatment guidelines</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Axon — an AI chat companion that knows the whole library</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Source-cited answers · peer-reviewed protocols only</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Coverage</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Peer-reviewed</strong> diagnostic criteria</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Open research beta</strong> · free for clinicians</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Axon</strong> · AI chat across the database</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="https://neurochecklists.com" target="_blank" rel="noopener" class="btn btn-primary">
+                    Visit Neurochecklists
+                    <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="brief-modal" id="case-visa-agent" hidden role="dialog" aria-modal="true" aria-labelledby="case-visa-agent-title" data-lenis-prevent>
+            <div class="brief-modal-backdrop" data-close></div>
+            <div class="brief-modal-panel">
+                <button type="button" class="brief-modal-close" data-close aria-label="Close">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <div class="brief-modal-header">
+                    <p class="brief-modal-eyebrow" style="color:#977DFF">02 / Immigration Tech</p>
+                    <h2 id="case-visa-agent-title" class="brief-modal-title">Visa Agent</h2>
+                    <p class="brief-modal-sub">Chrome extension + dashboard for immigration consultants.</p>
+                </div>
+                <blockquote class="text-lg text-[#E5E5E5] leading-relaxed border-l-2 border-[#977DFF] pl-6 py-2 mb-8">
+                    “Every client. Every form. Every embassy portal — the same 50 fields, manually entered, hundreds of times a month.”
+                    <footer class="mt-3 text-xs text-[#666] not-italic font-mono uppercase tracking-wide">– The problem we ended</footer>
+                </blockquote>
+                <div class="space-y-6 mb-8">
+                    <div>
+                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Challenge</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Same 50 fields typed into every embassy portal, for every client</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Hundreds of hours a month lost to manual entry</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Copy-paste errors risking applications</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Built</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Web dashboard for client profiles, documents, generated letters</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Chrome extension that auto-fills any visa form on the web</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Encrypted in transit · no data retained · never sold</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Result</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span><strong class="text-white font-medium">50+</strong> fields auto-filled per visa form</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span><strong class="text-white font-medium">1 click</strong> fills any embassy portal on the web</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span><strong class="text-white font-medium">0</strong> data retained, shared, or sold</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="https://visa-agent.zeffron.ai" target="_blank" rel="noopener" class="btn btn-primary">
+                    Visit Visa Agent
+                    <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="brief-modal" id="case-alphacruise" hidden role="dialog" aria-modal="true" aria-labelledby="case-alphacruise-title" data-lenis-prevent>
+            <div class="brief-modal-backdrop" data-close></div>
+            <div class="brief-modal-panel">
+                <button type="button" class="brief-modal-close" data-close aria-label="Close">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <div class="brief-modal-header">
+                    <p class="brief-modal-eyebrow" style="color:#F7A505">03 / Travel Tech</p>
+                    <h2 id="case-alphacruise-title" class="brief-modal-title">AlphaCruise</h2>
+                    <p class="brief-modal-sub">Modern booking automation for the digital-first travel era.</p>
+                </div>
+                <blockquote class="text-lg text-[#E5E5E5] leading-relaxed border-l-2 border-[#F7A505] pl-6 py-2 mb-8">
+                    “Tech used to be a barrier. Now it's our edge.”
+                    <footer class="mt-3 text-xs text-[#666] not-italic font-mono uppercase tracking-wide">– Founder, AlphaCruise</footer>
+                </blockquote>
+                <div class="space-y-6 mb-8">
+                    <div>
+                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Challenge</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span>Travel brand running on manual processes</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span>No internal tech team · no digital roadmap</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Built</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span>Full booking platform with real-time API integrations</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span>Custom admin portal</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span>End-to-end delivery from architecture to deployment</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Result</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span><strong class="text-white font-medium">60%</strong> reduction in manual operations</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span><strong class="text-white font-medium">120+</strong> beta users onboarded</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span><strong class="text-white font-medium">45%</strong> revenue growth post-launch</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="http://alphacruisetravels.com" target="_blank" rel="noopener" class="btn btn-primary">
+                    Visit AlphaCruise
+                    <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="brief-modal" id="case-hueristo" hidden role="dialog" aria-modal="true" aria-labelledby="case-hueristo-title" data-lenis-prevent>
+            <div class="brief-modal-backdrop" data-close></div>
+            <div class="brief-modal-panel">
+                <button type="button" class="brief-modal-close" data-close aria-label="Close">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <div class="brief-modal-header">
+                    <div class="flex items-center gap-3 mb-3 flex-wrap">
+                        <p class="brief-modal-eyebrow" style="color:#00C853;margin:0">04 / HR Tech</p>
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono font-bold tracking-[0.2em] uppercase rounded-full border border-[#00C853]/30 bg-[#00C853]/10 text-[#00C853]">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#00C853] animate-pulse"></span>
+                            Coming Soon
+                        </span>
+                    </div>
+                    <h2 id="case-hueristo-title" class="brief-modal-title">Hueristo</h2>
+                    <p class="brief-modal-sub">HR on autopilot for UK founders.</p>
+                </div>
+                <div class="space-y-6 mb-8">
+                    <div>
+                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Building</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>Opinionated, compliance-first HR for UK founders</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>The platform we wish we'd had at our first companies</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>UK-first · compliance-led · founder-built</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Founding member offer</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>Tell us where HR currently breaks for you</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>We'll prioritise your bugs in the build</span></li>
+                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Free founding-member access</strong> when we ship</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="https://hueristo.com" target="_blank" rel="noopener" class="btn btn-primary">
+                    Visit Hueristo
+                    <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                </a>
+            </div>
+        </div>
+
 
 <script>
     // Home-specific motion. Shared chrome (menu/cursor/lenis/modal/reveal/ripple)
@@ -850,5 +1083,92 @@
         if (document.querySelector('.logo-anim')) {
             gsap.from('.logo-anim', { duration: 1.5, y: -20, opacity: 0, ease: 'power3.out', delay: 0.2 });
         }
+
+        // --- Case study modals -------------------------------------------------
+        // Generic handler for the per-case-study "View more" modals. Reuses the
+        // brief-modal CSS classes for visual consistency but lives independently
+        // from /js/site.js's brief-modal IIFE so the two don't interfere.
+        (() => {
+            const triggers = document.querySelectorAll('[data-case-open]');
+            if (!triggers.length) return;
+
+            let openModal = null;
+            let lastFocused = null;
+            let savedScrollY = 0;
+            const FOCUSABLES = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+            const lockScroll = () => {
+                savedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${savedScrollY}px`;
+                document.body.style.left = '0';
+                document.body.style.right = '0';
+                document.body.style.width = '100%';
+                document.body.classList.add('brief-modal-open');
+                if (window.lenisInstance) { try { window.lenisInstance.stop(); } catch (_) {} }
+            };
+            const unlockScroll = () => {
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.left = '';
+                document.body.style.right = '';
+                document.body.style.width = '';
+                document.body.classList.remove('brief-modal-open');
+                window.scrollTo(0, savedScrollY);
+                if (window.lenisInstance) { try { window.lenisInstance.start(); } catch (_) {} }
+            };
+
+            const open = (modal) => {
+                if (!modal || openModal) return;
+                openModal = modal;
+                lastFocused = document.activeElement;
+                modal.hidden = false;
+                lockScroll();
+                if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+                requestAnimationFrame(() => {
+                    const first = modal.querySelector(FOCUSABLES);
+                    first && first.focus({ preventScroll: true });
+                });
+            };
+
+            const close = () => {
+                if (!openModal) return;
+                openModal.hidden = true;
+                openModal = null;
+                unlockScroll();
+                if (lastFocused && typeof lastFocused.focus === 'function') {
+                    lastFocused.focus({ preventScroll: true });
+                }
+            };
+
+            triggers.forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const id = btn.getAttribute('data-case-open');
+                    open(document.getElementById(id));
+                });
+            });
+
+            // Wire close affordances on every case-study modal. Each modal has
+            // a [data-close] backdrop + a [data-close] button.
+            document.querySelectorAll('.brief-modal[id^="case-"]').forEach((modal) => {
+                modal.querySelectorAll('[data-close]').forEach((el) => {
+                    el.addEventListener('click', (e) => { e.preventDefault(); close(); });
+                });
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!openModal) return;
+                if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+                if (e.key !== 'Tab') return;
+                const focusables = Array.from(openModal.querySelectorAll(FOCUSABLES))
+                    .filter((el) => el.offsetParent !== null);
+                if (!focusables.length) return;
+                const first = focusables[0];
+                const last = focusables[focusables.length - 1];
+                if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+            });
+        })();
     });
 </script>

@@ -1,0 +1,177 @@
+{{> blog-post-header}}
+
+<article class="py-16 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <aside class="hidden lg:block lg:col-span-3">
+                <div class="sticky top-24">
+                    <div class="glass-panel rounded-xl p-6">
+                        <h3 class="text-xs font-mono text-[#666] uppercase tracking-wider mb-4">On This Page</h3>
+                        <nav class="space-y-3">
+                            <a href="#sec-1" class="toc-link block text-sm text-[#888] hover:text-white transition-all">The Number That Should Worry You</a>
+                            <a href="#sec-2" class="toc-link block text-sm text-[#888] hover:text-white transition-all">What Has Structurally Changed</a>
+                            <a href="#sec-3" class="toc-link block text-sm text-[#888] hover:text-white transition-all">Supply Chain Is the New Perimeter</a>
+                            <a href="#sec-4" class="toc-link block text-sm text-[#888] hover:text-white transition-all">Agentic AI Attack Surface</a>
+                            <a href="#sec-5" class="toc-link block text-sm text-[#888] hover:text-white transition-all">Pace of Adoption vs Governance</a>
+                        </nav>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-9">
+                <div class="blog-content reveal">
+                    <div class="w-full aspect-video rounded-xl mb-12 border border-white/10 overflow-hidden bg-[#111]">
+                        <img src="/assets/ai-adoption.jpeg" alt="The AI Adoption Gap" class="w-full h-full object-cover" />
+                    </div>
+
+                    <p>Almost every organisation using AI today has a strategy for adopting it. Far fewer have a strategy for governing it. That gap — between how fast AI is moving into businesses and how slowly the oversight structures are following — is not a theoretical risk. It is the operational reality that made the most serious AI security incidents of 2026 possible. And it is widening.</p>
+                    <p>In this first part, we lay out the diagnosis: the data behind the governance gap, the structural shifts in the threat landscape, and why the risks introduced by AI adoption are categorically different from the ones most businesses think they are managing.</p>
+
+                    <hr style="border-color: rgba(255,255,255,0.08); margin: 3rem 0;" />
+
+                    <h2 id="sec-1">The Number That Should Worry Every Business Leader</h2>
+                    <p>Here is a statistic that deserves more attention than it gets. According to the 2026 State of AI Cybersecurity report, 77% of organisations now run generative AI in their security stack. But only 37% have a formal AI policy in place. That means the majority of organisations are deploying AI in sensitive environments without having decided, documented, or communicated what the rules around it actually are.</p>
+                    <p>It gets worse. That 37% figure is down from 45% the previous year. In the year AI adoption exploded fastest, governance coverage shrank.</p>
+
+                    <div class="big-stat">
+                        <div class="big-stat-number">37%</div>
+                        <p class="big-stat-caption">Of organisations have a formal AI policy, down from 45% last year. In the year AI adoption accelerated fastest, governance coverage shrank.</p>
+                        <p class="big-stat-source">Source: Kiteworks State of AI Cybersecurity 2026</p>
+                    </div>
+
+                    <p>Cyberhaven's 2026 AI Adoption and Risk Report, built on data from 222 companies and billions of real-world data movements, found that 39.7% of all AI interactions now involve sensitive data. The average employee inputs proprietary information into an AI tool once every three days. Nearly 30% of organisations have no formal AI governance policy at all, despite AI tools being pervasive across their networks.</p>
+                    <p>Deloitte's State of AI 2026 adds the sharpest dimension: nearly three-quarters of organisations plan to deploy autonomous AI agents within the next two years. Yet only 21% report having proper governance in place for them. The organisations racing to deploy agentic AI are, in the majority of cases, doing so without the governance infrastructure to manage what those agents can access, what they can do, and what happens when something goes wrong.</p>
+                    <p>Governance readiness in enterprise AI sits at 30%. Talent readiness sits at 20%. Adoption is racing ahead. The infrastructure built to support it is not keeping up — and the gap between the two is where attackers are building their campaigns.</p>
+                    <p>These numbers do not describe a future risk. They describe the conditions that existed when the LiteLLM supply chain attack landed in March 2026, when the CareCloud breach went undetected for eight hours, and when thousands of developer machines were silently harvested of credentials while their owners thought they were running a routine dependency update. (<a href="/blog/ai-stack-compromise">We covered both incidents in detail here.</a>)</p>
+
+                    <hr style="border-color: rgba(255,255,255,0.08); margin: 3rem 0;" />
+
+                    <h2 id="sec-2">What Has Structurally Changed About the Threat Landscape</h2>
+                    <p>The phrase "evolving threat landscape" has appeared in so many security reports that it has almost lost meaning. But something genuinely structural has shifted in the AI era, and understanding what it is matters more than cataloguing individual incidents.</p>
+                    <p>In the pre-AI enterprise, the threat model was relatively containable. Known systems, auditable credentials, scopable permissions, and a clear distinction between the tools people used and the data those tools could reach. Security teams knew the perimeter. They debated how to defend it. They invested in the boundary.</p>
+                    <p>That model has fractured — not gradually, but sharply, over the past 18 to 24 months. Three things happened simultaneously that changed the nature of the problem.</p>
+
+                    <h3>AI infrastructure became a concentration point for high-value access</h3>
+                    <p>Tools like LiteLLM, which sits between applications and every LLM API call, routinely hold or have access to authentication credentials across dozens of AI services simultaneously. Compromise one library, and you do not steal one credential. You harvest the keys to every AI service an organisation is running. Attackers have understood this. The TeamPCP campaign that backdoored LiteLLM in March 2026 was not opportunistic — it was a deliberate escalation through the most trusted and access-concentrated tools in the AI developer stack.</p>
+
+                    <h3>The software supply chain became an attack surface of its own</h3>
+                    <p>The TeamPCP campaign did not start with LiteLLM. It started with a security scanner, moved to a CI/CD tool, and arrived at the AI proxy through a chain of compromised trust relationships — each step using the legitimate access of the previous one. No individual step was obviously suspicious. The chain as a whole was devastating. The perimeter, in that model, is not a boundary you defend. It is a trust chain you audit.</p>
+
+                    <h3>The explosion of AI tooling outpaced any organisation's ability to audit it</h3>
+                    <p>The top 1% of AI-adopting enterprises now use over 300 generative AI tools. McKinsey's 2026 AI Trust Maturity Survey found that only 30% of organisations have reached a meaningful maturity level in agentic AI governance controls. The tools are in production. The controls are not.</p>
+
+                    <blockquote class="pull-quote">The threat landscape has not just gotten worse. It has changed in kind. The attack surface is now the AI stack itself — the dependencies, the pipelines, the credential flows, and the agent permissions. And most organisations have no map of it.</blockquote>
+
+                    <hr style="border-color: rgba(255,255,255,0.08); margin: 3rem 0;" />
+
+                    <h2 id="sec-3">The Supply Chain Is the New Perimeter</h2>
+                    <p>Traditional security thinking was organised around the idea of a perimeter: protect the boundary, and what is inside is relatively safe. That model eroded as cloud adoption, remote work, and SaaS proliferation made the boundary harder to define. In the AI era, it has effectively dissolved.</p>
+                    <p>The software supply chain — every open-source package, every third-party library, every GitHub Action, every CI/CD tool, every npm or PyPI package pulled by something your team installed — is now part of your attack surface. And because AI development stacks are particularly dependency-heavy, and because the AI ecosystem moves at an unusual speed with unusually high implicit trust in popular packages, that surface is disproportionately large and poorly understood.</p>
+
+                    <h3>The transitive dependency problem</h3>
+                    <p>Most organisations have some process for reviewing direct dependencies — the packages they consciously choose to install. Almost none have systematic visibility into transitive dependencies: the packages their packages install. Research consistently shows that over 74% of malicious packages reach production through this transitive path. Many of the teams affected by the LiteLLM attack had never consciously decided to use LiteLLM at all. It arrived in their environments as a dependency of another tool they were running.</p>
+
+                    <h3>CI/CD pipelines as credential vaults</h3>
+                    <p>The LiteLLM attack succeeded because its CI/CD pipeline held a PyPI publishing token that was accessible after a prior compromise of an upstream tool. CI/CD pipelines routinely hold publishing credentials, cloud access keys, deployment tokens, and API keys. They are treated as automation infrastructure. They should be treated as privileged access systems with the same scrutiny applied to production databases.</p>
+
+                    <h3>The mutable release reference problem</h3>
+                    <p>Part of what made the Trivy attack possible was that release tags in GitHub Actions are mutable by default. An attacker who compromises a repository can rewrite tags to point to malicious commits, and any pipeline referencing those tags will pull the compromised version on its next run — without any visible change to the pipeline configuration itself. Pinning to specific commit hashes and verifying those hashes is the architectural response. Most pipelines are not configured this way.</p>
+
+                    <div class="essentials-box">
+                        <h4>Supply chain security — the essentials</h4>
+                        <ul>
+                            <li>Pin all dependencies to exact versions — no unpinned ranges, no "latest"</li>
+                            <li>Commit and version-control lock files across all environments</li>
+                            <li>Run automated supply chain scanning at the registry level in CI/CD</li>
+                            <li>Pin GitHub Actions to commit SHA, not mutable version tags</li>
+                            <li>Scope CI/CD credentials to the minimum required permissions and rotate on a defined schedule</li>
+                            <li>Audit transitive dependencies, not just direct installs</li>
+                            <li>Treat any unpinned AI library as a potential supply chain entry point</li>
+                        </ul>
+                    </div>
+
+                    <hr style="border-color: rgba(255,255,255,0.08); margin: 3rem 0;" />
+
+                    <h2 id="sec-4">Agentic AI: The Attack Surface That Did Not Exist Three Years Ago</h2>
+                    <p>There is a category of risk that has emerged from AI adoption that traditional security frameworks were not designed to address: the risk introduced by AI agents — systems that operate autonomously, read files, execute commands, call APIs, browse the web, write to databases, and take actions on behalf of users without step-by-step human instruction.</p>
+                    <p>Three years ago, this was a research topic. Today, it is production infrastructure. 79% of enterprises have adopted AI agents in some form. The agentic AI market is projected to grow from $8.5 billion in 2026 to $35 billion by 2030. And yet 88% of AI agents fail to reach production — not because the technology does not work, but because the governance, infrastructure, and evaluation frameworks needed to deploy them responsibly are not in place.</p>
+
+                    <h3>The new questions traditional security does not answer</h3>
+                    <p>The security questions governing the pre-AI enterprise — who has access, what credentials do they hold, are perimeters intact — are necessary but no longer sufficient. Agentic AI introduces questions that most frameworks have not yet incorporated:</p>
+                    <ul>
+                        <li><strong>What can our AI agents actually do</strong> — not what we intend, but what they are technically capable of, given the permissions they hold?</li>
+                        <li><strong>What data can they access?</strong> Can they reach production databases, customer records, or credential stores?</li>
+                        <li><strong>What can they transmit?</strong> Can they make arbitrary outbound network calls? To which domains, with what content?</li>
+                        <li><strong>What happens if an agent is manipulated through its inputs?</strong> Prompt injection — where malicious content in processed files causes an agent to take unintended actions — is a live threat with no close analogue in traditional software security.</li>
+                        <li><strong>Who is accountable when an agent causes harm?</strong> If an AI agent results in data exposure or regulatory breach, is there a named owner, a response plan, and a way to roll it back?</li>
+                    </ul>
+                    <blockquote class="pull-quote">Organisations can no longer concern themselves only with AI systems saying the wrong thing. They must also contend with systems doing the wrong thing — taking unintended actions, misusing tools, or operating beyond appropriate guardrails. <cite style="display: block; margin-top: 0.75rem; font-size: 0.85rem; font-style: normal; color: #888; font-family: 'JetBrains Mono', monospace;">— McKinsey 2026 AI Trust Survey</cite></blockquote>
+
+                    <hr style="border-color: rgba(255,255,255,0.08); margin: 3rem 0;" />
+
+                    <h2 id="sec-5">The Pace of Adoption Is Outrunning Governance — and the Data Proves It</h2>
+                    <p>Auvik's 2026 IT Trends Report identified what it called a "maturity mirage": organisations believe they are more prepared for AI than they actually are. Three-quarters of IT leaders say their organisation has an AI policy. Fewer than half of the help desk staff say the same. That is not a policy gap. It is an implementation gap — the difference between a document that exists and a standard that is understood and followed throughout the organisation.</p>
+                    <p>The Cyberhaven data adds operational texture. In leading organisations, 71.4% of employees use generative AI. In cautious enterprises, that figure drops to 2.5%. The gap between these groups is widening, not closing. And the organisations in the fast-moving group are, on average, the ones with the least mature governance and the least visibility into what their AI tools are actually doing with sensitive data.</p>
+                    <p>Deloitte quantifies the readiness gap precisely: governance readiness at 30%, technical infrastructure at 43%, data management at 40%, and talent readiness at just 20%. The conclusion is direct: adoption is no longer the primary challenge. The next phase of enterprise AI depends on operational maturity.</p>
+                    <p>The organisations deploying AI fastest are building competitive advantages that will compound. The organisations deploying AI without governance are building liabilities that will compound instead. Both are doing it at speed. Only one of them knows it.</p>
+                    <p>The 2026 State of AI report found that 88% of organisations worldwide now use AI regularly in at least one business function. Yet only 6% generate the kind of business outcomes that define genuine AI success.</p>
+                    <blockquote class="pull-quote">The gap between 88% adoption and 6% meaningful outcome is not a capability gap. It is a governance gap. And it is the same gap that made the incidents of March 2026 possible.</blockquote>
+
+                    <div class="next-part">
+                        <span class="label">Coming Next — Part 2</span>
+                        <p>What building responsibly with AI actually means in practice — the governance framework, the practical checklist, and the four things the organisations successfully navigating this era are doing differently. <a href="/blog/building-responsibly-with-ai">Read Part 2 →</a></p>
+                    </div>
+
+                    <div class="my-12 p-8 glass-panel rounded-xl bg-gradient-to-br from-[#0145F2]/10 to-transparent border-[#0145F2]/20 relative overflow-hidden text-left">
+                        <div class="absolute -right-20 -top-20 w-64 h-64 bg-[#0145F2] opacity-10 blur-[80px] rounded-full"></div>
+                        <h3 class="text-xl font-medium text-white !mt-0 !mb-3">Build AI systems on the right foundations.</h3>
+                        <p class="text-[#A8A8A8] text-[1.05rem] !mb-6 max-w-lg">
+                            We build AI-integrated systems for businesses that need them to be genuinely secure, governed, and scalable. If you are integrating AI and want to build it on the right foundations from the start, we should talk.
+                        </p>
+                        <a href="https://cal.com/zeffron-ai/30min" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-sm font-semibold rounded hover:bg-[#E5E5E5] transition-all duration-200">
+                            Book a Discovery Call
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<section class="py-16 px-4 sm:px-6 border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-2xl font-semibold text-white mb-8">Related Articles</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <article class="reveal">
+                <a href="/blog/building-responsibly-with-ai" class="group block glass-panel rounded-xl overflow-hidden hover:border-[#0145F2]/40 transition-all h-full flex flex-col">
+                    <div class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center overflow-hidden bg-[#111]">
+                        <img src="/assets/Blog%20VII_090404.jpg.jpeg" alt="Building Responsibly with AI in 2026" class="w-full h-full object-cover opacity-90" />
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono mb-3 self-start">AI Governance · Part 2</span>
+                        <h3 class="text-lg font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">Building Responsibly with AI in 2026: The Governance Playbook</h3>
+                        <p class="text-[#888] text-sm leading-relaxed flex-1">The prescription for the AI governance gap. What building responsibly with AI actually looks like in practice — and what the 12% successfully deploying agentic AI at scale all share.</p>
+                        <div class="flex items-center justify-between text-xs text-[#666] mt-4"><span class="font-mono">Apr 24, 2026</span><span>8 min read</span></div>
+                    </div>
+                </a>
+            </article>
+            <article class="reveal stagger-1">
+                <a href="/blog/ai-stack-compromise" class="group block glass-panel rounded-xl overflow-hidden hover:border-[#0145F2]/40 transition-all h-full flex flex-col">
+                    <div class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center overflow-hidden bg-[#111]">
+                        <img src="/assets/blog-ai-compromise.jpeg" alt="AI Stack Compromise" class="w-full h-full object-cover opacity-90" />
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono mb-3 self-start">Cybersecurity</span>
+                        <h3 class="text-lg font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">Why Nobody Is Talking About What Happens When the AI Stack Gets Compromised</h3>
+                        <p class="text-[#888] text-sm leading-relaxed flex-1">Two security incidents revealed the infrastructure holding AI capability together is still fragile, under attack, and built with too much implicit trust.</p>
+                        <div class="flex items-center justify-between text-xs text-[#666] mt-4"><span class="font-mono">Apr 3, 2026</span><span>8 min read</span></div>
+                    </div>
+                </a>
+            </article>
+        </div>
+    </div>
+</section>
+
+{{> blog-post-author-bio}}

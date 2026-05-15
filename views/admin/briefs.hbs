@@ -1,0 +1,232 @@
+<style>
+    body.tool-body {
+        margin: 0; min-height: 100vh;
+        background: #0A0A0A; color: #E5E5E5;
+        font-family: 'Inter', sans-serif;
+    }
+    .admin-shell { max-width: 1400px; margin: 0 auto; padding: 32px clamp(16px, 3vw, 32px); }
+
+    .admin-bar {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 16px; margin-bottom: 32px; flex-wrap: wrap;
+    }
+    .admin-crumb {
+        font-family: 'JetBrains Mono', monospace; font-size: 11px;
+        letter-spacing: 0.25em; text-transform: uppercase; color: #666;
+    }
+    .admin-crumb a { color: #888; text-decoration: none; transition: color .2s; }
+    .admin-crumb a:hover { color: #fff; }
+    .admin-crumb-sep { color: #333; margin: 0 8px; }
+
+    h1.admin-h1 {
+        font-family: 'Archivo', sans-serif; font-weight: 600;
+        font-size: clamp(24px, 3vw, 36px); letter-spacing: -0.02em;
+        margin: 0; color: #fff;
+    }
+    .admin-h1-count {
+        margin-left: 16px; padding: 4px 10px; border-radius: 999px;
+        background: rgba(1,69,242,0.12); border: 1px solid rgba(1,69,242,0.3);
+        color: #6FA8FF; font-family: 'JetBrains Mono', monospace;
+        font-size: 11px; letter-spacing: 0.15em; vertical-align: middle;
+    }
+
+    /* === Table === */
+    .admin-tbl-wrap {
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px; overflow: hidden; background: #0E0E0E;
+    }
+    .admin-tbl {
+        width: 100%; border-collapse: collapse; font-size: 13px;
+    }
+    .admin-tbl thead th {
+        text-align: left; padding: 14px 16px;
+        font-family: 'JetBrains Mono', monospace; font-size: 10px;
+        letter-spacing: 0.2em; text-transform: uppercase; color: #888;
+        background: #131313; border-bottom: 1px solid rgba(255,255,255,0.06);
+        white-space: nowrap;
+    }
+    .admin-tbl tbody tr {
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        transition: background-color .15s;
+    }
+    .admin-tbl tbody tr:hover { background: rgba(255,255,255,0.02); }
+    .admin-tbl tbody tr:last-child { border-bottom: 0; }
+    .admin-tbl td { padding: 14px 16px; vertical-align: top; }
+    .admin-tbl td.col-date {
+        white-space: nowrap; font-family: 'JetBrains Mono', monospace;
+        font-size: 11px; color: #888; letter-spacing: 0.03em;
+    }
+    .admin-tbl td.col-name { font-weight: 500; color: #fff; }
+    .admin-tbl td.col-email a { color: #6FA8FF; text-decoration: none; }
+    .admin-tbl td.col-email a:hover { text-decoration: underline; }
+
+    .badge {
+        display: inline-flex; align-items: center; padding: 2px 8px;
+        border-radius: 999px; font-family: 'JetBrains Mono', monospace;
+        font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    }
+    .badge-new { background: rgba(1,69,242,0.12); color: #6FA8FF; border: 1px solid rgba(1,69,242,0.3); }
+    .badge-existing { background: rgba(247,165,5,0.10); color: #F7A505; border: 1px solid rgba(247,165,5,0.30); }
+    .badge-opt { background: rgba(0,200,83,0.10); color: #6BE695; border: 1px solid rgba(0,200,83,0.30); }
+
+    /* Expandable detail row */
+    details.row-details summary {
+        list-style: none; cursor: pointer; user-select: none;
+        color: #888; font-family: 'JetBrains Mono', monospace; font-size: 11px;
+        letter-spacing: 0.15em; text-transform: uppercase;
+        padding: 6px 0; transition: color .2s;
+    }
+    details.row-details summary::-webkit-details-marker { display: none; }
+    details.row-details summary::before {
+        content: '＋'; display: inline-block; width: 14px; color: #555;
+    }
+    details.row-details[open] summary::before { content: '−'; color: #0145F2; }
+    details.row-details summary:hover { color: #fff; }
+    .row-detail-body {
+        margin-top: 10px; padding: 14px 16px;
+        background: #131313; border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.05);
+        color: #C8C8C8; font-size: 12.5px; line-height: 1.55;
+    }
+    .row-detail-body dl {
+        margin: 0; display: grid;
+        grid-template-columns: 140px 1fr; gap: 6px 16px;
+    }
+    .row-detail-body dt {
+        color: #666; font-family: 'JetBrains Mono', monospace;
+        font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+        padding-top: 3px;
+    }
+    .row-detail-body dd { margin: 0; }
+    .row-detail-body a { color: #6FA8FF; text-decoration: none; }
+    .row-detail-body a:hover { text-decoration: underline; }
+    .row-detail-files {
+        margin: 4px 0 0 0; padding: 0; list-style: none;
+        display: flex; flex-direction: column; gap: 4px;
+    }
+    .row-detail-files li {
+        font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    }
+
+    .empty-state {
+        padding: 60px 32px; text-align: center; color: #666;
+        font-family: 'JetBrains Mono', monospace; font-size: 13px;
+        letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 768px) {
+        .admin-tbl thead { display: none; }
+        .admin-tbl, .admin-tbl tbody, .admin-tbl tr, .admin-tbl td { display: block; }
+        .admin-tbl tr { padding: 14px 16px; }
+        .admin-tbl td { padding: 4px 0; }
+        .admin-tbl td::before {
+            content: attr(data-label); display: block; color: #555;
+            font-family: 'JetBrains Mono', monospace; font-size: 9px;
+            letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 2px;
+        }
+    }
+</style>
+
+<div class="admin-shell">
+    <div class="admin-bar">
+        <p class="admin-crumb">
+            <a href="/backstage">Admin</a>
+            <span class="admin-crumb-sep">/</span>
+            <span style="color:#E5E5E5">Briefs</span>
+        </p>
+        <div style="display:flex;align-items:center;gap:14px">
+            <p class="admin-crumb" style="margin:0">Latest first · UTC</p>
+            {{> admin-logout}}
+        </div>
+    </div>
+
+    <h1 class="admin-h1">
+        Project briefs
+        <span class="admin-h1-count">{{total}} total</span>
+    </h1>
+    <p style="color:#888;font-size:14px;margin:8px 0 28px 0;">Every submission from the project-brief modal. Click a row to expand the full description and any attached files.</p>
+
+    <div class="admin-tbl-wrap">
+    {{#if briefs.length}}
+        <table class="admin-tbl">
+            <thead>
+                <tr>
+                    <th style="width: 14%">Received</th>
+                    <th style="width: 18%">Name</th>
+                    <th style="width: 22%">Email</th>
+                    <th style="width: 8%">Mode</th>
+                    <th style="width: 14%">Company</th>
+                    <th style="width: 16%">Type / Help</th>
+                    <th style="width: 8%">Opt-in</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each briefs}}
+                <tr>
+                    <td class="col-date" data-label="Received">{{dt this.received_at}}</td>
+                    <td class="col-name" data-label="Name">
+                        {{this.name}}
+                        <details class="row-details" style="margin-top:8px">
+                            <summary>Details</summary>
+                            <div class="row-detail-body">
+                                <dl>
+                                    {{#if this.project_description}}
+                                    <dt>Project</dt>
+                                    <dd>{{this.project_description}}</dd>
+                                    {{/if}}
+                                    {{#if this.existing_description}}
+                                    <dt>Existing</dt>
+                                    <dd>{{this.existing_description}}</dd>
+                                    {{/if}}
+                                    {{#if this.staging_url}}
+                                    <dt>Staging URL</dt>
+                                    <dd><a href="{{this.staging_url}}" target="_blank" rel="noopener">{{this.staging_url}}</a></dd>
+                                    {{/if}}
+                                    {{#if this.files.length}}
+                                    <dt>Files</dt>
+                                    <dd>
+                                        <ul class="row-detail-files">
+                                        {{#each this.files}}
+                                            <li>
+                                                {{#if this.url}}
+                                                <a href="{{this.url}}" target="_blank" rel="noopener">{{this.originalName}}</a>
+                                                {{else}}
+                                                {{this.originalName}}
+                                                {{/if}}
+                                            </li>
+                                        {{/each}}
+                                        </ul>
+                                    </dd>
+                                    {{/if}}
+                                    <dt>ID</dt>
+                                    <dd style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#666">{{this.id}}</dd>
+                                    <dt>IP</dt>
+                                    <dd style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#666">{{this.ip}}</dd>
+                                </dl>
+                            </div>
+                        </details>
+                    </td>
+                    <td class="col-email" data-label="Email"><a href="mailto:{{this.email}}">{{this.email}}</a></td>
+                    <td data-label="Mode">
+                        {{#if (eq this.mode 'new')}}
+                            <span class="badge badge-new">New</span>
+                        {{else}}
+                            <span class="badge badge-existing">Existing</span>
+                        {{/if}}
+                    </td>
+                    <td data-label="Company">{{#if this.company}}{{this.company}}{{else}}<span style="color:#444">—</span>{{/if}}</td>
+                    <td data-label="Type">
+                        {{#if (eq this.mode 'new')}}{{this.project_type}}{{else}}{{this.help_type}}{{/if}}
+                    </td>
+                    <td data-label="Opt-in">
+                        {{#if this.marketing_opt_in}}<span class="badge badge-opt">Yes</span>{{else}}<span style="color:#444">no</span>{{/if}}
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    {{else}}
+        <div class="empty-state">No brief submissions yet.</div>
+    {{/if}}
+    </div>
+</div>

@@ -1,0 +1,134 @@
+<style>
+    body.tool-body {
+        margin: 0; min-height: 100vh;
+        background: #0A0A0A; color: #E5E5E5;
+        font-family: 'Inter', sans-serif;
+    }
+    .admin-shell { max-width: 1400px; margin: 0 auto; padding: 32px clamp(16px, 3vw, 32px); }
+
+    .admin-bar {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 16px; margin-bottom: 32px; flex-wrap: wrap;
+    }
+    .admin-crumb {
+        font-family: 'JetBrains Mono', monospace; font-size: 11px;
+        letter-spacing: 0.25em; text-transform: uppercase; color: #666;
+    }
+    .admin-crumb a { color: #888; text-decoration: none; transition: color .2s; }
+    .admin-crumb a:hover { color: #fff; }
+    .admin-crumb-sep { color: #333; margin: 0 8px; }
+
+    h1.admin-h1 {
+        font-family: 'Archivo', sans-serif; font-weight: 600;
+        font-size: clamp(24px, 3vw, 36px); letter-spacing: -0.02em;
+        margin: 0; color: #fff;
+    }
+    .admin-h1-count {
+        margin-left: 16px; padding: 4px 10px; border-radius: 999px;
+        background: rgba(1,69,242,0.12); border: 1px solid rgba(1,69,242,0.3);
+        color: #6FA8FF; font-family: 'JetBrains Mono', monospace;
+        font-size: 11px; letter-spacing: 0.15em; vertical-align: middle;
+    }
+
+    .admin-tbl-wrap {
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px; overflow: hidden; background: #0E0E0E;
+    }
+    .admin-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .admin-tbl thead th {
+        text-align: left; padding: 14px 16px;
+        font-family: 'JetBrains Mono', monospace; font-size: 10px;
+        letter-spacing: 0.2em; text-transform: uppercase; color: #888;
+        background: #131313; border-bottom: 1px solid rgba(255,255,255,0.06);
+        white-space: nowrap;
+    }
+    .admin-tbl tbody tr {
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        transition: background-color .15s;
+    }
+    .admin-tbl tbody tr:hover { background: rgba(255,255,255,0.02); }
+    .admin-tbl tbody tr:last-child { border-bottom: 0; }
+    .admin-tbl td { padding: 14px 16px; vertical-align: top; }
+    .admin-tbl td.col-date {
+        white-space: nowrap; font-family: 'JetBrains Mono', monospace;
+        font-size: 11px; color: #888; letter-spacing: 0.03em;
+    }
+    .admin-tbl td.col-name { font-weight: 500; color: #fff; }
+    .admin-tbl td.col-email a { color: #6FA8FF; text-decoration: none; }
+    .admin-tbl td.col-email a:hover { text-decoration: underline; }
+
+    .badge {
+        display: inline-flex; align-items: center; padding: 2px 8px;
+        border-radius: 999px; font-family: 'JetBrains Mono', monospace;
+        font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    }
+    .badge-role { background: rgba(151,125,255,0.10); color: #B8A8FF; border: 1px solid rgba(151,125,255,0.30); }
+    .badge-stage { background: rgba(0,200,83,0.08); color: #6BE695; border: 1px solid rgba(0,200,83,0.25); }
+
+    .empty-state {
+        padding: 60px 32px; text-align: center; color: #666;
+        font-family: 'JetBrains Mono', monospace; font-size: 13px;
+        letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 768px) {
+        .admin-tbl thead { display: none; }
+        .admin-tbl, .admin-tbl tbody, .admin-tbl tr, .admin-tbl td { display: block; }
+        .admin-tbl tr { padding: 14px 16px; }
+        .admin-tbl td { padding: 4px 0; }
+        .admin-tbl td::before {
+            content: attr(data-label); display: block; color: #555;
+            font-family: 'JetBrains Mono', monospace; font-size: 9px;
+            letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 2px;
+        }
+    }
+</style>
+
+<div class="admin-shell">
+    <div class="admin-bar">
+        <p class="admin-crumb">
+            <a href="/backstage">Admin</a>
+            <span class="admin-crumb-sep">/</span>
+            <span style="color:#E5E5E5">Playbook leads</span>
+        </p>
+        <div style="display:flex;align-items:center;gap:14px">
+            <p class="admin-crumb" style="margin:0">Latest first · UTC</p>
+            {{> admin-logout}}
+        </div>
+    </div>
+
+    <h1 class="admin-h1">
+        Playbook leads
+        <span class="admin-h1-count">{{total}} total</span>
+    </h1>
+    <p style="color:#888;font-size:14px;margin:8px 0 28px 0;">Every submission from the /playbook landing-page form.</p>
+
+    <div class="admin-tbl-wrap">
+    {{#if leads.length}}
+        <table class="admin-tbl">
+            <thead>
+                <tr>
+                    <th style="width: 18%">Received</th>
+                    <th style="width: 22%">Name</th>
+                    <th style="width: 28%">Email</th>
+                    <th style="width: 16%">Role</th>
+                    <th style="width: 16%">Stage</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each leads}}
+                <tr>
+                    <td class="col-date" data-label="Received">{{dt this.received_at}}</td>
+                    <td class="col-name" data-label="Name">{{this.name}}</td>
+                    <td class="col-email" data-label="Email"><a href="mailto:{{this.email}}">{{this.email}}</a></td>
+                    <td data-label="Role"><span class="badge badge-role">{{this.role}}</span></td>
+                    <td data-label="Stage"><span class="badge badge-stage">{{this.stage}}</span></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    {{else}}
+        <div class="empty-state">No playbook leads yet.</div>
+    {{/if}}
+    </div>
+</div>

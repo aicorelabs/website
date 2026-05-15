@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cloudinary": "^2.10.0",
     "dotenv": "^17.4.2",
     "express": "^4.21.2",
     "express-handlebars": "^9.0.1",

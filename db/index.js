@@ -61,6 +61,52 @@ const init = async () => {
     `);
     await pool.query(`CREATE INDEX IF NOT EXISTS jira_tasks_status_idx ON jira_tasks (status, sort_order)`);
 
+    // Brief submissions — one row per scoping-form submission. The branched
+    // fields (project_* vs existing_*) are nullable since only one set is
+    // populated per row, depending on `mode`. `files` is JSONB so the
+    // Cloudinary metadata round-trips intact without a join table.
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS brief_submissions (
+            id                    TEXT PRIMARY KEY,
+            received_at           TIMESTAMPTZ NOT NULL,
+            mode                  TEXT NOT NULL CHECK (mode IN ('new', 'existing')),
+            name                  TEXT NOT NULL,
+            email                 TEXT NOT NULL,
+            company               TEXT,
+            project_description   TEXT,
+            project_type          TEXT,
+            existing_description  TEXT,
+            help_type             TEXT,
+            staging_url           TEXT,
+            files                 JSONB NOT NULL DEFAULT '[]'::jsonb,
+            marketing_opt_in      BOOLEAN NOT NULL DEFAULT FALSE,
+            ip                    TEXT,
+            user_agent            TEXT,
+            created_at            TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        );
+    `);
+    await pool.query(`CREATE INDEX IF NOT EXISTS brief_submissions_email_idx ON brief_submissions (email)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS brief_submissions_received_idx ON brief_submissions (received_at DESC)`);
+
+    // Playbook leads — one row per playbook landing-page form submission.
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS playbook_leads (
+            id           TEXT PRIMARY KEY,
+            received_at  TIMESTAMPTZ NOT NULL,
+            name         TEXT NOT NULL,
+            email        TEXT NOT NULL,
+            role         TEXT NOT NULL,
+            stage        TEXT NOT NULL,
+            source       TEXT NOT NULL DEFAULT 'playbook-landing',
+            ip           TEXT,
+            user_agent   TEXT,
+            referer      TEXT,
+            created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        );
+    `);
+    await pool.query(`CREATE INDEX IF NOT EXISTS playbook_leads_email_idx ON playbook_leads (email)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS playbook_leads_received_idx ON playbook_leads (received_at DESC)`);
+
     const { rows } = await pool.query(`SELECT COUNT(*)::int AS n FROM jira_tasks`);
     if (rows[0].n === 0) {
         console.log('[db] seeding jira_tasks with initial backlog…');
@@ -82,4 +128,113 @@ const close = async () => {
     catch (err) { console.error('[db] pool drain error:', err.message); }
 };
 
-module.exports = { pool, init, close };
+// Persist one brief submission. No-op (logs a warning) when DATABASE_URL is
+// missing so local dev keeps working. Callers should treat the returned
+// promise as fire-and-forget and never block the HTTP response on the result.
+const insertBrief = async (s) => {
+    if (!process.env.DATABASE_URL) {
+        console.warn('[db] DATABASE_URL not set — skipping brief persistence');
+        return { skipped: true };
+    }
+    const isNew = s.mode === 'new';
+    await pool.query(
+        `INSERT INTO brief_submissions (
+            id, received_at, mode, name, email, company,
+            project_description, project_type,
+            existing_description, help_type, staging_url,
+            files, marketing_opt_in, ip, user_agent
+         ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12::jsonb,$13,$14,$15)
+         ON CONFLICT (id) DO NOTHING`,
+        [
+            s.id,
+            s.receivedAt,
+            s.mode,
+            s.contact.name,
+            s.contact.email,
+            s.contact.company || null,
+            isNew ? s.details.project_description : null,
+            isNew ? s.details.project_type        : null,
+            isNew ? null : s.details.existing_description,
+            isNew ? null : s.details.help_type,
+            isNew ? null : s.details.staging_url,
+            JSON.stringify(s.files || []),
+            !!s.marketingOptIn,
+            s.meta?.ip || null,
+            s.meta?.userAgent || null,
+        ]
+    );
+    return { ok: true };
+};
+
+// Persist one playbook lead. Same fire-and-forget contract as insertBrief.
+const insertPlaybookLead = async (s) => {
+    if (!process.env.DATABASE_URL) {
+        console.warn('[db] DATABASE_URL not set — skipping playbook persistence');
+        return { skipped: true };
+    }
+    await pool.query(
+        `INSERT INTO playbook_leads (
+            id, received_at, name, email, role, stage,
+            source, ip, user_agent, referer
+         ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+         ON CONFLICT (id) DO NOTHING`,
+        [
+            s.id,
+            s.receivedAt,
+            s.lead.name,
+            s.lead.email,
+            s.lead.role,
+            s.lead.stage,
+            s.source || 'playbook-landing',
+            s.meta?.ip || null,
+            s.meta?.userAgent || null,
+            s.meta?.referer || null,
+        ]
+    );
+    return { ok: true };
+};
+
+// Admin read helpers — pull recent submissions for the /admin views. Empty
+// arrays + zero counts when DATABASE_URL is missing so the page still renders
+// in a misconfigured environment instead of 500ing.
+const listBriefs = async (limit = 500) => {
+    if (!process.env.DATABASE_URL) return [];
+    const { rows } = await pool.query(
+        `SELECT id, received_at, mode, name, email, company,
+                project_description, project_type,
+                existing_description, help_type, staging_url,
+                files, marketing_opt_in, ip, user_agent
+         FROM brief_submissions
+         ORDER BY received_at DESC
+         LIMIT $1`,
+        [limit]
+    );
+    return rows;
+};
+
+const listPlaybookLeads = async (limit = 500) => {
+    if (!process.env.DATABASE_URL) return [];
+    const { rows } = await pool.query(
+        `SELECT id, received_at, name, email, role, stage, source, ip, referer
+         FROM playbook_leads
+         ORDER BY received_at DESC
+         LIMIT $1`,
+        [limit]
+    );
+    return rows;
+};
+
+const countSubmissions = async () => {
+    if (!process.env.DATABASE_URL) return { briefs: 0, leads: 0 };
+    const [a, b] = await Promise.all([
+        pool.query('SELECT COUNT(*)::int n FROM brief_submissions'),
+        pool.query('SELECT COUNT(*)::int n FROM playbook_leads'),
+    ]);
+    return { briefs: a.rows[0].n, leads: b.rows[0].n };
+};
+
+module.exports = {
+    pool, init, close,
+    insertBrief, insertPlaybookLead,
+    listBriefs, listPlaybookLeads, countSubmissions,
+};

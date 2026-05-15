@@ -1,0 +1,90 @@
+<style>
+    body.tool-body {
+        margin: 0; min-height: 100vh;
+        background: #0A0A0A; color: #E5E5E5;
+        font-family: 'Inter', sans-serif;
+    }
+    .admin-shell { max-width: 1200px; margin: 0 auto; padding: 48px 32px; }
+    .admin-eyebrow {
+        font-family: 'JetBrains Mono', monospace; font-size: 11px;
+        letter-spacing: 0.3em; text-transform: uppercase; color: #888;
+        display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+    }
+    .admin-eyebrow::before {
+        content: ''; display: block; width: 24px; height: 1px; background: #0145F2;
+    }
+    h1.admin-title {
+        font-family: 'Archivo', sans-serif; font-weight: 600;
+        font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.02em;
+        line-height: 1; margin: 0 0 12px 0; color: #fff;
+    }
+    .admin-sub { color: #888; font-size: 15px; max-width: 540px; margin: 0 0 40px 0; }
+
+    .admin-grid {
+        display: grid; gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .admin-card {
+        display: block; padding: 28px;
+        background: #111; border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 12px; text-decoration: none; color: inherit;
+        transition: border-color .25s, transform .25s, background .25s;
+    }
+    .admin-card:hover {
+        border-color: rgba(1,69,242,0.5); transform: translateY(-2px);
+        background: #131313;
+    }
+    .admin-card-label {
+        font-family: 'JetBrains Mono', monospace; font-size: 11px;
+        letter-spacing: 0.25em; text-transform: uppercase; color: #0145F2;
+        margin-bottom: 12px;
+    }
+    .admin-card h2 {
+        font-family: 'Archivo', sans-serif; font-weight: 600;
+        font-size: 22px; letter-spacing: -0.01em; margin: 0 0 6px 0; color: #fff;
+    }
+    .admin-card-count {
+        font-family: 'Archivo', sans-serif; font-weight: 600;
+        font-size: 56px; letter-spacing: -0.04em; line-height: 1;
+        margin-top: 32px; color: #fff;
+    }
+    .admin-card-meta {
+        color: #888; font-size: 13px; margin-top: 6px;
+        font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em;
+    }
+    .admin-footer {
+        margin-top: 48px; padding-top: 24px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        color: #555; font-family: 'JetBrains Mono', monospace;
+        font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    }
+</style>
+
+<div class="admin-shell">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:8px;flex-wrap:wrap">
+        <p class="admin-eyebrow" style="margin-bottom:0">Zeffron · Admin · Internal</p>
+        {{> admin-logout}}
+    </div>
+    <h1 class="admin-title" style="margin-top:16px">Submissions.</h1>
+    <p class="admin-sub">Every form on the site lands here. Click through for the full list.</p>
+
+    <div class="admin-grid">
+        <a class="admin-card" href="/backstage/briefs">
+            <p class="admin-card-label">Section · 01</p>
+            <h2>Project briefs</h2>
+            <p class="admin-card-meta">From the modal form on every page.</p>
+            <div class="admin-card-count">{{counts.briefs}}</div>
+            <p class="admin-card-meta">Total submissions →</p>
+        </a>
+
+        <a class="admin-card" href="/backstage/playbook">
+            <p class="admin-card-label">Section · 02</p>
+            <h2>Playbook leads</h2>
+            <p class="admin-card-meta">From the /playbook landing page.</p>
+            <div class="admin-card-count">{{counts.leads}}</div>
+            <p class="admin-card-meta">Total leads →</p>
+        </a>
+    </div>
+
+    <p class="admin-footer">Authenticated · Read-only · UTC times</p>
+</div>
