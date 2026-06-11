@@ -512,7 +512,7 @@ app.get('/demos', (_req, res) => res.render('demos', {
 // Listing-only fields: imageGradient, imageBg, imageFit, imageOpacity, stagger.
 const blogPosts = [
     {
-        slug: 'rag-easy-60',
+        slug: 'building-rag-is-the-easy-60',
         postTitle: "RAG Is the Easy 60%. Here's the Other 40%.",
         seoTitle: "RAG Is the Easy 60%. Here's the Other 40%. | Zeffron Blog",
         description: 'Most production RAG systems fail not because of the visible stack, but because of four invisible systems: eval harnesses, freshness pipelines, fallback policies, and query rewriting.',
