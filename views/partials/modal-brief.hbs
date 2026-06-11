@@ -123,3 +123,56 @@
             </div>
         </div>
     </div>
+
+    {{!-- Founder playbook popup — triggered on the homepage by /js/site.js --}}
+    <div class="brief-modal" id="playbook-popup" hidden role="dialog" aria-modal="true" aria-labelledby="playbook-popup-title" data-lenis-prevent>
+        <div class="brief-modal-backdrop" data-close></div>
+        <div class="brief-modal-panel">
+            <button type="button" class="brief-modal-close" data-close aria-label="Close">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <div class="md:col-span-5">
+                    <div style="perspective: 1800px; display:flex; justify-content:center; padding: 1rem;">
+                        <img src="/assets/founder_play_book.png" alt="The Founder's AI Prompt Playbook — cover" class="max-w-full h-auto" style="width: clamp(220px, 28vw, 320px); border-radius: 3px 8px 8px 3px; box-shadow: inset 14px 0 24px -10px rgba(0,0,0,0.45), -24px 32px 70px rgba(0,0,0,0.48); transform: rotateY(-12deg) rotateX(2deg);" />
+                    </div>
+                </div>
+                <div class="md:col-span-7">
+                    <div class="brief-modal-header">
+                        <p class="brief-modal-eyebrow">Free founder playbook</p>
+                        <h2 id="playbook-popup-title" class="brief-modal-title">Get the playbook.</h2>
+                    </div>
+
+                    <p class="text-[#A8A8A8] leading-relaxed mb-6">
+                        50+ AI prompts that take you from messy idea to MVP scope, user stories, and pitch deck in 30 minutes.
+                    </p>
+
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-[#E5E5E5]">
+                            <i data-lucide="check" class="w-4 h-4 text-[#0145F2] shrink-0"></i>
+                            Five stages · idea to pitch
+                        </li>
+                        <li class="flex items-center gap-3 text-[#E5E5E5]">
+                            <i data-lucide="check" class="w-4 h-4 text-[#0145F2] shrink-0"></i>
+                            Built for non-technical founders
+                        </li>
+                        <li class="flex items-center gap-3 text-[#E5E5E5]">
+                            <i data-lucide="check" class="w-4 h-4 text-[#0145F2] shrink-0"></i>
+                            MVP readiness quiz included
+                        </li>
+                    </ul>
+
+                    <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
+                        <a href="/playbook" class="btn btn-primary btn-lg">
+                            Send me the playbook
+                            <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                        </a>
+                        <button type="button" class="btn btn-secondary btn-lg" data-close>
+                            Not now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

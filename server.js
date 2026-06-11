@@ -219,11 +219,12 @@ const organization = {
     areaServed: { '@type': 'Country', name: 'United Kingdom' },
     knowsAbout: [
         'Artificial intelligence',
-        'AI product development',
-        'Custom software engineering',
-        'MVP development',
-        'Fractional CTO services',
-        'Product strategy',
+        'Responsible AI deployment',
+        'AI governance',
+        'Healthcare workflow automation',
+        'Professional services automation',
+        'Operational AI consulting',
+        'AI privacy and security',
     ],
     sameAs: [
         'https://www.linkedin.com/company/zeffron-ai/',
@@ -511,6 +512,26 @@ app.get('/demos', (_req, res) => res.render('demos', {
 // Listing-only fields: imageGradient, imageBg, imageFit, imageOpacity, stagger.
 const blogPosts = [
     {
+        slug: 'rag-easy-60',
+        postTitle: "RAG Is the Easy 60%. Here's the Other 40%.",
+        seoTitle: "RAG Is the Easy 60%. Here's the Other 40%. | Zeffron Blog",
+        description: 'Most production RAG systems fail not because of the visible stack, but because of four invisible systems: eval harnesses, freshness pipelines, fallback policies, and query rewriting.',
+        excerpt: 'Eval harnesses, freshness pipelines, fallback policies, and query rewriting are the four invisible systems that separate a RAG demo from a RAG product.',
+        listingExcerpt: 'Most production RAG systems fail not because of the visible stack, but because of four invisible systems: eval harnesses, freshness pipelines, fallback policies, and query rewriting.',
+        keywords: 'RAG, retrieval augmented generation, eval harnesses, query rewriting, fallback policies, AI product engineering, Zeffron AI',
+        category: 'Engineering',
+        date: 'May 15, 2026',
+        listingDate: 'May 15, 2026',
+        datePublished: '2026-05-15',
+        readTime: '10 min read',
+        image: '/assets/rag_is_easy.jpeg',
+        imageAlt: "RAG Is the Easy 60%. Here's the Other 40%.",
+        imageGradient: 'from-[#0145F2]/20 to-[#977DFF]/20',
+        imageBg: 'bg-[#111]',
+        imageFit: 'object-cover',
+        imageOpacity: 'opacity-90',
+    },
+    {
         slug: 'building-responsibly-with-ai-governance-playbook-2026',
         postTitle: 'Building Responsibly with AI in 2026: The Governance Playbook for Businesses That Want to Get This Right',
         seoTitle: 'Building Responsibly with AI in 2026: The Governance Playbook | Zeffron Blog',
@@ -658,6 +679,7 @@ const socialImageFor = (image) => ({
     '/assets/blog-5-signs-hero.webp': '/assets/blog-5-signs-hero.jpg',
     '/assets/blog-let-users-build.webp': '/assets/let-users-build-doc-image.png',
     '/assets/blog-whatsapp-agents.webp': '/assets/whatsapp.png',
+    '/assets/rag_is_easy.jpeg': '/assets/rag_is_easy.jpeg',
 }[image] || image);
 
 const imageTypeFor = (image) => {
@@ -665,6 +687,16 @@ const imageTypeFor = (image) => {
     if (/\.webp$/i.test(image)) return 'image/webp';
     return 'image/jpeg';
 };
+
+const imageMetaFor = (image) => ({
+    '/assets/ai-adoption.jpeg': { width: 1200, height: 800 },
+    '/assets/blog-custom-ai.jpeg': { width: 1200, height: 800 },
+    '/assets/blog-ai-compromise.jpeg': { width: 1200, height: 800 },
+    '/assets/blog-5-signs-hero.jpg': { width: 1200, height: 800 },
+    '/assets/let-users-build-doc-image.png': { width: 1200, height: 630 },
+    '/assets/whatsapp.png': { width: 1200, height: 630 },
+    '/assets/rag_is_easy.jpeg': { width: 1920, height: 1080 },
+}[image] || { width: 1200, height: 630 });
 
 // Listing-card view shape — projects postTitle/listingExcerpt/href into the
 // generic fields the blog.hbs grid expects.
@@ -740,6 +772,7 @@ for (const post of blogPosts) {
     const socialImage = socialImageFor(post.image);
     const absoluteImage = `https://zeffron.ai${socialImage}`;
     const ogImageType = imageTypeFor(socialImage);
+    const ogImageMeta = imageMetaFor(socialImage);
     const shareTitleEncoded = encodeURIComponent(post.postTitle);
 
     app.get(`/blog/${post.slug}`, (_req, res) => res.render(`blog/${post.slug}`, {
@@ -747,10 +780,13 @@ for (const post of blogPosts) {
         description: post.description,
         keywords: post.keywords,
         canonical,
+        bodyClass: 'blog-post-page',
         activeNav: 'blog',
         ogType: 'article',
         ogImage: absoluteImage,
         ogImageType,
+        ogImageWidth: ogImageMeta.width,
+        ogImageHeight: ogImageMeta.height,
         ogImageAlt: post.imageAlt,
         // Locals consumed by partials/blog-post-header.hbs
         postTitle: post.postTitle,

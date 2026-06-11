@@ -394,4 +394,99 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     })();
+
+    // --- Founder playbook popup -------------------------------------------
+    (() => {
+        const modal = document.getElementById('playbook-popup');
+        if (!modal || window.location.pathname !== '/') return;
+
+        const storageKey = 'zeffron_playbook_popup_dismissed_v1';
+        const triggerDelayMs = 5000;
+        const focusableSelector = [
+            'a[href]',
+            'button:not([disabled])',
+            'input:not([disabled])',
+            'select:not([disabled])',
+            'textarea:not([disabled])',
+            '[tabindex]:not([tabindex="-1"])',
+        ].join(', ');
+
+        let lastFocused = null;
+        let timer = null;
+        let isOpen = false;
+
+        const hasDismissed = () => {
+            try { return localStorage.getItem(storageKey) === '1'; }
+            catch { return false; }
+        };
+        const dismiss = () => {
+            try { localStorage.setItem(storageKey, '1'); }
+            catch {}
+        };
+        const lockScroll = () => document.body.classList.add('brief-modal-open');
+        const unlockScroll = () => document.body.classList.remove('brief-modal-open');
+
+        const open = () => {
+            if (isOpen || hasDismissed()) return;
+            isOpen = true;
+            lastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+            modal.hidden = false;
+            lockScroll();
+            requestAnimationFrame(() => {
+                const first = modal.querySelector(focusableSelector);
+                if (first instanceof HTMLElement) first.focus();
+            });
+        };
+
+        const close = (persist = true) => {
+            if (!isOpen) return;
+            isOpen = false;
+            modal.hidden = true;
+            unlockScroll();
+            if (persist) dismiss();
+            if (lastFocused instanceof HTMLElement) lastFocused.focus();
+        };
+
+        modal.querySelectorAll('[data-close]').forEach((el) => {
+            el.addEventListener('click', () => close(true));
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) close(true);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!isOpen) return;
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                close(true);
+                return;
+            }
+            if (e.key !== 'Tab') return;
+
+            const focusables = Array.from(modal.querySelectorAll(focusableSelector))
+                .filter((el) => el instanceof HTMLElement && !el.hasAttribute('disabled'));
+            if (!focusables.length) return;
+
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            const active = document.activeElement;
+
+            if (e.shiftKey && active === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && active === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        });
+
+        if (!hasDismissed()) {
+            timer = window.setTimeout(open, triggerDelayMs);
+        }
+
+        window.addEventListener('pagehide', () => {
+            if (timer) window.clearTimeout(timer);
+        });
+    })();
 });
