@@ -523,7 +523,7 @@ const blogPosts = [
         listingDate: 'Apr 24, 2026',
         datePublished: '2026-04-24',
         readTime: '8 min read',
-        image: '/assets/blog-custom-ai.jpeg',
+        image: '/assets/blog-custom-ai.webp',
         imageAlt: 'Building Responsibly with AI in 2026',
         imageGradient: 'from-[#0145F2]/20 to-[#977DFF]/20',
         imageBg: 'bg-[#111]',
@@ -543,7 +543,7 @@ const blogPosts = [
         listingDate: 'Apr 10, 2026',
         datePublished: '2026-04-10',
         readTime: '8 min read',
-        image: '/assets/ai-adoption.jpeg',
+        image: '/assets/blog-ai-adoption.webp',
         imageAlt: 'The AI Adoption Gap Nobody Wants to Talk About',
         imageGradient: 'from-[#0145F2]/20 to-[#977DFF]/20',
         imageBg: 'bg-[#111]',
@@ -563,7 +563,7 @@ const blogPosts = [
         listingDate: 'Apr 3, 2026',
         datePublished: '2026-04-03',
         readTime: '8 min read',
-        image: '/assets/blog-ai-compromise.jpeg',
+        image: '/assets/blog-ai-compromise.webp',
         imageAlt: 'AI Stack Compromise',
         imageGradient: 'from-[#0145F2]/20 to-[#977DFF]/20',
         imageBg: 'bg-[#111]',
@@ -582,7 +582,7 @@ const blogPosts = [
         date: 'March 25, 2026',
         datePublished: '2026-03-25',
         readTime: '10 min read',
-        image: '/assets/blog-5-signs-hero.jpg',
+        image: '/assets/blog-5-signs-hero.webp',
         imageAlt: '5 Signs your Business Problem is a perfect fit for an AI Solution',
         imageGradient: 'from-[#0145F2]/20 to-[#977DFF]/20',
         imageBg: 'bg-[#111]',
@@ -602,7 +602,7 @@ const blogPosts = [
         listingDate: 'Mar 18, 2026',
         datePublished: '2026-03-18',
         readTime: '8 min read',
-        image: '/assets/let-users-build-doc-image.png',
+        image: '/assets/blog-let-users-build.webp',
         imageAlt: 'Let Your Users Build For You',
         imageGradient: 'from-[#0145F2]/20 to-[#977DFF]/20',
         imageFit: 'object-cover',
@@ -622,7 +622,7 @@ const blogPosts = [
         listingDate: 'Mar 6, 2026',
         datePublished: '2026-03-06',
         readTime: '5 min read',
-        image: '/assets/whatsapp.png',
+        image: '/assets/blog-whatsapp-agents.webp',
         imageAlt: 'WhatsApp AI Agents',
         imageGradient: 'from-[#0145F2]/20 to-[#90FFBD]/20',
         imageFit: 'object-cover',
@@ -642,7 +642,7 @@ const blogPosts = [
         listingDate: 'Feb 13, 2026',
         datePublished: '2026-02-13',
         readTime: '6 min read',
-        image: '/assets/blog-custom-ai.jpeg',
+        image: '/assets/blog-custom-ai.webp',
         imageAlt: 'AI Future',
         imageGradient: 'from-[#0145F2]/20 to-[#977DFF]/20',
         imageFit: 'object-cover',
@@ -651,13 +651,29 @@ const blogPosts = [
     },
 ];
 
+const socialImageFor = (image) => ({
+    '/assets/blog-ai-adoption.webp': '/assets/ai-adoption.jpeg',
+    '/assets/blog-custom-ai.webp': '/assets/blog-custom-ai.jpeg',
+    '/assets/blog-ai-compromise.webp': '/assets/blog-ai-compromise.jpeg',
+    '/assets/blog-5-signs-hero.webp': '/assets/blog-5-signs-hero.jpg',
+    '/assets/blog-let-users-build.webp': '/assets/let-users-build-doc-image.png',
+    '/assets/blog-whatsapp-agents.webp': '/assets/whatsapp.png',
+}[image] || image);
+
+const imageTypeFor = (image) => {
+    if (/\.png$/i.test(image)) return 'image/png';
+    if (/\.webp$/i.test(image)) return 'image/webp';
+    return 'image/jpeg';
+};
+
 // Listing-card view shape — projects postTitle/listingExcerpt/href into the
 // generic fields the blog.hbs grid expects.
 const listingCards = blogPosts.map((p) => ({
     ...p,
     href: `/blog/${p.slug}`,
     title: p.postTitle,
-    excerpt: p.listingExcerpt,
+    excerpt: p.listingExcerpt || p.excerpt || p.description,
+    fallbackImage: socialImageFor(p.image),
     date: p.listingDate || p.date,
 }));
 
@@ -668,6 +684,7 @@ app.get('/blog', (_req, res) => res.render('blog', {
     canonical: 'https://zeffron.ai/blog',
     activeNav: 'blog',
     ogImage: 'https://zeffron.ai/assets/blog-custom-ai.jpeg',
+    ogImageType: 'image/jpeg',
     ogImageAlt: 'Zeffron — AI & Software Development Blog',
     posts: listingCards,
     jsonLd: [
@@ -686,7 +703,7 @@ app.get('/blog', (_req, res) => res.render('blog', {
                 headline: p.postTitle,
                 description: p.description,
                 url: `https://zeffron.ai/blog/${p.slug}`,
-                image: `https://zeffron.ai${p.image}`,
+                image: `https://zeffron.ai${socialImageFor(p.image)}`,
                 datePublished: p.datePublished,
                 author: { '@type': 'Organization', name: 'Zeffron' },
             })),
@@ -720,8 +737,9 @@ for (const [oldSlug, newSlug] of Object.entries(slugRedirects)) {
 // consistent with the rest of the site.
 for (const post of blogPosts) {
     const canonical = `https://zeffron.ai/blog/${post.slug}`;
-    const absoluteImage = `https://zeffron.ai${post.image}`;
-    const ogImageType = /\.png$/i.test(post.image) ? 'image/png' : 'image/jpeg';
+    const socialImage = socialImageFor(post.image);
+    const absoluteImage = `https://zeffron.ai${socialImage}`;
+    const ogImageType = imageTypeFor(socialImage);
     const shareTitleEncoded = encodeURIComponent(post.postTitle);
 
     app.get(`/blog/${post.slug}`, (_req, res) => res.render(`blog/${post.slug}`, {
@@ -736,7 +754,7 @@ for (const post of blogPosts) {
         ogImageAlt: post.imageAlt,
         // Locals consumed by partials/blog-post-header.hbs
         postTitle: post.postTitle,
-        excerpt: post.excerpt,
+        excerpt: post.excerpt || post.listingExcerpt || post.description,
         category: post.category,
         date: post.date,
         readTime: post.readTime,

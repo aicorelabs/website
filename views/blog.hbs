@@ -23,7 +23,7 @@
         <article>
             <a href="{{href}}" class="group block glass-panel rounded-xl overflow-hidden blog-card h-full flex flex-col border border-white/10 bg-white/5">
                 <div class="aspect-video bg-gradient-to-br {{imageGradient}} flex items-center justify-center overflow-hidden {{#if imageBg}}{{imageBg}}{{/if}} relative">
-                    <img src="{{image}}" alt="{{imageAlt}}" class="w-full h-full {{imageFit}} {{imageOpacity}} group-hover:scale-105 transition-transform duration-500" />
+                    <img src="{{image}}" alt="{{imageAlt}}" class="w-full h-full {{imageFit}} {{imageOpacity}} group-hover:scale-105 transition-transform duration-500" loading="{{#if @first}}eager{{else}}lazy{{/if}}" decoding="async" onerror="this.onerror=null;this.src='{{fallbackImage}}';" />
                 </div>
                 <div class="p-6 flex-1 flex flex-col">
                     <div class="flex items-center gap-3 mb-3">
