@@ -8,6 +8,8 @@ build/
 *.log
 .DS_Store
 .vscode/
+__pycache__/
+*.py[cod]
 node_modules
 assets/js/firebase-config.local.js
 zeffron_client_management/.env.local

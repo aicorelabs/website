@@ -1,0 +1,279 @@
+<style>
+    body.research-page {
+        background: #08090B;
+        color: #F4F1EA;
+    }
+
+    .research-vertical {
+        --bg: #08090B;
+        --ink: #F4F1EA;
+        --ink-soft: #CFC8BA;
+        --muted: #8F897F;
+        --line: rgba(244, 241, 234, 0.12);
+        --panel: rgba(244, 241, 234, 0.04);
+        --amber: #D7A85E;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: 'Archivo', 'Inter', sans-serif;
+    }
+
+    .research-shell {
+        width: min(100% - 32px, 1260px);
+        margin: 0 auto;
+    }
+
+    .research-hero {
+        min-height: 82dvh;
+        padding: clamp(8rem, 13vw, 12rem) 0 clamp(4rem, 8vw, 6rem);
+        border-bottom: 1px solid var(--line);
+        background:
+            linear-gradient(90deg, rgba(8, 9, 11, 0.98), rgba(8, 9, 11, 0.78)),
+            url('/assets/rag_is_easy.jpeg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 1.25rem;
+    }
+
+    .eyebrow::before {
+        content: "";
+        width: 1.7rem;
+        height: 1px;
+        background: var(--amber);
+    }
+
+    .research-display {
+        max-width: 60rem;
+        font-size: 5rem;
+        line-height: 1;
+        letter-spacing: 0;
+        font-weight: 700;
+        text-wrap: balance;
+    }
+
+    .research-display.compact {
+        font-size: 4.1rem;
+    }
+
+    .research-subhead {
+        color: var(--ink-soft);
+        font-size: clamp(1.15rem, 2vw, 1.45rem);
+        line-height: 1.55;
+        max-width: 46rem;
+        margin-top: 2rem;
+    }
+
+    .research-subhead.flush {
+        margin-top: 0;
+    }
+
+    .research-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 2rem;
+    }
+
+    .research-section {
+        padding: clamp(5.5rem, 10vw, 9rem) 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .research-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+    }
+
+    .research-card {
+        min-height: 20rem;
+        padding: clamp(1.5rem, 3vw, 2.5rem);
+        background: var(--panel);
+    }
+
+    .research-card span {
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .research-card h2 {
+        color: var(--ink);
+        font-size: 2rem;
+        line-height: 1.06;
+        letter-spacing: 0;
+        font-weight: 700;
+        margin-top: 1.5rem;
+    }
+
+    .research-card p {
+        color: var(--muted);
+        line-height: 1.68;
+        margin-top: 1.5rem;
+    }
+
+    .research-list {
+        display: grid;
+        border-top: 1px solid var(--line);
+    }
+
+    .research-row {
+        display: grid;
+        grid-template-columns: minmax(8rem, 12rem) 1fr minmax(10rem, 16rem);
+        gap: 2rem;
+        padding: 1.65rem 0;
+        border-bottom: 1px solid var(--line);
+        align-items: start;
+    }
+
+    .research-row span {
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .research-row h2 {
+        color: var(--ink);
+        font-size: 1.9rem;
+        line-height: 1.08;
+        letter-spacing: 0;
+        font-weight: 700;
+    }
+
+    .research-row p {
+        color: var(--muted);
+        line-height: 1.6;
+    }
+
+    .research-cta {
+        padding: clamp(5rem, 10vw, 8rem) 0;
+    }
+
+    .research-cta-box {
+        border: 1px solid var(--line);
+        padding: clamp(2rem, 6vw, 5rem);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(2rem, 6vw, 5rem);
+        align-items: end;
+        background: rgba(244, 241, 234, 0.04);
+    }
+
+    @media (max-width: 900px) {
+        .research-display {
+            font-size: 3.35rem;
+        }
+
+        .research-display.compact {
+            font-size: 2.85rem;
+        }
+
+        .research-grid,
+        .research-row,
+        .research-cta-box {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="research-vertical">
+    <section class="research-hero">
+        <div class="research-shell">
+            <div class="eyebrow">Research and engineering vertical</div>
+            <h1 class="research-display">Research depth for AI systems that have to work.</h1>
+            <p class="research-subhead">
+                The technical layer behind Zeffron's consulting work: data science, ML modelling, retrieval, fine-tuning, agent design, and evaluation harnesses.
+            </p>
+            <div class="research-actions">
+                <a href="https://cal.com/zeffron-ai/30min" class="btn btn-primary btn-lg">Book consultation</a>
+                <a href="/#stack" class="btn btn-secondary btn-lg">View homepage stack</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="research-section">
+        <div class="research-shell">
+            <div class="research-grid">
+                <article class="research-card">
+                    <span>Research</span>
+                    <h2>Frame the operational question before the model.</h2>
+                    <p>Workflow analysis, data constraints, error modes, and commercial impact define what should be built.</p>
+                </article>
+                <article class="research-card">
+                    <span>Modelling</span>
+                    <h2>Choose the right technical path for the task.</h2>
+                    <p>Retrieval, fine-tuning, classification, forecasting, and agent workflows are selected against measurable criteria.</p>
+                </article>
+                <article class="research-card">
+                    <span>Evaluation</span>
+                    <h2>Measure before the system reaches users.</h2>
+                    <p>Harnesses, golden sets, regression checks, and review loops keep quality visible after launch.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="research-section">
+        <div class="research-shell">
+            <div class="eyebrow">Technical focus</div>
+            <div class="research-list">
+                <div class="research-row">
+                    <span>01</span>
+                    <h2>Data science and ML modelling</h2>
+                    <p>Dataset preparation, feature analysis, model comparison, error analysis, and decision support.</p>
+                </div>
+                <div class="research-row">
+                    <span>02</span>
+                    <h2>Retrieval and knowledge systems</h2>
+                    <p>Document pipelines, vector search, freshness, citations, access control, and fallback design.</p>
+                </div>
+                <div class="research-row">
+                    <span>03</span>
+                    <h2>Fine-tuning and adaptation</h2>
+                    <p>Domain adaptation, response shaping, labelled datasets, experiment tracking, and release criteria.</p>
+                </div>
+                <div class="research-row">
+                    <span>04</span>
+                    <h2>Agents and workflow orchestration</h2>
+                    <p>Tool use, permission boundaries, handoff logic, monitoring, and human review for high-impact actions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="research-cta">
+        <div class="research-shell">
+            <div class="research-cta-box">
+                <div>
+                    <div class="eyebrow">Bring the hard problem</div>
+                    <h2 class="research-display compact">Turn research into a deployable system.</h2>
+                </div>
+                <div>
+                    <p class="research-subhead flush">
+                        Book a focused consultation on your data, evaluation needs, and production constraints.
+                    </p>
+                    <div class="research-actions">
+                        <a href="https://cal.com/zeffron-ai/30min" class="btn btn-primary btn-lg">Book consultation</a>
+                        <a href="/" class="btn btn-secondary btn-lg">Back to homepage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,1174 +1,1054 @@
-<section id="hero" class="relative min-h-screen flex flex-col overflow-hidden pt-32 md:pt-36 pb-10 md:pb-16">
-            <!-- One atmospheric layer — the only background motion -->
-            <div class="hero-aura" aria-hidden="true"></div>
+<style>
+    body.home-consultancy-page {
+        background: #08090B;
+        color: #F4F1EA;
+    }
 
-            <!-- One quiet meta line -->
-            <div class="hero-fade relative z-10 max-w-[1400px] w-full mx-auto px-6 sm:px-10 md:px-14 flex items-center justify-between text-[10px] font-mono font-bold tracking-[0.3em] uppercase" style="--fd: 0.45s;">
-                <div class="flex items-center gap-3 text-[#888]">
-                    <span class="block w-6 h-px bg-[#0145F2]"></span>
-                    <span>Zeffron — AI Studio · London · UK</span>
-                </div>
-                <div class="hidden sm:block text-[#555]">MMXXVI</div>
-            </div>
+    body.home-consultancy-page nav.fixed {
+        background: rgba(8, 9, 11, 0.84);
+        border-bottom: 1px solid rgba(244, 241, 234, 0.09);
+        backdrop-filter: blur(18px);
+    }
 
-            <!-- The headline IS the hero. Everything else is footnote. -->
-            <div class="relative z-10 flex-1 flex items-end max-w-[1400px] w-full mx-auto px-6 sm:px-10 md:px-14 pb-10 md:pb-20">
-                <h1 class="hero-headline text-white"
-                    style="font-size: clamp(2.5rem, 8.5vw, 9.5rem); letter-spacing: -0.045em; line-height: 0.92; font-weight: 600;">
-                    <span class="hero-line-mask"><span class="hero-line-inner" style="--d: 0.2s;">Build the AI products</span></span>
-                    <span class="hero-line-mask"><span class="hero-line-inner" style="--d: 0.32s;">your investors</span></span>
-                    <span class="hero-line-mask"><span class="hero-line-inner" style="--d: 0.44s;">want to fund.</span></span>
-                </h1>
-            </div>
+    body.home-consultancy-page nav.fixed a,
+    body.home-consultancy-page nav.fixed button {
+        color: #A9A49A;
+    }
 
-            <!-- Microcopy + primary CTA + quiet secondary -->
-            <div class="hero-fade relative z-10 max-w-[1400px] w-full mx-auto px-6 sm:px-10 md:px-14 grid grid-cols-1 md:grid-cols-12 gap-8 items-end" style="--fd: 0.95s;">
-                <p class="md:col-span-5 text-[#888] text-base sm:text-[17px] leading-relaxed max-w-md">
-                    From idea to product without the technical-co-founder hassle. Zeffron is the on-demand engineering team for founders integrating AI into investable products.
+    body.home-consultancy-page nav.fixed a:hover,
+    body.home-consultancy-page nav.fixed button:hover {
+        color: #F4F1EA;
+    }
+
+    body.home-consultancy-page footer {
+        background: #07080A;
+        border-top: 1px solid rgba(244, 241, 234, 0.09);
+    }
+
+    .home-page {
+        --bg: #08090B;
+        --panel: rgba(244, 241, 234, 0.045);
+        --panel-strong: rgba(244, 241, 234, 0.075);
+        --ink: #F4F1EA;
+        --ink-soft: #CFC8BA;
+        --muted: #8F897F;
+        --line: rgba(244, 241, 234, 0.12);
+        --blue: #0145F2;
+        --blue-soft: rgba(1, 69, 242, 0.16);
+        --amber: #D7A85E;
+        background:
+            linear-gradient(180deg, rgba(8, 9, 11, 0.95), #08090B 42%),
+            radial-gradient(circle at 74% 6%, rgba(215, 168, 94, 0.13), transparent 28rem);
+        color: var(--ink);
+        font-family: 'Archivo', 'Inter', sans-serif;
+        font-variant-numeric: tabular-nums;
+        overflow: hidden;
+    }
+
+    .home-page * {
+        text-wrap: pretty;
+    }
+
+    .home-shell {
+        width: min(100% - 32px, 1320px);
+        margin: 0 auto;
+    }
+
+    .home-section {
+        padding: clamp(5.5rem, 10vw, 9rem) 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .industry-strip-section {
+        padding-top: 0;
+    }
+
+    .hero {
+        min-height: 94dvh;
+        padding: clamp(7.5rem, 12vw, 10.5rem) 0 clamp(4rem, 7vw, 5.5rem);
+        border-bottom: 1px solid var(--line);
+        background:
+            linear-gradient(90deg, rgba(8, 9, 11, 0.96), rgba(8, 9, 11, 0.72) 48%, rgba(8, 9, 11, 0.2)),
+            url('/assets/home-hero-consulting.webp');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .hero::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0;
+        height: 36%;
+        background: linear-gradient(180deg, transparent, #08090B);
+        pointer-events: none;
+    }
+
+    .hero-grid,
+    .split-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 24px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-copy {
+        grid-column: span 7;
+        max-width: 58rem;
+    }
+
+    .drag-intro {
+        grid-column: span 5;
+    }
+
+    .drag-panel {
+        grid-column: 7 / span 6;
+    }
+
+    .hero-proof {
+        grid-column: 9 / span 4;
+        align-self: end;
+        border-left: 1px solid var(--line);
+        padding-left: clamp(1.5rem, 3vw, 2.5rem);
+    }
+
+    .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 1.25rem;
+    }
+
+    .eyebrow::before {
+        content: "";
+        width: 1.7rem;
+        height: 1px;
+        background: var(--amber);
+    }
+
+    .display {
+        font-size: 5.75rem;
+        line-height: 0.96;
+        letter-spacing: 0;
+        font-weight: 700;
+        text-wrap: balance;
+    }
+
+    .section-title {
+        font-size: 4.35rem;
+        line-height: 1;
+        letter-spacing: 0;
+        font-weight: 700;
+        text-wrap: balance;
+    }
+
+    .subhead {
+        color: var(--ink-soft);
+        font-size: clamp(1.15rem, 2vw, 1.45rem);
+        line-height: 1.55;
+        max-width: 43rem;
+    }
+
+    .copy {
+        color: var(--muted);
+        line-height: 1.68;
+        max-width: 42rem;
+    }
+
+    .hero-actions,
+    .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 2rem;
+    }
+
+    .home-page .btn {
+        border-radius: 6px;
+        box-shadow: none;
+        transition: transform 200ms ease, background-color 200ms ease, border-color 200ms ease;
+    }
+
+    .home-page .btn:active {
+        transform: scale(0.98);
+    }
+
+    .home-page .btn-primary {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: #08090B;
+    }
+
+    .home-page .btn-primary:hover {
+        background: #FFFFFF;
+        border-color: #FFFFFF;
+        color: #08090B;
+    }
+
+    .home-page .btn-secondary {
+        background: rgba(244, 241, 234, 0.055);
+        border: 1px solid rgba(244, 241, 234, 0.18);
+        color: var(--ink);
+    }
+
+    .home-page .btn-secondary:hover {
+        background: rgba(244, 241, 234, 0.1);
+        border-color: rgba(244, 241, 234, 0.28);
+    }
+
+    .proof-line {
+        border-top: 1px solid var(--line);
+        padding-top: 1rem;
+        margin-top: 1rem;
+    }
+
+    .proof-line:first-child {
+        border-top: 0;
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+    .proof-line span,
+    .small-label {
+        display: block;
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .proof-line strong {
+        display: block;
+        color: var(--ink);
+        font-size: 1.05rem;
+        line-height: 1.35;
+        font-weight: 500;
+        margin-top: 0.45rem;
+    }
+
+    .sector-strip {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+    }
+
+    .sector-strip a {
+        min-height: 8rem;
+        padding: 1.35rem;
+        border-right: 1px solid var(--line);
+        color: var(--ink);
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: background-color 200ms ease, color 200ms ease;
+    }
+
+    .sector-strip a:last-child {
+        border-right: 0;
+    }
+
+    .sector-strip a:hover {
+        background: rgba(244, 241, 234, 0.055);
+    }
+
+    .sector-strip span {
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+    }
+
+    .section-head {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: clamp(2rem, 6vw, 6rem);
+        align-items: end;
+        margin-bottom: 3.5rem;
+    }
+
+    .platform-band {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+    }
+
+    .platform-copy,
+    .platform-grid,
+    .problem-card,
+    .method-step,
+    .proof-card,
+    .trust-card,
+    .pilot-step,
+    .research-item,
+    .cta-panel {
+        background: rgba(244, 241, 234, 0.035);
+    }
+
+    .platform-copy {
+        padding: clamp(1.75rem, 4vw, 3rem);
+    }
+
+    .capability-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        margin-top: 2rem;
+    }
+
+    .capability-tags span {
+        border: 1px solid rgba(244, 241, 234, 0.14);
+        border-radius: 999px;
+        color: var(--ink-soft);
+        padding: 0.5rem 0.72rem;
+        font-size: 0.82rem;
+        line-height: 1;
+    }
+
+    .platform-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        background: var(--line);
+    }
+
+    .platform-logo {
+        min-height: 9.4rem;
+        padding: 1.2rem;
+        background: #0B0C0E;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .platform-logo img {
+        width: 2.5rem;
+        height: 2.5rem;
+        object-fit: contain;
+        object-position: left center;
+    }
+
+    .platform-logo strong {
+        color: var(--ink);
+        font-weight: 600;
+    }
+
+    .problem-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+    }
+
+    .problem-card {
+        padding: clamp(1.5rem, 3vw, 2.5rem);
+        min-height: 19rem;
+    }
+
+    .problem-card h3,
+    .method-step h3,
+    .proof-card h3,
+    .trust-card h3,
+    .pilot-step h3,
+    .research-item h3 {
+        color: var(--ink);
+        font-size: 1.35rem;
+        line-height: 1.14;
+        letter-spacing: 0;
+        font-weight: 700;
+        margin-top: 1.2rem;
+    }
+
+    .drag-list {
+        display: grid;
+        border-top: 1px solid var(--line);
+    }
+
+    .drag-row {
+        display: grid;
+        grid-template-columns: 6rem 1fr;
+        gap: 2rem;
+        align-items: center;
+        padding: 1.55rem 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .drag-row span {
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.78rem;
+    }
+
+    .drag-row h3 {
+        color: var(--ink);
+        font-size: 2rem;
+        line-height: 1.06;
+        letter-spacing: 0;
+        font-weight: 700;
+    }
+
+    .method-grid,
+    .research-grid,
+    .trust-grid,
+    .pilot-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+    }
+
+    .research-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .method-step,
+    .research-item,
+    .trust-card,
+    .pilot-step {
+        padding: clamp(1.5rem, 3vw, 2.35rem);
+        min-height: 19rem;
+    }
+
+    .vertical-proof-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+    }
+
+    .proof-card {
+        min-height: 23rem;
+        padding: clamp(1.5rem, 3vw, 2.35rem);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .proof-card p {
+        margin-top: 1rem;
+    }
+
+    .proof-details {
+        display: grid;
+        gap: 0.8rem;
+        margin-top: auto;
+        padding-top: 1.75rem;
+    }
+
+    .proof-details div {
+        border-top: 1px solid var(--line);
+        padding-top: 0.8rem;
+    }
+
+    .proof-details strong {
+        display: block;
+        color: var(--ink-soft);
+        font-size: 0.78rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .proof-details span {
+        color: var(--muted);
+        font-size: 0.94rem;
+        line-height: 1.45;
+    }
+
+    .trust-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .trust-card ul,
+    .pilot-step ul {
+        display: grid;
+        gap: 0.7rem;
+        margin-top: 1.25rem;
+        color: var(--muted);
+        line-height: 1.55;
+    }
+
+    .trust-card li,
+    .pilot-step li {
+        list-style: none;
+        position: relative;
+        padding-left: 1.1rem;
+    }
+
+    .trust-card li::before,
+    .pilot-step li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.72em;
+        width: 0.34rem;
+        height: 0.34rem;
+        border-radius: 999px;
+        background: var(--amber);
+    }
+
+    .vertical-note {
+        display: grid;
+        grid-template-columns: 1fr 1.15fr;
+        gap: clamp(2rem, 6vw, 6rem);
+        align-items: start;
+    }
+
+    .vertical-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border: 1px solid var(--line);
+    }
+
+    .vertical-list a {
+        min-height: 7rem;
+        padding: 1.25rem;
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        color: var(--ink);
+        text-decoration: none;
+        background: rgba(244, 241, 234, 0.035);
+        transition: background-color 200ms ease;
+    }
+
+    .vertical-list a:nth-child(2n) {
+        border-right: 0;
+    }
+
+    .vertical-list a:nth-last-child(-n + 2) {
+        border-bottom: 0;
+    }
+
+    .vertical-list a:hover {
+        background: rgba(244, 241, 234, 0.07);
+    }
+
+    .research-item a {
+        color: var(--ink);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        text-decoration: none;
+        margin-top: 1.35rem;
+    }
+
+    .cta-panel {
+        border: 1px solid var(--line);
+        padding: clamp(2rem, 6vw, 5rem);
+        background:
+            linear-gradient(90deg, rgba(8, 9, 11, 0.92), rgba(8, 9, 11, 0.76)),
+            url('/assets/home-footer-consulting.webp');
+        background-size: cover;
+        background-position: center;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: clamp(2rem, 6vw, 5rem);
+        align-items: end;
+    }
+
+    @media (max-width: 980px) {
+        .hero-grid,
+        .split-grid,
+        .section-head,
+        .platform-band,
+        .problem-grid,
+        .method-grid,
+        .research-grid,
+        .vertical-proof-grid,
+        .trust-grid,
+        .pilot-grid,
+        .vertical-note,
+        .cta-panel {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-copy,
+        .hero-proof,
+        .drag-intro,
+        .drag-panel {
+            grid-column: auto;
+        }
+
+        .hero-proof {
+            border-left: 0;
+            border-top: 1px solid var(--line);
+            padding-left: 0;
+            padding-top: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .display {
+            font-size: 4.4rem;
+        }
+
+        .section-title {
+            font-size: 3.35rem;
+        }
+
+        .sector-strip,
+        .platform-grid,
+        .vertical-list {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .sector-strip a {
+            border-bottom: 1px solid var(--line);
+        }
+    }
+
+    @media (max-width: 640px) {
+        .home-shell {
+            width: min(100% - 24px, 1320px);
+        }
+
+        .hero {
+            min-height: auto;
+            padding-top: 7rem;
+        }
+
+        .display {
+            font-size: 3.15rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem;
+        }
+
+        .sector-strip,
+        .platform-grid,
+        .vertical-list {
+            grid-template-columns: 1fr;
+        }
+
+        .sector-strip a,
+        .vertical-list a,
+        .vertical-list a:nth-child(2n) {
+            border-right: 0;
+        }
+
+        .drag-row {
+            grid-template-columns: 3rem 1fr;
+            gap: 1rem;
+        }
+    }
+</style>
+
+<div class="home-page">
+    <section class="hero">
+        <div class="home-shell hero-grid">
+            <div class="hero-copy reveal">
+                <div class="eyebrow">AI consulting for regulated teams</div>
+                <h1 class="display">Deploy AI securely inside real operations.</h1>
+                <p class="subhead mt-8">
+                    Reduce admin work, improve customer experience, and introduce AI without losing control of sensitive workflows.
                 </p>
-                <div class="md:col-span-6 md:col-start-7 flex flex-col sm:flex-row md:justify-end items-start sm:items-center gap-4 sm:gap-5">
-                    <a href="https://cal.com/zeffron-ai/30min" class="btn btn-primary btn-lg">
-                        Book your first call
-                        <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                    </a>
-                    <a href="#showcase" class="btn btn-secondary btn-lg">
-                        See the work
-                    </a>
+                <div class="hero-actions">
+                    <a href="https://cal.com/zeffron-ai/30min" class="btn btn-primary btn-lg">Book consultation</a>
+                    <a href="#industries" class="btn btn-secondary btn-lg">Explore industries</a>
                 </div>
             </div>
-        </section>
 
-        {{!-- Marquee Strip — temporarily hidden. Uncomment to restore the
-              scrolling editorial banner between the hero and the partners row. --}}
-        {{!--
-        <section class="marquee-section relative py-10 md:py-14 border-y border-white/5 bg-[#080808]" aria-hidden="true">
-            <div class="marquee-row">
-                <div class="marquee-track">
-                    <span class="marquee-item"><span class="tracking-tight" style="font-size: clamp(1.75rem, 5vw, 3.5rem);">AI Engineering</span><span class="marquee-dot"></span></span>
-                    <span class="marquee-item"><span class="tracking-tight" style="font-size: clamp(1.75rem, 5vw, 3.5rem);">10-Day MVP Sprints</span><span class="marquee-dot"></span></span>
-                    <span class="marquee-item"><span class="tracking-tight" style="font-size: clamp(1.75rem, 5vw, 3.5rem);">Investor-ready</span><span class="marquee-dot"></span></span>
-                    <span class="marquee-item"><span class="tracking-tight" style="font-size: clamp(1.75rem, 5vw, 3.5rem);">London · United Kingdom</span><span class="marquee-dot"></span></span>
-                    <span class="marquee-item"><span class="tracking-tight" style="font-size: clamp(1.75rem, 5vw, 3.5rem);">Custom AI Models</span><span class="marquee-dot"></span></span>
-                    <span class="marquee-item"><span class="tracking-tight" style="font-size: clamp(1.75rem, 5vw, 3.5rem);">Product Studio</span><span class="marquee-dot"></span></span>
+            <aside class="hero-proof reveal stagger-huge" aria-label="Zeffron operating model">
+                <div class="proof-line">
+                    <span>Adoption</span>
+                    <strong>Secure adoption, measured by operational impact.</strong>
                 </div>
-                <div class="marquee-track" aria-hidden="true">
-                    <span class="marquee-item"><span class="tracking-tight" style="font-size: clamp(1.75rem, 5vw, 3.5rem);">AI Engineering</span><span class="marquee-dot"></span></span>
-                    <span class="marquee-item"><span class="tracking-tight" style="font-size: clamp(1.75rem, 5vw, 3.5rem);">10-Day MVP Sprints</span><span class="marquee-dot"></span></span>
-                    <span class="marquee-item"><span class="tracking-tight" style="font-size: clamp(1.75rem, 5vw, 3.5rem);">Investor-ready</span><span class="marquee-dot"></span></span>
-                    <span class="marquee-item"><span class="tracking-tight" style="font-size: clamp(1.75rem, 5vw, 3.5rem);">London · United Kingdom</span><span class="marquee-dot"></span></span>
-                    <span class="marquee-item"><span class="tracking-tight" style="font-size: clamp(1.75rem, 5vw, 3.5rem);">Custom AI Models</span><span class="marquee-dot"></span></span>
-                    <span class="marquee-item"><span class="tracking-tight" style="font-size: clamp(1.75rem, 5vw, 3.5rem);">Product Studio</span><span class="marquee-dot"></span></span>
+                <div class="proof-line">
+                    <span>Method</span>
+                    <strong>Discovery, design, deployment, and measurement for service businesses.</strong>
                 </div>
+                <div class="proof-line">
+                    <span>Built for</span>
+                    <strong>Service businesses with sensitive data.</strong>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section id="industries" class="home-section industry-strip-section">
+        <div class="home-shell">
+            <div class="sector-strip reveal">
+                <a href="/home/clinical-calm"><span>01</span><strong>Healthcare</strong></a>
+                <a href="/home/hospitality-service"><span>02</span><strong>Hospitality</strong></a>
+                <a href="/home/trust-ledger"><span>03</span><strong>Legal</strong></a>
+                <a href="/home/executive-editorial"><span>04</span><strong>Financial services</strong></a>
+                <a href="/home/insurance-controls"><span>05</span><strong>Insurance</strong></a>
+                <a href="/home/recruitment-workflows"><span>06</span><strong>Recruitment</strong></a>
+                <a href="/home/operator-console"><span>07</span><strong>Manufacturing</strong></a>
+                <a href="/home/human-service"><span>08</span><strong>Ecommerce</strong></a>
+                <a href="/home/applied-ai-engineering"><span>09</span><strong>SWE + Applied AI</strong></a>
             </div>
-        </section>
-        --}}
+        </div>
+    </section>
 
-        <!-- Partners — supported by / in partnership with strip -->
-        <section class="partners-section relative py-14 sm:py-16 border-b border-white/5">
-            <div class="reveal max-w-[1400px] mx-auto px-6 sm:px-10 md:px-14">
-                <p class="partners-eyebrow">
-                    <span class="partners-eyebrow-rule"></span>
-                    <span>In partnership with</span>
+    <section id="stack" class="home-section">
+        <div class="home-shell">
+            <div class="section-head">
+                <div class="reveal">
+                    <div class="eyebrow">Partners and platform stack</div>
+                    <h2 class="section-title">The stack buyers expect to see.</h2>
+                </div>
+                <p class="subhead reveal stagger-huge">
+                    We work across evaluation, fine-tuning, deployment, and data science with the platforms that signal technical depth immediately.
                 </p>
-                <div class="partners-grid">
-                    <a href="https://www.dmu.ac.uk/" target="_blank" rel="noopener noreferrer"
-                       class="partner-logo" aria-label="De Montfort University">
-                        <img src="/assets/demortfort_university.png"
-                             alt="De Montfort University"
-                             loading="lazy" decoding="async" />
-                    </a>
-                    <a href="https://www.dmu.ac.uk/business-services/the-crucible-project/index.aspx" target="_blank" rel="noopener noreferrer"
-                       class="partner-logo" aria-label="The Crucible · De Montfort University">
-                        <img src="/assets/The%20Crucible%20-%20Knowledge_White.png"
-                             alt="The Crucible · De Montfort University"
-                             loading="lazy" decoding="async" />
-                    </a>
-                </div>
             </div>
 
-            <style>
-                .partners-eyebrow {
-                    display: flex; align-items: center; gap: 14px;
-                    justify-content: center;
-                    font-family: 'JetBrains Mono', monospace;
-                    font-size: 10px; font-weight: 700;
-                    letter-spacing: 0.3em; text-transform: uppercase;
-                    color: #666; margin: 0 0 40px 0;
-                }
-                .partners-eyebrow-rule {
-                    display: block; width: 28px; height: 1px; background: #0145F2;
-                }
-                .partners-grid {
-                    display: grid;
-                    grid-template-columns: repeat(2, minmax(0, 1fr));
-                    gap: clamp(2.5rem, 6vw, 5rem);
-                    align-items: center; justify-items: center;
-                    max-width: 900px; margin: 0 auto;
-                }
-                /* Both logos render as solid-white silhouettes so the row reads
-                   as a single typographic line rather than two pasted brand
-                   colours. brightness(0) makes everything black first, then
-                   invert(1) flips it to white — works on any source colour as
-                   long as the transparent areas stay transparent. */
-                .partner-logo {
-                    display: flex; align-items: center; justify-content: center;
-                    width: 100%;
-                    opacity: 0.7;
-                    transition: opacity .4s cubic-bezier(0.16,1,0.3,1),
-                                transform .4s cubic-bezier(0.16,1,0.3,1);
-                }
-                .partner-logo:hover {
-                    opacity: 1;
-                    transform: translateY(-2px);
-                }
-                .partner-logo img {
-                    max-height: clamp(36px, 4.8vw, 52px);
-                    max-width: clamp(160px, 22vw, 240px);
-                    width: auto; height: auto;
-                    object-fit: contain; display: block;
-                    filter: brightness(0) invert(1);
-                }
-                @media (max-width: 520px) {
-                    .partners-grid { gap: 1.75rem; }
-                }
-            </style>
-        </section>
-
-        <!-- Who We Build For -->
-        <section class="py-20 sm:py-24 border-b border-white/5">
-            <div class="reveal max-w-[1400px] mx-auto px-6 sm:px-10 md:px-14 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
-                <div class="md:col-span-4">
-                    <div class="section-sig mb-6">
-                        <span class="section-sig-symbol">§ 00</span>
-                        <span class="section-sig-rule"></span>
-                        <span>Who we build for</span>
+            <div class="platform-band reveal">
+                <div class="platform-copy">
+                    <span class="small-label">Capabilities</span>
+                    <div class="capability-tags">
+                        <span>Fine-tuning</span>
+                        <span>Harnesses</span>
+                        <span>Agents</span>
+                        <span>Evaluation</span>
+                        <span>ML modelling</span>
+                        <span>Data science</span>
                     </div>
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white leading-[0.95]">
-                        Founders moving fast.
-                    </h2>
                 </div>
-                <div class="md:col-span-7 md:col-start-6 flex flex-col">
-                    <p class="text-[#A8A8A8] text-base sm:text-lg leading-relaxed mb-12">
-                        Great ideas die in slow technical teams. Zeffron is built for the people who can't afford that — founders shipping a first AI product, operators integrating AI into existing workflows, and scaling teams that need senior engineering on demand.
-                    </p>
-                    <ul class="divide-y divide-white/[0.08] border-t border-b border-white/[0.08]">
-                        <li class="flex items-baseline gap-5 py-5">
-                            <span class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] shrink-0 w-8">01</span>
-                            <span class="text-[#E5E5E5] text-lg">Non-technical founders ready to validate their first AI product.</span>
-                        </li>
-                        <li class="flex items-baseline gap-5 py-5">
-                            <span class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] shrink-0 w-8">02</span>
-                            <span class="text-[#E5E5E5] text-lg">Business owners integrating AI into existing tools and workflows.</span>
-                        </li>
-                        <li class="flex items-baseline gap-5 py-5">
-                            <span class="text-[#E5E5E5] text-lg"><span class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] shrink-0 w-8 inline-block mr-5">03</span>Scaling businesses that want a fractional technical team, on demand.</span>
-                        </li>
+                <div class="platform-grid" aria-label="Technology platform logos">
+                    <div class="platform-logo"><img src="https://cdn.simpleicons.org/huggingface/FCC01A" alt="Hugging Face logo" loading="lazy" decoding="async"><strong>Hugging Face</strong></div>
+                    <div class="platform-logo"><img src="https://cdn.simpleicons.org/weightsandbiases/FFBE00" alt="Weights & Biases logo" loading="lazy" decoding="async"><strong>Weights &amp; Biases</strong></div>
+                    <div class="platform-logo"><img src="https://cdn.simpleicons.org/openai/FFFFFF" alt="OpenAI logo" loading="lazy" decoding="async"><strong>OpenAI</strong></div>
+                    <div class="platform-logo"><img src="https://cdn.simpleicons.org/github/FFFFFF" alt="GitHub logo" loading="lazy" decoding="async"><strong>GitHub</strong></div>
+                    <div class="platform-logo"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python logo" loading="lazy" decoding="async"><strong>Python</strong></div>
+                    <div class="platform-logo"><img src="https://cdn.simpleicons.org/pytorch/EE4C2C" alt="PyTorch logo" loading="lazy" decoding="async"><strong>PyTorch</strong></div>
+                    <div class="platform-logo"><img src="https://cdn.simpleicons.org/dbt/FF694B" alt="dbt logo" loading="lazy" decoding="async"><strong>dbt</strong></div>
+                    <div class="platform-logo"><img src="https://cdn.simpleicons.org/mlflow/0194E2" alt="MLflow logo" loading="lazy" decoding="async"><strong>MLflow</strong></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="home-section">
+        <div class="home-shell">
+            <div class="section-head">
+                <div class="reveal">
+                    <div class="eyebrow">Operational problem</div>
+                    <h2 class="section-title">Start with the cost buyers already feel.</h2>
+                </div>
+                <p class="subhead reveal stagger-huge">
+                    The strongest AI work leads with the operational problem, the business impact, and the practical system that removes friction.
+                </p>
+            </div>
+
+            <div class="problem-grid">
+                <article class="problem-card reveal">
+                    <span class="small-label">Problem</span>
+                    <h3>Admin work is taking time away from core service.</h3>
+                    <p class="copy mt-5">Teams handle repeated enquiries, documents, intake, reporting, scheduling, and manual handoffs.</p>
+                </article>
+                <article class="problem-card reveal stagger-1">
+                    <span class="small-label">Impact</span>
+                    <h3>People wait longer and skilled staff carry avoidable work.</h3>
+                    <p class="copy mt-5">Response times slow, costs rise, and experienced teams spend too much time coordinating.</p>
+                </article>
+                <article class="problem-card reveal stagger-2">
+                    <span class="small-label">Solution</span>
+                    <h3>Secure AI systems automate routine work with human control.</h3>
+                    <p class="copy mt-5">Zeffron designs and deploys assistants, automations, and knowledge systems for real operations.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section">
+        <div class="home-shell split-grid">
+            <div class="drag-intro reveal">
+                <div class="eyebrow">Operational drag</div>
+                <h2 class="section-title">Useful AI starts with friction.</h2>
+                <p class="copy mt-8">
+                    These repeatable problems create demand before a buyer cares about the model stack.
+                </p>
+            </div>
+            <div class="drag-panel drag-list reveal stagger-huge">
+                <div class="drag-row"><span>01</span><h3>Administrative overload</h3></div>
+                <div class="drag-row"><span>02</span><h3>Customer response delays</h3></div>
+                <div class="drag-row"><span>03</span><h3>Manual workflows</h3></div>
+                <div class="drag-row"><span>04</span><h3>Knowledge trapped in documents</h3></div>
+                <div class="drag-row"><span>05</span><h3>Privacy and AI concerns</h3></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="method" class="home-section">
+        <div class="home-shell">
+            <div class="section-head">
+                <div class="reveal">
+                    <div class="eyebrow">Method</div>
+                    <h2 class="section-title">One method, adapted by sector.</h2>
+                </div>
+                <p class="subhead reveal stagger-huge">
+                    The structure stays consistent across every audience page, so Zeffron reads as one consultancy with specialist expertise.
+                </p>
+            </div>
+
+            <div class="method-grid">
+                <article class="method-step reveal">
+                    <span class="small-label">01</span>
+                    <h3>Discover opportunities</h3>
+                    <p class="copy mt-5">Map the workflows, documents, customer moments, and data constraints where AI can create measurable value.</p>
+                </article>
+                <article class="method-step reveal stagger-1">
+                    <span class="small-label">02</span>
+                    <h3>Design solutions</h3>
+                    <p class="copy mt-5">Shape assistants, automations, and retrieval systems around how the team already works.</p>
+                </article>
+                <article class="method-step reveal stagger-2">
+                    <span class="small-label">03</span>
+                    <h3>Deploy securely</h3>
+                    <p class="copy mt-5">Implement privacy-conscious systems with permissions, review points, and clear ownership.</p>
+                </article>
+                <article class="method-step reveal stagger-3">
+                    <span class="small-label">04</span>
+                    <h3>Measure impact</h3>
+                    <p class="copy mt-5">Track saved time, response speed, adoption, quality, and the next high-value workflow.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section">
+        <div class="home-shell">
+            <div class="section-head">
+                <div class="reveal">
+                    <div class="eyebrow">Vertical proof</div>
+                    <h2 class="section-title">The first workflow is specific.</h2>
+                </div>
+                <p class="subhead reveal stagger-huge">
+                    Each sector starts with one operational workflow, the controls needed to run it safely, and the outcome worth measuring.
+                </p>
+            </div>
+
+            <div class="vertical-proof-grid">
+                <article id="healthcare" class="proof-card reveal">
+                    <span class="small-label">Healthcare</span>
+                    <h3>Patient intake and admin triage.</h3>
+                    <p class="copy">Reduce booking, referral, document, and patient-message handling while keeping patient data boundaries visible.</p>
+                    <div class="proof-details">
+                        <div><strong>Controls</strong><span>Role-based access, review queues, audit logs, retention rules.</span></div>
+                        <div><strong>Integrations</strong><span>EHR, PMS, booking, telephony, payment, document stores.</span></div>
+                        <div><strong>Measures</strong><span>Admin hours saved, faster responses, capacity released.</span></div>
+                    </div>
+                </article>
+                <article id="legal" class="proof-card reveal stagger-1">
+                    <span class="small-label">Legal</span>
+                    <h3>Matter intake and document review.</h3>
+                    <p class="copy">Help teams route enquiries, retrieve matter knowledge, draft updates, and keep solicitor review explicit.</p>
+                    <div class="proof-details">
+                        <div><strong>Controls</strong><span>Confidentiality boundaries, human approval, source citation, matter-level access.</span></div>
+                        <div><strong>Integrations</strong><span>Matter systems, document management, email, CRM, e-signature.</span></div>
+                        <div><strong>Measures</strong><span>Reduced intake lag, fewer manual chases, clearer review trail.</span></div>
+                    </div>
+                </article>
+                <article id="financial-services" class="proof-card reveal stagger-2">
+                    <span class="small-label">Financial services</span>
+                    <h3>Client onboarding and adviser support.</h3>
+                    <p class="copy">Structure onboarding documents, compliance checks, adviser preparation, and review-ready client communication.</p>
+                    <div class="proof-details">
+                        <div><strong>Controls</strong><span>Approval gates, audit trails, source records, model-output review.</span></div>
+                        <div><strong>Integrations</strong><span>CRM, document portals, reporting, reconciliation, compliance archives.</span></div>
+                        <div><strong>Measures</strong><span>Shorter onboarding cycles, cleaner files, less adviser admin.</span></div>
+                    </div>
+                </article>
+                <article id="insurance" class="proof-card reveal">
+                    <span class="small-label">Insurance</span>
+                    <h3>Quote triage and renewal operations.</h3>
+                    <p class="copy">Route submissions, extract policy details, flag exceptions, and support broker teams before renewal pressure builds.</p>
+                    <div class="proof-details">
+                        <div><strong>Controls</strong><span>Exception handling, broker approval, error sampling, audit history.</span></div>
+                        <div><strong>Integrations</strong><span>Broker systems, insurer portals, CRM, email, policy documents.</span></div>
+                        <div><strong>Measures</strong><span>Faster triage, fewer missed renewals, lower manual rekeying.</span></div>
+                    </div>
+                </article>
+                <article id="recruitment" class="proof-card reveal stagger-1">
+                    <span class="small-label">Recruitment</span>
+                    <h3>Candidate screening and CRM hygiene.</h3>
+                    <p class="copy">Improve shortlists, recruiter notes, candidate updates, and client reporting without flattening the relationship.</p>
+                    <div class="proof-details">
+                        <div><strong>Controls</strong><span>Tone review, consultant approval, bias checks, candidate consent boundaries.</span></div>
+                        <div><strong>Integrations</strong><span>ATS, recruitment CRM, email, LinkedIn workflows, job boards.</span></div>
+                        <div><strong>Measures</strong><span>Cleaner CRM data, faster updates, better shortlist consistency.</span></div>
+                    </div>
+                </article>
+                <article id="hospitality" class="proof-card reveal stagger-2">
+                    <span class="small-label">Hospitality</span>
+                    <h3>Booking and guest-service triage.</h3>
+                    <p class="copy">Reduce repetitive booking, enquiry, guest-message, and staff coordination workload across locations.</p>
+                    <div class="proof-details">
+                        <div><strong>Controls</strong><span>Live-service fallback, human escalation, guest-data permissions, support windows.</span></div>
+                        <div><strong>Integrations</strong><span>PMS, reservation, POS, CRM, guest messaging, workforce tools.</span></div>
+                        <div><strong>Measures</strong><span>Quicker responses, fewer manual handoffs, less peak-time disruption.</span></div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="trust" class="home-section">
+        <div class="home-shell">
+            <div class="section-head">
+                <div class="reveal">
+                    <div class="eyebrow">Governance</div>
+                    <h2 class="section-title">Trust is designed before deployment.</h2>
+                </div>
+                <p class="subhead reveal stagger-huge">
+                    Regulated workflows need evidence of how data, access, model behaviour, and operational responsibility are controlled.
+                </p>
+            </div>
+
+            <div class="trust-grid">
+                <article class="trust-card reveal">
+                    <span class="small-label">Data handling</span>
+                    <h3>Define the boundaries before anything is built.</h3>
+                    <ul>
+                        <li>Data processing role and retention rules</li>
+                        <li>Subprocessor and hosting review</li>
+                        <li>Model-training boundaries for client data</li>
+                        <li>Data minimisation and deletion process</li>
                     </ul>
-                </div>
+                </article>
+                <article class="trust-card reveal stagger-1">
+                    <span class="small-label">Operational control</span>
+                    <h3>Keep teams accountable for high-impact actions.</h3>
+                    <ul>
+                        <li>Human review gates and escalation paths</li>
+                        <li>Role-based access and permission scopes</li>
+                        <li>Audit logging for reviewed outputs</li>
+                        <li>Fallback behaviour when confidence drops</li>
+                    </ul>
+                </article>
+                <article class="trust-card reveal stagger-2">
+                    <span class="small-label">Assurance</span>
+                    <h3>Measure quality before scaling usage.</h3>
+                    <ul>
+                        <li>Evaluation sets and release criteria</li>
+                        <li>Security review and incident response plan</li>
+                        <li>Monitoring for drift and workflow errors</li>
+                        <li>Clear owner for post-launch changes</li>
+                    </ul>
+                </article>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Case Studies Section (Premium Editorial Legacy) -->
-        <section id="showcase" class="py-20 sm:py-28 md:py-36">
-            <div class="reveal mb-16 md:mb-20 max-w-[1400px] mx-auto px-6 sm:px-10 md:px-14">
-                <div class="section-sig mb-6">
-                    <span class="section-sig-symbol">§ 01</span>
-                    <span class="section-sig-rule"></span>
-                    <span>Field Notes</span>
+    <section id="pilot" class="home-section">
+        <div class="home-shell">
+            <div class="section-head">
+                <div class="reveal">
+                    <div class="eyebrow">First pilot</div>
+                    <h2 class="section-title">A controlled path to the first workflow.</h2>
                 </div>
-                <h2
-                    class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tighter mb-6 text-white leading-[0.92]">
-                    Selected Works
-                </h2>
-                <p class="text-[#888] text-base sm:text-lg md:text-xl max-w-2xl">
-                    Bespoke platforms engineered for scale. Real results for real founders.
+                <p class="subhead reveal stagger-huge">
+                    Start with one bounded workflow, prove value under real constraints, then decide what deserves wider rollout.
                 </p>
             </div>
 
-            <!-- Horizontal Scroll Container -->
-            <div id="showcase-pin" class="relative">
-                <div id="showcase-track" class="block">
-                    <!-- Case Study 1: Neurochecklists (Open research beta) -->
-                    <div class="h-scroll-panel">
-                        <div class="max-w-[1400px] mx-auto w-full px-6 sm:px-10 md:px-14">
-                            <div class="reveal border-t border-white/10 pt-16">
-                                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                                    <div class="lg:col-span-5">
-                                        <div class="flex items-center gap-3 mb-3 flex-wrap">
-                                            <span class="text-[#0145F2] font-mono font-bold text-sm tracking-wider uppercase">01 / Neurology</span>
-                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono font-bold tracking-[0.2em] uppercase rounded-full border border-[#0145F2]/30 bg-[#0145F2]/10 text-[#6FA8FF]">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-[#0145F2] animate-pulse"></span>
-                                                Open research beta
-                                            </span>
-                                        </div>
-                                        <h3 class="text-4xl font-semibold text-white mb-4">Neurochecklists</h3>
-                                        <p class="text-[#E5E5E5] mb-6 leading-relaxed text-lg">
-                                            Everything neurology, a click away.
-                                        </p>
-                                        <p class="text-[#888] mb-8 leading-relaxed">
-                                            The leading neurology checklist database — peer-reviewed criteria, diagnostic protocols, and treatment guidelines, in seconds.
-                                        </p>
+            <div class="pilot-grid">
+                <article class="pilot-step reveal">
+                    <span class="small-label">01</span>
+                    <h3>Scope the workflow</h3>
+                    <ul>
+                        <li>Choose one repeatable task</li>
+                        <li>Map systems, data, owners, and risk</li>
+                        <li>Define success and no-go conditions</li>
+                    </ul>
+                </article>
+                <article class="pilot-step reveal stagger-1">
+                    <span class="small-label">02</span>
+                    <h3>Design the controls</h3>
+                    <ul>
+                        <li>Set access, review, and approval rules</li>
+                        <li>Agree data handling and retention</li>
+                        <li>Document fallback and escalation</li>
+                    </ul>
+                </article>
+                <article class="pilot-step reveal stagger-2">
+                    <span class="small-label">03</span>
+                    <h3>Build and test</h3>
+                    <ul>
+                        <li>Deploy against representative examples</li>
+                        <li>Evaluate quality before users rely on it</li>
+                        <li>Train the team around review points</li>
+                    </ul>
+                </article>
+                <article class="pilot-step reveal stagger-3">
+                    <span class="small-label">04</span>
+                    <h3>Measure and decide</h3>
+                    <ul>
+                        <li>Track saved time, speed, quality, adoption</li>
+                        <li>Review incidents, exceptions, and friction</li>
+                        <li>Choose improve, expand, or stop</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
 
-                                        <div class="space-y-6 mb-8">
-                                            <div>
-                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Challenge</p>
-                                                <ul class="space-y-2">
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Guidelines scattered across journals, PDFs, intranets</span></li>
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Lookups break clinical flow</span></li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Coverage</p>
-                                                <ul class="space-y-2">
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Peer-reviewed</strong> diagnostic criteria</span></li>
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Open beta</strong> · free for clinicians</span></li>
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Axon</strong> · AI chat across the database</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="flex flex-wrap gap-3">
-                                            <button type="button" data-case-open="case-neurochecklists" class="btn btn-secondary">
-                                                View more
-                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                                            </button>
-                                            <a href="https://neurochecklists.com" target="_blank" rel="noopener" class="btn btn-secondary">
-                                                Visit Neurochecklists
-                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="reveal stagger-huge lg:col-span-7">
-                                        <img src="./assets/neurochecklists.png"
-                                            class="showcase-image w-full h-80 sm:h-96 md:h-[28rem] lg:h-[34rem] object-cover rounded-xl border border-white/10 opacity-85 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
-                                            alt="Neurochecklists — the leading neurology checklist database">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Case Study 2: Visa Agent -->
-                    <div class="h-scroll-panel">
-                        <div class="max-w-[1400px] mx-auto w-full px-6 sm:px-10 md:px-14">
-                            <div class="reveal border-t border-white/10 pt-16">
-                                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                                    <div class="lg:col-span-5">
-                                        <span
-                                            class="text-[#977DFF] font-mono font-bold text-sm tracking-wider uppercase mb-3 block">02 / Immigration Tech</span>
-                                        <h3 class="text-4xl font-semibold text-white mb-4">Visa Agent</h3>
-                                        <p class="text-[#888] mb-6 leading-relaxed">
-                                            Chrome extension + dashboard for immigration consultants.
-                                        </p>
-                                        <blockquote
-                                            class="text-lg text-[#E5E5E5] leading-relaxed border-l-2 border-[#977DFF] pl-6 py-2 mb-8">
-                                            “Same 50 fields. Every client. Every form. Every embassy portal.”
-                                            <footer class="mt-3 text-xs text-[#666] not-italic font-mono uppercase tracking-wide">
-                                                – The problem we ended
-                                            </footer>
-                                        </blockquote>
-
-                                        <div class="space-y-6 mb-8">
-                                            <div>
-                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Challenge</p>
-                                                <ul class="space-y-2">
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Hundreds of hours/month on manual entry</span></li>
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Copy-paste errors that risk applications</span></li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Result</p>
-                                                <ul class="space-y-2">
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span><strong class="text-white font-medium">50+</strong> fields per form</span></li>
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span><strong class="text-white font-medium">1 click</strong> · any embassy portal</span></li>
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span><strong class="text-white font-medium">0</strong> data retained or sold</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="flex flex-wrap gap-3">
-                                            <button type="button" data-case-open="case-visa-agent" class="btn btn-secondary">
-                                                View more
-                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                                            </button>
-                                            <a href="https://visa-agent.zeffron.ai" target="_blank" rel="noopener" class="btn btn-secondary">
-                                                Visit Visa Agent
-                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="reveal stagger-huge lg:col-span-7">
-                                        <img src="./assets/visa-agent_zeffron.png"
-                                            class="showcase-image w-full h-80 sm:h-96 md:h-[28rem] lg:h-[34rem] object-cover rounded-xl border border-white/10 opacity-85 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
-                                            alt="Visa Agent — Chrome extension and dashboard for immigration consultants">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Case Study 3: AlphaCruise Travels -->
-                    <div class="h-scroll-panel">
-                        <div class="max-w-[1400px] mx-auto w-full px-6 sm:px-10 md:px-14">
-                            <div class="reveal border-t border-white/10 pt-16">
-                                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                                    <div class="lg:col-span-5">
-                                        <span
-                                            class="text-[#F7A505] font-mono font-bold text-sm tracking-wider uppercase mb-3 block">03 / Travel Tech</span>
-                                        <h3 class="text-4xl font-semibold text-white mb-4">AlphaCruise</h3>
-                                        <p class="text-[#888] mb-6 leading-relaxed">
-                                            Booking automation for digital-first travel.
-                                        </p>
-                                        <blockquote
-                                            class="text-lg text-[#E5E5E5] leading-relaxed border-l-2 border-[#F7A505] pl-6 py-2 mb-8">
-                                            “Tech used to be a barrier. Now it's our edge.”
-                                            <footer class="mt-3 text-xs text-[#666] not-italic font-mono uppercase tracking-wide">
-                                                – Founder, AlphaCruise
-                                            </footer>
-                                        </blockquote>
-
-                                        <div class="space-y-6 mb-8">
-                                            <div>
-                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Challenge</p>
-                                                <ul class="space-y-2">
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span>Manual ops · no tech team · no roadmap</span></li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Result</p>
-                                                <ul class="space-y-2">
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span><strong class="text-white font-medium">60%</strong> less manual work</span></li>
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span><strong class="text-white font-medium">120+</strong> beta users onboarded</span></li>
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span><strong class="text-white font-medium">45%</strong> revenue growth</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="flex flex-wrap gap-3">
-                                            <button type="button" data-case-open="case-alphacruise" class="btn btn-secondary">
-                                                View more
-                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                                            </button>
-                                            <a href="http://alphacruisetravels.com" target="_blank" rel="noopener" class="btn btn-secondary">
-                                                Visit AlphaCruise
-                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="reveal stagger-huge lg:col-span-7">
-                                        <img src="./assets/alpha_cruise.png"
-                                            class="showcase-image w-full h-80 sm:h-96 md:h-[28rem] lg:h-[34rem] object-cover rounded-xl border border-white/10 opacity-85 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
-                                            alt="AlphaCruise Global Map UI">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Case Study 4: Hueristo (Pre-launch) -->
-                    <div class="h-scroll-panel">
-                        <div class="max-w-[1400px] mx-auto w-full px-6 sm:px-10 md:px-14">
-                            <div class="reveal border-t border-white/10 pt-16">
-                                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                                    <div class="lg:col-span-5">
-                                        <div class="flex items-center gap-3 mb-3 flex-wrap">
-                                            <span class="text-[#00C853] font-mono font-bold text-sm tracking-wider uppercase">04 / HR Tech</span>
-                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono font-bold tracking-[0.2em] uppercase rounded-full border border-[#00C853]/30 bg-[#00C853]/10 text-[#00C853]">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-[#00C853] animate-pulse"></span>
-                                                Coming Soon
-                                            </span>
-                                        </div>
-                                        <h3 class="text-4xl font-semibold text-white mb-4">Hueristo</h3>
-                                        <p class="text-[#E5E5E5] mb-8 leading-relaxed text-lg">
-                                            HR on autopilot for UK founders.
-                                        </p>
-
-                                        <div class="space-y-6 mb-8">
-                                            <div>
-                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Building</p>
-                                                <ul class="space-y-2">
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>Opinionated · compliance-first · UK-only</span></li>
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>What we wished we'd had at our first companies</span></li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Founding offer</p>
-                                                <ul class="space-y-2">
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>Tell us where HR breaks for you</span></li>
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>We prioritise your bugs in the build</span></li>
-                                                    <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Free founding-member access</strong> at launch</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="flex flex-wrap gap-3">
-                                            <button type="button" data-case-open="case-hueristo" class="btn btn-secondary">
-                                                View more
-                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                                            </button>
-                                            <a href="https://hueristo.com" target="_blank" rel="noopener" class="btn btn-secondary">
-                                                Visit Hueristo
-                                                <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="reveal stagger-huge lg:col-span-7">
-                                        <img src="./assets/hueristo.png"
-                                            class="showcase-image w-full h-80 sm:h-96 md:h-[28rem] lg:h-[34rem] object-cover rounded-xl border border-white/10 opacity-85 hover:opacity-100 transition-opacity duration-500 shadow-2xl"
-                                            alt="Hueristo — HR on autopilot for UK founders">
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+    <section id="insights" class="home-section">
+        <div class="home-shell">
+            <div class="section-head">
+                <div class="reveal">
+                    <div class="eyebrow">Research depth</div>
+                    <h2 class="section-title">Research that shows actual depth.</h2>
                 </div>
-
+                <p class="subhead reveal stagger-huge">
+                    Research, data science, ML modelling, evaluation, and deployment rigor now sit in a dedicated vertical.
+                </p>
             </div>
-            </div>
-        </section>
 
-        <!-- Services (Premium Architectural) -->
-        <section id="services" class="py-20 sm:py-28 md:py-36 bg-[#0F0F0F] border-t border-white/5">
-            <div class="max-w-[1400px] mx-auto px-6 sm:px-10 md:px-14">
-                <div class="reveal mb-16 md:mb-20 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-end">
-                    <div class="md:col-span-7">
-                        <div class="section-sig mb-6">
-                            <span class="section-sig-symbol">§ 02</span>
-                            <span class="section-sig-rule"></span>
-                            <span>How we work with you</span>
-                        </div>
-                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tighter text-white leading-[0.92]">
-                            Four ways in.
-                        </h2>
-                    </div>
-                    <p class="md:col-span-5 text-[#888] text-base sm:text-lg leading-relaxed">
-                        From a first idea to a full custom AI build — pick the engagement that matches where you are right now.
+            <div class="research-grid">
+                <article class="research-item reveal">
+                    <span class="small-label">Research</span>
+                    <h3>How AI reduces administrative burden</h3>
+                    <p class="copy mt-5">Operational analysis, workflow mapping, and ROI framing for service teams.</p>
+                    <a href="/research">Explore research <i data-lucide="arrow-up-right" class="btn-icon"></i></a>
+                </article>
+                <article class="research-item reveal stagger-1">
+                    <span class="small-label">Modelling</span>
+                    <h3>Fine-tuning, retrieval, and agents</h3>
+                    <p class="copy mt-5">When to use custom models, when to use retrieval, and how agent workflows fit real operations.</p>
+                    <a href="/research">Explore modelling <i data-lucide="arrow-up-right" class="btn-icon"></i></a>
+                </article>
+                <article class="research-item reveal stagger-2">
+                    <span class="small-label">Evaluation</span>
+                    <h3>Measure before you scale</h3>
+                    <p class="copy mt-5">Harnesses, test sets, quality checks, and practical release criteria for production AI.</p>
+                    <a href="/research">Explore evaluation <i data-lucide="arrow-up-right" class="btn-icon"></i></a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="home-section">
+        <div class="home-shell">
+            <div class="cta-panel reveal">
+                <div>
+                    <div class="eyebrow">Next step</div>
+                    <h2 class="section-title">Find the workflow AI should remove first.</h2>
+                </div>
+                <div>
+                    <p class="subhead">
+                        Book a focused consultation on your operations, data constraints, customer experience, and deployment options.
                     </p>
-                </div>
-
-                <div class="border-t border-white/10">
-                    <!-- Service 01 -->
-                    <div class="reveal group py-12 md:py-20 border-b border-white/10 relative overflow-hidden">
-                        <span class="ghost-numeral" aria-hidden="true">01</span>
-                        <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-                            <div class="md:col-span-1">
-                                <span class="text-sm font-mono font-bold text-[#0145F2]">01</span>
-                            </div>
-                            <div class="md:col-span-5">
-                                <h3 class="text-3xl font-semibold text-white mb-4">Rapid AI Product Development</h3>
-                                <div
-                                    class="text-xs text-[#0145F2] font-mono font-bold mb-6 inline-block border border-[#0145F2]/20 rounded px-2 py-1 bg-[#0145F2]/10">
-                                    For founders</div>
-                                <p class="text-[#888] text-lg leading-relaxed max-w-sm">
-                                    Non-technical founders and early-stage teams moving from idea to an investable product launch — fast.
-                                </p>
-                            </div>
-                            <div class="reveal stagger-huge md:col-span-6">
-                                <p class="text-white text-xs font-medium uppercase tracking-widest mb-6">What you get</p>
-                                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#0145F2]"></span> Product ideation & scoping
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#0145F2]"></span> UX/UI + clickable prototype
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#0145F2]"></span> Full AI product build
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#0145F2]"></span> Hosting, deployment & go-live
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#0145F2]"></span> One week post-launch support
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Service 02 -->
-                    <div class="reveal group py-12 md:py-20 border-b border-white/10 relative overflow-hidden">
-                        <span class="ghost-numeral" aria-hidden="true">02</span>
-                        <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-                            <div class="md:col-span-1">
-                                <span class="text-sm font-mono font-bold text-[#977DFF]">02</span>
-                            </div>
-                            <div class="md:col-span-5">
-                                <h3 class="text-3xl font-semibold text-white mb-4">Custom AI Solutions</h3>
-                                <div
-                                    class="text-xs text-[#977DFF] font-mono font-bold mb-6 inline-block border border-[#977DFF]/20 rounded px-2 py-1 bg-[#977DFF]/10">
-                                    For SMEs & scaleups</div>
-                                <p class="text-[#888] text-lg leading-relaxed max-w-sm">
-                                    For teams embedding AI into operations and product as a real strategy — not as an afterthought.
-                                </p>
-                            </div>
-                            <div class="md:col-span-6">
-                                <p class="text-white text-xs font-medium uppercase tracking-widest mb-6">What you get</p>
-                                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#977DFF]"></span> AI strategy & opportunity mapping
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#977DFF]"></span> Custom AI models & tooling
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#977DFF]"></span> CRM & ERP integrations
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#977DFF]"></span> Data pipelines & performance tuning
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#977DFF]"></span> Ongoing AI maintenance & iteration
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Service 03 -->
-                    <div class="reveal group py-12 md:py-20 border-b border-white/10 relative overflow-hidden">
-                        <span class="ghost-numeral" aria-hidden="true">03</span>
-                        <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-                            <div class="md:col-span-1">
-                                <span class="text-sm font-mono font-bold text-[#F7A505]">03</span>
-                            </div>
-                            <div class="md:col-span-5">
-                                <h3 class="text-3xl font-semibold text-white mb-4">Technical Team on Demand</h3>
-                                <div
-                                    class="text-xs text-[#F7A505] font-mono font-bold mb-6 inline-block border border-[#F7A505]/20 rounded px-2 py-1 bg-[#F7A505]/10">
-                                    Fractional</div>
-                                <p class="text-[#888] text-lg leading-relaxed max-w-sm">
-                                    Senior technical capability without the overhead of a full-time team.
-                                </p>
-                            </div>
-                            <div class="md:col-span-6">
-                                <p class="text-white text-xs font-medium uppercase tracking-widest mb-6">What you get</p>
-                                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#F7A505]"></span> Full-stack devs & AI/ML engineers
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#F7A505]"></span> UI/UX designers & product thinkers
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#F7A505]"></span> Technical co-founder as a service
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-[#F7A505]"></span> Feature work, scaling & roadmap
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Service 04 -->
-                    <div class="reveal group py-12 md:py-20 border-b border-white/10 relative overflow-hidden">
-                        <span class="ghost-numeral" aria-hidden="true">04</span>
-                        <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-                            <div class="md:col-span-1">
-                                <span class="text-sm font-mono font-bold text-white">04</span>
-                            </div>
-                            <div class="md:col-span-5">
-                                <h3 class="text-3xl font-semibold text-white mb-4">Investor & Pitch Readiness</h3>
-                                <div
-                                    class="text-xs text-[#AAA] font-mono font-bold mb-6 inline-block border border-white/20 rounded px-2 py-1 bg-white/5">
-                                    Package</div>
-                                <p class="text-[#888] text-lg leading-relaxed max-w-sm">
-                                    For founders preparing for their first round — or their next one.
-                                </p>
-                            </div>
-                            <div class="md:col-span-6">
-                                <p class="text-white text-xs font-medium uppercase tracking-widest mb-6">What you get</p>
-                                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-white"></span> Live AI product demo & walkthrough
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-white"></span> Business model + GTM strategy
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-white"></span> Investor pitch deck (co-developed)
-                                    </li>
-                                    <li class="flex items-center gap-3 text-sm text-[#AAA] font-mono">
-                                        <span class="w-1.5 h-1.5 bg-white"></span> Technical docs for due diligence
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Why Zeffron (Premium Split) -->
-        <section id="why-zeffron" class="py-20 sm:py-28 md:py-36 border-t border-white/5">
-            <div class="max-w-[1400px] mx-auto px-6 sm:px-10 md:px-14">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
-                    <div class="reveal">
-                        <div class="section-sig mb-6">
-                            <span class="section-sig-symbol">§ 03</span>
-                            <span class="section-sig-rule"></span>
-                            <span>Why Zeffron</span>
-                        </div>
-                        <h2
-                            class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tighter text-white mb-8 leading-[0.92]">
-                            We optimise for what's in your business model.
-                        </h2>
-                        <p class="text-lg sm:text-xl md:text-2xl text-[#E5E5E5] leading-relaxed mb-8">
-                            Most agencies optimise for billable hours. Freelancers optimise for what's in the brief. We optimise for what your business actually needs to be true on launch day.
-                        </p>
-                        <p class="text-[#888] text-lg leading-relaxed">
-                            Our engineers have shipped real products under real founder pressure. We know what investors look for because we've built things that raised. We own the outcome with you — and we don't disappear after the build.
-                        </p>
-                    </div>
-
-                    <div class="reveal stagger-huge space-y-6">
-                        <p class="text-xs font-mono text-[#666] uppercase tracking-[0.2em] mb-8">What sets us apart</p>
-                        <ul class="space-y-4">
-                            <li
-                                class="flex items-center gap-4 text-lg text-[#E5E5E5] border-b border-white/5 pb-4">
-                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> Senior AI & ML engineers from day one
-                            </li>
-                            <li
-                                class="flex items-center gap-4 text-lg text-[#E5E5E5] border-b border-white/5 pb-4">
-                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> Production-grade delivery, no shortcuts
-                            </li>
-                            <li
-                                class="flex items-center gap-4 text-lg text-[#E5E5E5] border-b border-white/5 pb-4">
-                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> End-to-end ownership, whiteboard to launch
-                            </li>
-                            <li
-                                class="flex items-center gap-4 text-lg text-[#E5E5E5] border-b border-white/5 pb-4">
-                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> Transparent, founder-first communication
-                            </li>
-                            <li
-                                class="flex items-center gap-4 text-lg text-[#E5E5E5] border-b border-white/5 pb-4">
-                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> Proven results across industries
-                            </li>
-                            <li
-                                class="flex items-center gap-4 text-lg text-[#E5E5E5] border-b border-white/5 pb-4">
-                                <i data-lucide="check" class="w-5 h-5 text-[#0145F2]"></i> Data-driven builds, not guesses
-                            </li>
-                        </ul>
+                    <div class="cta-row">
+                        <a href="https://cal.com/zeffron-ai/30min" class="btn btn-primary btn-lg">Book consultation</a>
+                        <button type="button" data-open-brief class="btn btn-secondary btn-lg">Send a brief</button>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Mid-page CTA Interrupt -->
-        <section class="py-20 sm:py-28 md:py-36 border-t border-white/5 bg-[#0F0F0F]">
-            <div class="reveal max-w-[1400px] mx-auto px-6 sm:px-10 md:px-14 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
-                <div class="md:col-span-7">
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white leading-[0.95] mb-6">
-                        Your idea is one call away.
-                    </h2>
-                    <p class="text-[#A8A8A8] text-base sm:text-lg leading-relaxed max-w-xl">
-                        Founders across the UK trust Zeffron to take them from concept to clarity, fast. Whatever your stage — pre-revenue or post-raise — we'll help you build the right thing at the right time.
-                    </p>
-                </div>
-                <div class="md:col-span-5 flex flex-col sm:flex-row gap-3 sm:gap-4 md:justify-end">
-                    <a href="https://cal.com/zeffron-ai/30min" class="btn btn-primary btn-lg">
-                        Book a discovery call
-                        <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                    </a>
-                    <button type="button" data-open-brief class="btn btn-secondary btn-lg">
-                        Send a brief
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section id="faq" class="py-20 sm:py-28 md:py-36 border-t border-white/5">
-            <div class="max-w-[1400px] mx-auto px-6 sm:px-10 md:px-14 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
-                <div class="reveal md:col-span-4">
-                    <div class="section-sig mb-6">
-                        <span class="section-sig-symbol">§ 04</span>
-                        <span class="section-sig-rule"></span>
-                        <span>Common questions</span>
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tighter text-white leading-[0.92] mb-6">
-                        Things founders ask before they hire us.
-                    </h2>
-                    <p class="text-[#888] leading-relaxed">
-                        Don't see your question here? <a href="https://cal.com/zeffron-ai/30min" class="text-white underline decoration-white/30 hover:decoration-[#0145F2] underline-offset-4 transition-colors">Book a discovery call</a> and ask us directly.
-                    </p>
-                </div>
-
-                <div class="reveal stagger-huge md:col-span-8">
-                    <div class="border-t border-white/10">
-                        <details class="faq-item">
-                            <summary class="faq-q">I'm not technical at all. Can I still work with Zeffron?</summary>
-                            <div class="faq-a"><p>Yes — and frankly, most of our best engagements are with non-technical founders. You don't need to understand code, architecture, or infrastructure to work with us. What you need is a clear problem, a target user, and a willingness to make decisions fast. We handle everything else, explain technical trade-offs in plain language, and make sure you feel in control throughout the build.</p></div>
-                        </details>
-
-                        <details class="faq-item">
-                            <summary class="faq-q">How is Zeffron different from a freelancer or a larger agency?</summary>
-                            <div class="faq-a"><p>Freelancers are affordable but solo. They build what you ask for — and if you ask for the wrong thing, they build that too. Larger agencies are thorough but slow: months to kickoff, layers of project managers, and you still don't own the product thinking. Zeffron sits in neither category. We're a lean senior team that moves at startup speed. We'll tell you when a feature is a distraction, when a simpler architecture is the smarter bet, and when you're ready to raise before you think you are.</p></div>
-                        </details>
-
-                        <details class="faq-item">
-                            <summary class="faq-q">What if I need changes after the build days are up?</summary>
-                            <div class="faq-a"><p>The first week after launch is included in every sprint — if something isn't right, we fix it. Beyond that, most founders move onto a monthly retainer with us, where we act as their ongoing technical team. Some projects roll directly from a sprint into a Custom AI build or a fractional team arrangement. We'll always be transparent about what makes sense for your stage before recommending anything.</p></div>
-                        </details>
-
-                        <details class="faq-item">
-                            <summary class="faq-q">My idea isn't fully formed yet. How developed does my concept need to be?</summary>
-                            <div class="faq-a"><p>Not very. What matters is whether the problem you're solving is real — not the polish of your brief. If you can describe who your user is, what they're struggling with today, and roughly what you imagine the solution looks like, that's enough to start. Our discovery process is specifically designed to turn loose thinking into a sharp, scoped product plan.</p></div>
-                        </details>
-
-                        <details class="faq-item">
-                            <summary class="faq-q">Do I own the code and the IP after the build?</summary>
-                            <div class="faq-a"><p>Completely and contractually. Everything we build for you belongs to you: the code, the design, the data architecture — all of it. We don't retain licensing rights, we don't keep back-end access after handover, and we don't use your product as a portfolio asset without your explicit permission.</p></div>
-                        </details>
-
-                        <details class="faq-item">
-                            <summary class="faq-q">Can you help me get investor-ready, not just build the product?</summary>
-                            <div class="faq-a"><p>Yes. Investor readiness is one of our four core services. We've seen too many founders walk into fundraising with a strong product and a weak story — or the other way around, a strong story and a product that falls apart under technical scrutiny. Our Investor &amp; Pitch Readiness package includes a live product demo, technical documentation for due diligence, a co-developed pitch deck, and a GTM plan. We can join investor calls to answer technical questions directly if useful.</p></div>
-                        </details>
-
-                        <details class="faq-item">
-                            <summary class="faq-q">I have something already built — but it's not production-ready. Can you help?</summary>
-                            <div class="faq-a"><p>Yes — and this is one of the most common situations we work with. A lot of founders today use AI-assisted tools to ship a first version fast, which is smart for validating an idea. But those builds weren't designed to scale, handle real user traffic, or pass a security review. We come in, audit what exists, identify where it breaks under pressure, fix the underlying architecture, and harden it for production — security, data handling, performance under load, and making the codebase something a future engineering team can actually work with. You keep the momentum. We make it solid enough to put in front of real users, enterprise clients, or investors without it becoming a liability.</p></div>
-                        </details>
-                    </div>
-
-                    <!-- AI Audit closer -->
-                    <div class="ai-audit-card mt-12">
-                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#0145F2] mb-3">Free · 45 minutes · No sales pitch</p>
-                        <h3 class="text-2xl sm:text-3xl font-medium text-white mb-4 tracking-tight">Not sure your business is ready for a full AI build?</h3>
-                        <p class="text-[#A8A8A8] mb-6 leading-relaxed max-w-2xl">
-                            Book a free AI Audit with our engineering team. No commitment. We'll give you straight answers on where AI can actually move the needle for you — or whether it shouldn't, yet.
-                        </p>
-                        <a href="https://cal.com/zeffron-ai/30min" class="btn btn-secondary">
-                            Book a free AI audit
-                            <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-
-        <!-- CTA Block — Farewell + modal trigger (form lives in #brief-modal at end of body) -->
-        <section id="contact" class="py-20 sm:py-28 md:py-36 border-t border-white/10 bg-[#050505]">
-            <div class="max-w-[1400px] mx-auto px-6 sm:px-10 md:px-14 reveal text-left sm:text-center">
-                <div class="section-sig flex sm:justify-center mb-8">
-                    <span class="section-sig-symbol">§ 05</span>
-                    <span class="section-sig-rule"></span>
-                    <span>Let's get to work</span>
-                </div>
-                <h2 class="farewell-heading mb-10">
-                    Tell us what
-                    <span class="block">you're building.</span>
-                </h2>
-                <p class="text-[#A8A8A8] mb-4 text-lg sm:text-xl max-w-2xl sm:mx-auto">
-                    A short call first to talk through your challenges. We'll take it from there.
-                </p>
-                <p class="text-[#666] mb-12 text-sm max-w-xl sm:mx-auto">
-                    We respond within one to three business days. If your project is time-sensitive, flag it in your message and we'll prioritise accordingly.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-start sm:justify-center">
-                    <a href="https://cal.com/zeffron-ai/30min" class="btn btn-primary btn-lg">
-                        Book a discovery call
-                        <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                    </a>
-                    <button type="button" data-open-brief class="btn btn-secondary btn-lg">
-                        Start a brief
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        {{!-- ────── Case Study Modals (deep-dive content) ──────
-              Reuses the .brief-modal* CSS classes so styling matches the rest of
-              the site. Opened by [data-case-open="<id>"] buttons inside each
-              showcase panel. Handler is the IIFE at the bottom of this file. --}}
-
-        <div class="brief-modal" id="case-neurochecklists" hidden role="dialog" aria-modal="true" aria-labelledby="case-neurochecklists-title" data-lenis-prevent>
-            <div class="brief-modal-backdrop" data-close></div>
-            <div class="brief-modal-panel">
-                <button type="button" class="brief-modal-close" data-close aria-label="Close">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-                <div class="brief-modal-header">
-                    <div class="flex items-center gap-3 mb-3 flex-wrap">
-                        <p class="brief-modal-eyebrow" style="color:#0145F2;margin:0">01 / Neurology</p>
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono font-bold tracking-[0.2em] uppercase rounded-full border border-[#0145F2]/30 bg-[#0145F2]/10 text-[#6FA8FF]">
-                            <span class="w-1.5 h-1.5 rounded-full bg-[#0145F2] animate-pulse"></span>
-                            Open research beta
-                        </span>
-                    </div>
-                    <h2 id="case-neurochecklists-title" class="brief-modal-title">Neurochecklists</h2>
-                    <p class="brief-modal-sub">Everything neurology, a click away.</p>
-                </div>
-                <p class="text-[#A8A8A8] leading-relaxed mb-8">
-                    The leading neurology checklist database. Peer-reviewed criteria, diagnostic protocols, and treatment guidelines — searchable in seconds, with Axon, an AI chat companion that knows the whole library.
-                </p>
-                <div class="space-y-6 mb-8">
-                    <div>
-                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Challenge</p>
-                        <ul class="space-y-2">
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Neurology guidelines scattered across journals, PDFs and hospital intranets</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Lookup interrupts clinical flow when seconds matter</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>No single, peer-reviewed, searchable reference</span></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Built</p>
-                        <ul class="space-y-2">
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Searchable database of diagnostic criteria + treatment guidelines</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Axon — an AI chat companion that knows the whole library</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span>Source-cited answers · peer-reviewed protocols only</span></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Coverage</p>
-                        <ul class="space-y-2">
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Peer-reviewed</strong> diagnostic criteria</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Open research beta</strong> · free for clinicians</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#0145F2] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Axon</strong> · AI chat across the database</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <a href="https://neurochecklists.com" target="_blank" rel="noopener" class="btn btn-primary">
-                    Visit Neurochecklists
-                    <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                </a>
             </div>
         </div>
-
-        <div class="brief-modal" id="case-visa-agent" hidden role="dialog" aria-modal="true" aria-labelledby="case-visa-agent-title" data-lenis-prevent>
-            <div class="brief-modal-backdrop" data-close></div>
-            <div class="brief-modal-panel">
-                <button type="button" class="brief-modal-close" data-close aria-label="Close">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-                <div class="brief-modal-header">
-                    <p class="brief-modal-eyebrow" style="color:#977DFF">02 / Immigration Tech</p>
-                    <h2 id="case-visa-agent-title" class="brief-modal-title">Visa Agent</h2>
-                    <p class="brief-modal-sub">Chrome extension + dashboard for immigration consultants.</p>
-                </div>
-                <blockquote class="text-lg text-[#E5E5E5] leading-relaxed border-l-2 border-[#977DFF] pl-6 py-2 mb-8">
-                    “Every client. Every form. Every embassy portal — the same 50 fields, manually entered, hundreds of times a month.”
-                    <footer class="mt-3 text-xs text-[#666] not-italic font-mono uppercase tracking-wide">– The problem we ended</footer>
-                </blockquote>
-                <div class="space-y-6 mb-8">
-                    <div>
-                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Challenge</p>
-                        <ul class="space-y-2">
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Same 50 fields typed into every embassy portal, for every client</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Hundreds of hours a month lost to manual entry</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Copy-paste errors risking applications</span></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Built</p>
-                        <ul class="space-y-2">
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Web dashboard for client profiles, documents, generated letters</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Chrome extension that auto-fills any visa form on the web</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span>Encrypted in transit · no data retained · never sold</span></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Result</p>
-                        <ul class="space-y-2">
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span><strong class="text-white font-medium">50+</strong> fields auto-filled per visa form</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span><strong class="text-white font-medium">1 click</strong> fills any embassy portal on the web</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#977DFF] mt-2 shrink-0"></span><span><strong class="text-white font-medium">0</strong> data retained, shared, or sold</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <a href="https://visa-agent.zeffron.ai" target="_blank" rel="noopener" class="btn btn-primary">
-                    Visit Visa Agent
-                    <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="brief-modal" id="case-alphacruise" hidden role="dialog" aria-modal="true" aria-labelledby="case-alphacruise-title" data-lenis-prevent>
-            <div class="brief-modal-backdrop" data-close></div>
-            <div class="brief-modal-panel">
-                <button type="button" class="brief-modal-close" data-close aria-label="Close">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-                <div class="brief-modal-header">
-                    <p class="brief-modal-eyebrow" style="color:#F7A505">03 / Travel Tech</p>
-                    <h2 id="case-alphacruise-title" class="brief-modal-title">AlphaCruise</h2>
-                    <p class="brief-modal-sub">Modern booking automation for the digital-first travel era.</p>
-                </div>
-                <blockquote class="text-lg text-[#E5E5E5] leading-relaxed border-l-2 border-[#F7A505] pl-6 py-2 mb-8">
-                    “Tech used to be a barrier. Now it's our edge.”
-                    <footer class="mt-3 text-xs text-[#666] not-italic font-mono uppercase tracking-wide">– Founder, AlphaCruise</footer>
-                </blockquote>
-                <div class="space-y-6 mb-8">
-                    <div>
-                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Challenge</p>
-                        <ul class="space-y-2">
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span>Travel brand running on manual processes</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span>No internal tech team · no digital roadmap</span></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Built</p>
-                        <ul class="space-y-2">
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span>Full booking platform with real-time API integrations</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span>Custom admin portal</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span>End-to-end delivery from architecture to deployment</span></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Result</p>
-                        <ul class="space-y-2">
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span><strong class="text-white font-medium">60%</strong> reduction in manual operations</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span><strong class="text-white font-medium">120+</strong> beta users onboarded</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#F7A505] mt-2 shrink-0"></span><span><strong class="text-white font-medium">45%</strong> revenue growth post-launch</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <a href="http://alphacruisetravels.com" target="_blank" rel="noopener" class="btn btn-primary">
-                    Visit AlphaCruise
-                    <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="brief-modal" id="case-hueristo" hidden role="dialog" aria-modal="true" aria-labelledby="case-hueristo-title" data-lenis-prevent>
-            <div class="brief-modal-backdrop" data-close></div>
-            <div class="brief-modal-panel">
-                <button type="button" class="brief-modal-close" data-close aria-label="Close">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-                <div class="brief-modal-header">
-                    <div class="flex items-center gap-3 mb-3 flex-wrap">
-                        <p class="brief-modal-eyebrow" style="color:#00C853;margin:0">04 / HR Tech</p>
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono font-bold tracking-[0.2em] uppercase rounded-full border border-[#00C853]/30 bg-[#00C853]/10 text-[#00C853]">
-                            <span class="w-1.5 h-1.5 rounded-full bg-[#00C853] animate-pulse"></span>
-                            Coming Soon
-                        </span>
-                    </div>
-                    <h2 id="case-hueristo-title" class="brief-modal-title">Hueristo</h2>
-                    <p class="brief-modal-sub">HR on autopilot for UK founders.</p>
-                </div>
-                <div class="space-y-6 mb-8">
-                    <div>
-                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Building</p>
-                        <ul class="space-y-2">
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>Opinionated, compliance-first HR for UK founders</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>The platform we wish we'd had at our first companies</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>UK-first · compliance-led · founder-built</span></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-3">Founding member offer</p>
-                        <ul class="space-y-2">
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>Tell us where HR currently breaks for you</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span>We'll prioritise your bugs in the build</span></li>
-                            <li class="flex items-start gap-3 text-[#E5E5E5] leading-relaxed"><span class="w-1.5 h-1.5 bg-[#00C853] mt-2 shrink-0"></span><span><strong class="text-white font-medium">Free founding-member access</strong> when we ship</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <a href="https://hueristo.com" target="_blank" rel="noopener" class="btn btn-primary">
-                    Visit Hueristo
-                    <i data-lucide="arrow-up-right" class="btn-icon"></i>
-                </a>
-            </div>
-        </div>
-
-
-<script>
-    // Home-specific motion. Shared chrome (menu/cursor/lenis/modal/reveal/ripple)
-    // is wired in /js/site.js, which sets window.lenisInstance before this runs.
-    document.addEventListener('DOMContentLoaded', () => {
-        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-        const lenisInstance = window.lenisInstance || null;
-
-        // Scroll-velocity marquee — speed and direction respond to scroll.
-        // Falls back to the CSS @keyframes if Lenis isn't running.
-        const marqueeTracks = document.querySelectorAll('.marquee-track');
-        if (!prefersReducedMotion && lenisInstance && marqueeTracks.length >= 2) {
-            marqueeTracks.forEach((t) => { t.style.animation = 'none'; t.style.willChange = 'transform'; });
-
-            let offset = 0;
-            let scrollVelocity = 0;
-            let trackWidth = marqueeTracks[0].offsetWidth || 1;
-
-            const recomputeWidth = () => { trackWidth = marqueeTracks[0].offsetWidth || trackWidth; };
-            window.addEventListener('resize', recomputeWidth);
-            window.addEventListener('load', recomputeWidth);
-
-            lenisInstance.on('scroll', (e) => {
-                scrollVelocity = (e && typeof e.velocity === 'number')
-                    ? e.velocity
-                    : (lenisInstance.velocity || 0);
-            });
-
-            const baseSpeed = 0.55;
-            const boostFactor = 0.45;
-            const maxBoost = 7;
-
-            const tickMarquee = () => {
-                const direction = scrollVelocity >= 0 ? -1 : 1;
-                const boost = Math.min(Math.abs(scrollVelocity) * boostFactor, maxBoost);
-                offset += (baseSpeed + boost) * direction;
-
-                if (offset <= -trackWidth) offset += trackWidth;
-                if (offset >= 0) offset -= trackWidth;
-
-                for (let i = 0; i < marqueeTracks.length; i++) {
-                    marqueeTracks[i].style.transform = `translate3d(${offset}px, 0, 0)`;
-                }
-                requestAnimationFrame(tickMarquee);
-            };
-            requestAnimationFrame(tickMarquee);
-        }
-
-        // Hero parallax — headline lifts and fades, aura sinks and scales.
-        const heroSection = document.getElementById('hero');
-        const heroHeadlineEl = document.querySelector('.hero-headline');
-        const heroAuraEl = document.querySelector('.hero-aura');
-        if (!prefersReducedMotion && heroSection) {
-            if (heroHeadlineEl) {
-                gsap.to(heroHeadlineEl, {
-                    yPercent: -8,
-                    opacity: 0.25,
-                    ease: 'none',
-                    scrollTrigger: { trigger: heroSection, start: 'top top', end: 'bottom top', scrub: 0.6 },
-                });
-            }
-            if (heroAuraEl) {
-                gsap.to(heroAuraEl, {
-                    yPercent: 18,
-                    scale: 1.08,
-                    ease: 'none',
-                    scrollTrigger: { trigger: heroSection, start: 'top top', end: 'bottom top', scrub: 0.6 },
-                });
-            }
-        }
-
-        // Magnetic buttons
-        if (!prefersReducedMotion && isFinePointer) {
-            document.querySelectorAll('.magnetic').forEach((el) => {
-                const inner = el.querySelectorAll('.magnetic-text');
-                const strength = 16;
-                el.addEventListener('mousemove', (e) => {
-                    const rect = el.getBoundingClientRect();
-                    const relX = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
-                    const relY = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
-                    gsap.to(el, { x: relX * strength, y: relY * strength, duration: 0.6, ease: 'power3.out' });
-                    inner.forEach((i) => {
-                        gsap.to(i, { x: relX * strength * 0.45, y: relY * strength * 0.45, duration: 0.6, ease: 'power3.out' });
-                    });
-                });
-                el.addEventListener('mouseleave', () => {
-                    gsap.to(el, { x: 0, y: 0, duration: 0.85, ease: 'elastic.out(1, 0.5)' });
-                    inner.forEach((i) => {
-                        gsap.to(i, { x: 0, y: 0, duration: 0.85, ease: 'elastic.out(1, 0.5)' });
-                    });
-                });
-            });
-        }
-
-        // Logo entrance
-        if (document.querySelector('.logo-anim')) {
-            gsap.from('.logo-anim', { duration: 1.5, y: -20, opacity: 0, ease: 'power3.out', delay: 0.2 });
-        }
-
-        // --- Case study modals -------------------------------------------------
-        // Generic handler for the per-case-study "View more" modals. Reuses the
-        // brief-modal CSS classes for visual consistency but lives independently
-        // from /js/site.js's brief-modal IIFE so the two don't interfere.
-        (() => {
-            const triggers = document.querySelectorAll('[data-case-open]');
-            if (!triggers.length) return;
-
-            let openModal = null;
-            let lastFocused = null;
-            let savedScrollY = 0;
-            const FOCUSABLES = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
-
-            const lockScroll = () => {
-                savedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
-                document.body.style.position = 'fixed';
-                document.body.style.top = `-${savedScrollY}px`;
-                document.body.style.left = '0';
-                document.body.style.right = '0';
-                document.body.style.width = '100%';
-                document.body.classList.add('brief-modal-open');
-                if (window.lenisInstance) { try { window.lenisInstance.stop(); } catch (_) {} }
-            };
-            const unlockScroll = () => {
-                document.body.style.position = '';
-                document.body.style.top = '';
-                document.body.style.left = '';
-                document.body.style.right = '';
-                document.body.style.width = '';
-                document.body.classList.remove('brief-modal-open');
-                window.scrollTo(0, savedScrollY);
-                if (window.lenisInstance) { try { window.lenisInstance.start(); } catch (_) {} }
-            };
-
-            const open = (modal) => {
-                if (!modal || openModal) return;
-                openModal = modal;
-                lastFocused = document.activeElement;
-                modal.hidden = false;
-                lockScroll();
-                if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
-                requestAnimationFrame(() => {
-                    const first = modal.querySelector(FOCUSABLES);
-                    first && first.focus({ preventScroll: true });
-                });
-            };
-
-            const close = () => {
-                if (!openModal) return;
-                openModal.hidden = true;
-                openModal = null;
-                unlockScroll();
-                if (lastFocused && typeof lastFocused.focus === 'function') {
-                    lastFocused.focus({ preventScroll: true });
-                }
-            };
-
-            triggers.forEach((btn) => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const id = btn.getAttribute('data-case-open');
-                    open(document.getElementById(id));
-                });
-            });
-
-            // Wire close affordances on every case-study modal. Each modal has
-            // a [data-close] backdrop + a [data-close] button.
-            document.querySelectorAll('.brief-modal[id^="case-"]').forEach((modal) => {
-                modal.querySelectorAll('[data-close]').forEach((el) => {
-                    el.addEventListener('click', (e) => { e.preventDefault(); close(); });
-                });
-            });
-
-            document.addEventListener('keydown', (e) => {
-                if (!openModal) return;
-                if (e.key === 'Escape') { e.preventDefault(); close(); return; }
-                if (e.key !== 'Tab') return;
-                const focusables = Array.from(openModal.querySelectorAll(FOCUSABLES))
-                    .filter((el) => el.offsetParent !== null);
-                if (!focusables.length) return;
-                const first = focusables[0];
-                const last = focusables[focusables.length - 1];
-                if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-                else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-            });
-        })();
-    });
-</script>
+    </section>
+</div>
