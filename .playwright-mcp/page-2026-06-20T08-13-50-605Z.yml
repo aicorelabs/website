@@ -1,0 +1,537 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2]:
+    - /url: "#main-content"
+  - generic [ref=e3]:
+    - button "Close menu" [ref=e4]:
+      - img [ref=e5]
+    - navigation [ref=e8]:
+      - link "Home" [ref=e9]:
+        - /url: /
+      - generic [ref=e10]:
+        - generic [ref=e11]: Industries
+        - link "Healthcare" [ref=e12]:
+          - /url: /home/clinical-calm
+        - link "Hospitality" [ref=e13]:
+          - /url: /home/hospitality-service
+        - link "Legal" [ref=e14]:
+          - /url: /home/trust-ledger
+        - link "Financial services" [ref=e15]:
+          - /url: /home/executive-editorial
+        - link "Insurance" [ref=e16]:
+          - /url: /home/insurance-controls
+        - link "Recruitment" [ref=e17]:
+          - /url: /home/recruitment-workflows
+        - link "Manufacturing" [ref=e18]:
+          - /url: /home/operator-console
+        - link "Ecommerce" [ref=e19]:
+          - /url: /home/human-service
+        - link "SWE + Applied AI" [ref=e20]:
+          - /url: /home/applied-ai-engineering
+      - link "Method" [ref=e21]:
+        - /url: /#method
+      - link "Stack" [ref=e22]:
+        - /url: /#stack
+      - link "Careers" [ref=e23]:
+        - /url: /career
+      - link "Insights" [ref=e24]:
+        - /url: /blog
+      - link "Book a call" [ref=e25]:
+        - /url: https://cal.com/zeffron-ai/30min
+        - text: Book a call
+        - img [ref=e26]
+      - button "Send a brief" [ref=e29]
+  - navigation [ref=e30]:
+    - generic [ref=e31]:
+      - link "Zeffron Home" [ref=e32]:
+        - /url: /
+        - img "Zeffron - AI and Custom Software Company Logo" [ref=e33]
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - button "Industries" [ref=e36]:
+            - text: Industries
+            - img [ref=e37]
+          - generic "Industries":
+            - link "Healthcare Regulated care":
+              - /url: /home/clinical-calm
+              - text: Healthcare
+              - generic: Regulated care
+            - link "Hospitality Service ops":
+              - /url: /home/hospitality-service
+              - text: Hospitality
+              - generic: Service ops
+            - link "Legal Documents":
+              - /url: /home/trust-ledger
+              - text: Legal
+              - generic: Documents
+            - link "Financial services Controls":
+              - /url: /home/executive-editorial
+              - text: Financial services
+              - generic: Controls
+            - link "Insurance Claims":
+              - /url: /home/insurance-controls
+              - text: Insurance
+              - generic: Claims
+            - link "Recruitment Workflows":
+              - /url: /home/recruitment-workflows
+              - text: Recruitment
+              - generic: Workflows
+            - link "Manufacturing Operations":
+              - /url: /home/operator-console
+              - text: Manufacturing
+              - generic: Operations
+            - link "Ecommerce Service":
+              - /url: /home/human-service
+              - text: Ecommerce
+              - generic: Service
+            - link "SWE + Applied AI Engineering":
+              - /url: /home/applied-ai-engineering
+              - text: SWE + Applied AI
+              - generic: Engineering
+        - link "Method" [ref=e39]:
+          - /url: /#method
+        - link "Stack" [ref=e40]:
+          - /url: /#stack
+        - link "Insights" [ref=e41]:
+          - /url: /blog
+        - link "Careers" [ref=e42]:
+          - /url: /career
+      - generic [ref=e43]:
+        - button "Send a brief" [ref=e44]
+        - link "Book a call" [ref=e45]:
+          - /url: https://cal.com/zeffron-ai/30min
+          - text: Book a call
+          - img [ref=e46]
+  - main [ref=e49]:
+    - generic [ref=e50]:
+      - generic [ref=e52]:
+        - generic [ref=e53]:
+          - generic [ref=e54]: AI consulting for regulated teams
+          - heading "Deploy AI securely inside real operations." [level=1] [ref=e55]
+          - paragraph [ref=e56]: Reduce admin work, improve customer experience, and introduce AI without losing control of sensitive workflows.
+          - generic [ref=e57]:
+            - link "Book consultation" [ref=e58]:
+              - /url: https://cal.com/zeffron-ai/30min
+            - link "Explore industries" [ref=e59]:
+              - /url: "#industries"
+        - complementary "Zeffron operating model" [ref=e60]:
+          - generic [ref=e61]:
+            - generic [ref=e62]: Adoption
+            - strong [ref=e63]: Secure adoption, measured by operational impact.
+          - generic [ref=e64]:
+            - generic [ref=e65]: Method
+            - strong [ref=e66]: Discovery, design, deployment, and measurement for service businesses.
+          - generic [ref=e67]:
+            - generic [ref=e68]: Built for
+            - strong [ref=e69]: Service businesses with sensitive data.
+      - generic [ref=e72]:
+        - link "01 Healthcare" [ref=e73]:
+          - /url: /home/clinical-calm
+          - generic [ref=e74]: "01"
+          - strong [ref=e75]: Healthcare
+        - link "02 Hospitality" [ref=e76]:
+          - /url: /home/hospitality-service
+          - generic [ref=e77]: "02"
+          - strong [ref=e78]: Hospitality
+        - link "03 Legal" [ref=e79]:
+          - /url: /home/trust-ledger
+          - generic [ref=e80]: "03"
+          - strong [ref=e81]: Legal
+        - link "04 Financial services" [ref=e82]:
+          - /url: /home/executive-editorial
+          - generic [ref=e83]: "04"
+          - strong [ref=e84]: Financial services
+        - link "05 Insurance" [ref=e85]:
+          - /url: /home/insurance-controls
+          - generic [ref=e86]: "05"
+          - strong [ref=e87]: Insurance
+        - link "06 Recruitment" [ref=e88]:
+          - /url: /home/recruitment-workflows
+          - generic [ref=e89]: "06"
+          - strong [ref=e90]: Recruitment
+        - link "07 Manufacturing" [ref=e91]:
+          - /url: /home/operator-console
+          - generic [ref=e92]: "07"
+          - strong [ref=e93]: Manufacturing
+        - link "08 Ecommerce" [ref=e94]:
+          - /url: /home/human-service
+          - generic [ref=e95]: "08"
+          - strong [ref=e96]: Ecommerce
+        - link "09 SWE + Applied AI" [ref=e97]:
+          - /url: /home/applied-ai-engineering
+          - generic [ref=e98]: "09"
+          - strong [ref=e99]: SWE + Applied AI
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - generic [ref=e103]:
+            - generic [ref=e104]: Partners and platform stack
+            - heading "The stack buyers expect to see." [level=2] [ref=e105]
+          - paragraph [ref=e106]: We work across evaluation, fine-tuning, deployment, and data science with the platforms that signal technical depth immediately.
+        - generic [ref=e107]:
+          - generic [ref=e108]:
+            - generic [ref=e109]: Capabilities
+            - generic [ref=e110]:
+              - generic [ref=e111]: Fine-tuning
+              - generic [ref=e112]: Harnesses
+              - generic [ref=e113]: Agents
+              - generic [ref=e114]: Evaluation
+              - generic [ref=e115]: ML modelling
+              - generic [ref=e116]: Data science
+          - generic "Technology platform logos" [ref=e117]:
+            - generic [ref=e118]:
+              - img "Hugging Face logo" [ref=e119]
+              - strong [ref=e120]: Hugging Face
+            - generic [ref=e121]:
+              - img "Weights & Biases logo" [ref=e122]
+              - strong [ref=e123]: Weights & Biases
+            - generic [ref=e124]:
+              - img "OpenAI logo" [ref=e125]
+              - strong [ref=e126]: OpenAI
+            - generic [ref=e127]:
+              - img "GitHub logo" [ref=e128]
+              - strong [ref=e129]: GitHub
+            - generic [ref=e130]:
+              - img "Python logo" [ref=e131]
+              - strong [ref=e132]: Python
+            - generic [ref=e133]:
+              - img "PyTorch logo" [ref=e134]
+              - strong [ref=e135]: PyTorch
+            - generic [ref=e136]:
+              - img "dbt logo" [ref=e137]
+              - strong [ref=e138]: dbt
+            - generic [ref=e139]:
+              - img "MLflow logo" [ref=e140]
+              - strong [ref=e141]: MLflow
+      - generic [ref=e143]:
+        - generic [ref=e144]:
+          - generic [ref=e145]:
+            - generic [ref=e146]: Operational problem
+            - heading "Start with the cost buyers already feel." [level=2] [ref=e147]
+          - paragraph [ref=e148]: The strongest AI work leads with the operational problem, the business impact, and the practical system that removes friction.
+        - generic [ref=e149]:
+          - article [ref=e150]:
+            - generic [ref=e151]: Problem
+            - heading "Admin work is taking time away from core service." [level=3] [ref=e152]
+            - paragraph [ref=e153]: Teams handle repeated enquiries, documents, intake, reporting, scheduling, and manual handoffs.
+          - article [ref=e154]:
+            - generic [ref=e155]: Impact
+            - heading "People wait longer and skilled staff carry avoidable work." [level=3] [ref=e156]
+            - paragraph [ref=e157]: Response times slow, costs rise, and experienced teams spend too much time coordinating.
+          - article [ref=e158]:
+            - generic [ref=e159]: Solution
+            - heading "Secure AI systems automate routine work with human control." [level=3] [ref=e160]
+            - paragraph [ref=e161]: Zeffron designs and deploys assistants, automations, and knowledge systems for real operations.
+      - generic [ref=e163]:
+        - generic [ref=e164]:
+          - generic [ref=e165]: Operational drag
+          - heading "Useful AI starts with friction." [level=2] [ref=e166]
+          - paragraph [ref=e167]: These repeatable problems create demand before a buyer cares about the model stack.
+        - generic [ref=e168]:
+          - generic [ref=e169]:
+            - generic [ref=e170]: "01"
+            - heading "Administrative overload" [level=3] [ref=e171]
+          - generic [ref=e172]:
+            - generic [ref=e173]: "02"
+            - heading "Customer response delays" [level=3] [ref=e174]
+          - generic [ref=e175]:
+            - generic [ref=e176]: "03"
+            - heading "Manual workflows" [level=3] [ref=e177]
+          - generic [ref=e178]:
+            - generic [ref=e179]: "04"
+            - heading "Knowledge trapped in documents" [level=3] [ref=e180]
+          - generic [ref=e181]:
+            - generic [ref=e182]: "05"
+            - heading "Privacy and AI concerns" [level=3] [ref=e183]
+      - generic [ref=e185]:
+        - generic [ref=e186]:
+          - generic [ref=e187]:
+            - generic [ref=e188]: Method
+            - heading "One method, adapted by sector." [level=2] [ref=e189]
+          - paragraph [ref=e190]: The structure stays consistent across every audience page, so Zeffron reads as one consultancy with specialist expertise.
+        - generic [ref=e191]:
+          - article [ref=e192]:
+            - generic [ref=e193]: "01"
+            - heading "Discover opportunities" [level=3] [ref=e194]
+            - paragraph [ref=e195]: Map the workflows, documents, customer moments, and data constraints where AI can create measurable value.
+          - article [ref=e196]:
+            - generic [ref=e197]: "02"
+            - heading "Design solutions" [level=3] [ref=e198]
+            - paragraph [ref=e199]: Shape assistants, automations, and retrieval systems around how the team already works.
+          - article [ref=e200]:
+            - generic [ref=e201]: "03"
+            - heading "Deploy securely" [level=3] [ref=e202]
+            - paragraph [ref=e203]: Implement privacy-conscious systems with permissions, review points, and clear ownership.
+          - article [ref=e204]:
+            - generic [ref=e205]: "04"
+            - heading "Measure impact" [level=3] [ref=e206]
+            - paragraph [ref=e207]: Track saved time, response speed, adoption, quality, and the next high-value workflow.
+      - generic [ref=e209]:
+        - generic [ref=e210]:
+          - generic [ref=e211]:
+            - generic [ref=e212]: Vertical proof
+            - heading "The first workflow is specific." [level=2] [ref=e213]
+          - paragraph [ref=e214]: Each sector starts with one operational workflow, the controls needed to run it safely, and the outcome worth measuring.
+        - generic [ref=e215]:
+          - article [ref=e216]:
+            - generic [ref=e217]: Healthcare
+            - heading "Patient intake and admin triage." [level=3] [ref=e218]
+            - paragraph [ref=e219]: Reduce booking, referral, document, and patient-message handling while keeping patient data boundaries visible.
+            - generic [ref=e220]:
+              - generic [ref=e221]:
+                - strong [ref=e222]: Controls
+                - text: Role-based access, review queues, audit logs, retention rules.
+              - generic [ref=e223]:
+                - strong [ref=e224]: Integrations
+                - text: EHR, PMS, booking, telephony, payment, document stores.
+              - generic [ref=e225]:
+                - strong [ref=e226]: Measures
+                - text: Admin hours saved, faster responses, capacity released.
+          - article [ref=e227]:
+            - generic [ref=e228]: Legal
+            - heading "Matter intake and document review." [level=3] [ref=e229]
+            - paragraph [ref=e230]: Help teams route enquiries, retrieve matter knowledge, draft updates, and keep solicitor review explicit.
+            - generic [ref=e231]:
+              - generic [ref=e232]:
+                - strong [ref=e233]: Controls
+                - text: Confidentiality boundaries, human approval, source citation, matter-level access.
+              - generic [ref=e234]:
+                - strong [ref=e235]: Integrations
+                - text: Matter systems, document management, email, CRM, e-signature.
+              - generic [ref=e236]:
+                - strong [ref=e237]: Measures
+                - text: Reduced intake lag, fewer manual chases, clearer review trail.
+          - article [ref=e238]:
+            - generic [ref=e239]: Financial services
+            - heading "Client onboarding and adviser support." [level=3] [ref=e240]
+            - paragraph [ref=e241]: Structure onboarding documents, compliance checks, adviser preparation, and review-ready client communication.
+            - generic [ref=e242]:
+              - generic [ref=e243]:
+                - strong [ref=e244]: Controls
+                - text: Approval gates, audit trails, source records, model-output review.
+              - generic [ref=e245]:
+                - strong [ref=e246]: Integrations
+                - text: CRM, document portals, reporting, reconciliation, compliance archives.
+              - generic [ref=e247]:
+                - strong [ref=e248]: Measures
+                - text: Shorter onboarding cycles, cleaner files, less adviser admin.
+          - article [ref=e249]:
+            - generic [ref=e250]: Insurance
+            - heading "Quote triage and renewal operations." [level=3] [ref=e251]
+            - paragraph [ref=e252]: Route submissions, extract policy details, flag exceptions, and support broker teams before renewal pressure builds.
+            - generic [ref=e253]:
+              - generic [ref=e254]:
+                - strong [ref=e255]: Controls
+                - text: Exception handling, broker approval, error sampling, audit history.
+              - generic [ref=e256]:
+                - strong [ref=e257]: Integrations
+                - text: Broker systems, insurer portals, CRM, email, policy documents.
+              - generic [ref=e258]:
+                - strong [ref=e259]: Measures
+                - text: Faster triage, fewer missed renewals, lower manual rekeying.
+          - article [ref=e260]:
+            - generic [ref=e261]: Recruitment
+            - heading "Candidate screening and CRM hygiene." [level=3] [ref=e262]
+            - paragraph [ref=e263]: Improve shortlists, recruiter notes, candidate updates, and client reporting without flattening the relationship.
+            - generic [ref=e264]:
+              - generic [ref=e265]:
+                - strong [ref=e266]: Controls
+                - text: Tone review, consultant approval, bias checks, candidate consent boundaries.
+              - generic [ref=e267]:
+                - strong [ref=e268]: Integrations
+                - text: ATS, recruitment CRM, email, LinkedIn workflows, job boards.
+              - generic [ref=e269]:
+                - strong [ref=e270]: Measures
+                - text: Cleaner CRM data, faster updates, better shortlist consistency.
+          - article [ref=e271]:
+            - generic [ref=e272]: Hospitality
+            - heading "Booking and guest-service triage." [level=3] [ref=e273]
+            - paragraph [ref=e274]: Reduce repetitive booking, enquiry, guest-message, and staff coordination workload across locations.
+            - generic [ref=e275]:
+              - generic [ref=e276]:
+                - strong [ref=e277]: Controls
+                - text: Live-service fallback, human escalation, guest-data permissions, support windows.
+              - generic [ref=e278]:
+                - strong [ref=e279]: Integrations
+                - text: PMS, reservation, POS, CRM, guest messaging, workforce tools.
+              - generic [ref=e280]:
+                - strong [ref=e281]: Measures
+                - text: Quicker responses, fewer manual handoffs, less peak-time disruption.
+      - generic [ref=e283]:
+        - generic [ref=e284]:
+          - generic [ref=e285]:
+            - generic [ref=e286]: Governance
+            - heading "Trust is designed before deployment." [level=2] [ref=e287]
+          - paragraph [ref=e288]: Regulated workflows need evidence of how data, access, model behaviour, and operational responsibility are controlled.
+        - generic [ref=e289]:
+          - article [ref=e290]:
+            - generic [ref=e291]: Data handling
+            - heading "Define the boundaries before anything is built." [level=3] [ref=e292]
+            - list [ref=e293]:
+              - listitem [ref=e294]: Data processing role and retention rules
+              - listitem [ref=e295]: Subprocessor and hosting review
+              - listitem [ref=e296]: Model-training boundaries for client data
+              - listitem [ref=e297]: Data minimisation and deletion process
+          - article [ref=e298]:
+            - generic [ref=e299]: Operational control
+            - heading "Keep teams accountable for high-impact actions." [level=3] [ref=e300]
+            - list [ref=e301]:
+              - listitem [ref=e302]: Human review gates and escalation paths
+              - listitem [ref=e303]: Role-based access and permission scopes
+              - listitem [ref=e304]: Audit logging for reviewed outputs
+              - listitem [ref=e305]: Fallback behaviour when confidence drops
+          - article [ref=e306]:
+            - generic [ref=e307]: Assurance
+            - heading "Measure quality before scaling usage." [level=3] [ref=e308]
+            - list [ref=e309]:
+              - listitem [ref=e310]: Evaluation sets and release criteria
+              - listitem [ref=e311]: Security review and incident response plan
+              - listitem [ref=e312]: Monitoring for drift and workflow errors
+              - listitem [ref=e313]: Clear owner for post-launch changes
+      - generic [ref=e315]:
+        - generic [ref=e316]:
+          - generic [ref=e317]:
+            - generic [ref=e318]: First pilot
+            - heading "A controlled path to the first workflow." [level=2] [ref=e319]
+          - paragraph [ref=e320]: Start with one bounded workflow, prove value under real constraints, then decide what deserves wider rollout.
+        - generic [ref=e321]:
+          - article [ref=e322]:
+            - generic [ref=e323]: "01"
+            - heading "Scope the workflow" [level=3] [ref=e324]
+            - list [ref=e325]:
+              - listitem [ref=e326]: Choose one repeatable task
+              - listitem [ref=e327]: Map systems, data, owners, and risk
+              - listitem [ref=e328]: Define success and no-go conditions
+          - article [ref=e329]:
+            - generic [ref=e330]: "02"
+            - heading "Design the controls" [level=3] [ref=e331]
+            - list [ref=e332]:
+              - listitem [ref=e333]: Set access, review, and approval rules
+              - listitem [ref=e334]: Agree data handling and retention
+              - listitem [ref=e335]: Document fallback and escalation
+          - article [ref=e336]:
+            - generic [ref=e337]: "03"
+            - heading "Build and test" [level=3] [ref=e338]
+            - list [ref=e339]:
+              - listitem [ref=e340]: Deploy against representative examples
+              - listitem [ref=e341]: Evaluate quality before users rely on it
+              - listitem [ref=e342]: Train the team around review points
+          - article [ref=e343]:
+            - generic [ref=e344]: "04"
+            - heading "Measure and decide" [level=3] [ref=e345]
+            - list [ref=e346]:
+              - listitem [ref=e347]: Track saved time, speed, quality, adoption
+              - listitem [ref=e348]: Review incidents, exceptions, and friction
+              - listitem [ref=e349]: Choose improve, expand, or stop
+      - generic [ref=e351]:
+        - generic [ref=e352]:
+          - generic [ref=e353]:
+            - generic [ref=e354]: Research depth
+            - heading "Research that shows actual depth." [level=2] [ref=e355]
+          - paragraph [ref=e356]: Research, data science, ML modelling, evaluation, and deployment rigor now sit in a dedicated vertical.
+        - generic [ref=e357]:
+          - article [ref=e358]:
+            - generic [ref=e359]: Research
+            - heading "How AI reduces administrative burden" [level=3] [ref=e360]
+            - paragraph [ref=e361]: Operational analysis, workflow mapping, and ROI framing for service teams.
+            - link "Explore research" [ref=e362]:
+              - /url: /research
+              - text: Explore research
+              - img [ref=e363]
+          - article [ref=e366]:
+            - generic [ref=e367]: Modelling
+            - heading "Fine-tuning, retrieval, and agents" [level=3] [ref=e368]
+            - paragraph [ref=e369]: When to use custom models, when to use retrieval, and how agent workflows fit real operations.
+            - link "Explore modelling" [ref=e370]:
+              - /url: /research
+              - text: Explore modelling
+              - img [ref=e371]
+          - article [ref=e374]:
+            - generic [ref=e375]: Evaluation
+            - heading "Measure before you scale" [level=3] [ref=e376]
+            - paragraph [ref=e377]: Harnesses, test sets, quality checks, and practical release criteria for production AI.
+            - link "Explore evaluation" [ref=e378]:
+              - /url: /research
+              - text: Explore evaluation
+              - img [ref=e379]
+      - generic [ref=e384]:
+        - generic [ref=e385]:
+          - generic [ref=e386]: Next step
+          - heading "Find the workflow AI should remove first." [level=2] [ref=e387]
+        - generic [ref=e388]:
+          - paragraph [ref=e389]: Book a focused consultation on your operations, data constraints, customer experience, and deployment options.
+          - generic [ref=e390]:
+            - link "Book consultation" [ref=e391]:
+              - /url: https://cal.com/zeffron-ai/30min
+            - button "Send a brief" [ref=e392]
+  - contentinfo [ref=e393]:
+    - generic [ref=e394]:
+      - generic [ref=e395]:
+        - heading "Zeffron — secure AI adoption" [level=4] [ref=e396]
+        - paragraph [ref=e397]: AI consultants helping businesses deploy AI securely inside real operations.
+      - generic [ref=e398]:
+        - heading "Industries" [level=4] [ref=e399]
+        - generic [ref=e400]:
+          - link "Healthcare" [ref=e401]:
+            - /url: /home/clinical-calm
+          - link "Hospitality" [ref=e402]:
+            - /url: /home/hospitality-service
+          - link "Legal" [ref=e403]:
+            - /url: /home/trust-ledger
+          - link "Financial services" [ref=e404]:
+            - /url: /home/executive-editorial
+          - link "Insurance" [ref=e405]:
+            - /url: /home/insurance-controls
+          - link "Recruitment" [ref=e406]:
+            - /url: /home/recruitment-workflows
+          - link "Manufacturing" [ref=e407]:
+            - /url: /home/operator-console
+          - link "Ecommerce" [ref=e408]:
+            - /url: /home/human-service
+          - link "SWE + Applied AI" [ref=e409]:
+            - /url: /home/applied-ai-engineering
+      - generic [ref=e410]:
+        - heading "Method" [level=4] [ref=e411]
+        - generic [ref=e412]:
+          - link "Discover" [ref=e413]:
+            - /url: /#method
+          - link "Design" [ref=e414]:
+            - /url: /#method
+          - link "Deploy" [ref=e415]:
+            - /url: /#method
+          - link "Measure" [ref=e416]:
+            - /url: /#method
+          - link "Governance" [ref=e417]:
+            - /url: /#trust
+          - link "Pilot path" [ref=e418]:
+            - /url: /#pilot
+          - link "Research" [ref=e419]:
+            - /url: /research
+      - generic [ref=e420]:
+        - heading "Contact" [level=4] [ref=e421]
+        - paragraph [ref=e422]:
+          - link "hello@zeffron.ai" [ref=e423]:
+            - /url: mailto:hello@zeffron.ai
+        - paragraph [ref=e424]: London · United Kingdom
+        - link "Book consultation" [ref=e425]:
+          - /url: https://cal.com/zeffron-ai/30min
+    - generic [ref=e426]:
+      - generic [ref=e427]: Zeffron Systems © 2026
+      - generic [ref=e428]:
+        - link "Live Lab" [ref=e429]:
+          - /url: /demos
+        - link "Careers" [ref=e430]:
+          - /url: /career
+        - link "Blog" [ref=e431]:
+          - /url: /blog
+        - link "Privacy" [ref=e432]:
+          - /url: /privacy
+        - link "Terms" [ref=e433]:
+          - /url: /terms
+        - link "Zeffron Twitter" [ref=e435]:
+          - /url: https://x.com/zeffron_ai
+          - img [ref=e436]
+        - link "Zeffron Instagram" [ref=e438]:
+          - /url: https://www.instagram.com/zeffron_ai_
+          - img [ref=e439]
+        - link "Zeffron LinkedIn" [ref=e442]:
+          - /url: https://www.linkedin.com/company/zeffron-ai/
+          - img [ref=e443]

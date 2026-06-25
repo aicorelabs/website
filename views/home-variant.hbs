@@ -91,48 +91,82 @@
     }
 
     .ab-hero {
-        min-height: 92dvh;
-        padding: 7rem 0 4.5rem;
+        position: relative;
+        isolation: isolate;
+        min-height: 100dvh;
+        padding: 6.5rem 0 3rem;
         border-bottom: 1px solid var(--line);
         background:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 46%),
-            var(--bg);
+            linear-gradient(90deg, rgba(8, 9, 11, 0.96) 0%, rgba(8, 9, 11, 0.82) 43%, rgba(8, 9, 11, 0.28) 100%),
+            linear-gradient(180deg, transparent 58%, var(--bg) 100%),
+            var(--hero-image);
+        background-size: cover;
+        background-position: var(--hero-position, center);
+        background-repeat: no-repeat;
     }
 
     .variant-clinical .ab-hero {
-        background: linear-gradient(180deg, #FFFFFF, var(--bg));
+        background:
+            linear-gradient(90deg, rgba(8, 9, 11, 0.95) 0%, rgba(8, 9, 11, 0.78) 43%, rgba(8, 9, 11, 0.2) 100%),
+            linear-gradient(180deg, transparent 58%, var(--bg) 100%),
+            var(--hero-image);
+        background-size: cover;
+        background-position: var(--hero-position, center);
     }
 
     .variant-console .ab-hero {
         background:
-            linear-gradient(rgba(237, 244, 255, 0.035) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(237, 244, 255, 0.035) 1px, transparent 1px),
-            var(--bg);
-        background-size: 48px 48px;
+            linear-gradient(90deg, rgba(6, 8, 10, 0.96) 0%, rgba(6, 8, 10, 0.8) 43%, rgba(6, 8, 10, 0.2) 100%),
+            linear-gradient(180deg, transparent 58%, var(--bg) 100%),
+            var(--hero-image);
+        background-size: cover;
+        background-position: var(--hero-position, center);
     }
 
     .variant-engineering .ab-hero {
         background:
-            linear-gradient(rgba(242, 247, 255, 0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(242, 247, 255, 0.035) 1px, transparent 1px),
-            radial-gradient(circle at 82% 18%, rgba(1, 69, 242, 0.2), transparent 36%),
-            var(--bg);
-        background-size: 44px 44px, 44px 44px, auto, auto;
+            linear-gradient(90deg, rgba(7, 10, 16, 0.96) 0%, rgba(7, 10, 16, 0.8) 43%, rgba(7, 10, 16, 0.22) 100%),
+            linear-gradient(180deg, transparent 58%, var(--bg) 100%),
+            var(--hero-image);
+        background-size: cover;
+        background-position: var(--hero-position, center);
     }
 
     .ab-hero-layout {
         display: grid;
-        grid-template-columns: minmax(0, 1.05fr) minmax(22rem, 0.95fr);
-        gap: 4rem;
-        align-items: end;
+        grid-template-columns: minmax(0, 1.2fr) minmax(20rem, 0.8fr);
+        gap: clamp(2.5rem, 5vw, 5rem);
+        align-items: center;
+        min-height: calc(100dvh - 9.5rem);
+        position: relative;
+        z-index: 1;
     }
 
-    .variant-editorial .ab-hero-layout {
-        grid-template-columns: minmax(0, 1.25fr) minmax(20rem, 0.75fr);
+    .ab-hero .ab-headline {
+        color: #FFFFFF;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.24);
+    }
+
+    .ab-hero .ab-subhead {
+        color: rgba(255, 255, 255, 0.78);
+    }
+
+    .ab-hero .btn-secondary {
+        color: #FFFFFF;
+        border-color: rgba(255, 255, 255, 0.34);
+        background: rgba(8, 9, 11, 0.24);
+        backdrop-filter: blur(12px);
     }
 
     .ab-kicker,
-    .ab-label,
+    .ab-label {
+        color: #0145F2;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
     .ab-metric span {
         color: var(--muted);
         font-family: 'JetBrains Mono', monospace;
@@ -143,27 +177,27 @@
 
     .ab-kicker {
         display: block;
-        margin-bottom: 1.3rem;
+        margin-bottom: 1.6rem;
     }
 
     .ab-headline {
-        max-width: 60rem;
+        max-width: 52rem;
         color: var(--ink);
-        font-size: 3.4rem;
-        line-height: 1;
+        font-size: clamp(3.15rem, 4vw, 4.65rem);
+        line-height: 1.08;
         letter-spacing: 0;
         font-weight: 700;
     }
 
     .variant-editorial .ab-headline {
-        font-family: 'Instrument Serif', Georgia, serif;
+        font-family: inherit;
         font-weight: 700;
-        line-height: 1;
+        line-height: 1.08;
     }
 
     .ab-subhead {
         max-width: 38rem;
-        margin-top: 1.7rem;
+        margin-top: 2rem;
         color: var(--soft);
         font-size: 1.18rem;
         line-height: 1.55;
@@ -173,7 +207,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0.75rem;
-        margin-top: 2rem;
+        margin-top: 2.25rem;
     }
 
     .ab-home .btn {
@@ -187,9 +221,15 @@
     }
 
     .ab-home .btn-primary {
-        background: var(--ink);
-        border-color: var(--ink);
-        color: var(--bg);
+        background: #0145F2;
+        border-color: #0145F2;
+        color: #FFFFFF;
+    }
+
+    .ab-home .btn-primary:hover {
+        background: #0035C8;
+        border-color: #0035C8;
+        color: #FFFFFF;
     }
 
     .ab-home .btn-secondary {
@@ -199,9 +239,14 @@
     }
 
     .ab-visual {
-        border: 1px solid var(--line);
+        width: 100%;
+        max-width: 26rem;
+        justify-self: end;
+        border: 1px solid rgba(255, 255, 255, 0.18);
         border-radius: 8px;
-        background: var(--surface);
+        background: rgba(8, 9, 11, 0.66);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
         overflow: hidden;
     }
 
@@ -210,33 +255,12 @@
         border-radius: 0;
     }
 
-    .variant-editorial .ab-visual {
-        transform: translateY(2rem);
-    }
-
-    .ab-visual img {
-        display: block;
-        width: 100%;
-        aspect-ratio: 4 / 3;
-        object-fit: cover;
-        filter: saturate(0.85) contrast(1.03);
-    }
-
-    .variant-clinical .ab-visual img {
-        filter: saturate(0.92) contrast(1.02);
-    }
-
-    .variant-console .ab-visual img {
-        filter: grayscale(0.48) saturate(0.55) contrast(1.18);
-    }
-
     .ab-visual-content {
-        padding: 1.25rem;
-        border-top: 1px solid var(--line);
+        padding: 1.4rem;
     }
 
     .ab-visual-content h2 {
-        color: var(--ink);
+        color: #FFFFFF;
         font-size: 1.35rem;
         line-height: 1.14;
         font-weight: 600;
@@ -244,7 +268,7 @@
     }
 
     .ab-visual-content p {
-        color: var(--muted);
+        color: rgba(255, 255, 255, 0.68);
         line-height: 1.6;
         margin-top: 0.8rem;
     }
@@ -252,17 +276,21 @@
     .ab-metrics {
         display: grid;
         gap: 1px;
-        background: var(--line);
+        background: rgba(255, 255, 255, 0.12);
         margin-top: 1.1rem;
     }
 
     .ab-metric {
-        background: var(--bg);
+        background: rgba(8, 9, 11, 0.66);
         padding: 0.8rem;
     }
 
     .variant-clinical .ab-metric {
-        background: #FFFFFF;
+        background: rgba(8, 9, 11, 0.66);
+    }
+
+    .ab-hero .ab-metric span {
+        color: rgba(255, 255, 255, 0.7);
     }
 
     .ab-split-head {
@@ -283,7 +311,7 @@
     }
 
     .variant-editorial .ab-section-title {
-        font-family: 'Instrument Serif', Georgia, serif;
+        font-family: inherit;
         font-weight: 700;
     }
 
@@ -472,10 +500,16 @@
     .ab-ledger-intro,
     .ab-human-intro {
         display: grid;
-        grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
-        gap: 4rem;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        gap: clamp(2rem, 5vw, 5rem);
         align-items: end;
         margin-bottom: 3rem;
+    }
+
+    .ab-human-intro .ab-section-title {
+        max-width: 46rem;
+        font-size: clamp(2.8rem, 4.2vw, 4.35rem);
+        line-height: 1.02;
     }
 
     .ab-ledger-grid {
@@ -610,7 +644,7 @@
     }
 
     .ab-clinical-step .ab-label {
-        color: var(--relief);
+        color: #0145F2;
     }
 
     .ab-clinical-care {
@@ -644,7 +678,8 @@
 
     .ab-editorial-lede {
         color: var(--ink);
-        font-family: 'Instrument Serif', Georgia, serif;
+        font-family: inherit;
+        font-weight: 700;
         font-size: 3.8rem;
         line-height: 1;
     }
@@ -726,45 +761,41 @@
 
     .ab-human-journey {
         display: grid;
-        grid-template-columns: minmax(20rem, 0.82fr) minmax(0, 1.18fr);
-        gap: 3rem;
-        align-items: start;
+        grid-template-columns: minmax(22rem, 0.95fr) minmax(0, 1.05fr);
+        gap: clamp(1.5rem, 3vw, 2.5rem);
+        align-items: stretch;
     }
 
     .ab-human-photo {
-        position: sticky;
-        top: 7rem;
         overflow: hidden;
         border: 1px solid var(--line);
         border-radius: 8px;
         background: var(--surface);
+        min-height: 34rem;
     }
 
     .ab-human-photo img {
         display: block;
         width: 100%;
-        aspect-ratio: 4 / 5;
+        height: 100%;
         object-fit: cover;
         filter: saturate(0.88) contrast(1.04);
     }
 
     .ab-human-cards {
         display: grid;
-        gap: 1.1rem;
+        grid-template-rows: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
     }
 
     .ab-human-card {
-        padding: 1.45rem;
-        border: 1px solid var(--line);
+        padding: clamp(1.4rem, 2.5vw, 2rem);
         background: var(--surface);
-    }
-
-    .ab-human-card:nth-child(2) {
-        margin-left: 3rem;
-    }
-
-    .ab-human-card:nth-child(3) {
-        margin-left: 6rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .ab-human-toolbox {
@@ -833,6 +864,29 @@
         white-space: pre-wrap;
     }
 
+    .ab-engineering-checklist {
+        display: grid;
+        gap: 0;
+        border-top: 1px solid var(--line);
+    }
+
+    .ab-engineering-checklist div {
+        display: grid;
+        grid-template-columns: 1.25rem 1fr;
+        gap: 0.8rem;
+        align-items: start;
+        padding: 0.95rem 0;
+        color: var(--soft);
+        border-bottom: 1px solid var(--line);
+        line-height: 1.5;
+    }
+
+    .ab-engineering-checklist div::before {
+        content: "✓";
+        color: #0145F2;
+        font-weight: 700;
+    }
+
     .ab-engineering-track-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -851,7 +905,7 @@
 
     .ab-engineering-signal-grid {
         display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 1px;
         border: 1px solid var(--line);
         background: var(--line);
@@ -878,20 +932,12 @@
     }
 
     @media (min-width: 760px) {
-        .ab-headline {
-            font-size: 4.35rem;
-        }
-
         .ab-section-title {
             font-size: 4.15rem;
         }
     }
 
     @media (min-width: 1180px) {
-        .ab-headline {
-            font-size: 5.25rem;
-        }
-
         .ab-section-title {
             font-size: 4.75rem;
         }
@@ -935,14 +981,22 @@
             transform: none;
         }
 
-        .ab-human-photo {
-            position: relative;
-            top: auto;
+        .ab-hero-layout {
+            min-height: auto;
+            gap: 3rem;
         }
 
-        .ab-human-card:nth-child(2),
-        .ab-human-card:nth-child(3) {
-            margin-left: 0;
+        .ab-visual {
+            max-width: none;
+            justify-self: stretch;
+        }
+
+        .ab-human-photo {
+            min-height: 24rem;
+        }
+
+        .ab-human-cards {
+            grid-template-rows: none;
         }
     }
 
@@ -953,15 +1007,24 @@
 
         .ab-hero {
             min-height: auto;
-            padding-top: 6rem;
+            padding: 6rem 0 3rem;
         }
 
         .ab-headline {
-            font-size: 2.85rem;
+            font-size: clamp(2.65rem, 12vw, 3.25rem);
+            line-height: 1.08;
         }
 
         .ab-section-title {
             font-size: 2.6rem;
+        }
+
+        .ab-human-intro .ab-section-title {
+            font-size: 2.6rem;
+        }
+
+        .ab-human-photo {
+            min-height: 20rem;
         }
 
         .ab-logo-grid,
@@ -1002,7 +1065,7 @@
 </style>
 
 <div class="ab-home {{variant.bodyClass}}">
-    <section class="ab-hero">
+    <section class="ab-hero" style="--hero-image: url('{{variant.image}}');{{#if variant.heroPosition}} --hero-position: {{variant.heroPosition}};{{/if}}">
         <div class="ab-shell ab-hero-layout">
             <div class="reveal">
                 <span class="ab-kicker">{{variant.heroLabel}}</span>
@@ -1018,9 +1081,8 @@
                 </div>
             </div>
 
-            <figure class="ab-visual reveal stagger-huge">
-                <img src="{{variant.image}}" alt="{{#if variant.imageAlt}}{{variant.imageAlt}}{{else}}Consultants reviewing secure AI operations{{/if}}" loading="eager" decoding="async">
-                <figcaption class="ab-visual-content">
+            <aside class="ab-visual reveal stagger-huge" aria-label="{{variant.artTitle}}">
+                <div class="ab-visual-content">
                     <span class="ab-label">{{variant.name}}</span>
                     <h2>{{variant.artTitle}}</h2>
                     <p>{{variant.artText}}</p>
@@ -1029,8 +1091,8 @@
                         <div class="ab-metric"><span>{{this}}</span></div>
                         {{/each}}
                     </div>
-                </figcaption>
-            </figure>
+                </div>
+            </aside>
         </div>
     </section>
 
@@ -1039,23 +1101,32 @@
         <div class="ab-shell">
             <div class="ab-ledger-intro">
                 <div class="reveal">
-                    <span class="ab-kicker">Procurement view</span>
-                    <h2 class="ab-section-title">A control sheet for secure AI adoption.</h2>
+                    <span class="ab-kicker">{{#if variant.ledgerKicker}}{{variant.ledgerKicker}}{{else}}Procurement view{{/if}}</span>
+                    <h2 class="ab-section-title">{{#if variant.ledgerHeadline}}{{variant.ledgerHeadline}}{{else}}A control sheet for secure AI adoption.{{/if}}</h2>
                 </div>
-                <p class="ab-section-copy reveal stagger-huge">This version tests whether risk-aware buyers respond best to a homepage that behaves like a working record: pain, commercial signal, response, stack, and method.</p>
+                <p class="ab-section-copy reveal stagger-huge">{{#if variant.ledgerCopy}}{{variant.ledgerCopy}}{{else}}Map the operational need, commercial signal, controlled response, technology stack, and delivery method before deployment.{{/if}}</p>
             </div>
 
             <div class="ab-ledger-grid reveal">
                 <div class="ab-ledger-table">
+                    {{#if variant.ledgerRows}}
+                    <div class="ab-ledger-row ab-ledger-heading">
+                        {{#each variant.ledgerColumns}}<span>{{this}}</span>{{/each}}
+                    </div>
+                    {{#each variant.ledgerRows}}
+                    <div class="ab-ledger-row"><strong>{{this.title}}</strong><span>{{this.signal}}</span><span>{{this.response}}</span></div>
+                    {{/each}}
+                    {{else}}
                     <div class="ab-ledger-row ab-ledger-heading"><span>Operational drag</span><span>Buyer signal</span><span>Zeffron response</span></div>
                     <div class="ab-ledger-row"><strong>Admin overload</strong><span>Senior time is absorbed by repeated coordination.</span><span>Assistants and automations with human review.</span></div>
                     <div class="ab-ledger-row"><strong>Document friction</strong><span>Knowledge sits inside policies, PDFs, inboxes, and case notes.</span><span>Retrieval systems with clear access boundaries.</span></div>
                     <div class="ab-ledger-row"><strong>AI uncertainty</strong><span>Teams want value without losing governance.</span><span>Evaluation, release criteria, and measured rollout.</span></div>
+                    {{/if}}
                 </div>
                 <aside class="ab-ledger-side">
                     <div class="ab-vertical-card">
-                        <span class="ab-label">Mapped vertical</span>
-                        <h3>{{variant.vertical.name}}</h3>
+                        <span class="ab-label">{{#if variant.focusLabel}}{{variant.focusLabel}}{{else}}Mapped vertical{{/if}}</span>
+                        <h3>{{#if variant.focusTitle}}{{variant.focusTitle}}{{else}}{{variant.vertical.name}}{{/if}}</h3>
                         <p>{{variant.vertical.text}}</p>
                     </div>
                 </aside>
@@ -1063,12 +1134,32 @@
         </div>
     </section>
 
+    {{#if variant.useCases}}
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <div class="reveal">
+                    <span class="ab-kicker">Common use cases</span>
+                    <h2 class="ab-section-title">{{variant.vertical.shortName}} workflows we commonly help improve.</h2>
+                </div>
+                <p class="ab-section-copy reveal stagger-huge">We focus on high-volume workflows where better information, automation, and human review can improve service and operational performance.</p>
+            </div>
+            <div class="ab-capability-board reveal">
+                {{#each variant.useCases}}
+                <article class="ab-capability-chip"><h3>{{this.title}}</h3><p>{{this.text}}</p></article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+    {{/if}}
+
     <section class="ab-section">
         <div class="ab-shell">
             <div class="ab-split-head">
                 <h2 class="ab-section-title reveal">{{variant.workflowTitle}}</h2>
                 <p class="ab-section-copy reveal stagger-huge">{{variant.workflowIntro}}</p>
             </div>
+            {{#unless variant.useCases}}
             <div class="ab-capability-board reveal">
                 {{#each shared.capabilities}}
                 <article class="ab-capability-chip">
@@ -1077,6 +1168,7 @@
                 </article>
                 {{/each}}
             </div>
+            {{/unless}}
             <div class="ab-logo-grid reveal stagger-huge mt-8">
                 {{#each variant.workflowStack}}
                 <article class="ab-logo">
@@ -1094,10 +1186,15 @@
     <section class="ab-section">
         <div class="ab-shell">
             <div class="ab-split-head">
-                <h2 class="ab-section-title reveal">One method, recorded like an audit trail.</h2>
-                <p class="ab-section-copy reveal stagger-huge">The ledger direction makes the deployment path feel controlled before the buyer books a call.</p>
+                <h2 class="ab-section-title reveal">{{#if variant.methodHeadline}}{{variant.methodHeadline}}{{else}}One method, recorded like an audit trail.{{/if}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{#if variant.methodCopy}}{{variant.methodCopy}}{{else}}Move from discovery to deployment with ownership, controls, and measurable outcomes visible at every stage.{{/if}}</p>
             </div>
             <div class="ab-method-grid">
+                {{#if variant.method}}
+                {{#each variant.method}}
+                <article class="ab-method reveal"><span class="ab-label">{{this.label}}</span><h3>{{this.title}}</h3><p>{{this.text}}</p></article>
+                {{/each}}
+                {{else}}
                 {{#each shared.method}}
                 <article class="ab-method reveal">
                     <span class="ab-label">{{this.label}}</span>
@@ -1105,6 +1202,7 @@
                     <p>{{this.text}}</p>
                 </article>
                 {{/each}}
+                {{/if}}
             </div>
         </div>
     </section>
@@ -1114,30 +1212,30 @@
     <section id="sectors" class="ab-section">
         <div class="ab-shell ab-clinical-band">
             <div class="reveal">
-                <span class="ab-kicker">Sensitive environments</span>
-                <h2 class="ab-section-title">Trust comes before technical depth.</h2>
-                <p class="ab-section-copy mt-8">This version tests a calmer path for buyers who need reassurance, accessibility, and a visible human review model.</p>
+                <span class="ab-kicker">Healthcare outcomes</span>
+                <h2 class="ab-section-title">Create more capacity without adding pressure to your team.</h2>
+                <p class="ab-section-copy mt-8">We target the administrative workflows that consume clinical time, delay patient communication, and make services harder to scale.</p>
                 <div class="ab-vertical-card mt-8">
-                    <span class="ab-label">Mapped vertical</span>
-                    <h3>{{variant.vertical.name}}</h3>
+                    <span class="ab-label">Where we can help</span>
+                    <h3>AI built around your care pathways.</h3>
                     <p>{{variant.vertical.text}}</p>
                 </div>
             </div>
             <div class="ab-clinical-care reveal stagger-huge">
                 <article class="ab-clinical-card">
-                    <span class="ab-label">Problem</span>
-                    <h3>Admin work is taking time away from core service.</h3>
-                    <p>Repeated enquiries, documents, intake, scheduling, reporting, and handoffs create pressure across the service line.</p>
+                    <span class="ab-label">Operational impact</span>
+                    <h3>Give skilled teams more time for patient care.</h3>
+                    <p>Reduce repetitive intake, scheduling, document handling, reporting, and coordination work across the service.</p>
                 </article>
                 <article class="ab-clinical-card">
-                    <span class="ab-label">Impact</span>
-                    <h3>People wait longer.</h3>
-                    <p>Response times slow and skilled teams carry work that should be safely automated.</p>
+                    <span class="ab-label">Patient experience</span>
+                    <h3>Respond faster and more consistently.</h3>
+                    <p>Help patients receive timely information while giving staff clear escalation paths for cases that need human attention.</p>
                 </article>
                 <article class="ab-clinical-card">
-                    <span class="ab-label">Solution</span>
-                    <h3>AI supports the team without hiding control.</h3>
-                    <p>Assistants, automations, and knowledge systems keep review points visible.</p>
+                    <span class="ab-label">Safe adoption</span>
+                    <h3>Keep people accountable for every important decision.</h3>
+                    <p>Human review, role-based access, audit trails, and defined data boundaries remain visible. We can sign an NDA before detailed discovery.</p>
                 </article>
             </div>
         </div>
@@ -1146,19 +1244,76 @@
     <section class="ab-section">
         <div class="ab-shell">
             <div class="ab-split-head">
-                <h2 class="ab-section-title reveal">A pathway, not a pitch deck.</h2>
-                <p class="ab-section-copy reveal stagger-huge">The clinical direction stretches the method into four reassuring stages so the buyer can see how risk is contained.</p>
+                <div class="reveal">
+                    <span class="ab-kicker">Common use cases</span>
+                    <h2 class="ab-section-title">Healthcare workflows we commonly help improve.</h2>
+                </div>
+                <p class="ab-section-copy reveal stagger-huge">We start with bounded, high-volume work where automation can release capacity, improve consistency, and keep clinical decisions with qualified people.</p>
+            </div>
+            <div class="ab-capability-board reveal">
+                <article class="ab-capability-chip">
+                    <h3>Patient intake and referral processing</h3>
+                    <p>Capture information, check completeness, classify documents, and route referrals to the appropriate team for review.</p>
+                </article>
+                <article class="ab-capability-chip">
+                    <h3>Appointment and scheduling support</h3>
+                    <p>Handle routine booking enquiries, reminders, preparation guidance, and approved rescheduling workflows.</p>
+                </article>
+                <article class="ab-capability-chip">
+                    <h3>Patient communication triage</h3>
+                    <p>Organise incoming messages, prepare approved responses, and escalate urgent or sensitive cases to staff.</p>
+                </article>
+                <article class="ab-capability-chip">
+                    <h3>Clinical administration and documents</h3>
+                    <p>Summarise records, extract structured information, prepare letters, and reduce repetitive document handling.</p>
+                </article>
+                <article class="ab-capability-chip">
+                    <h3>Policy and knowledge access</h3>
+                    <p>Give authorised teams fast, cited answers from internal policies, procedures, guidance, and service information.</p>
+                </article>
+                <article class="ab-capability-chip">
+                    <h3>Reporting and follow-up workflows</h3>
+                    <p>Prepare operational reports, identify outstanding actions, and support consistent follow-up across care pathways.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">How we set your healthcare organisation up for success.</h2>
+                <p class="ab-section-copy reveal stagger-huge">We move from a clearly defined operational outcome to a secure production system, with your clinical, operational, and governance teams involved at every stage.</p>
             </div>
             <div class="ab-clinical-path">
-                {{#each shared.method}}
                 <article class="ab-clinical-step reveal">
-                    <span class="ab-label">{{this.label}}</span>
+                    <span class="ab-label">01</span>
                     <div>
-                        <h3>{{this.title}}</h3>
-                        <p>{{this.text}}</p>
+                        <h3>Discover opportunities</h3>
+                        <p>We identify the workflows creating the greatest administrative burden, understand the patient and staff journey, and agree the outcome worth improving.</p>
                     </div>
                 </article>
-                {{/each}}
+                <article class="ab-clinical-step reveal">
+                    <span class="ab-label">02</span>
+                    <div>
+                        <h3>Design solutions</h3>
+                        <p>We design the architecture, integrations, user experience, data boundaries, and human review process around your existing service.</p>
+                    </div>
+                </article>
+                <article class="ab-clinical-step reveal">
+                    <span class="ab-label">03</span>
+                    <div>
+                        <h3>Deploy securely</h3>
+                        <p>We build and test the production system, connect approved tools, document ownership, and release it with monitoring and access controls in place.</p>
+                    </div>
+                </article>
+                <article class="ab-clinical-step reveal">
+                    <span class="ab-label">04</span>
+                    <div>
+                        <h3>Measure impact</h3>
+                        <p>We track time saved, response speed, service quality, adoption, and exceptions, then improve the system using real operational feedback.</p>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -1188,14 +1343,14 @@
     <section id="sectors" class="ab-section ab-editorial-story">
         <div class="ab-shell ab-editorial-grid">
             <div class="reveal">
-                <span class="ab-kicker">Executive thesis</span>
-                <p class="ab-editorial-lede">AI adoption has to earn its place in the operating model.</p>
+                <span class="ab-kicker">{{variant.editorialKicker}}</span>
+                <p class="ab-editorial-lede">{{variant.editorialLede}}</p>
             </div>
             <aside class="ab-editorial-aside reveal stagger-huge">
-                <p class="ab-section-copy">This version tests a boardroom narrative: less directory, more senior consulting argument. The mapped vertical is explicit without becoming the whole page.</p>
+                <p class="ab-section-copy">{{variant.editorialCopy}}</p>
                 <div class="ab-vertical-card mt-8">
-                    <span class="ab-label">Mapped vertical</span>
-                    <h3>{{variant.vertical.name}}</h3>
+                    <span class="ab-label">{{variant.focusLabel}}</span>
+                    <h3>{{variant.focusTitle}}</h3>
                     <p>{{variant.vertical.text}}</p>
                 </div>
             </aside>
@@ -1205,27 +1360,15 @@
     <section class="ab-section">
         <div class="ab-shell">
             <div class="ab-editorial-chapters">
+                {{#each variant.principles}}
                 <article class="ab-editorial-chapter reveal">
-                    <span class="ab-label">01 / Cost</span>
+                    <span class="ab-label">{{this.label}}</span>
                     <div>
-                        <h3>Start with the cost buyers already feel.</h3>
-                        <p>Admin work, response delays, manual reporting, and document friction create the business case before anyone cares about model choice.</p>
+                        <h3>{{this.title}}</h3>
+                        <p>{{this.text}}</p>
                     </div>
                 </article>
-                <article class="ab-editorial-chapter reveal stagger-1">
-                    <span class="ab-label">02 / Control</span>
-                    <div>
-                        <h3>Design for human judgement and sensitive workflows.</h3>
-                        <p>Secure AI systems should make ownership, permissions, escalation, and review visible to the people running the service.</p>
-                    </div>
-                </article>
-                <article class="ab-editorial-chapter reveal stagger-2">
-                    <span class="ab-label">03 / Proof</span>
-                    <div>
-                        <h3>Measure operational impact before scale.</h3>
-                        <p>Saved time, response speed, quality, adoption, and release criteria determine whether the next workflow should move.</p>
-                    </div>
-                </article>
+                {{/each}}
             </div>
         </div>
     </section>
@@ -1233,12 +1376,32 @@
     <section class="ab-section">
         <div class="ab-shell">
             <div class="ab-split-head">
-                <h2 class="ab-section-title reveal">Research supports the point without taking over.</h2>
-                <p class="ab-section-copy reveal stagger-huge">This direction lets the homepage feel premium and decisive while linking depth to the research vertical.</p>
+                <div class="reveal">
+                    <span class="ab-kicker">Common use cases</span>
+                    <h2 class="ab-section-title">Financial products and workflows we help MSPs deliver.</h2>
+                </div>
+                <p class="ab-section-copy reveal stagger-huge">Each service is designed around consented data, clear customer value, human accountability, and the operational controls needed for ongoing managed support.</p>
             </div>
-            <div class="ab-research-grid">
-                {{#each shared.research}}
-                <article class="ab-research-card reveal">
+            <div class="ab-capability-board reveal">
+                {{#each variant.useCases}}
+                <article class="ab-capability-chip">
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{variant.methodHeadline}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{variant.methodCopy}}</p>
+            </div>
+            <div class="ab-method-grid">
+                {{#each variant.method}}
+                <article class="ab-method reveal">
                     <span class="ab-label">{{this.label}}</span>
                     <h3>{{this.title}}</h3>
                     <p>{{this.text}}</p>
@@ -1273,8 +1436,8 @@
     <section id="sectors" class="ab-section">
         <div class="ab-shell">
             <div class="ab-split-head">
-                <h2 class="ab-section-title reveal">{{variant.workflowTitle}}</h2>
-                <p class="ab-section-copy reveal stagger-huge">{{variant.workflowIntro}}</p>
+                <h2 class="ab-section-title reveal">{{#if variant.consoleHeadline}}{{variant.consoleHeadline}}{{else}}{{variant.workflowTitle}}{{/if}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{#if variant.consoleCopy}}{{variant.consoleCopy}}{{else}}{{variant.workflowIntro}}{{/if}}</p>
             </div>
             <div class="ab-console-deck reveal">
                 <div class="ab-console-logo-wall">
@@ -1289,13 +1452,18 @@
                     {{/each}}
                 </div>
                 <aside class="ab-console-terminal">
-                    <span class="ab-label">Release posture</span>
+                    <span class="ab-label">{{#if variant.terminalLabel}}{{variant.terminalLabel}}{{else}}Release posture{{/if}}</span>
+                    {{#if variant.terminalLines}}
+                    <pre>{{#each variant.terminalLines}}{{this}}
+{{/each}}</pre>
+                    {{else}}
                     <pre>production.exception -> found
 bom.knowledge -> indexed
 quality.check -> evaluated
 maintenance.agent -> constrained
 human.review -> required
 downtime.metric -> tracked</pre>
+                    {{/if}}
                 </aside>
             </div>
         </div>
@@ -1306,9 +1474,14 @@ downtime.metric -> tracked</pre>
             <div class="ab-console-signals reveal">
                 {{#each variant.signals}}
                 <article class="ab-console-signal">
-                    <span class="ab-label">Signal</span>
+                    <span class="ab-label">{{#if ../variant.signalLabel}}{{../variant.signalLabel}}{{else}}Signal{{/if}}</span>
+                    {{#if this.title}}
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                    {{else}}
                     <h3>{{this}}</h3>
                     <p>Find the repeated production workflow, then decide whether retrieval, automation, modelling, or agents should carry it.</p>
+                    {{/if}}
                 </article>
                 {{/each}}
             </div>
@@ -1318,10 +1491,15 @@ downtime.metric -> tracked</pre>
     <section class="ab-section">
         <div class="ab-shell">
             <div class="ab-split-head">
-                <h2 class="ab-section-title reveal">Method as production pipeline.</h2>
-                <p class="ab-section-copy reveal stagger-huge">The console direction makes Zeffron feel operationally technical without turning the homepage into a research paper.</p>
+                <h2 class="ab-section-title reveal">{{#if variant.methodHeadline}}{{variant.methodHeadline}}{{else}}Method as production pipeline.{{/if}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{#if variant.methodCopy}}{{variant.methodCopy}}{{else}}Move from operational discovery to a production system with clear ownership and measurable performance.{{/if}}</p>
             </div>
             <div class="ab-method-grid">
+                {{#if variant.method}}
+                {{#each variant.method}}
+                <article class="ab-method reveal"><span class="ab-label">{{this.label}}</span><h3>{{this.title}}</h3><p>{{this.text}}</p></article>
+                {{/each}}
+                {{else}}
                 {{#each shared.method}}
                 <article class="ab-method reveal">
                     <span class="ab-label">{{this.label}}</span>
@@ -1329,6 +1507,7 @@ downtime.metric -> tracked</pre>
                     <p>{{this.text}}</p>
                 </article>
                 {{/each}}
+                {{/if}}
             </div>
         </div>
     </section>
@@ -1336,7 +1515,7 @@ downtime.metric -> tracked</pre>
     <section class="ab-section">
         <div class="ab-shell">
             <div class="ab-vertical-card reveal">
-                <span class="ab-label">Mapped vertical</span>
+                <span class="ab-label">Where we can help</span>
                 <h3>{{variant.vertical.name}}</h3>
                 <p>{{variant.vertical.text}}</p>
             </div>
@@ -1346,33 +1525,33 @@ downtime.metric -> tracked</pre>
 
     {{#if (eq variant.layout "human")}}
     <section id="sectors" class="ab-section">
-        <div class="ab-shell ab-human-journey">
-            <figure class="ab-human-photo reveal">
-                <img src="/assets/home-recruitment-consulting.webp" alt="Professional service team reviewing client work" loading="lazy" decoding="async">
-            </figure>
-            <div class="ab-human-cards">
-                <div class="ab-human-intro reveal">
-                    <div>
-                        <span class="ab-kicker">Staff relief</span>
-                        <h2 class="ab-section-title">Make the repeated work easier first.</h2>
-                    </div>
-                    <p class="ab-section-copy">This version tests the plain-language buyer: the one who feels service pressure before they ask about AI architecture.</p>
+        <div class="ab-shell">
+            <div class="ab-human-intro reveal">
+                <div>
+                    <span class="ab-kicker">{{#if variant.journeyKicker}}{{variant.journeyKicker}}{{else}}Staff relief{{/if}}</span>
+                    <h2 class="ab-section-title">{{#if variant.journeyHeadline}}{{variant.journeyHeadline}}{{else}}Make the repeated work easier first.{{/if}}</h2>
                 </div>
+                <p class="ab-section-copy">{{#if variant.journeyCopy}}{{variant.journeyCopy}}{{else}}We focus on the repeated service work that consumes skilled time and delays customers.{{/if}}</p>
+            </div>
+            <div class="ab-human-journey">
+                <figure class="ab-human-photo reveal">
+                    <img src="{{variant.image}}" alt="{{#if variant.imageAlt}}{{variant.imageAlt}}{{else}}Professional service team reviewing client work{{/if}}" loading="lazy" decoding="async">
+                </figure>
+                <div class="ab-human-cards">
+                {{#if variant.journeyCards}}
+                {{#each variant.journeyCards}}
                 <article class="ab-human-card reveal">
-                    <span class="ab-label">Before</span>
-                    <h3>Repeated admin interrupts skilled work.</h3>
-                    <p>Teams chase documents, answer the same questions, move information between systems, and keep customers waiting.</p>
+                    <span class="ab-label">{{this.label}}</span>
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
                 </article>
-                <article class="ab-human-card reveal stagger-1">
-                    <span class="ab-label">During</span>
-                    <h3>Zeffron maps the moments people repeat.</h3>
-                    <p>We identify the workflow, privacy boundaries, documents, handoffs, and review points before choosing a technical approach.</p>
-                </article>
-                <article class="ab-human-card reveal stagger-2">
-                    <span class="ab-label">After</span>
-                    <h3>AI removes friction while people stay accountable.</h3>
-                    <p>Assistants and automations support the service relationship instead of replacing the judgement inside it.</p>
-                </article>
+                {{/each}}
+                {{else}}
+                <article class="ab-human-card reveal"><span class="ab-label">Before</span><h3>Repeated admin interrupts skilled work.</h3><p>Teams chase documents, answer the same questions, move information between systems, and keep customers waiting.</p></article>
+                <article class="ab-human-card reveal stagger-1"><span class="ab-label">During</span><h3>Zeffron maps the moments people repeat.</h3><p>We identify the workflow, privacy boundaries, documents, handoffs, and review points before choosing a technical approach.</p></article>
+                <article class="ab-human-card reveal stagger-2"><span class="ab-label">After</span><h3>AI removes friction while people stay accountable.</h3><p>Assistants and automations support the service relationship instead of replacing the judgement inside it.</p></article>
+                {{/if}}
+                </div>
             </div>
         </div>
     </section>
@@ -1380,22 +1559,44 @@ downtime.metric -> tracked</pre>
     <section class="ab-section">
         <div class="ab-shell">
             <div class="ab-split-head">
-                <h2 class="ab-section-title reveal">This page commits to one vertical.</h2>
-                <p class="ab-section-copy reveal stagger-huge">The route is no longer a directory of sectors. It is a focused ecommerce and retail test with the workflow tools buyers recognise.</p>
+                <h2 class="ab-section-title reveal">{{#if variant.focusHeadline}}{{variant.focusHeadline}}{{else}}AI designed around your operation.{{/if}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{#if variant.focusCopy}}{{variant.focusCopy}}{{else}}{{variant.vertical.text}}{{/if}}</p>
             </div>
             <div class="ab-vertical-card reveal">
-                <span class="ab-label">Mapped vertical</span>
-                <h3>{{variant.vertical.name}}</h3>
+                <span class="ab-label">{{#if variant.focusLabel}}{{variant.focusLabel}}{{else}}Where we can help{{/if}}</span>
+                <h3>{{#if variant.focusTitle}}{{variant.focusTitle}}{{else}}{{variant.vertical.name}}{{/if}}</h3>
                 <p>{{variant.vertical.text}}</p>
             </div>
         </div>
     </section>
 
+    {{#if variant.useCases}}
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <div class="reveal">
+                    <span class="ab-kicker">Common use cases</span>
+                    <h2 class="ab-section-title">{{variant.vertical.shortName}} workflows we commonly help improve.</h2>
+                </div>
+                <p class="ab-section-copy reveal stagger-huge">We start with bounded, high-volume work where automation can improve service, release capacity, and keep important decisions with your team.</p>
+            </div>
+            <div class="ab-capability-board reveal">
+                {{#each variant.useCases}}
+                <article class="ab-capability-chip">
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+    {{/if}}
+
     <section class="ab-section">
         <div class="ab-shell">
             <div class="ab-human-toolbox reveal">
                 <div>
-                    <span class="ab-label">Behind the scenes</span>
+                    <span class="ab-label">Connected systems</span>
                     <h2 class="ab-section-title mt-4">{{variant.workflowTitle}}</h2>
                     <p>{{variant.workflowIntro}}</p>
                 </div>
@@ -1416,7 +1617,22 @@ downtime.metric -> tracked</pre>
 
     <section class="ab-section">
         <div class="ab-shell">
+            {{#if variant.methodHeadline}}
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{variant.methodHeadline}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{variant.methodCopy}}</p>
+            </div>
+            {{/if}}
             <div class="ab-method-grid">
+                {{#if variant.method}}
+                {{#each variant.method}}
+                <article class="ab-method reveal">
+                    <span class="ab-label">{{this.label}}</span>
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+                {{else}}
                 {{#each shared.method}}
                 <article class="ab-method reveal">
                     <span class="ab-label">{{this.label}}</span>
@@ -1424,6 +1640,7 @@ downtime.metric -> tracked</pre>
                     <p>{{this.text}}</p>
                 </article>
                 {{/each}}
+                {{/if}}
             </div>
         </div>
     </section>
@@ -1440,14 +1657,16 @@ downtime.metric -> tracked</pre>
             <div class="ab-engineering-system reveal">
                 <div class="ab-engineering-panel">
                     <div class="ab-vertical-card">
-                        <span class="ab-label">Mapped service line</span>
-                        <h3>{{variant.vertical.name}}</h3>
+                        <span class="ab-label">{{variant.focusLabel}}</span>
+                        <h3>{{variant.focusTitle}}</h3>
                         <p>{{variant.vertical.text}}</p>
                     </div>
                 </div>
                 <div class="ab-engineering-terminal">
-                    <pre>{{#each variant.terminalLines}}{{this}}{{#unless @last}}
-{{/unless}}{{/each}}</pre>
+                    <span class="ab-label">Included in delivery</span>
+                    <div class="ab-engineering-checklist mt-5">
+                        {{#each variant.terminalLines}}<div>{{this}}</div>{{/each}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -1502,9 +1721,9 @@ downtime.metric -> tracked</pre>
             <div class="ab-engineering-signal-grid reveal">
                 {{#each variant.signals}}
                 <article class="ab-engineering-signal">
-                    <span class="ab-label">Signal</span>
-                    <h3>{{this}}</h3>
-                    <p>{{../variant.signalBody}}</p>
+                    <span class="ab-label">Common engagement</span>
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
                 </article>
                 {{/each}}
             </div>
@@ -1513,8 +1732,12 @@ downtime.metric -> tracked</pre>
 
     <section class="ab-section">
         <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{variant.methodHeadline}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{variant.methodCopy}}</p>
+            </div>
             <div class="ab-method-grid">
-                {{#each shared.method}}
+                {{#each variant.method}}
                 <article class="ab-method reveal">
                     <span class="ab-label">{{this.label}}</span>
                     <h3>{{this.title}}</h3>
@@ -1544,7 +1767,11 @@ downtime.metric -> tracked</pre>
                     {{/if}}
                     <div class="ab-actions">
                         <a href="https://cal.com/zeffron-ai/30min" class="btn btn-primary btn-lg">Book consultation</a>
+                        {{#if variant.ctaSecondaryAction}}
+                        <button type="button" data-open-brief class="btn btn-secondary btn-lg">{{variant.ctaSecondaryLabel}}</button>
+                        {{else}}
                         <a href="/home-variants" class="btn btn-secondary btn-lg">Compare variants</a>
+                        {{/if}}
                     </div>
                 </div>
             </div>

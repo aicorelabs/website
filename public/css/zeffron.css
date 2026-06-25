@@ -377,6 +377,7 @@
         .btn-sm  { padding: 0.55rem 1rem;     font-size: 0.8125rem; gap: 0.4rem; }
         .btn-lg  { padding: 1rem 1.875rem;    font-size: 0.9375rem; }
         .btn-block { width: 100%; }
+        .nav-brief-action { font-weight: 700; }
         .btn-primary {
             background: var(--accent);
             color: #ffffff;

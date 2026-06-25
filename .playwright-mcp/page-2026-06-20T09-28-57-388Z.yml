@@ -1,0 +1,298 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2]:
+    - /url: "#main-content"
+  - generic [ref=e3]:
+    - button "Close menu" [ref=e4]:
+      - img [ref=e5]
+    - navigation [ref=e8]:
+      - link "Home" [ref=e9]:
+        - /url: /
+      - generic [ref=e10]:
+        - generic [ref=e11]: Industries
+        - link "Healthcare" [ref=e12]:
+          - /url: /home/clinical-calm
+        - link "Hospitality" [ref=e13]:
+          - /url: /home/hospitality-service
+        - link "Legal" [ref=e14]:
+          - /url: /home/trust-ledger
+        - link "Financial services" [ref=e15]:
+          - /url: /home/executive-editorial
+        - link "Insurance" [ref=e16]:
+          - /url: /home/insurance-controls
+        - link "Recruitment" [ref=e17]:
+          - /url: /home/recruitment-workflows
+        - link "Manufacturing" [ref=e18]:
+          - /url: /home/operator-console
+        - link "Ecommerce" [ref=e19]:
+          - /url: /home/human-service
+        - link "SWE + Applied AI" [ref=e20]:
+          - /url: /home/applied-ai-engineering
+      - link "Method" [ref=e21]:
+        - /url: /#method
+      - link "Stack" [ref=e22]:
+        - /url: /#stack
+      - link "Careers" [ref=e23]:
+        - /url: /career
+      - link "Insights" [ref=e24]:
+        - /url: /blog
+      - link "Book a call" [ref=e25]:
+        - /url: https://cal.com/zeffron-ai/30min
+        - text: Book a call
+        - img [ref=e26]
+      - button "Send a brief" [ref=e29]
+  - navigation [ref=e30]:
+    - generic [ref=e31]:
+      - link "Zeffron Home" [ref=e32]:
+        - /url: /
+        - img "Zeffron - AI and Custom Software Company Logo" [ref=e33]
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - button "Industries" [ref=e36]:
+            - text: Industries
+            - img [ref=e37]
+          - generic "Industries":
+            - link "Healthcare Regulated care":
+              - /url: /home/clinical-calm
+              - text: Healthcare
+              - generic: Regulated care
+            - link "Hospitality Service ops":
+              - /url: /home/hospitality-service
+              - text: Hospitality
+              - generic: Service ops
+            - link "Legal Documents":
+              - /url: /home/trust-ledger
+              - text: Legal
+              - generic: Documents
+            - link "Financial services Controls":
+              - /url: /home/executive-editorial
+              - text: Financial services
+              - generic: Controls
+            - link "Insurance Claims":
+              - /url: /home/insurance-controls
+              - text: Insurance
+              - generic: Claims
+            - link "Recruitment Workflows":
+              - /url: /home/recruitment-workflows
+              - text: Recruitment
+              - generic: Workflows
+            - link "Manufacturing Operations":
+              - /url: /home/operator-console
+              - text: Manufacturing
+              - generic: Operations
+            - link "Ecommerce Service":
+              - /url: /home/human-service
+              - text: Ecommerce
+              - generic: Service
+            - link "SWE + Applied AI Engineering":
+              - /url: /home/applied-ai-engineering
+              - text: SWE + Applied AI
+              - generic: Engineering
+        - link "Method" [ref=e39]:
+          - /url: /#method
+        - link "Stack" [ref=e40]:
+          - /url: /#stack
+        - link "Insights" [ref=e41]:
+          - /url: /blog
+        - link "Careers" [ref=e42]:
+          - /url: /career
+      - generic [ref=e43]:
+        - button "Send a brief" [ref=e44]
+        - link "Book a call" [ref=e45]:
+          - /url: https://cal.com/zeffron-ai/30min
+          - text: Book a call
+          - img [ref=e46]
+  - main [ref=e49]:
+    - generic [ref=e50]:
+      - generic [ref=e52]:
+        - generic [ref=e53]:
+          - generic [ref=e54]: Healthcare AI consulting
+          - heading "Give your healthcare teams more time for patient care." [level=1] [ref=e55]
+          - paragraph [ref=e56]: We build secure AI systems that reduce administrative workload, improve response times, and fit the way your clinical and operational teams already work.
+          - generic [ref=e57]:
+            - link "Book consultation" [ref=e58]:
+              - /url: https://cal.com/zeffron-ai/30min
+            - link "Explore workflow" [ref=e59]:
+              - /url: "#sectors"
+        - figure "Clinical Calm Improve capacity without compromising patient trust. Every deployment includes clear privacy boundaries, human review, accountable ownership, and measurable operational goals. Less clinical admin Faster patient response Human oversight built in" [ref=e60]:
+          - img "Consultants reviewing secure AI operations" [ref=e61]
+          - generic [ref=e62]:
+            - text: Clinical Calm
+            - heading "Improve capacity without compromising patient trust." [level=2] [ref=e63]
+            - paragraph [ref=e64]: Every deployment includes clear privacy boundaries, human review, accountable ownership, and measurable operational goals.
+            - generic [ref=e65]:
+              - generic [ref=e66]: Less clinical admin
+              - generic [ref=e67]: Faster patient response
+              - generic [ref=e68]: Human oversight built in
+      - generic [ref=e70]:
+        - generic [ref=e71]:
+          - generic [ref=e72]: Healthcare outcomes
+          - heading "Create more capacity without adding pressure to your team." [level=2] [ref=e73]
+          - paragraph [ref=e74]: We target the administrative workflows that consume clinical time, delay patient communication, and make services harder to scale.
+          - generic [ref=e75]:
+            - generic [ref=e76]: Where we can help
+            - heading "AI built around your care pathways." [level=3] [ref=e77]
+            - paragraph [ref=e78]: Patient intake, clinical administration, referrals, scheduling, policy search, and reviewed communication—designed around your existing care pathways.
+        - generic [ref=e79]:
+          - article [ref=e80]:
+            - text: Operational impact
+            - heading "Give skilled teams more time for patient care." [level=3] [ref=e81]
+            - paragraph [ref=e82]: Reduce repetitive intake, scheduling, document handling, reporting, and coordination work across the service.
+          - article [ref=e83]:
+            - text: Patient experience
+            - heading "Respond faster and more consistently." [level=3] [ref=e84]
+            - paragraph [ref=e85]: Help patients receive timely information while giving staff clear escalation paths for cases that need human attention.
+          - article [ref=e86]:
+            - text: Safe adoption
+            - heading "Keep people accountable for every important decision." [level=3] [ref=e87]
+            - paragraph [ref=e88]: Human review, role-based access, audit trails, and defined data boundaries remain visible. We can sign an NDA before detailed discovery.
+      - generic [ref=e90]:
+        - generic [ref=e91]:
+          - heading "How we set your healthcare organisation up for success." [level=2] [ref=e92]
+          - paragraph [ref=e93]: We move from a clearly defined operational outcome to a secure production system, with your clinical, operational, and governance teams involved at every stage.
+        - generic [ref=e94]:
+          - article [ref=e95]:
+            - generic [ref=e96]: "01"
+            - generic [ref=e97]:
+              - heading "Discover opportunities" [level=3] [ref=e98]
+              - paragraph [ref=e99]: We identify the workflows creating the greatest administrative burden, understand the patient and staff journey, and agree the outcome worth improving.
+          - article [ref=e100]:
+            - generic [ref=e101]: "02"
+            - generic [ref=e102]:
+              - heading "Design solutions" [level=3] [ref=e103]
+              - paragraph [ref=e104]: We design the architecture, integrations, user experience, data boundaries, and human review process around your existing service.
+          - article [ref=e105]:
+            - generic [ref=e106]: "03"
+            - generic [ref=e107]:
+              - heading "Deploy securely" [level=3] [ref=e108]
+              - paragraph [ref=e109]: We build and test the production system, connect approved tools, document ownership, and release it with monitoring and access controls in place.
+          - article [ref=e110]:
+            - generic [ref=e111]: "04"
+            - generic [ref=e112]:
+              - heading "Measure impact" [level=3] [ref=e113]
+              - paragraph [ref=e114]: We track time saved, response speed, service quality, adoption, and exceptions, then improve the system using real operational feedback.
+      - generic [ref=e116]:
+        - generic [ref=e117]:
+          - heading "Built to work with your healthcare systems." [level=2] [ref=e118]
+          - paragraph [ref=e119]: We design around the records, interoperability standards, communication tools, and operational platforms your teams already depend on.
+        - generic [ref=e120]:
+          - article [ref=e121]:
+            - img "Epic logo" [ref=e122]
+            - generic [ref=e123]:
+              - strong [ref=e124]: Epic
+              - generic [ref=e125]: EHR workflows
+          - article [ref=e126]:
+            - img "Oracle logo" [ref=e127]
+            - generic [ref=e128]:
+              - strong [ref=e129]: Oracle Health
+              - generic [ref=e130]: Clinical records
+          - article [ref=e131]:
+            - img "HL7 logo" [ref=e132]
+            - generic [ref=e133]:
+              - strong [ref=e134]: HL7 FHIR
+              - generic [ref=e135]: Interoperability
+          - article [ref=e136]:
+            - img "Microsoft Azure logo" [ref=e137]
+            - generic [ref=e138]:
+              - strong [ref=e139]: Microsoft Azure
+              - generic [ref=e140]: Secure cloud
+          - article [ref=e141]:
+            - img "Salesforce logo" [ref=e142]
+            - generic [ref=e143]:
+              - strong [ref=e144]: Salesforce Health Cloud
+              - generic [ref=e145]: Patient operations
+          - article [ref=e146]:
+            - img "Zoom logo" [ref=e147]
+            - generic [ref=e148]:
+              - strong [ref=e149]: Zoom
+              - generic [ref=e150]: Virtual care
+          - article [ref=e151]:
+            - img "DocuSign logo" [ref=e152]
+            - generic [ref=e153]:
+              - strong [ref=e154]: DocuSign
+              - generic [ref=e155]: Consent workflows
+          - article [ref=e156]:
+            - img "OpenAI logo" [ref=e157]
+            - generic [ref=e158]:
+              - strong [ref=e159]: OpenAI
+              - generic [ref=e160]: AI layer
+      - generic [ref=e163]:
+        - heading "Start with the healthcare workflow that will create the most value." [level=2] [ref=e165]
+        - generic [ref=e166]:
+          - paragraph [ref=e167]: Tell us where administration, delays, or fragmented information are limiting your team. We will identify a practical first deployment and the safeguards needed to deliver it responsibly.
+          - generic [ref=e168]:
+            - link "Book consultation" [ref=e169]:
+              - /url: https://cal.com/zeffron-ai/30min
+            - button "Send a brief" [ref=e170]
+  - contentinfo [ref=e171]:
+    - generic [ref=e172]:
+      - generic [ref=e173]:
+        - heading "Zeffron — secure AI adoption" [level=4] [ref=e174]
+        - paragraph [ref=e175]: AI consultants helping businesses deploy AI securely inside real operations.
+      - generic [ref=e176]:
+        - heading "Industries" [level=4] [ref=e177]
+        - generic [ref=e178]:
+          - link "Healthcare" [ref=e179]:
+            - /url: /home/clinical-calm
+          - link "Hospitality" [ref=e180]:
+            - /url: /home/hospitality-service
+          - link "Legal" [ref=e181]:
+            - /url: /home/trust-ledger
+          - link "Financial services" [ref=e182]:
+            - /url: /home/executive-editorial
+          - link "Insurance" [ref=e183]:
+            - /url: /home/insurance-controls
+          - link "Recruitment" [ref=e184]:
+            - /url: /home/recruitment-workflows
+          - link "Manufacturing" [ref=e185]:
+            - /url: /home/operator-console
+          - link "Ecommerce" [ref=e186]:
+            - /url: /home/human-service
+          - link "SWE + Applied AI" [ref=e187]:
+            - /url: /home/applied-ai-engineering
+      - generic [ref=e188]:
+        - heading "Method" [level=4] [ref=e189]
+        - generic [ref=e190]:
+          - link "Discover" [ref=e191]:
+            - /url: /#method
+          - link "Design" [ref=e192]:
+            - /url: /#method
+          - link "Deploy" [ref=e193]:
+            - /url: /#method
+          - link "Measure" [ref=e194]:
+            - /url: /#method
+          - link "Governance" [ref=e195]:
+            - /url: /#trust
+          - link "Pilot path" [ref=e196]:
+            - /url: /#pilot
+          - link "Research" [ref=e197]:
+            - /url: /research
+      - generic [ref=e198]:
+        - heading "Contact" [level=4] [ref=e199]
+        - paragraph [ref=e200]:
+          - link "hello@zeffron.ai" [ref=e201]:
+            - /url: mailto:hello@zeffron.ai
+        - paragraph [ref=e202]: London · United Kingdom
+        - link "Book consultation" [ref=e203]:
+          - /url: https://cal.com/zeffron-ai/30min
+    - generic [ref=e204]:
+      - generic [ref=e205]: Zeffron Systems © 2026
+      - generic [ref=e206]:
+        - link "Live Lab" [ref=e207]:
+          - /url: /demos
+        - link "Careers" [ref=e208]:
+          - /url: /career
+        - link "Blog" [ref=e209]:
+          - /url: /blog
+        - link "Privacy" [ref=e210]:
+          - /url: /privacy
+        - link "Terms" [ref=e211]:
+          - /url: /terms
+        - link "Zeffron Twitter" [ref=e213]:
+          - /url: https://x.com/zeffron_ai
+          - img [ref=e214]
+        - link "Zeffron Instagram" [ref=e216]:
+          - /url: https://www.instagram.com/zeffron_ai_
+          - img [ref=e217]
+        - link "Zeffron LinkedIn" [ref=e220]:
+          - /url: https://www.linkedin.com/company/zeffron-ai/
+          - img [ref=e221]
