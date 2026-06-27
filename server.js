@@ -93,7 +93,7 @@ const verifySession = (token) => {
     const dot = token.lastIndexOf('.');
     if (dot < 0) return null;
     const data = token.slice(0, dot);
-    const sig  = token.slice(dot + 1);
+    const sig = token.slice(dot + 1);
     const expected = crypto.createHmac('sha256', SESSION_SECRET).update(data).digest('hex');
     let sigBuf, expBuf;
     try {
@@ -649,14 +649,21 @@ const homeVariants = [
         mood: 'Warm professional service, tactile photography, practical language for non-technical buyers.',
         sourceIdea: 'Human-centred service pages, tactile visual texture, simple problem-impact-solution flow.',
         bodyClass: 'variant-human',
-        image: '/assets/home-recruitment-consulting.webp',
+        image: '/assets/home-footer-consulting.webp',
         socialImage: '/assets/social/ecommerce-ai-consulting.jpg',
+        imageAlt: 'Ecommerce operations team reviewing customer service and order workflows',
+        seoTitle: 'Ecommerce AI Consulting | Order, Returns and Support Automation | Zeffron',
+        seoDescription: 'AI consulting for ecommerce and retail teams. Improve customer service, order administration, returns, product data, campaign operations, and support workflows.',
         heroLabel: 'Ecommerce AI consulting',
         headline: 'Reduce ecommerce admin without removing human service.',
         subhead: 'Zeffron designs AI systems around orders, customer messages, product data, returns, and campaign operations.',
         artTitle: 'Technology that protects the customer relationship.',
         artText: 'Every engagement starts with the work your team repeats, delays, or cannot scale safely.',
         metrics: ['People stay in control', 'Orders become clearer', 'Response time improves'],
+        ctaHeadline: 'Start with the ecommerce workflow creating the most avoidable work.',
+        ctaCopy: 'Tell us where customer messages, order admin, returns, product data, campaign operations, or support workflows are slowing your team. We will define a practical first deployment.',
+        ctaSecondaryLabel: 'Send a brief',
+        ctaSecondaryAction: 'brief',
     },
     {
         key: 'v6',
@@ -1090,6 +1097,77 @@ app.get('/terms', (_req, res) => res.render('terms', {
 app.get('/playbook', (_req, res) => res.redirect(301, '/research'));
 
 app.get('/legacy-playbook', (_req, res) => res.redirect(301, '/research'));
+
+app.get('/about', (_req, res) => res.render('about', {
+    title: 'About Zeffron — Forward-Deployed AI Engineering Consulting',
+    description: 'Zeffron is a leading forward-deployed AI engineering consulting firm helping service businesses deploy secure AI systems inside real operations.',
+    keywords: 'forward deployed AI engineering, AI engineering consulting firm, secure AI consulting UK, AI operations consulting, Zeffron about',
+    canonical: 'https://zeffron.ai/about',
+    activeNav: 'about',
+    bodyClass: 'about-page',
+    ogImage: 'https://zeffron.ai/assets/home-method-consulting.webp',
+    ogImageType: 'image/webp',
+    ogImageAlt: 'Zeffron forward-deployed AI engineering consulting',
+    jsonLd: [
+        organization,
+        {
+            '@context': 'https://schema.org',
+            '@type': 'AboutPage',
+            name: 'About Zeffron',
+            url: 'https://zeffron.ai/about',
+            inLanguage: 'en-GB',
+            isPartOf: { '@type': 'WebSite', '@id': 'https://zeffron.ai/' },
+            about: { '@id': 'https://zeffron.ai' },
+            description: 'Zeffron is a leading forward-deployed AI engineering consulting firm helping service businesses deploy secure AI systems inside real operations.',
+            breadcrumb: {
+                '@type': 'BreadcrumbList',
+                itemListElement: [
+                    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://zeffron.ai/' },
+                    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://zeffron.ai/about' },
+                ],
+            },
+        },
+    ],
+}));
+
+app.get('/showcase', (_req, res) => res.render('showcase', {
+    title: 'Showcase — Selected AI and software work | Zeffron',
+    description: 'Selected Zeffron work across healthcare knowledge products, document automation, travel operations, AI coaching, and service platform design.',
+    keywords: 'Zeffron showcase, AI product portfolio, custom software work, healthcare AI product, document automation, travel operations platform',
+    canonical: 'https://zeffron.ai/showcase',
+    activeNav: 'showcase',
+    bodyClass: 'showcase-page',
+    ogImage: 'https://zeffron.ai/assets/neurochecklists.png',
+    ogImageType: 'image/png',
+    ogImageAlt: 'Selected Zeffron work and AI product interfaces',
+    jsonLd: [
+        organization,
+        {
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'Showcase — Selected AI and software work | Zeffron',
+            url: 'https://zeffron.ai/showcase',
+            inLanguage: 'en-GB',
+            isPartOf: { '@type': 'WebSite', '@id': 'https://zeffron.ai/' },
+            about: { '@id': 'https://zeffron.ai' },
+            description: 'Selected Zeffron work across healthcare knowledge products, document automation, travel operations, AI coaching, and service platform design.',
+            breadcrumb: {
+                '@type': 'BreadcrumbList',
+                itemListElement: [
+                    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://zeffron.ai/' },
+                    { '@type': 'ListItem', position: 2, name: 'Showcase', item: 'https://zeffron.ai/showcase' },
+                ],
+            },
+            hasPart: [
+                { '@type': 'CreativeWork', name: 'Neurochecklists', description: 'A healthcare knowledge product with structured checklists and source-aware search.' },
+                { '@type': 'CreativeWork', name: 'Visa Agent', description: 'A Chrome extension and dashboard for immigration consultant document workflows.' },
+                { '@type': 'CreativeWork', name: 'AlphaCruise', description: 'A travel operations platform for booking automation and admin workflows.' },
+                { '@type': 'CreativeWork', name: 'WhisperCoach', description: 'An AI coaching interface for practice, review, and feedback loops.' },
+                { '@type': 'CreativeWork', name: 'Techcify', description: 'A service platform experience for presenting technical capability and guiding enquiries.' },
+            ],
+        },
+    ],
+}));
 
 app.get('/demos', (_req, res) => res.render('demos', {
     title: 'Live AI Demos — Supply Chain, CX & Ledger Tools | Zeffron',
@@ -1584,7 +1662,7 @@ app.use('/assets', express.static(path.join(ROOT, 'assets'), { maxAge: '7d' }));
 // --- API routes -------------------------------------------------------------
 app.use('/api/brief', require('./api/brief'));
 app.use('/api/playbook', require('./api/playbook'));
-app.use('/api/jira',  jiraBasicAuth, require('./api/jira'));
+app.use('/api/jira', jiraBasicAuth, require('./api/jira'));
 
 // Health check (handy for deploy targets like Render / Fly / Railway)
 app.get('/api/health', (_req, res) => res.json({ ok: true, ts: Date.now() }));
@@ -1630,7 +1708,7 @@ const db = require('./db');
         });
     };
     process.on('SIGTERM', () => shutdown('SIGTERM'));
-    process.on('SIGINT',  () => shutdown('SIGINT'));
+    process.on('SIGINT', () => shutdown('SIGINT'));
 
     // Crash loudly on unexpected errors but let Railway's restart policy
     // recover the container. Better than silently degrading.

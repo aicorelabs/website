@@ -52,6 +52,7 @@
             letter-spacing: 0.08em;
             text-transform: uppercase;
         }
+
     </style>
 
     <nav class="fixed top-0 w-full z-50 border-b border-white/[0.06] bg-[#0A0A0A]/85 backdrop-blur-xl">
@@ -60,7 +61,7 @@
                 <img src="/assets/PNG/Logo - White@2x.png" alt="Zeffron - AI and Custom Software Company Logo"
                     class="h-10" />
             </a>
-            <div class="hidden md:flex items-center gap-8 text-sm font-normal text-[#888] tracking-tight">
+            <div class="hidden lg:flex items-center gap-8 text-sm font-normal text-[#888] tracking-tight">
                 <div class="nav-industries">
                     <button type="button" class="hover:text-white transition-colors duration-300 flex items-center gap-1">
                         Industries
@@ -80,10 +81,12 @@
                 </div>
                 <a href="/#method" class="{{#if (eq activeNav 'method')}}text-white{{else}}hover:text-white{{/if}} transition-colors duration-300">Method</a>
                 <a href="/#stack" class="{{#if (eq activeNav 'stack')}}text-white{{else}}hover:text-white{{/if}} transition-colors duration-300">Stack</a>
+                <a href="/showcase" class="{{#if (eq activeNav 'showcase')}}text-white{{else}}hover:text-white{{/if}} transition-colors duration-300">Showcase</a>
+                <a href="/about" class="{{#if (eq activeNav 'about')}}text-white{{else}}hover:text-white{{/if}} transition-colors duration-300">About</a>
                 <a href="/blog" class="{{#if (eq activeNav 'blog')}}text-white{{else}}hover:text-white{{/if}} transition-colors duration-300">Insights</a>
                 <a href="/career" class="{{#if (eq activeNav 'careers')}}text-white{{else}}hover:text-white{{/if}} transition-colors duration-300">Careers</a>
             </div>
-            <div class="hidden md:flex items-center gap-3">
+            <div class="hidden lg:flex items-center gap-3">
                 <button type="button" data-open-brief class="btn btn-secondary btn-sm nav-brief-action">
                     Send a brief
                 </button>
@@ -92,7 +95,7 @@
                     <i data-lucide="arrow-up-right" class="btn-icon"></i>
                 </a>
             </div>
-            <button class="md:hidden text-white" id="mobileMenuToggle" aria-label="Open menu">
+            <button class="lg:hidden text-white" id="mobileMenuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>

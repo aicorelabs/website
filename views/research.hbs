@@ -34,25 +34,6 @@
         background-position: center;
     }
 
-    .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        color: var(--blue);
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.72rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        margin-bottom: 1.25rem;
-    }
-
-    .eyebrow::before {
-        content: "";
-        width: 1.7rem;
-        height: 1px;
-        background: var(--blue);
-    }
-
     .research-display {
         max-width: 60rem;
         font-size: 5rem;
@@ -102,14 +83,6 @@
         min-height: 20rem;
         padding: clamp(1.5rem, 3vw, 2.5rem);
         background: var(--panel);
-    }
-
-    .research-card span {
-        color: var(--blue);
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.68rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
     }
 
     .research-card h2 {
@@ -196,7 +169,6 @@
 <div class="research-vertical">
     <section class="research-hero">
         <div class="research-shell">
-            <div class="eyebrow">Research and engineering vertical</div>
             <h1 class="research-display">Research depth for AI systems that have to work.</h1>
             <p class="research-subhead">
                 The technical layer behind Zeffron's consulting work: data science, ML modelling, retrieval, fine-tuning, agent design, and evaluation harnesses.
@@ -212,17 +184,14 @@
         <div class="research-shell">
             <div class="research-grid">
                 <article class="research-card">
-                    <span>Research</span>
                     <h2>Frame the operational question before the model.</h2>
                     <p>Workflow analysis, data constraints, error modes, and commercial impact define what should be built.</p>
                 </article>
                 <article class="research-card">
-                    <span>Modelling</span>
                     <h2>Choose the right technical path for the task.</h2>
                     <p>Retrieval, fine-tuning, classification, forecasting, and agent workflows are selected against measurable criteria.</p>
                 </article>
                 <article class="research-card">
-                    <span>Evaluation</span>
                     <h2>Measure before the system reaches users.</h2>
                     <p>Harnesses, golden sets, regression checks, and review loops keep quality visible after launch.</p>
                 </article>
@@ -232,7 +201,6 @@
 
     <section class="research-section">
         <div class="research-shell">
-            <div class="eyebrow">Technical focus</div>
             <div class="research-list">
                 <div class="research-row">
                     <span>01</span>
@@ -262,7 +230,6 @@
         <div class="research-shell">
             <div class="research-cta-box">
                 <div>
-                    <div class="eyebrow">Bring the hard problem</div>
                     <h2 class="research-display compact">Turn research into a deployable system.</h2>
                 </div>
                 <div>
