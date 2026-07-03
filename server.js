@@ -201,7 +201,7 @@ const organization = {
     legalName: 'Zeffron Systems',
     alternateName: 'Zeffron Systems',
     description: 'A UK AI consultancy helping healthcare and professional service organisations deploy AI securely and responsibly.',
-    image: 'https://zeffron.ai/assets/home-hero-consulting.png',
+    image: 'https://zeffron.ai/assets/social/home-hero-consulting-card.jpg',
     logo: {
         '@type': 'ImageObject',
         url: 'https://zeffron.ai/assets/PNG/Logo%20-%20White@2x.png',
@@ -278,10 +278,10 @@ const homeLocals = {
     canonical: 'https://zeffron.ai/',
     activeNav: 'home',
     bodyClass: 'home-consultancy-page',
-    ogImage: 'https://zeffron.ai/assets/home-hero-consulting.png',
-    ogImageType: 'image/png',
-    ogImageWidth: 1672,
-    ogImageHeight: 941,
+    ogImage: 'https://zeffron.ai/assets/social/home-hero-consulting-card.jpg',
+    ogImageType: 'image/jpeg',
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
     ogImageAlt: 'Zeffron — secure AI consulting for regulated teams',
     jsonLd: [
         organization,
@@ -305,9 +305,9 @@ const homeLocals = {
             about: { '@id': 'https://zeffron.ai' },
             primaryImageOfPage: {
                 '@type': 'ImageObject',
-                url: 'https://zeffron.ai/assets/home-hero-consulting.png',
-                width: 1672,
-                height: 941,
+                url: 'https://zeffron.ai/assets/social/home-hero-consulting-card.jpg',
+                width: 1200,
+                height: 630,
             },
             inLanguage: 'en-GB',
         },
@@ -316,7 +316,7 @@ const homeLocals = {
             '@type': 'ProfessionalService',
             name: 'Zeffron',
             url: 'https://zeffron.ai/',
-            image: 'https://zeffron.ai/assets/home-hero-consulting.png',
+            image: 'https://zeffron.ai/assets/social/home-hero-consulting-card.jpg',
             logo: 'https://zeffron.ai/assets/PNG/Logo%20-%20White@2x.png',
             priceRange: '££££',
             address: { '@type': 'PostalAddress', addressLocality: 'London', addressRegion: 'England', addressCountry: 'GB' },
@@ -337,8 +337,27 @@ const homeLocals = {
     ],
 };
 
-app.get('/', (_req, res) => res.render('home', homeLocals));
-app.get(['/work', '/services', '/faq', '/contact'], (_req, res) => res.render('home', homeLocals));
+const PRODUCTION_ORIGIN = 'https://zeffron.ai';
+
+const requestOrigin = (req) => {
+    const host = req.get('host') || '';
+    const normalizedHost = host.toLowerCase();
+    if (!host || normalizedHost === 'zeffron.ai' || normalizedHost === 'www.zeffron.ai') {
+        return PRODUCTION_ORIGIN;
+    }
+
+    const proto = (req.get('x-forwarded-proto') || req.protocol || 'https').split(',')[0].trim();
+    return `${proto}://${host}`;
+};
+
+const withRequestOrigin = (req, locals) => {
+    const origin = requestOrigin(req);
+    if (origin === PRODUCTION_ORIGIN) return locals;
+    return JSON.parse(JSON.stringify(locals).replaceAll(PRODUCTION_ORIGIN, origin));
+};
+
+app.get('/', (req, res) => res.render('home', withRequestOrigin(req, homeLocals)));
+app.get(['/work', '/services', '/faq', '/contact'], (req, res) => res.render('home', withRequestOrigin(req, homeLocals)));
 app.get('/research', (_req, res) => res.render('research', {
     title: 'AI Research & Engineering Vertical | Zeffron',
     description: 'Research, data science, ML modelling, retrieval, fine-tuning, agents, and evaluation harnesses for production AI systems.',
@@ -982,6 +1001,10 @@ app.get('/home-variants', (_req, res) => res.render('home-variants', {
     variants: homeVariants,
 }));
 
+app.get(['/home/awwwards', '/home/awwward'], (_req, res) => {
+    res.status(404).type('text/plain').send('Not found');
+});
+
 app.get('/home/:variant', (req, res, next) => {
     const variant = homeVariantByPath.get(req.params.variant);
     if (!variant) return next();
@@ -1369,13 +1392,13 @@ const blogPosts = [
 ];
 
 const socialImageFor = (image) => ({
-    '/assets/blog-ai-adoption.webp': '/assets/ai-adoption.jpeg',
-    '/assets/blog-custom-ai.webp': '/assets/blog-custom-ai.jpeg',
-    '/assets/blog-ai-compromise.webp': '/assets/blog-ai-compromise.jpeg',
-    '/assets/blog-5-signs-hero.webp': '/assets/blog-5-signs-hero.jpg',
-    '/assets/blog-let-users-build.webp': '/assets/let-users-build-doc-image.png',
-    '/assets/blog-whatsapp-agents.webp': '/assets/whatsapp.png',
-    '/assets/rag_is_easy.jpeg': '/assets/rag_is_easy.jpeg',
+    '/assets/blog-ai-adoption.webp': '/assets/social/blog-ai-adoption-card.jpg',
+    '/assets/blog-custom-ai.webp': '/assets/social/blog-custom-ai-card.jpg',
+    '/assets/blog-ai-compromise.webp': '/assets/social/blog-ai-compromise-card.jpg',
+    '/assets/blog-5-signs-hero.webp': '/assets/social/blog-5-signs-card.jpg',
+    '/assets/blog-let-users-build.webp': '/assets/social/blog-let-users-build-card.jpg',
+    '/assets/blog-whatsapp-agents.webp': '/assets/social/blog-whatsapp-agents-card.jpg',
+    '/assets/rag_is_easy.jpeg': '/assets/social/blog-rag-card.jpg',
 }[image] || image);
 
 const imageTypeFor = (image) => {
@@ -1385,13 +1408,13 @@ const imageTypeFor = (image) => {
 };
 
 const imageMetaFor = (image) => ({
-    '/assets/ai-adoption.jpeg': { width: 1200, height: 800 },
-    '/assets/blog-custom-ai.jpeg': { width: 1200, height: 800 },
-    '/assets/blog-ai-compromise.jpeg': { width: 1200, height: 800 },
-    '/assets/blog-5-signs-hero.jpg': { width: 1200, height: 800 },
-    '/assets/let-users-build-doc-image.png': { width: 1200, height: 630 },
-    '/assets/whatsapp.png': { width: 1200, height: 630 },
-    '/assets/rag_is_easy.jpeg': { width: 1920, height: 1080 },
+    '/assets/social/blog-ai-adoption-card.jpg': { width: 1200, height: 630 },
+    '/assets/social/blog-custom-ai-card.jpg': { width: 1200, height: 630 },
+    '/assets/social/blog-ai-compromise-card.jpg': { width: 1200, height: 630 },
+    '/assets/social/blog-5-signs-card.jpg': { width: 1200, height: 630 },
+    '/assets/social/blog-let-users-build-card.jpg': { width: 1200, height: 630 },
+    '/assets/social/blog-whatsapp-agents-card.jpg': { width: 1200, height: 630 },
+    '/assets/social/blog-rag-card.jpg': { width: 1200, height: 630 },
 }[image] || { width: 1200, height: 630 });
 
 // Listing-card view shape — projects postTitle/listingExcerpt/href into the
@@ -1405,14 +1428,16 @@ const listingCards = blogPosts.map((p) => ({
     date: p.listingDate || p.date,
 }));
 
-app.get('/blog', (_req, res) => res.render('blog', {
+app.get('/blog', (req, res) => res.render('blog', withRequestOrigin(req, {
     title: 'AI & Software Development Blog | Zeffron',
     description: 'Insights, guides, and stories from Zeffron on secure AI adoption, automation, governance, and software engineering.',
     keywords: 'AI governance blog, secure AI adoption, AI engineering UK, software engineering blog, Zeffron blog, AI automation insights',
     canonical: 'https://zeffron.ai/blog',
     activeNav: 'blog',
-    ogImage: 'https://zeffron.ai/assets/blog-custom-ai.jpeg',
+    ogImage: 'https://zeffron.ai/assets/social/blog-custom-ai-card.jpg',
     ogImageType: 'image/jpeg',
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
     ogImageAlt: 'Zeffron — AI & Software Development Blog',
     posts: listingCards,
     jsonLd: [
@@ -1444,7 +1469,7 @@ app.get('/blog', (_req, res) => res.render('blog', {
             },
         },
     ],
-}));
+})));
 
 // 301 redirects from previous slug structure to the keyword-rich slugs above.
 // Preserves accumulated ranking signal and inbound links after the rename.
@@ -1471,7 +1496,7 @@ for (const post of blogPosts) {
     const ogImageMeta = imageMetaFor(socialImage);
     const shareTitleEncoded = encodeURIComponent(post.postTitle);
 
-    app.get(`/blog/${post.slug}`, (_req, res) => res.render(`blog/${post.slug}`, {
+    app.get(`/blog/${post.slug}`, (req, res) => res.render(`blog/${post.slug}`, withRequestOrigin(req, {
         title: post.seoTitle,
         description: post.description,
         keywords: post.keywords,
@@ -1531,7 +1556,7 @@ for (const post of blogPosts) {
                 ],
             },
         ],
-    }));
+    })));
 }
 
 // --- Tool pages (rendered through a chrome-less `tool` layout) ------------
