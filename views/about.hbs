@@ -1,0 +1,353 @@
+<style>
+    body.about-page {
+        background: #08090B;
+        color: #F4F1EA;
+    }
+
+    .about-page-wrap {
+        --bg: #08090B;
+        --ink: #F4F1EA;
+        --soft: #CFC8BA;
+        --muted: #8F897F;
+        --line: rgba(244, 241, 234, 0.12);
+        --panel: rgba(244, 241, 234, 0.045);
+        --blue: #0145F2;
+        --amber: #D7A85E;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: 'Archivo', 'Inter', sans-serif;
+        overflow: hidden;
+    }
+
+    .about-page-wrap * {
+        text-wrap: pretty;
+    }
+
+    .about-shell {
+        width: min(100% - 32px, 1320px);
+        margin: 0 auto;
+    }
+
+    .about-hero {
+        min-height: 88dvh;
+        padding: clamp(8rem, 14vw, 12rem) 0 clamp(4rem, 8vw, 6rem);
+        border-bottom: 1px solid var(--line);
+        background:
+            linear-gradient(90deg, rgba(8, 9, 11, 0.96), rgba(8, 9, 11, 0.76) 54%, rgba(8, 9, 11, 0.28)),
+            url('/assets/home-method-consulting.webp');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .about-hero::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0;
+        height: 32%;
+        background: linear-gradient(180deg, transparent, #08090B);
+        pointer-events: none;
+    }
+
+    .about-hero-grid,
+    .about-split {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 24px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .about-hero-copy {
+        grid-column: span 8;
+        max-width: 68rem;
+    }
+
+    .about-hero-note {
+        grid-column: 9 / span 4;
+        align-self: end;
+        border-left: 1px solid var(--line);
+        padding-left: clamp(1.5rem, 3vw, 2.5rem);
+        color: var(--soft);
+        line-height: 1.65;
+    }
+
+    .about-title {
+        color: var(--ink);
+        font-size: clamp(3.4rem, 6.8vw, 7rem);
+        line-height: 0.95;
+        letter-spacing: 0;
+        font-weight: 700;
+        text-wrap: balance;
+    }
+
+    .about-subhead {
+        max-width: 45rem;
+        margin-top: 2rem;
+        color: var(--soft);
+        font-size: clamp(1.12rem, 1.8vw, 1.42rem);
+        line-height: 1.58;
+    }
+
+    .about-section {
+        padding: clamp(5rem, 10vw, 8.5rem) 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .about-section-title {
+        color: var(--ink);
+        font-size: clamp(2.6rem, 4.8vw, 4.9rem);
+        line-height: 1;
+        letter-spacing: 0;
+        font-weight: 700;
+        text-wrap: balance;
+    }
+
+    .about-copy {
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 43rem;
+    }
+
+    .about-copy strong {
+        color: var(--ink);
+        font-weight: 600;
+    }
+
+    .about-intro {
+        grid-column: span 5;
+    }
+
+    .about-body {
+        grid-column: 7 / span 6;
+        display: grid;
+        gap: 1.2rem;
+    }
+
+    .about-principles {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+    }
+
+    .about-principle {
+        min-height: 18rem;
+        padding: clamp(1.4rem, 3vw, 2.3rem);
+        background: rgba(244, 241, 234, 0.035);
+    }
+
+    .about-principle h3 {
+        color: var(--ink);
+        font-size: 1.35rem;
+        line-height: 1.15;
+        font-weight: 700;
+    }
+
+    .about-principle p {
+        margin-top: 1rem;
+        color: var(--muted);
+        line-height: 1.62;
+    }
+
+    .about-proof {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        gap: clamp(2rem, 6vw, 5rem);
+        align-items: center;
+    }
+
+    .about-proof-list {
+        display: grid;
+        border-top: 1px solid var(--line);
+    }
+
+    .about-proof-row {
+        display: grid;
+        grid-template-columns: 5rem 1fr;
+        gap: 1.4rem;
+        padding: 1.35rem 0;
+        border-bottom: 1px solid var(--line);
+        align-items: start;
+    }
+
+    .about-proof-row span {
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.76rem;
+    }
+
+    .about-proof-row strong {
+        color: var(--ink);
+        font-size: 1.18rem;
+        line-height: 1.3;
+        font-weight: 600;
+    }
+
+    .about-cta {
+        padding: clamp(4rem, 9vw, 7rem) 0;
+    }
+
+    .about-cta-box {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: clamp(2rem, 6vw, 5rem);
+        align-items: end;
+        padding: clamp(2rem, 5vw, 4.5rem);
+        border: 1px solid var(--line);
+        background:
+            linear-gradient(90deg, rgba(8, 9, 11, 0.94), rgba(8, 9, 11, 0.78)),
+            url('/assets/home-footer-consulting.webp');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .about-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .about-page-wrap .btn {
+        border-radius: 6px;
+    }
+
+    @media (max-width: 980px) {
+        .about-hero-grid,
+        .about-split,
+        .about-proof,
+        .about-cta-box {
+            grid-template-columns: 1fr;
+        }
+
+        .about-hero-copy,
+        .about-hero-note,
+        .about-intro,
+        .about-body {
+            grid-column: auto;
+        }
+
+        .about-hero-note {
+            border-left: 0;
+            border-top: 1px solid var(--line);
+            padding-left: 0;
+            padding-top: 1.5rem;
+        }
+
+        .about-principles {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 640px) {
+        .about-shell {
+            width: min(100% - 48px, 1320px);
+        }
+
+        .about-hero {
+            min-height: auto;
+            padding-top: 7rem;
+        }
+
+        .about-principles {
+            grid-template-columns: 1fr;
+        }
+
+        .about-principle {
+            min-height: 12rem;
+        }
+
+        .about-proof-row {
+            grid-template-columns: 3rem 1fr;
+            gap: 1rem;
+        }
+    }
+</style>
+
+<div class="about-page-wrap">
+    <section class="about-hero">
+        <div class="about-shell about-hero-grid">
+            <div class="about-hero-copy reveal">
+                <h1 class="about-title">A leading forward-deployed AI engineering consulting firm.</h1>
+                <p class="about-subhead">
+                    Zeffron helps service businesses move AI from vague ambition into secure operational systems that save time, improve response quality, and keep people accountable for important decisions.
+                </p>
+            </div>
+            <aside class="about-hero-note reveal stagger-huge">
+                We work close to the workflow: the documents, systems, handoffs, controls, and people already carrying the operation.
+            </aside>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="about-shell about-split">
+            <div class="about-intro reveal">
+                <h2 class="about-section-title">Built for the work after the AI demo.</h2>
+            </div>
+            <div class="about-body reveal stagger-huge">
+                <p class="about-copy">
+                    Many AI projects fail because they stop at a prototype. Zeffron focuses on the harder layer: where the system fits, who reviews it, what data it can access, how quality is measured, and how the team uses it in daily work.
+                </p>
+                <p class="about-copy">
+                    We combine AI strategy, product engineering, workflow automation, retrieval systems, model evaluation, and secure deployment. The goal is not to add AI for its own sake. The goal is to remove operational drag without creating new risk.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="about-shell">
+            <div class="about-principles reveal">
+                <article class="about-principle">
+                    <h3>Forward deployed</h3>
+                    <p>We work beside the operational problem, not from a generic backlog. The workflow decides the technical approach.</p>
+                </article>
+                <article class="about-principle">
+                    <h3>Engineering led</h3>
+                    <p>Every engagement has to survive real users, real data, real edge cases, and production constraints.</p>
+                </article>
+                <article class="about-principle">
+                    <h3>Secure by design</h3>
+                    <p>Access, review, logging, data boundaries, and human approval are designed before a system is rolled out.</p>
+                </article>
+                <article class="about-principle">
+                    <h3>Measured by outcome</h3>
+                    <p>We track saved time, response speed, quality, adoption, exceptions, and where the next workflow should improve.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="about-shell about-proof">
+            <div class="reveal">
+                <h2 class="about-section-title">What clients use us for.</h2>
+                <p class="about-copy mt-8">
+                    We are usually brought in when a team sees the value of AI but needs a practical way to deploy it inside existing operations.
+                </p>
+            </div>
+            <div class="about-proof-list reveal stagger-huge">
+                <div class="about-proof-row"><span>01</span><strong>Finding the first workflow where AI can create measurable value.</strong></div>
+                <div class="about-proof-row"><span>02</span><strong>Building assistants, automations, and retrieval systems around real tools and documents.</strong></div>
+                <div class="about-proof-row"><span>03</span><strong>Connecting AI systems to existing processes without losing governance or review.</strong></div>
+                <div class="about-proof-row"><span>04</span><strong>Improving adoption after launch with evaluation, monitoring, and workflow iteration.</strong></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-cta">
+        <div class="about-shell">
+            <div class="about-cta-box reveal">
+                <div>
+                    <h2 class="about-section-title">Bring the workflow. We will help define the system.</h2>
+                    <p class="about-copy mt-6">Start with the repeated work, the data boundaries, and the business result you need. We will help decide what should be automated, what should stay human, and what needs to be measured.</p>
+                </div>
+                <div class="about-actions">
+                    <a href="https://cal.com/zeffron-ai/30min" class="btn btn-primary btn-lg">Book a call <i data-lucide="arrow-up-right" class="btn-icon"></i></a>
+                    <a href="/showcase" class="btn btn-secondary btn-lg">View showcase</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

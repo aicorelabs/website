@@ -57,6 +57,10 @@
             border: 1px solid rgba(255,255,255,0.10); border-radius: 999px;
             background: rgba(255,255,255,0.02);
         }
+
+        @media (max-width: 640px) {
+            .hero-headline { font-size: 2.75rem !important; }
+        }
     </style>
 
     <!-- ───── HERO — book cover + sales pitch ───── -->
@@ -67,13 +71,13 @@
 
             <!-- Left: sell copy -->
             <div class="lg:col-span-7 order-2 lg:order-1">
-                <div class="hero-fade flex items-center gap-3 text-[10px] font-mono font-bold tracking-[0.3em] uppercase text-[#888] mb-8" style="--fd: 0.2s;">
+                <div class="hero-fade flex items-center gap-3 text-[10px] font-mono font-bold tracking-[0.3em] uppercase text-[#0145F2] mb-8" style="--fd: 0.2s;">
                     <span class="block w-6 h-px bg-[#0145F2]"></span>
                     <span>Free playbook · Zeffron</span>
                 </div>
 
                 <h1 class="hero-headline text-white mb-6"
-                    style="font-size: clamp(2rem, 5.5vw, 4.75rem); letter-spacing: -0.035em; line-height: 1; font-weight: 600;">
+                    style="font-size: 3.75rem; letter-spacing: 0; line-height: 1.05; font-weight: 700;">
                     <span class="hero-line-mask"><span class="hero-line-inner" style="--d: 0.25s;">You have the idea.</span></span>
                     <span class="hero-line-mask"><span class="hero-line-inner" style="--d: 0.37s;">This turns it into</span></span>
                     <span class="hero-line-mask"><span class="hero-line-inner" style="--d: 0.49s;">a product.</span></span>
@@ -204,7 +208,7 @@
     <!-- ───── MICRO-FAQ — three quick objections handled ───── -->
     <section class="py-16 sm:py-20 border-t border-white/5">
         <div class="max-w-[820px] mx-auto px-6 sm:px-10">
-            <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] mb-6 text-center">Quick answers</p>
+            <p class="text-[10px] font-mono tracking-[0.3em] uppercase text-[#0145F2] mb-6 text-center">Quick answers</p>
             <div class="border-t border-white/10">
                 <details class="faq-item">
                     <summary class="faq-q">Is this actually free?</summary>

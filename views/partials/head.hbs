@@ -64,7 +64,7 @@
     <meta property="og:image:type" content="{{#if ogImageType}}{{ogImageType}}{{else}}image/jpeg{{/if}}">
     <meta property="og:image:width" content="{{#if ogImageWidth}}{{ogImageWidth}}{{else}}1200{{/if}}">
     <meta property="og:image:height" content="{{#if ogImageHeight}}{{ogImageHeight}}{{else}}800{{/if}}">
-    <meta property="og:image:alt" content="{{#if ogImageAlt}}{{ogImageAlt}}{{else}}Zeffron — AI & MVP Development Studio{{/if}}">
+    <meta property="og:image:alt" content="{{#if ogImageAlt}}{{ogImageAlt}}{{else}}Zeffron — Secure AI Consulting{{/if}}">
 
     {{!-- Twitter --}}
     <meta name="twitter:card" content="summary_large_image">
@@ -75,7 +75,7 @@
     <meta name="twitter:title" content="{{title}}">
     <meta name="twitter:description" content="{{description}}">
     <meta name="twitter:image" content="{{#if ogImage}}{{ogImage}}{{else}}https://zeffron.ai/assets/iphone-16-pro-mockup-v2.jpg{{/if}}">
-    <meta name="twitter:image:alt" content="{{#if ogImageAlt}}{{ogImageAlt}}{{else}}Zeffron — AI & MVP Development Studio{{/if}}">
+    <meta name="twitter:image:alt" content="{{#if ogImageAlt}}{{ogImageAlt}}{{else}}Zeffron — Secure AI Consulting{{/if}}">
 
     {{!-- Performance hints. Connect early to the origins we'll hit before the
          first paint, so the browser overlaps DNS/TLS with parsing. --}}
@@ -91,7 +91,7 @@
         href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/zeffron.css">
+    <link rel="stylesheet" href="/css/zeffron.css?v=mobile-nav-dropdowns">
 
     {{!-- GSAP --}}
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -102,4 +102,4 @@
 
     {{!-- Shared chrome wiring (mobile menu, cursor, Lenis, brief modal). Loaded
          on every page; per-page scripts run after and may read window.lenisInstance. --}}
-    <script src="/js/site.js" defer></script>
+    <script src="/js/site.js?v=mobile-nav-dropdowns" defer></script>

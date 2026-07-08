@@ -1,0 +1,166 @@
+<style>
+    body.home-variants-page {
+        background: #08090B;
+        color: #F4F1EA;
+    }
+
+    .variant-index {
+        --ink: #F4F1EA;
+        --muted: #918B82;
+        --line: rgba(244, 241, 234, 0.13);
+        --blue: #0145F2;
+        font-family: 'Archivo', 'Inter', sans-serif;
+        background: #08090B;
+        color: var(--ink);
+        min-height: 100dvh;
+        padding: 8rem 0 5rem;
+    }
+
+    .variant-index-shell {
+        width: min(100% - 32px, 1320px);
+        margin: 0 auto;
+    }
+
+    .variant-index h1 {
+        max-width: 58rem;
+        font-size: 4.35rem;
+        line-height: 1;
+        font-weight: 700;
+        letter-spacing: 0;
+    }
+
+    .variant-index p {
+        color: var(--muted);
+        line-height: 1.65;
+    }
+
+    .variant-index-intro {
+        max-width: 44rem;
+        margin-top: 1.5rem;
+        font-size: 1.2rem;
+    }
+
+    .variant-board {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        margin-top: 4rem;
+        border: 1px solid var(--line);
+        background: var(--line);
+    }
+
+    .variant-card {
+        min-height: 28rem;
+        padding: 1.4rem;
+        background: rgba(244, 241, 234, 0.04);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .variant-card span {
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .variant-card h2 {
+        margin-top: 1.25rem;
+        color: var(--ink);
+        font-size: 1.65rem;
+        line-height: 1.08;
+        font-weight: 700;
+        letter-spacing: 0;
+    }
+
+    .variant-card p {
+        margin-top: 1.2rem;
+    }
+
+    .variant-source {
+        margin-top: auto;
+        padding-top: 1.4rem;
+        color: #B9B1A7;
+        font-size: 0.92rem;
+    }
+
+    .variant-vertical {
+        margin-top: 1rem;
+        color: #F4F1EA;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .variant-card a {
+        display: inline-flex;
+        align-items: center;
+        width: max-content;
+        gap: 0.45rem;
+        margin-top: 1.4rem;
+        color: #08090B;
+        background: #F4F1EA;
+        border: 1px solid #F4F1EA;
+        border-radius: 6px;
+        padding: 0.72rem 0.95rem;
+        text-decoration: none;
+        transition: transform 180ms ease, background-color 180ms ease;
+    }
+
+    .variant-card a:hover {
+        background: #FFFFFF;
+        transform: translateY(-1px);
+    }
+
+    .variant-note {
+        margin-top: 2rem;
+        max-width: 56rem;
+        color: var(--muted);
+        line-height: 1.65;
+    }
+
+    @media (max-width: 1180px) {
+        .variant-board {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 680px) {
+        .variant-index h1 {
+            font-size: 2.85rem;
+        }
+
+        .variant-board {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="variant-index">
+    <div class="variant-index-shell">
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#8F897F]">Homepage A/B lab</span>
+        <h1 class="mt-5">Nine mood-boarded homepage directions.</h1>
+        <p class="variant-index-intro">
+            Each route now maps to one vertical or service line and one workflow stack. The difference is not only visual language: each page tests a different market, buyer context, and recognisable set of tools.
+        </p>
+
+        <div class="variant-board">
+            {{#each variants}}
+            <article class="variant-card">
+                <span>{{this.key}}</span>
+                <h2>{{this.name}}</h2>
+                <div class="variant-vertical">{{this.vertical.name}}</div>
+                <p>{{this.mood}}</p>
+                <p class="variant-source">{{this.sourceIdea}}</p>
+                <a href="{{this.path}}">Open variant <i data-lucide="arrow-up-right" class="btn-icon"></i></a>
+            </article>
+            {{/each}}
+        </div>
+
+        <p class="variant-note">
+            Suggested testing method: use direct-route traffic first, then pick two winners for a stricter A/B split on the live homepage. Keep the conversion event consistent: booked consultation or submitted brief.
+        </p>
+    </div>
+</div>

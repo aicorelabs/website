@@ -1,0 +1,7 @@
+persona_id,role,industry,company_size,primary_problem,decision_power,ai_maturity,main_objection,desired_outcome
+clinic_ops,Operations Director,Private healthcare,50-200 employees,Reduce administrative work without compromising patient privacy,Influencer,Medium,Integration and data privacy risk,Determine whether to book a discovery call
+clinic_owner,Clinic Owner,Private healthcare,10-50 employees,Increase capacity without hiring more administrative staff,Decision maker,Low,Unclear return on investment,Determine whether the consultant understands clinic economics
+regulated_cto,CTO,Regulated SME,100-500 employees,Deploy AI securely into existing systems,Technical decision maker,High,Generic consultancy claims,Find credible implementation expertise
+sme_coo,COO,Professional services,50-200 employees,Automate repetitive operational processes,Decision maker,Medium,Long implementation timelines,Find a practical AI delivery partner
+engineering_lead,Head of Engineering,SaaS,50-250 employees,Accelerate AI implementation without creating technical debt,Influencer,High,Lack of technical depth,Assess whether the consultant can work with the engineering team
+skeptical_buyer,Procurement Director,Enterprise,1000+ employees,Find a low-risk specialist supplier,Gatekeeper,Medium,Insufficient evidence and governance,Decide whether the supplier belongs on a shortlist

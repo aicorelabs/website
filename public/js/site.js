@@ -12,21 +12,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenu = document.getElementById('mobileMenu');
     const mobileBackdrop = document.getElementById('mobileBackdrop');
     const mobileMenuClose = document.getElementById('mobileMenuClose');
+    const mobileNavGroups = document.querySelectorAll('#mobileMenu details');
+
+    function setMobileMenuOpen(isOpen) {
+        if (!mobileMenu || !mobileBackdrop) return;
+        mobileMenu.classList.toggle('active', isOpen);
+        mobileBackdrop.classList.toggle('active', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+        if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        if (!isOpen) {
+            mobileNavGroups.forEach((group) => {
+                group.open = false;
+            });
+        }
+    }
 
     function toggleMobileMenu() {
-        if (!mobileMenu || !mobileBackdrop) return;
-        mobileMenu.classList.toggle('active');
-        mobileBackdrop.classList.toggle('active');
-        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        if (!mobileMenu) return;
+        setMobileMenuOpen(!mobileMenu.classList.contains('active'));
     }
 
     if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', toggleMobileMenu);
-    if (mobileMenuClose) mobileMenuClose.addEventListener('click', toggleMobileMenu);
-    if (mobileBackdrop) mobileBackdrop.addEventListener('click', toggleMobileMenu);
+    if (mobileMenuClose) mobileMenuClose.addEventListener('click', () => setMobileMenuOpen(false));
+    if (mobileBackdrop) mobileBackdrop.addEventListener('click', () => setMobileMenuOpen(false));
+    mobileNavGroups.forEach((group) => {
+        const summary = group.querySelector('summary');
+        if (!summary) return;
+        summary.addEventListener('click', () => {
+            window.setTimeout(() => {
+                if (!group.open) return;
+                mobileNavGroups.forEach((otherGroup) => {
+                    if (otherGroup !== group) otherGroup.open = false;
+                });
+            }, 0);
+        });
+    });
 
     document.querySelectorAll('#mobileMenu a, #mobileMenu button[data-open-brief]').forEach((link) => {
         link.addEventListener('click', () => {
-            if (mobileMenu && mobileMenu.classList.contains('active')) toggleMobileMenu();
+            if (mobileMenu && mobileMenu.classList.contains('active')) setMobileMenuOpen(false);
         });
     });
 
@@ -395,98 +419,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     })();
 
-    // --- Founder playbook popup -------------------------------------------
-    (() => {
-        const modal = document.getElementById('playbook-popup');
-        if (!modal || window.location.pathname !== '/') return;
-
-        const storageKey = 'zeffron_playbook_popup_dismissed_v1';
-        const triggerDelayMs = 5000;
-        const focusableSelector = [
-            'a[href]',
-            'button:not([disabled])',
-            'input:not([disabled])',
-            'select:not([disabled])',
-            'textarea:not([disabled])',
-            '[tabindex]:not([tabindex="-1"])',
-        ].join(', ');
-
-        let lastFocused = null;
-        let timer = null;
-        let isOpen = false;
-
-        const hasDismissed = () => {
-            try { return localStorage.getItem(storageKey) === '1'; }
-            catch { return false; }
-        };
-        const dismiss = () => {
-            try { localStorage.setItem(storageKey, '1'); }
-            catch {}
-        };
-        const lockScroll = () => document.body.classList.add('brief-modal-open');
-        const unlockScroll = () => document.body.classList.remove('brief-modal-open');
-
-        const open = () => {
-            if (isOpen || hasDismissed()) return;
-            isOpen = true;
-            lastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-            modal.hidden = false;
-            lockScroll();
-            requestAnimationFrame(() => {
-                const first = modal.querySelector(focusableSelector);
-                if (first instanceof HTMLElement) first.focus();
-            });
-        };
-
-        const close = (persist = true) => {
-            if (!isOpen) return;
-            isOpen = false;
-            modal.hidden = true;
-            unlockScroll();
-            if (persist) dismiss();
-            if (lastFocused instanceof HTMLElement) lastFocused.focus();
-        };
-
-        modal.querySelectorAll('[data-close]').forEach((el) => {
-            el.addEventListener('click', () => close(true));
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) close(true);
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (!isOpen) return;
-            if (e.key === 'Escape') {
-                e.preventDefault();
-                close(true);
-                return;
-            }
-            if (e.key !== 'Tab') return;
-
-            const focusables = Array.from(modal.querySelectorAll(focusableSelector))
-                .filter((el) => el instanceof HTMLElement && !el.hasAttribute('disabled'));
-            if (!focusables.length) return;
-
-            const first = focusables[0];
-            const last = focusables[focusables.length - 1];
-            const active = document.activeElement;
-
-            if (e.shiftKey && active === first) {
-                e.preventDefault();
-                last.focus();
-            } else if (!e.shiftKey && active === last) {
-                e.preventDefault();
-                first.focus();
-            }
-        });
-
-        if (!hasDismissed()) {
-            timer = window.setTimeout(open, triggerDelayMs);
-        }
-
-        window.addEventListener('pagehide', () => {
-            if (timer) window.clearTimeout(timer);
-        });
-    })();
 });

@@ -1,0 +1,1767 @@
+<style>
+    body.home-ab-page {
+        background: #08090B;
+        color: #F4F1EA;
+    }
+
+    .ab-home {
+        --bg: #08090B;
+        --ink: #F4F1EA;
+        --soft: #CFC8BA;
+        --muted: #8E887E;
+        --surface: rgba(244, 241, 234, 0.045);
+        --surface-strong: rgba(244, 241, 234, 0.075);
+        --line: rgba(244, 241, 234, 0.13);
+        --brand: #0145F2;
+        --brand-soft: rgba(1, 69, 242, 0.16);
+        --relief: #D7A85E;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: 'Archivo', 'Inter', sans-serif;
+        overflow: hidden;
+    }
+
+    .variant-clinical {
+        --bg: #F5F7FA;
+        --ink: #10141C;
+        --soft: #344054;
+        --muted: #667085;
+        --surface: #FFFFFF;
+        --surface-strong: #EEF3F8;
+        --line: rgba(16, 20, 28, 0.13);
+        --relief: #0145F2;
+    }
+
+    .variant-editorial {
+        --bg: #0A0908;
+        --ink: #F8F3EA;
+        --soft: #D8CDBD;
+        --muted: #938779;
+        --surface: rgba(248, 243, 234, 0.05);
+        --surface-strong: rgba(248, 243, 234, 0.085);
+        --line: rgba(248, 243, 234, 0.14);
+        --relief: #BFA06A;
+    }
+
+    .variant-console {
+        --bg: #06080A;
+        --ink: #EDF4FF;
+        --soft: #B8C5D8;
+        --muted: #718096;
+        --surface: rgba(237, 244, 255, 0.045);
+        --surface-strong: rgba(1, 69, 242, 0.11);
+        --line: rgba(237, 244, 255, 0.13);
+        --relief: #0145F2;
+    }
+
+    .variant-human {
+        --bg: #0B0A08;
+        --ink: #F6F0E6;
+        --soft: #D8CCBB;
+        --muted: #948A7A;
+        --surface: rgba(246, 240, 230, 0.05);
+        --surface-strong: rgba(246, 240, 230, 0.085);
+        --line: rgba(246, 240, 230, 0.14);
+        --relief: #0145F2;
+    }
+
+    .variant-engineering {
+        --bg: #070A10;
+        --ink: #F2F7FF;
+        --soft: #C4D1E4;
+        --muted: #7D8BA0;
+        --surface: rgba(242, 247, 255, 0.05);
+        --surface-strong: rgba(1, 69, 242, 0.13);
+        --line: rgba(242, 247, 255, 0.14);
+        --relief: #0145F2;
+    }
+
+    .ab-home * {
+        text-wrap: pretty;
+    }
+
+    .ab-shell {
+        width: min(100% - 32px, 1320px);
+        margin: 0 auto;
+    }
+
+    .ab-section {
+        padding: 6rem 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .ab-hero {
+        position: relative;
+        isolation: isolate;
+        min-height: 100dvh;
+        padding: 6.5rem 0 3rem;
+        border-bottom: 1px solid var(--line);
+        background:
+            linear-gradient(90deg, rgba(8, 9, 11, 0.96) 0%, rgba(8, 9, 11, 0.82) 43%, rgba(8, 9, 11, 0.28) 100%),
+            linear-gradient(180deg, transparent 58%, var(--bg) 100%),
+            var(--hero-image);
+        background-size: cover;
+        background-position: var(--hero-position, center);
+        background-repeat: no-repeat;
+    }
+
+    .variant-clinical .ab-hero {
+        background:
+            linear-gradient(90deg, rgba(8, 9, 11, 0.95) 0%, rgba(8, 9, 11, 0.78) 43%, rgba(8, 9, 11, 0.2) 100%),
+            linear-gradient(180deg, transparent 58%, var(--bg) 100%),
+            var(--hero-image);
+        background-size: cover;
+        background-position: var(--hero-position, center);
+    }
+
+    .variant-console .ab-hero {
+        background:
+            linear-gradient(90deg, rgba(6, 8, 10, 0.96) 0%, rgba(6, 8, 10, 0.8) 43%, rgba(6, 8, 10, 0.2) 100%),
+            linear-gradient(180deg, transparent 58%, var(--bg) 100%),
+            var(--hero-image);
+        background-size: cover;
+        background-position: var(--hero-position, center);
+    }
+
+    .variant-engineering .ab-hero {
+        background:
+            linear-gradient(90deg, rgba(7, 10, 16, 0.96) 0%, rgba(7, 10, 16, 0.8) 43%, rgba(7, 10, 16, 0.22) 100%),
+            linear-gradient(180deg, transparent 58%, var(--bg) 100%),
+            var(--hero-image);
+        background-size: cover;
+        background-position: var(--hero-position, center);
+    }
+
+    .ab-hero-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(20rem, 0.8fr);
+        gap: clamp(2.5rem, 5vw, 5rem);
+        align-items: center;
+        min-height: calc(100dvh - 9.5rem);
+        position: relative;
+        z-index: 1;
+    }
+
+    .ab-hero .ab-headline {
+        color: #FFFFFF;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.24);
+    }
+
+    .ab-hero .ab-subhead {
+        color: rgba(255, 255, 255, 0.78);
+    }
+
+    .ab-hero .btn-secondary {
+        color: #FFFFFF;
+        border-color: rgba(255, 255, 255, 0.34);
+        background: rgba(8, 9, 11, 0.24);
+        backdrop-filter: blur(12px);
+    }
+
+    .variant-clinical .ab-hero .btn-secondary {
+        color: #FFFFFF;
+        border-color: #0145F2;
+        background: #0145F2;
+    }
+
+    .variant-clinical .ab-hero .btn-secondary:hover {
+        border-color: #0035C8;
+        background: #0035C8;
+    }
+
+    .ab-metric span {
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .ab-headline {
+        max-width: 52rem;
+        color: var(--ink);
+        font-size: clamp(3.15rem, 4vw, 4.65rem);
+        line-height: 1.08;
+        letter-spacing: 0;
+        font-weight: 700;
+    }
+
+    .variant-editorial .ab-headline {
+        font-family: inherit;
+        font-weight: 700;
+        line-height: 1.08;
+    }
+
+    .ab-subhead {
+        max-width: 38rem;
+        margin-top: 2rem;
+        color: var(--soft);
+        font-size: 1.18rem;
+        line-height: 1.55;
+    }
+
+    .ab-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 2.25rem;
+    }
+
+    .ab-home .btn {
+        border-radius: 6px;
+        box-shadow: none;
+        transition: transform 220ms cubic-bezier(0.32, 0.72, 0, 1), background-color 220ms cubic-bezier(0.32, 0.72, 0, 1), border-color 220ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .ab-home .btn:active {
+        transform: scale(0.98);
+    }
+
+    .ab-home .btn-primary {
+        background: #0145F2;
+        border-color: #0145F2;
+        color: #FFFFFF;
+    }
+
+    .ab-home .btn-primary:hover {
+        background: #0035C8;
+        border-color: #0035C8;
+        color: #FFFFFF;
+    }
+
+    .ab-home .btn-secondary {
+        background: transparent;
+        border: 1px solid var(--line);
+        color: var(--ink);
+    }
+
+    .ab-visual {
+        width: 100%;
+        max-width: 26rem;
+        justify-self: end;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 8px;
+        background: rgba(8, 9, 11, 0.66);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+        overflow: hidden;
+    }
+
+    .variant-ledger .ab-visual,
+    .variant-console .ab-visual {
+        border-radius: 0;
+    }
+
+    .ab-visual-content {
+        padding: 1.4rem;
+    }
+
+    .ab-visual-content h2 {
+        color: #FFFFFF;
+        font-size: 1.35rem;
+        line-height: 1.14;
+        font-weight: 600;
+        margin-top: 0.75rem;
+    }
+
+    .ab-visual-content p {
+        color: rgba(255, 255, 255, 0.68);
+        line-height: 1.6;
+        margin-top: 0.8rem;
+    }
+
+    .ab-metrics {
+        display: grid;
+        gap: 1px;
+        background: rgba(255, 255, 255, 0.12);
+        margin-top: 1.1rem;
+    }
+
+    .ab-metric {
+        background: rgba(8, 9, 11, 0.66);
+        padding: 0.8rem;
+    }
+
+    .variant-clinical .ab-metric {
+        background: rgba(8, 9, 11, 0.66);
+    }
+
+    .ab-hero .ab-metric span {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .ab-split-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        gap: 4rem;
+        align-items: end;
+        margin-bottom: 3rem;
+    }
+
+    .ab-section-title {
+        color: var(--ink);
+        font-size: 3.8rem;
+        line-height: 1;
+        letter-spacing: 0;
+        font-weight: 700;
+        max-width: 54rem;
+    }
+
+    .variant-editorial .ab-section-title {
+        font-family: inherit;
+        font-weight: 700;
+    }
+
+    .ab-section-copy {
+        max-width: 38rem;
+        color: var(--muted);
+        font-size: 1.08rem;
+        line-height: 1.65;
+    }
+
+    .ab-sector-row {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        border: 1px solid var(--line);
+    }
+
+    .ab-sector-row a {
+        min-height: 7.5rem;
+        padding: 1rem;
+        border-right: 1px solid var(--line);
+        color: var(--ink);
+        text-decoration: none;
+        display: flex;
+        align-items: end;
+        background: var(--surface);
+        transition: background-color 220ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .ab-sector-row a:last-child {
+        border-right: 0;
+    }
+
+    .ab-sector-row a:hover {
+        background: var(--surface-strong);
+    }
+
+    .ab-logo-grid {
+        display: grid;
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+    }
+
+    .ab-logo {
+        min-height: 8.8rem;
+        padding: 1rem;
+        background: var(--surface);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .ab-logo img {
+        width: 2.35rem;
+        height: 2.35rem;
+        object-fit: contain;
+        object-position: left center;
+        box-sizing: border-box;
+        padding: 0.34rem;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.92);
+    }
+
+    .ab-logo strong {
+        color: var(--ink);
+        font-size: 0.96rem;
+        line-height: 1.2;
+    }
+
+    .ab-logo .ab-tool-role {
+        display: block;
+        margin-top: 0.32rem;
+        color: var(--muted);
+        font-size: 0.78rem;
+        line-height: 1.25;
+    }
+
+    .ab-vertical-card {
+        display: grid;
+        gap: 0.8rem;
+        padding: 1.25rem;
+        border: 1px solid var(--line);
+        background: var(--surface-strong);
+    }
+
+    .ab-vertical-card h3 {
+        color: var(--ink);
+        font-size: 1.45rem;
+        line-height: 1.1;
+        font-weight: 600;
+    }
+
+    .ab-vertical-card p {
+        color: var(--muted);
+        line-height: 1.6;
+    }
+
+    .ab-problem-grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.15fr 0.95fr;
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+    }
+
+    .ab-panel {
+        min-height: 18rem;
+        padding: 1.6rem;
+        background: var(--surface);
+    }
+
+    .ab-panel h3,
+    .ab-method h3,
+    .ab-research-card h3 {
+        margin-top: 1rem;
+        color: var(--ink);
+        font-size: 1.3rem;
+        line-height: 1.14;
+        font-weight: 600;
+    }
+
+    .ab-panel p,
+    .ab-method p,
+    .ab-research-card p {
+        margin-top: 1rem;
+        color: var(--muted);
+        line-height: 1.65;
+    }
+
+    .ab-drag-list {
+        counter-reset: drag;
+        display: grid;
+        border-top: 1px solid var(--line);
+    }
+
+    .ab-drag-item {
+        counter-increment: drag;
+        display: grid;
+        grid-template-columns: 5rem 1fr;
+        gap: 1.5rem;
+        align-items: center;
+        padding: 1.4rem 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .ab-drag-item::before {
+        content: counter(drag, decimal-leading-zero);
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.76rem;
+    }
+
+    .ab-drag-item h3 {
+        color: var(--ink);
+        font-size: 2rem;
+        line-height: 1.05;
+        font-weight: 500;
+        letter-spacing: 0;
+    }
+
+    .ab-method-grid,
+    .ab-research-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+    }
+
+    .ab-research-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .ab-method,
+    .ab-research-card {
+        min-height: 18rem;
+        padding: 1.45rem;
+        background: var(--surface);
+    }
+
+    .ab-layout-note {
+        max-width: 44rem;
+    }
+
+    .ab-ledger-intro,
+    .ab-human-intro {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        gap: clamp(2rem, 5vw, 5rem);
+        align-items: end;
+        margin-bottom: 3rem;
+    }
+
+    .ab-human-intro .ab-section-title {
+        max-width: 46rem;
+        font-size: clamp(2.8rem, 4.2vw, 4.35rem);
+        line-height: 1.02;
+    }
+
+    .ab-ledger-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(20rem, 0.7fr);
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+    }
+
+    .ab-ledger-table,
+    .ab-ledger-side,
+    .ab-console-terminal,
+    .ab-human-toolbox {
+        background: var(--surface);
+    }
+
+    .ab-ledger-row {
+        display: grid;
+        grid-template-columns: 0.85fr 1fr 1fr;
+        gap: 1.2rem;
+        padding: 1.05rem 1.2rem;
+        border-bottom: 1px solid var(--line);
+        color: var(--soft);
+    }
+
+    .ab-ledger-row:last-child {
+        border-bottom: 0;
+    }
+
+    .ab-ledger-row strong,
+    .ab-console-terminal strong,
+    .ab-human-card strong {
+        color: var(--ink);
+        font-weight: 600;
+    }
+
+    .ab-ledger-heading {
+        color: var(--muted);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .ab-ledger-side {
+        padding: 1.2rem;
+    }
+
+    .ab-sector-ledger,
+    .ab-sector-pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        margin-top: 1.2rem;
+    }
+
+    .ab-sector-ledger a,
+    .ab-sector-pill-row a {
+        border: 1px solid var(--line);
+        color: var(--ink);
+        text-decoration: none;
+        padding: 0.62rem 0.78rem;
+        background: var(--surface-strong);
+        transition: background-color 220ms cubic-bezier(0.32, 0.72, 0, 1), transform 220ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .ab-sector-ledger a:hover,
+    .ab-sector-pill-row a:hover {
+        background: var(--brand-soft);
+        transform: translateY(-2px);
+    }
+
+    .ab-capability-board {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+    }
+
+    .ab-capability-chip {
+        min-height: 9.4rem;
+        padding: 1rem;
+        background: var(--surface);
+    }
+
+    .ab-capability-chip h3,
+    .ab-clinical-step h3,
+    .ab-editorial-chapter h3,
+    .ab-console-signal h3,
+    .ab-human-card h3 {
+        color: var(--ink);
+        font-size: 1.12rem;
+        line-height: 1.18;
+        font-weight: 600;
+    }
+
+    .ab-capability-chip p,
+    .ab-clinical-step p,
+    .ab-editorial-chapter p,
+    .ab-console-signal p,
+    .ab-human-card p,
+    .ab-human-toolbox p {
+        color: var(--muted);
+        line-height: 1.6;
+        margin-top: 0.7rem;
+    }
+
+    .ab-clinical-band {
+        display: grid;
+        grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+        gap: 4rem;
+        align-items: center;
+    }
+
+    .ab-clinical-path {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .ab-clinical-step {
+        min-height: 17rem;
+        padding: 1.2rem;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #FFFFFF;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .ab-clinical-care {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 1.2rem;
+        align-items: stretch;
+    }
+
+    .ab-clinical-card {
+        padding: 1.45rem;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #FFFFFF;
+    }
+
+    .ab-clinical-card:first-child {
+        grid-row: span 2;
+    }
+
+    .ab-editorial-story {
+        padding-top: 8rem;
+    }
+
+    .ab-editorial-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+        gap: 5rem;
+        align-items: start;
+    }
+
+    .ab-editorial-lede {
+        color: var(--ink);
+        font-family: inherit;
+        font-weight: 700;
+        font-size: 3.8rem;
+        line-height: 1;
+    }
+
+    .ab-editorial-aside {
+        border-left: 1px solid var(--line);
+        padding-left: 1.5rem;
+    }
+
+    .ab-editorial-index {
+        display: grid;
+        gap: 0.9rem;
+        margin-top: 1.5rem;
+    }
+
+    .ab-editorial-index a {
+        color: var(--ink);
+        text-decoration: none;
+        padding-bottom: 0.7rem;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .ab-editorial-chapters {
+        display: grid;
+        grid-template-columns: 1fr;
+        border-top: 1px solid var(--line);
+    }
+
+    .ab-editorial-chapter {
+        display: grid;
+        grid-template-columns: 11rem minmax(0, 1fr);
+        gap: 2rem;
+        padding: 2rem 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .ab-console-deck {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(21rem, 0.95fr);
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+    }
+
+    .ab-console-logo-wall {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        background: var(--line);
+    }
+
+    .ab-console-terminal {
+        padding: 1.2rem;
+    }
+
+    .ab-console-terminal pre {
+        margin-top: 1.2rem;
+        overflow: auto;
+        color: var(--soft);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.88rem;
+        line-height: 1.7;
+        white-space: pre-wrap;
+    }
+
+    .ab-console-signals {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+    }
+
+    .ab-console-signal {
+        min-height: 14rem;
+        padding: 1rem;
+        background: var(--surface);
+    }
+
+    .ab-human-journey {
+        display: grid;
+        grid-template-columns: minmax(22rem, 0.95fr) minmax(0, 1.05fr);
+        gap: clamp(1.5rem, 3vw, 2.5rem);
+        align-items: stretch;
+    }
+
+    .ab-human-photo {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        min-height: 34rem;
+    }
+
+    .ab-human-photo img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(0.88) contrast(1.04);
+    }
+
+    .ab-human-cards {
+        display: grid;
+        grid-template-rows: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+    }
+
+    .ab-human-card {
+        padding: clamp(1.4rem, 2.5vw, 2rem);
+        background: var(--surface);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .ab-human-toolbox {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+    }
+
+    .ab-human-toolbox > div {
+        padding: 1.35rem;
+        background: var(--surface);
+    }
+
+    .ab-human-toolbox > div:first-child .ab-section-title {
+        font-size: clamp(2.45rem, 3.45vw, 3.95rem);
+        max-width: 38rem;
+    }
+
+    .ab-engineering-system {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+    }
+
+    .ab-engineering-panel,
+    .ab-engineering-track,
+    .ab-engineering-signal {
+        background: var(--surface);
+    }
+
+    .ab-engineering-panel {
+        padding: 1.35rem;
+    }
+
+    .ab-engineering-panel h3,
+    .ab-engineering-track h3,
+    .ab-engineering-signal h3 {
+        color: var(--ink);
+        font-size: 1.2rem;
+        line-height: 1.15;
+        font-weight: 600;
+    }
+
+    .ab-engineering-panel p,
+    .ab-engineering-track p,
+    .ab-engineering-signal p {
+        margin-top: 0.75rem;
+        color: var(--muted);
+        line-height: 1.6;
+    }
+
+    .ab-engineering-terminal {
+        min-height: 100%;
+        padding: 1.35rem;
+        background:
+            linear-gradient(rgba(242, 247, 255, 0.04) 1px, transparent 1px),
+            var(--bg);
+        background-size: 100% 2.15rem;
+    }
+
+    .ab-engineering-terminal pre {
+        overflow: auto;
+        color: var(--soft);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.88rem;
+        line-height: 1.75;
+        white-space: pre-wrap;
+    }
+
+    .ab-engineering-checklist {
+        display: grid;
+        gap: 0;
+        border-top: 1px solid var(--line);
+    }
+
+    .ab-engineering-checklist div {
+        display: grid;
+        grid-template-columns: 1.25rem 1fr;
+        gap: 0.8rem;
+        align-items: start;
+        padding: 0.95rem 0;
+        color: var(--soft);
+        border-bottom: 1px solid var(--line);
+        line-height: 1.5;
+    }
+
+    .ab-engineering-checklist div::before {
+        content: "✓";
+        color: #0145F2;
+        font-weight: 700;
+    }
+
+    .ab-engineering-track-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+    }
+
+    .ab-engineering-track {
+        min-height: 18rem;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .ab-engineering-signal-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+    }
+
+    .ab-engineering-signal {
+        min-height: 13rem;
+        padding: 1rem;
+    }
+
+    .ab-cta {
+        padding: 6rem 0;
+    }
+
+    .ab-cta-box {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+        gap: 4rem;
+        align-items: end;
+        padding: 2rem;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+    }
+
+    @media (min-width: 760px) {
+        .ab-section-title {
+            font-size: 4.15rem;
+        }
+    }
+
+    @media (min-width: 1180px) {
+        .ab-section-title {
+            font-size: 4.75rem;
+        }
+    }
+
+    @media (max-width: 1060px) {
+        .ab-hero-layout,
+        .ab-split-head,
+        .ab-ledger-intro,
+        .ab-ledger-grid,
+        .ab-clinical-band,
+        .ab-clinical-care,
+        .ab-editorial-grid,
+        .ab-console-deck,
+        .ab-human-intro,
+        .ab-human-journey,
+        .ab-human-toolbox,
+        .ab-engineering-system,
+        .ab-problem-grid,
+        .ab-cta-box {
+            grid-template-columns: 1fr;
+        }
+
+        .ab-logo-grid,
+        .ab-capability-board,
+        .ab-clinical-path,
+        .ab-console-logo-wall,
+        .ab-console-signals,
+        .ab-engineering-track-grid,
+        .ab-engineering-signal-grid,
+        .ab-method-grid,
+        .ab-research-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .ab-sector-row {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .variant-editorial .ab-visual {
+            transform: none;
+        }
+
+        .ab-hero-layout {
+            min-height: auto;
+            gap: 3rem;
+        }
+
+        .ab-visual {
+            max-width: none;
+            justify-self: stretch;
+        }
+
+        .ab-human-photo {
+            min-height: 24rem;
+        }
+
+        .ab-human-cards {
+            grid-template-rows: none;
+        }
+    }
+
+    @media (max-width: 680px) {
+        .ab-shell {
+            width: min(100% - 48px, 1320px);
+        }
+
+        .ab-hero {
+            min-height: auto;
+            padding: 6rem 0 3rem;
+        }
+
+        .ab-headline {
+            font-size: clamp(2.65rem, 12vw, 3.25rem);
+            line-height: 1.08;
+        }
+
+        .ab-section-title {
+            font-size: 2.6rem;
+        }
+
+        .ab-human-intro .ab-section-title {
+            font-size: 2.6rem;
+        }
+
+        .ab-human-photo {
+            min-height: 20rem;
+        }
+
+        .ab-logo-grid,
+        .ab-capability-board,
+        .ab-clinical-path,
+        .ab-console-logo-wall,
+        .ab-console-signals,
+        .ab-engineering-track-grid,
+        .ab-engineering-signal-grid,
+        .ab-sector-row,
+        .ab-method-grid,
+        .ab-research-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .ab-ledger-row,
+        .ab-editorial-chapter {
+            grid-template-columns: 1fr;
+        }
+
+        .ab-editorial-lede {
+            font-size: 2.65rem;
+        }
+
+        .ab-sector-row a {
+            border-right: 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .ab-drag-item {
+            grid-template-columns: 3rem 1fr;
+        }
+
+        .ab-drag-item h3 {
+            font-size: 1.45rem;
+        }
+
+        .ab-logo-grid,
+        .ab-console-logo-wall {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .ab-logo {
+            min-height: 6.5rem;
+            padding: 0.95rem;
+        }
+
+        .ab-logo img {
+            width: 2rem;
+            height: 2rem;
+            padding: 0.28rem;
+        }
+
+        .ab-logo strong {
+            font-size: 0.88rem;
+            line-height: 1.15;
+        }
+
+        .ab-logo .ab-tool-role {
+            font-size: 0.72rem;
+            line-height: 1.2;
+        }
+    }
+</style>
+
+<div class="ab-home {{variant.bodyClass}}">
+    <section class="ab-hero" style="--hero-image: url('{{variant.image}}');{{#if variant.heroPosition}} --hero-position: {{variant.heroPosition}};{{/if}}">
+        <div class="ab-shell ab-hero-layout">
+            <div class="reveal">
+                <h1 class="ab-headline">{{variant.headline}}</h1>
+                <p class="ab-subhead">{{variant.subhead}}</p>
+                <div class="ab-actions">
+                    <a href="https://cal.com/zeffron-ai/30min" class="btn btn-primary btn-lg">Book consultation</a>
+                    {{#if variant.secondaryCta}}
+                    <a href="#sectors" class="btn btn-secondary btn-lg">{{variant.secondaryCta}}</a>
+                    {{else}}
+                    <a href="#sectors" class="btn btn-secondary btn-lg">Explore workflow</a>
+                    {{/if}}
+                </div>
+            </div>
+
+            <aside class="ab-visual reveal stagger-huge" aria-label="{{variant.artTitle}}">
+                <div class="ab-visual-content">
+                    <h2>{{variant.artTitle}}</h2>
+                    <p>{{variant.artText}}</p>
+                    <div class="ab-metrics">
+                        {{#each variant.metrics}}
+                        <div class="ab-metric"><span>{{this}}</span></div>
+                        {{/each}}
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    {{#if (eq variant.layout "ledger")}}
+    <section id="sectors" class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-ledger-intro">
+                <div class="reveal">
+                    <h2 class="ab-section-title">{{#if variant.ledgerHeadline}}{{variant.ledgerHeadline}}{{else}}A control sheet for secure AI adoption.{{/if}}</h2>
+                </div>
+                <p class="ab-section-copy reveal stagger-huge">{{#if variant.ledgerCopy}}{{variant.ledgerCopy}}{{else}}Map the operational need, commercial signal, controlled response, technology stack, and delivery method before deployment.{{/if}}</p>
+            </div>
+
+            <div class="ab-ledger-grid reveal">
+                <div class="ab-ledger-table">
+                    {{#if variant.ledgerRows}}
+                    <div class="ab-ledger-row ab-ledger-heading">
+                        {{#each variant.ledgerColumns}}<span>{{this}}</span>{{/each}}
+                    </div>
+                    {{#each variant.ledgerRows}}
+                    <div class="ab-ledger-row"><strong>{{this.title}}</strong><span>{{this.signal}}</span><span>{{this.response}}</span></div>
+                    {{/each}}
+                    {{else}}
+                    <div class="ab-ledger-row ab-ledger-heading"><span>Operational drag</span><span>Buyer signal</span><span>Zeffron response</span></div>
+                    <div class="ab-ledger-row"><strong>Admin overload</strong><span>Senior time is absorbed by repeated coordination.</span><span>Assistants and automations with human review.</span></div>
+                    <div class="ab-ledger-row"><strong>Document friction</strong><span>Knowledge sits inside policies, PDFs, inboxes, and case notes.</span><span>Retrieval systems with clear access boundaries.</span></div>
+                    <div class="ab-ledger-row"><strong>AI uncertainty</strong><span>Teams want value without losing governance.</span><span>Evaluation, release criteria, and measured rollout.</span></div>
+                    {{/if}}
+                </div>
+                <aside class="ab-ledger-side">
+                    <div class="ab-vertical-card">
+                        <h3>{{#if variant.focusTitle}}{{variant.focusTitle}}{{else}}{{variant.vertical.name}}{{/if}}</h3>
+                        <p>{{variant.vertical.text}}</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    {{#if variant.useCases}}
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <div class="reveal">
+                    <h2 class="ab-section-title">{{variant.vertical.shortName}} workflows we commonly help improve.</h2>
+                </div>
+                <p class="ab-section-copy reveal stagger-huge">We focus on high-volume workflows where better information, automation, and human review can improve service and operational performance.</p>
+            </div>
+            <div class="ab-capability-board reveal">
+                {{#each variant.useCases}}
+                <article class="ab-capability-chip"><h3>{{this.title}}</h3><p>{{this.text}}</p></article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+    {{/if}}
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{variant.workflowTitle}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{variant.workflowIntro}}</p>
+            </div>
+            {{#unless variant.useCases}}
+            <div class="ab-capability-board reveal">
+                {{#each shared.capabilities}}
+                <article class="ab-capability-chip">
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+            </div>
+            {{/unless}}
+            <div class="ab-logo-grid reveal stagger-huge mt-8">
+                {{#each variant.workflowStack}}
+                <article class="ab-logo">
+                    <img src="{{this.logo}}" alt="{{this.alt}}" loading="lazy" decoding="async">
+                    <div>
+                        <strong>{{this.name}}</strong>
+                        <span class="ab-tool-role">{{this.role}}</span>
+                    </div>
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{#if variant.methodHeadline}}{{variant.methodHeadline}}{{else}}One method, recorded like an audit trail.{{/if}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{#if variant.methodCopy}}{{variant.methodCopy}}{{else}}Move from discovery to deployment with ownership, controls, and measurable outcomes visible at every stage.{{/if}}</p>
+            </div>
+            <div class="ab-method-grid">
+                {{#if variant.method}}
+                {{#each variant.method}}
+                <article class="ab-method reveal"><h3>{{this.title}}</h3><p>{{this.text}}</p></article>
+                {{/each}}
+                {{else}}
+                {{#each shared.method}}
+                <article class="ab-method reveal">
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+                {{/if}}
+            </div>
+        </div>
+    </section>
+    {{/if}}
+
+    {{#if (eq variant.layout "clinical")}}
+    <section id="sectors" class="ab-section">
+        <div class="ab-shell ab-clinical-band">
+            <div class="reveal">
+                <h2 class="ab-section-title">Create more capacity without adding pressure to your team.</h2>
+                <p class="ab-section-copy mt-8">We target the administrative workflows that consume clinical time, delay patient communication, and make services harder to scale.</p>
+                <div class="ab-vertical-card mt-8">
+                    <h3>AI built around your care pathways.</h3>
+                    <p>{{variant.vertical.text}}</p>
+                </div>
+            </div>
+            <div class="ab-clinical-care reveal stagger-huge">
+                <article class="ab-clinical-card">
+                    <h3>Give skilled teams more time for patient care.</h3>
+                    <p>Reduce repetitive intake, scheduling, document handling, reporting, and coordination work across the service.</p>
+                </article>
+                <article class="ab-clinical-card">
+                    <h3>Respond faster and more consistently.</h3>
+                    <p>Help patients receive timely information while giving staff clear escalation paths for cases that need human attention.</p>
+                </article>
+                <article class="ab-clinical-card">
+                    <h3>Keep people accountable for every important decision.</h3>
+                    <p>Human review, role-based access, audit trails, and defined data boundaries remain visible. We can sign an NDA before detailed discovery.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <div class="reveal">
+                    <h2 class="ab-section-title">Healthcare workflows we commonly help improve.</h2>
+                </div>
+                <p class="ab-section-copy reveal stagger-huge">We start with bounded, high-volume work where automation can release capacity, improve consistency, and keep clinical decisions with qualified people.</p>
+            </div>
+            <div class="ab-capability-board reveal">
+                <article class="ab-capability-chip">
+                    <h3>Patient intake and referral processing</h3>
+                    <p>Capture information, check completeness, classify documents, and route referrals to the appropriate team for review.</p>
+                </article>
+                <article class="ab-capability-chip">
+                    <h3>Appointment and scheduling support</h3>
+                    <p>Handle routine booking enquiries, reminders, preparation guidance, and approved rescheduling workflows.</p>
+                </article>
+                <article class="ab-capability-chip">
+                    <h3>Patient communication triage</h3>
+                    <p>Organise incoming messages, prepare approved responses, and escalate urgent or sensitive cases to staff.</p>
+                </article>
+                <article class="ab-capability-chip">
+                    <h3>Clinical administration and documents</h3>
+                    <p>Summarise records, extract structured information, prepare letters, and reduce repetitive document handling.</p>
+                </article>
+                <article class="ab-capability-chip">
+                    <h3>Policy and knowledge access</h3>
+                    <p>Give authorised teams fast, cited answers from internal policies, procedures, guidance, and service information.</p>
+                </article>
+                <article class="ab-capability-chip">
+                    <h3>Reporting and follow-up workflows</h3>
+                    <p>Prepare operational reports, identify outstanding actions, and support consistent follow-up across care pathways.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">How we set your healthcare organisation up for success.</h2>
+                <p class="ab-section-copy reveal stagger-huge">We move from a clearly defined operational outcome to a secure production system, with your clinical, operational, and governance teams involved at every stage.</p>
+            </div>
+            <div class="ab-clinical-path">
+                <article class="ab-clinical-step reveal">
+                    <div>
+                        <h3>Discover opportunities</h3>
+                        <p>We identify the workflows creating the greatest administrative burden, understand the patient and staff journey, and agree the outcome worth improving.</p>
+                    </div>
+                </article>
+                <article class="ab-clinical-step reveal">
+                    <div>
+                        <h3>Design solutions</h3>
+                        <p>We design the architecture, integrations, user experience, data boundaries, and human review process around your existing service.</p>
+                    </div>
+                </article>
+                <article class="ab-clinical-step reveal">
+                    <div>
+                        <h3>Deploy securely</h3>
+                        <p>We build and test the production system, connect approved tools, document ownership, and release it with monitoring and access controls in place.</p>
+                    </div>
+                </article>
+                <article class="ab-clinical-step reveal">
+                    <div>
+                        <h3>Measure impact</h3>
+                        <p>We track time saved, response speed, service quality, adoption, and exceptions, then improve the system using real operational feedback.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{variant.workflowTitle}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{variant.workflowIntro}}</p>
+            </div>
+            <div class="ab-logo-grid reveal">
+                {{#each variant.workflowStack}}
+                <article class="ab-logo">
+                    <img src="{{this.logo}}" alt="{{this.alt}}" loading="lazy" decoding="async">
+                    <div>
+                        <strong>{{this.name}}</strong>
+                        <span class="ab-tool-role">{{this.role}}</span>
+                    </div>
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+    {{/if}}
+
+    {{#if (eq variant.layout "editorial")}}
+    <section id="sectors" class="ab-section ab-editorial-story">
+        <div class="ab-shell ab-editorial-grid">
+            <div class="reveal">
+                <p class="ab-editorial-lede">{{variant.editorialLede}}</p>
+            </div>
+            <aside class="ab-editorial-aside reveal stagger-huge">
+                <p class="ab-section-copy">{{variant.editorialCopy}}</p>
+                <div class="ab-vertical-card mt-8">
+                    <h3>{{variant.focusTitle}}</h3>
+                    <p>{{variant.vertical.text}}</p>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-editorial-chapters">
+                {{#each variant.principles}}
+                <article class="ab-editorial-chapter reveal">
+                    <div>
+                        <h3>{{this.title}}</h3>
+                        <p>{{this.text}}</p>
+                    </div>
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <div class="reveal">
+                    <h2 class="ab-section-title">Financial products and workflows we help MSPs deliver.</h2>
+                </div>
+                <p class="ab-section-copy reveal stagger-huge">Each service is designed around consented data, clear customer value, human accountability, and the operational controls needed for ongoing managed support.</p>
+            </div>
+            <div class="ab-capability-board reveal">
+                {{#each variant.useCases}}
+                <article class="ab-capability-chip">
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{variant.methodHeadline}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{variant.methodCopy}}</p>
+            </div>
+            <div class="ab-method-grid">
+                {{#each variant.method}}
+                <article class="ab-method reveal">
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{variant.workflowTitle}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{variant.workflowIntro}}</p>
+            </div>
+            <div class="ab-logo-grid reveal">
+                {{#each variant.workflowStack}}
+                <article class="ab-logo">
+                    <img src="{{this.logo}}" alt="{{this.alt}}" loading="lazy" decoding="async">
+                    <div>
+                        <strong>{{this.name}}</strong>
+                        <span class="ab-tool-role">{{this.role}}</span>
+                    </div>
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+    {{/if}}
+
+    {{#if (eq variant.layout "console")}}
+    <section id="sectors" class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{#if variant.consoleHeadline}}{{variant.consoleHeadline}}{{else}}{{variant.workflowTitle}}{{/if}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{#if variant.consoleCopy}}{{variant.consoleCopy}}{{else}}{{variant.workflowIntro}}{{/if}}</p>
+            </div>
+            <div class="ab-console-deck reveal">
+                <div class="ab-console-logo-wall">
+                    {{#each variant.workflowStack}}
+                    <article class="ab-logo">
+                        <img src="{{this.logo}}" alt="{{this.alt}}" loading="lazy" decoding="async">
+                        <div>
+                            <strong>{{this.name}}</strong>
+                            <span class="ab-tool-role">{{this.role}}</span>
+                        </div>
+                    </article>
+                    {{/each}}
+                </div>
+                <aside class="ab-console-terminal">
+                    {{#if variant.terminalLines}}
+                    <pre>{{#each variant.terminalLines}}{{this}}
+{{/each}}</pre>
+                    {{else}}
+                    <pre>production.exception -> found
+bom.knowledge -> indexed
+quality.check -> evaluated
+maintenance.agent -> constrained
+human.review -> required
+downtime.metric -> tracked</pre>
+                    {{/if}}
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-console-signals reveal">
+                {{#each variant.signals}}
+                <article class="ab-console-signal">
+                    {{#if this.title}}
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                    {{else}}
+                    <h3>{{this}}</h3>
+                    <p>Find the repeated production workflow, then decide whether retrieval, automation, modelling, or agents should carry it.</p>
+                    {{/if}}
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{#if variant.methodHeadline}}{{variant.methodHeadline}}{{else}}Method as production pipeline.{{/if}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{#if variant.methodCopy}}{{variant.methodCopy}}{{else}}Move from operational discovery to a production system with clear ownership and measurable performance.{{/if}}</p>
+            </div>
+            <div class="ab-method-grid">
+                {{#if variant.method}}
+                {{#each variant.method}}
+                <article class="ab-method reveal"><h3>{{this.title}}</h3><p>{{this.text}}</p></article>
+                {{/each}}
+                {{else}}
+                {{#each shared.method}}
+                <article class="ab-method reveal">
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+                {{/if}}
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-vertical-card reveal">
+                <h3>{{variant.vertical.name}}</h3>
+                <p>{{variant.vertical.text}}</p>
+            </div>
+        </div>
+    </section>
+    {{/if}}
+
+    {{#if (eq variant.layout "human")}}
+    <section id="sectors" class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-human-intro reveal">
+                <div>
+                    <h2 class="ab-section-title">{{#if variant.journeyHeadline}}{{variant.journeyHeadline}}{{else}}Make the repeated work easier first.{{/if}}</h2>
+                </div>
+                <p class="ab-section-copy">{{#if variant.journeyCopy}}{{variant.journeyCopy}}{{else}}We focus on the repeated service work that consumes skilled time and delays customers.{{/if}}</p>
+            </div>
+            <div class="ab-human-journey">
+                <figure class="ab-human-photo reveal">
+                    <img src="{{variant.image}}" alt="{{#if variant.imageAlt}}{{variant.imageAlt}}{{else}}Professional service team reviewing client work{{/if}}" loading="lazy" decoding="async">
+                </figure>
+                <div class="ab-human-cards">
+                {{#if variant.journeyCards}}
+                {{#each variant.journeyCards}}
+                <article class="ab-human-card reveal">
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+                {{else}}
+                <article class="ab-human-card reveal"><h3>Repeated admin interrupts skilled work.</h3><p>Teams chase documents, answer the same questions, move information between systems, and keep customers waiting.</p></article>
+                <article class="ab-human-card reveal stagger-1"><h3>Zeffron maps the moments people repeat.</h3><p>We identify the workflow, privacy boundaries, documents, handoffs, and review points before choosing a technical approach.</p></article>
+                <article class="ab-human-card reveal stagger-2"><h3>AI removes friction while people stay accountable.</h3><p>Assistants and automations support the service relationship instead of replacing the judgement inside it.</p></article>
+                {{/if}}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{#if variant.focusHeadline}}{{variant.focusHeadline}}{{else}}AI designed around your operation.{{/if}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{#if variant.focusCopy}}{{variant.focusCopy}}{{else}}{{variant.vertical.text}}{{/if}}</p>
+            </div>
+            <div class="ab-vertical-card reveal">
+                <h3>{{#if variant.focusTitle}}{{variant.focusTitle}}{{else}}{{variant.vertical.name}}{{/if}}</h3>
+                <p>{{variant.vertical.text}}</p>
+            </div>
+        </div>
+    </section>
+
+    {{#if variant.useCases}}
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <div class="reveal">
+                    <h2 class="ab-section-title">{{variant.vertical.shortName}} workflows we commonly help improve.</h2>
+                </div>
+                <p class="ab-section-copy reveal stagger-huge">We start with bounded, high-volume work where automation can improve service, release capacity, and keep important decisions with your team.</p>
+            </div>
+            <div class="ab-capability-board reveal">
+                {{#each variant.useCases}}
+                <article class="ab-capability-chip">
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+    {{/if}}
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-human-toolbox reveal">
+                <div>
+                    <h2 class="ab-section-title mt-4">{{variant.workflowTitle}}</h2>
+                    <p>{{variant.workflowIntro}}</p>
+                </div>
+                <div class="ab-logo-grid">
+                    {{#each variant.workflowStack}}
+                    <article class="ab-logo">
+                        <img src="{{this.logo}}" alt="{{this.alt}}" loading="lazy" decoding="async">
+                        <div>
+                            <strong>{{this.name}}</strong>
+                            <span class="ab-tool-role">{{this.role}}</span>
+                        </div>
+                    </article>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            {{#if variant.methodHeadline}}
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{variant.methodHeadline}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{variant.methodCopy}}</p>
+            </div>
+            {{/if}}
+            <div class="ab-method-grid">
+                {{#if variant.method}}
+                {{#each variant.method}}
+                <article class="ab-method reveal">
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+                {{else}}
+                {{#each shared.method}}
+                <article class="ab-method reveal">
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+                {{/if}}
+            </div>
+        </div>
+    </section>
+    {{/if}}
+
+    {{#if (eq variant.layout "engineering")}}
+    <section id="sectors" class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{variant.firstSectionHeadline}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{variant.firstSectionCopy}}</p>
+            </div>
+
+            <div class="ab-engineering-system reveal">
+                <div class="ab-engineering-panel">
+                    <div class="ab-vertical-card">
+                        <h3>{{variant.focusTitle}}</h3>
+                        <p>{{variant.vertical.text}}</p>
+                    </div>
+                </div>
+                <div class="ab-engineering-terminal">
+                    <div class="ab-engineering-checklist mt-5">
+                        {{#each variant.terminalLines}}<div>{{this}}</div>{{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{variant.tracksHeadline}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{variant.tracksCopy}}</p>
+            </div>
+            <div class="ab-engineering-track-grid">
+                {{#each variant.tracks}}
+                <article class="ab-engineering-track reveal">
+                    <div>
+                        <h3>{{this.title}}</h3>
+                        <p>{{this.text}}</p>
+                    </div>
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{variant.workflowTitle}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{variant.workflowIntro}}</p>
+            </div>
+            <div class="ab-logo-grid reveal">
+                {{#each variant.workflowStack}}
+                <article class="ab-logo">
+                    <img src="{{this.logo}}" alt="{{this.alt}}" loading="lazy" decoding="async">
+                    <div>
+                        <strong>{{this.name}}</strong>
+                        <span class="ab-tool-role">{{this.role}}</span>
+                    </div>
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{variant.signalsHeadline}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{variant.signalsCopy}}</p>
+            </div>
+            <div class="ab-engineering-signal-grid reveal">
+                {{#each variant.signals}}
+                <article class="ab-engineering-signal">
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+    <section class="ab-section">
+        <div class="ab-shell">
+            <div class="ab-split-head">
+                <h2 class="ab-section-title reveal">{{variant.methodHeadline}}</h2>
+                <p class="ab-section-copy reveal stagger-huge">{{variant.methodCopy}}</p>
+            </div>
+            <div class="ab-method-grid">
+                {{#each variant.method}}
+                <article class="ab-method reveal">
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.text}}</p>
+                </article>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+    {{/if}}
+
+    <section class="ab-cta">
+        <div class="ab-shell">
+            <div class="ab-cta-box reveal">
+                <div>
+                    {{#if variant.ctaHeadline}}
+                    <h2 class="ab-section-title">{{variant.ctaHeadline}}</h2>
+                    {{else}}
+                    <h2 class="ab-section-title">Find the {{variant.vertical.shortName}} workflow AI should remove first.</h2>
+                    {{/if}}
+                </div>
+                <div>
+                    {{#if variant.ctaCopy}}
+                    <p class="ab-section-copy">{{variant.ctaCopy}}</p>
+                    {{else}}
+                    <p class="ab-section-copy">Book a focused consultation on your {{variant.vertical.shortName}} workflows, data constraints, customer experience, and deployment options.</p>
+                    {{/if}}
+                    <div class="ab-actions">
+                        <a href="https://cal.com/zeffron-ai/30min" class="btn btn-primary btn-lg">Book consultation</a>
+                        {{#if variant.ctaSecondaryAction}}
+                        <button type="button" data-open-brief class="btn btn-secondary btn-lg">{{variant.ctaSecondaryLabel}}</button>
+                        {{else}}
+                        <a href="/home-variants" class="btn btn-secondary btn-lg">Compare variants</a>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
