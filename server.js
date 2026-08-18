@@ -1231,6 +1231,28 @@ app.get('/demos', (_req, res) => res.render('demos', {
 // Listing-only fields: imageGradient, imageBg, imageFit, imageOpacity, stagger.
 const blogPosts = [
     {
+        slug: 'stop-building-chatbots-build-workflow-engines',
+        postTitle: 'Stop Building Chatbots.<br>Build Workflow Engines.',
+        seoTitle: 'Stop Building Chatbots. Build Workflow Engines. | Zeffron Blog',
+        description: "Here's how we built Axon for Neurochecklists: why domain-specific software needs workflow engines with grounded outputs, structured forms, and transparent refusal - not conversational chatbots.",
+        excerpt: "Here's how we built Axon for Neurochecklists.",
+        listingExcerpt: "When we asked our AI about reflex seizures, it refused and cited zero sources. That's when we knew we'd built a workflow engine, not a chatbot.",
+        keywords: 'workflow engines, AI chatbots, clinical AI, Axon, Neurochecklists, grounded AI, refusal as a feature, Zeffron AI',
+        author: 'Taribo Samuel',
+        authorImage: '/assets/taribo-samuel.jpg',
+        category: 'Case Study',
+        date: 'August 17, 2026',
+        listingDate: 'Aug 17, 2026',
+        datePublished: '2026-08-17',
+        readTime: '6 min read',
+        image: '/assets/Blog_IX_083739.jpg.jpeg',
+        imageAlt: 'Stop Building Chatbots. Build Workflow Engines.',
+        imageGradient: 'from-[#0145F2]/20 to-[#977DFF]/20',
+        imageBg: 'bg-[#111]',
+        imageFit: 'object-cover',
+        imageOpacity: 'opacity-90',
+    },
+    {
         slug: 'building-rag-is-the-easy-60',
         postTitle: "RAG Is the Easy 60%. Here's the Other 40%.",
         seoTitle: "RAG Is the Easy 60%. Here's the Other 40%. | Zeffron Blog",
@@ -1513,6 +1535,8 @@ for (const post of blogPosts) {
         postTitle: post.postTitle,
         excerpt: post.excerpt || post.listingExcerpt || post.description,
         category: post.category,
+        author: post.author || 'Zeffron',
+        authorImage: post.authorImage || null,
         date: post.date,
         readTime: post.readTime,
         shareTitleEncoded,
@@ -1531,7 +1555,10 @@ for (const post of blogPosts) {
                 dateModified: post.datePublished,
                 articleSection: post.category,
                 keywords: post.keywords,
-                author: {
+                author: post.author ? {
+                    '@type': 'Person',
+                    name: post.author,
+                } : {
                     '@type': 'Organization',
                     name: 'Zeffron',
                     url: 'https://zeffron.ai/',
