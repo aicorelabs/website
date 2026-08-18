@@ -1238,8 +1238,6 @@ const blogPosts = [
         excerpt: "Here's how we built Axon for Neurochecklists.",
         listingExcerpt: "When we asked our AI about reflex seizures, it refused and cited zero sources. That's when we knew we'd built a workflow engine, not a chatbot.",
         keywords: 'workflow engines, AI chatbots, clinical AI, Axon, Neurochecklists, grounded AI, refusal as a feature, Zeffron AI',
-        author: 'Taribo Samuel',
-        authorImage: '/assets/taribo-samuel.jpg',
         category: 'Case Study',
         date: 'August 17, 2026',
         listingDate: 'Aug 17, 2026',
