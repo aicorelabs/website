@@ -1,0 +1,208 @@
+{{> blog-post-header}}
+
+<article class="py-16 px-4 sm:px-6">
+    <div class="max-w-3xl mx-auto xl:max-w-7xl xl:grid xl:grid-cols-[300px_768px] xl:gap-12">
+        <aside class="hidden xl:block">
+            <div class="sticky top-24">
+                <div class="glass-panel rounded-xl p-6">
+                    <h3 class="text-xs font-mono text-[#0145F2] uppercase tracking-wider mb-4">On This Page</h3>
+                    <nav class="space-y-3">
+                        <a href="#diff" class="toc-link block text-sm text-[#888] hover:text-white transition-all">Chatbots vs Workflow Engines</a>
+                        <a href="#rebuild" class="toc-link block text-sm text-[#888] hover:text-white transition-all">The Product We Rebuilt</a>
+                        <a href="#decisions" class="toc-link block text-sm text-[#888] hover:text-white transition-all">Three Design Decisions</a>
+                        <a href="#data" class="toc-link block text-sm text-[#888] hover:text-white transition-all">What 30 Days of Data Showed</a>
+                        <a href="#conclusion" class="toc-link block text-sm text-[#888] hover:text-white transition-all">Stop Building Chatbots</a>
+                    </nav>
+                </div>
+            </div>
+        </aside>
+
+        <div class="blog-content">
+            <div class="w-full aspect-video rounded-xl mb-12 border border-white/10 overflow-hidden bg-[#111]">
+                <img src="/assets/Blog_IX_083739.jpg.jpeg" alt="Stop Building Chatbots. Build Workflow Engines." class="w-full h-full object-cover" />
+            </div>
+
+            <p>We asked our AI a question, and it told us it didn't know. That was the moment we knew we'd built the right thing. The question was about reflex seizures, a real clinical condition, the kind of thing a Neurochecklists' user, a neurologist on a hospital floor, might ask in thirty seconds between rounds. The AI, which we'd named Axon, returned a single short response: <em>I couldn't find specific information on reflex seizures' : clinical features in the provided context.'</em> The right-hand panel of the interface, which is the sources panel, confirmed it: <strong>zero documents referenced.</strong></p>
+
+            <figure class="my-8">
+                <div class="rounded-xl overflow-hidden border border-white/10 bg-[#111]">
+                    <img src="/assets/new_axon_no-result_reflex-seizures_above-fold.png" alt="Axon refusal on ungrounded query" class="w-full h-auto" />
+                </div>
+                <figcaption class="text-xs text-[#888] text-center mt-3 font-mono"><em>Asked something outside its grounded corpus, Axon refused and showed the user exactly why.</em></figcaption>
+            </figure>
+
+            <p>Most LLMs would have written something: a confident summary of pathophysiology, a list of triggers, or a paragraph that looked correct and might not have been. Axon did the opposite. It refused, named the limit, and redirected to an adjacent topic it could actually answer.</p>
+            <p>That is not the behaviour of a chatbot. That is the behaviour of a workflow engine.</p>
+
+            <hr style="border-color: rgba(255,255,255,0.08); margin: 3rem 0;" />
+
+            <h2 id="diff">The difference between a chatbot and a workflow engine</h2>
+            <p>A chatbot is a general-purpose conversational surface. It exists to keep replying. Its primary success metric is fluency - sentences that sound right, regardless of whether the underlying claim is verifiable. The architectural posture is <em>'I will answer'.</em> The user is the one responsible for catching errors.</p>
+            <p>A workflow engine is the opposite. It exists to do a specific job inside a specific workflow. Its primary success metric is verifiable correctness within scope. The architectural posture is <em>I will operate within my workflow and refuse to do so where I cannot.</em> The user is no longer the last line of defence against hallucination. The engine is.</p>
+            
+            <blockquote class="pull-quote">In clinical software the difference is not academic. The cost of a fabricated answer about a seizure type, a treatment protocol, or a diagnostic criterion is human - measured in mistreated patients and shaken clinical trust.</blockquote>
+
+            <p>In consumer software, the difference is academic. If a chatbot makes up a movie quote, the cost is mild embarrassment. In clinical software the difference is not academic. The cost of a fabricated answer about a seizure type, a treatment protocol, or a diagnostic criterion is human - measured in mistreated patients and shaken clinical trust. The category of AI we should be building for clinical software is not, and has never been, a chatbot. It is a workflow engine.</p>
+
+            <hr style="border-color: rgba(255,255,255,0.08); margin: 3rem 0;" />
+
+            <h2 id="rebuild">The product we were rebuilding</h2>
+            <p>Neurochecklists is a peer-reviewed neurology reference used by neurologists, residents, and trainees to look up diagnostic criteria, treatment protocols, and clinical guidelines. The user's job is not subtle: they need an answer, and they need it in the time it takes to walk between hospital rooms.</p>
+            <p>The legacy site treated that job as a browsing problem. A clinician arriving on the homepage met a six-item top navigation, a small search bar, podcast thumbnails, and a recently published list. Searching for <em>reflex seizures</em> returned 33 flat result titles. Clicking the most relevant landed on a dense three-column checklist page, a sidebar of clickable sub-taxonomies, accordion sections of clinical detail, and a downloads panel for subscribers only, most of it gated behind a subscription padlock. Signing up to read past the paywall required, as of when we audited it, the user to solve 'eight plus six'. A math captcha. In 2026.</p>
+
+            <figure class="my-8">
+                <div class="rounded-xl overflow-hidden border border-white/10 bg-[#111]">
+                    <img src="/assets/old_register_full.png" alt="Legacy signup with math captcha" class="w-full h-auto" />
+                </div>
+                <figcaption class="text-xs text-[#888] text-center mt-3 font-mono"><em>The legacy signup, captured during the audit. The math captcha set the tone for the rest of the UX.</em></figcaption>
+            </figure>
+
+            <p>The same 700-plus peer-reviewed checklists Neurochecklists already curated. The same clinical audience. The information was there. The interface around it was not.</p>
+            <p>We were not rebuilding the content. We were rebuilding the relationship between the clinician and the content.</p>
+
+            <hr style="border-color: rgba(255,255,255,0.08); margin: 3rem 0;" />
+
+            <h2 id="decisions">Three design decisions that make Axon a workflow engine</h2>
+            <p>The product that came out of the rebuild, Axon, the AI assistant embedded in the new Neurochecklists, is the result of three deliberate decisions. None of them are technical breakthroughs. They are architectural choices about <em>what kind of AI we were building</em>.</p>
+
+            <h3 class="flex items-center gap-3.5 text-xl font-medium text-white mt-8 mb-4">
+                <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-[#0145F2]/15 border border-[#0145F2]/30 text-[#0145F2] text-xs font-mono font-semibold shadow-[0_0_12px_rgba(1,69,242,0.25)] shrink-0">01</span>
+                <span>Structured outputs, not prose replies</span>
+            </h3>
+            <p>When a clinician asked Axon about <em>Cotard syndrome: clinical features</em>, the answer came back in a fixed shape: definition, key symptoms, associated conditions, and important considerations. The same shape for the next clinical question. The same shape for the one after that. Bulleted. Scannable. No walls of prose.</p>
+
+            <figure class="my-8">
+                <div class="rounded-xl overflow-hidden border border-white/10 bg-[#111]">
+                    <img src="/assets/new_axon_response_cotard-syndrome_focused.png" alt="Structured Axon response for Cotard syndrome" class="w-full h-auto" />
+                </div>
+                <figcaption class="text-xs text-[#888] text-center mt-3 font-mono"><em>Every Axon answer follows the same template, a workflow output, not a chat reply. The Sources panel on the right shows the grounding.</em></figcaption>
+            </figure>
+
+            <p>This is not a stylistic preference. It is a workflow decision. Clinicians do not read clinical references the way a layperson reads an article. They scan for the field that contains the field they need, then act. A wall-of-text reply, however articulate, is incompatible with that pattern. Axon's responses use a template that mirrors the structure of Neurochecklists' own checklists. The AI's output is shaped like the workflow that consumes it.</p>
+            <p>A chatbot ships fluency. A workflow engine ships a form, filled in. The reader of an Axon answer can locate the row they need in seconds. They can also notice immediately when a field is missing, which is the second design decision.</p>
+
+            <h3 class="flex items-center gap-3.5 text-xl font-medium text-white mt-8 mb-4">
+                <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-[#0145F2]/15 border border-[#0145F2]/30 text-[#0145F2] text-xs font-mono font-semibold shadow-[0_0_12px_rgba(1,69,242,0.25)] shrink-0">02</span>
+                <span>Refusal as a feature, not a fallback</span>
+            </h3>
+            <p>When Axon does not have a grounded source for a question, it does not improvise. It says so, and it shows its work. The Reflex seizures query that opened this article is the example. The response began, <em>'I couldn't find specific information on reflex seizures: clinical features in the provided context.'</em> The Sources panel read <em>'0 documents referenced.'</em> And the answer ended with a redirect to an adjacent topic. Axon did have <em>the context indexed; it only discusses functional seizures: clinical features… I'd be happy to try and help.</em></p>
+            <p>That behaviour is the engineered floor of clinical trust. The premise of a workflow engine is that the user can rely on its outputs without re-checking every claim against an external source. The only way that premise survives contact with reality is if the engine refuses the requests it cannot fulfil transparently, with the evidence of its refusal visible in the interface. Hallucination is not a curiosity to be managed in a clinical context. It is the primary failure mode a clinical workflow engine has to engineer out.</p>
+            <p>Refusal is the success criterion. Not the fallback.</p>
+
+            <h3 class="flex items-center gap-3.5 text-xl font-medium text-white mt-8 mb-4">
+                <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-[#0145F2]/15 border border-[#0145F2]/30 text-[#0145F2] text-xs font-mono font-semibold shadow-[0_0_12px_rgba(1,69,242,0.25)] shrink-0">03</span>
+                <span>Embedded entry points, not a standalone widget</span>
+            </h3>
+            <p>The third decision is the quiet one. When a clinician opens any of the new checklist detail pages, the Cotard syndrome page below is one example: the page they find is almost familiar - the same three-column structure, the same SEE ALSO sidebar, cleaner typography throughout. What's new is in the header; an <strong>Ask Axon</strong> button sits there, on the page itself. The AI is not a separate destination. It is a control on the surface the clinician was already on.</p>
+
+            <figure class="my-8">
+                <div class="rounded-xl overflow-hidden border border-white/10 bg-[#111]">
+                    <img src="/assets/new_checklist_cotard-syndrome_above-fold.png" alt="New checklist detail page with embedded Ask Axon entry point" class="w-full h-auto" />
+                </div>
+                <figcaption class="text-xs text-[#888] text-center mt-3 font-mono"><em>The new checklist page kept the structure clinicians already trusted and added Axon as a layer of access, not a replacement.</em></figcaption>
+            </figure>
+
+            <p>This is to <em>augment, not replace</em> in literal form. We did not move the clinical knowledge into Axon. We left the 700-plus checklists where clinicians had already learnt to find them and added the engine as a layer of access on top. The clinician choosing to read the structured checklist is still served by it. The clinician choosing to ask Axon a follow-up question is served by it from the same page. When Axon's answer cites a source, the citation pill is clickable, and it takes the clinician straight to the underlying checklist.</p>
+
+            <hr style="border-color: rgba(255,255,255,0.08); margin: 3rem 0;" />
+
+            <h2 id="data">The early signal: what 30 days of data showed</h2>
+            <p>The new site is in open research beta. The legacy site is still in production. We have PostHog tracking on both. With one month of traffic on each, the comparison is small but directional.</p>
+            <p>On the legacy site, the average clinician spends 3 minutes 11 seconds per session, views 2.7 pages, and bounces 42% of the time.</p>
+            <p>On the beta site with Axon, the average clinician spends 6 minutes 38 seconds per session, views 5.6 pages, and bounces 31% of the time.</p>
+
+            <figure class="my-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="rounded-xl overflow-hidden border border-white/10 bg-[#111] p-2">
+                        <img src="/assets/posthog_old-site_overview_30d.png" alt="PostHog analytics for legacy site" class="w-full h-auto rounded-lg" />
+                        <span class="block text-[11px] text-[#666] text-center mt-2 font-mono">Legacy site metrics (30 days)</span>
+                    </div>
+                    <div class="rounded-xl overflow-hidden border border-white/10 bg-[#111] p-2">
+                        <img src="/assets/posthog_new-site_overview_30d.png" alt="PostHog analytics for new beta site" class="w-full h-auto rounded-lg" />
+                        <span class="block text-[11px] text-[#666] text-center mt-2 font-mono">New beta site metrics with Axon (30 days)</span>
+                    </div>
+                </div>
+                <figcaption class="text-xs text-[#888] text-center mt-4 font-mono"><em>30 days, the same metrics, both sites. Roughly twice the time-on-site, twice the pages-per-session, and a 26% lower bounce rate on the new build.</em></figcaption>
+            </figure>
+
+            <p>Two caveats matter. The beta cohort is much smaller: 28 visitors against the legacy site's 520. And the beta cohort is self-selected: researchers and clinicians who opted in to test, who are, by definition, more engaged than a typical visitor. We cannot reasonably claim from these numbers that Axon doubled engagement. We can reasonably claim that the clinicians who are using it are spending substantially more time inside the product and bouncing less from it. That is directional evidence. The production launch will tell us whether it is more.</p>
+            <p>We are watching one metric in particular: whether session duration on the new build holds up once the cohort is no longer self-selected. If it does, the workflow-engine premise is doing what we built it to do. If it does not, the model is wrong.</p>
+
+            <hr style="border-color: rgba(255,255,255,0.08); margin: 3rem 0;" />
+
+            <h2 id="conclusion">Stop building chatbots.</h2>
+            <p>The category we were handed in 2023 - <em>a conversational AI you can drop into any product</em> is not the category clinical software needs. It is not, on closer inspection, the category most domain-specific software needs.</p>
+            <p>The product that serves a clinician on a hospital floor is not a friendly box at the bottom of a webpage. It is a workflow engine: scoped to the job, embedded in the surfaces the user is already on, structured in its output, honest at its boundary, and cited in its claims.</p>
+            <p>That is what Axon is for Neurochecklists.</p>
+            <p>That is what we think you should build.</p>
+
+            <div class="glass-panel rounded-xl p-5 sm:p-6 my-8">
+                <h3 class="text-base sm:text-lg font-semibold text-white mb-2 flex items-center gap-2.5">
+                    <img src="/assets/PNG/Icon%20-%20Full%20Colour.png" alt="Zeffron" class="w-4 h-4 object-contain inline-block" />
+                    <span>Build AI That Fits Your Workflow</span>
+                </h3>
+                <p style="font-size: 1rem; line-height: 1.6; color: #B3B3B3; margin-bottom: 0;">
+                    Building domain-specific software or looking to turn unstructured knowledge into verifiable, embedded AI workflows? <a href="https://cal.com/zeffron-ai/30min" class="text-[#0145F2] hover:underline">Let's talk</a> about what a grounded engine looks like for your product.
+                </p>
+            </div>
+        </div>
+    </div>
+</article>
+
+<section class="py-16 px-4 sm:px-6 border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-2xl font-semibold text-white mb-8">Related Articles</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <article>
+                <a href="/blog/building-rag-is-the-easy-60" class="group block glass-panel rounded-xl overflow-hidden hover:border-[#0145F2]/40 transition-all h-full flex flex-col">
+                    <div class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center overflow-hidden bg-[#111]">
+                        <img src="/assets/rag_is_easy.jpeg" alt="RAG Is the Easy 60%. Here's the Other 40%." class="w-full h-full object-cover opacity-90" />
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono mb-3 self-start">Engineering</span>
+                        <h3 class="text-lg font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">RAG Is the Easy 60%. Here's the Other 40%.</h3>
+                        <p class="text-[#888] text-sm leading-relaxed flex-1">Eval harnesses, freshness pipelines, fallback policies, and query rewriting are the four invisible systems that separate a RAG demo from a RAG product.</p>
+                        <div class="flex items-center justify-between text-xs text-[#666] mt-4">
+                            <span class="font-mono">May 15, 2026</span>
+                            <span>10 min read</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+            <article>
+                <a href="/blog/let-your-users-build-for-you" class="group block glass-panel rounded-xl overflow-hidden hover:border-[#0145F2]/40 transition-all h-full flex flex-col">
+                    <div class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center overflow-hidden bg-[#111]">
+                        <img src="/assets/blog-let-users-build.webp" alt="Let Your Users Build For You" class="w-full h-full object-cover opacity-90" />
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono mb-3 self-start">Product Strategy</span>
+                        <h3 class="text-lg font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">Let Your Users Build For You</h3>
+                        <p class="text-[#888] text-sm leading-relaxed flex-1">The shift from predefined features to generative systems is here. Discover why the future belongs to products that turn users into builders.</p>
+                        <div class="flex items-center justify-between text-xs text-[#666] mt-4">
+                            <span class="font-mono">Mar 18, 2026</span>
+                            <span>8 min read</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+            <article>
+                <a href="/blog/custom-ai-solutions-2026" class="group block glass-panel rounded-xl overflow-hidden hover:border-[#0145F2]/40 transition-all h-full flex flex-col">
+                    <div class="aspect-video bg-gradient-to-br from-[#0145F2]/20 to-[#977DFF]/20 flex items-center justify-center overflow-hidden bg-[#111]">
+                        <img src="/assets/blog-custom-ai.webp" alt="How Custom AI Solutions Are Redefining Business Efficiency" class="w-full h-full object-cover opacity-90" />
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <span class="px-3 py-1 rounded-full bg-[#0145F2]/10 border border-[#0145F2]/20 text-[#0145F2] text-xs font-mono mb-3 self-start">Future of AI</span>
+                        <h3 class="text-lg font-medium text-white mb-3 group-hover:text-[#0145F2] transition-colors">How Custom AI Solutions Are Redefining Business Efficiency</h3>
+                        <p class="text-[#888] text-sm leading-relaxed flex-1">It's 2026, and AI is no longer just assistive - it's agentic. Discover how custom AI solutions are redefining business efficiency.</p>
+                        <div class="flex items-center justify-between text-xs text-[#666] mt-4">
+                            <span class="font-mono">Feb 13, 2026</span>
+                            <span>6 min read</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+        </div>
+    </div>
+</section>
+
+{{> blog-post-author-bio}}
